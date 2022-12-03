@@ -5,10 +5,13 @@ $(eval $(RUN_ARGS):;@true)
 .DEFAULT_GOAL := help
 
 up:
-   docker compose up -d
+    docker compose up -d
 
-run:
-   docker compose exec php bash -c "cd mip-core && $(RUN_ARGS)"
+up-clean:
+    docker compose up -d --remove-orphans --build --force-recreate
 
 connect:
-   docker compose exec php bash
+    docker compose exec php bash
+
+stop:
+    docker compose stop

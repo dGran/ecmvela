@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-MAINTAINER "A4B Group"
+MAINTAINER "David Gran"
 
 ENV OS_LOCALE="C.UTF-8"
 ENV PHP_VERSION="8.1"
@@ -95,7 +95,7 @@ RUN composer --version
 RUN echo 'alias sf="php bin/console"' >> ~/.bashrc
 
 # Set working directory
-WORKDIR /var/www/mip-workshop
+WORKDIR /var/www/ecmvela
 
 # Define sessions dir
 RUN mkdir -p /tmp/sessions && chmod 777 /tmp/sessions && chown -R www-data:www-data /tmp/sessions
