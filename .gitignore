@@ -21,7 +21,6 @@ dist/
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
@@ -48,3 +47,60 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Symfony https://github.com/symfony/demo/blob/main/.gitignore
+
+/public/build/fonts/glyphicons-*
+/public/build/images/glyphicons-*
+
+.php-version
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+# Cache, session files and logs (Symfony3)
+/var/cache/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/sessions/.gitkeep
+
+# Logs (Symfony6)
+/var/log/*
+!var/log/.gitkeep
+
+# Parameters
+/config/packages/parameters.yml
+
+# Managed by Composer
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
+
+# Build data
+/public/build/
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
