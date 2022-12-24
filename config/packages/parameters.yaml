@@ -1,0 +1,4 @@
+parameters:
+  locale: es
+  locale_supported: ['es','en','va']
+  app.locales: es|en|va
