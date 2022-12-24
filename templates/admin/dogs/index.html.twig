@@ -1,0 +1,45 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Admin | Dogs{% endblock %}
+
+{% block main %}
+    <div class="container mx-auto my-8 p-6">
+        <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
+            {% trans %}New{% endtrans %}
+        </a>
+        <table class="border rounded mt-8 w-full">
+            <thead>
+                <th class="py-1.5 px-3 text-left" colspan="2">{% trans %}Name{% endtrans %}</th>
+                <th class="py-1.5 px-3 text-left">{% trans %}Breed{% endtrans %}</th>
+                <th class="py-1.5 px-3 text-left">{% trans %}Last service{% endtrans %}</th>
+                <th class="py-1.5 px-3 text-left">{% trans %}Actions{% endtrans %}</th>
+            </thead>
+            <tbody>
+                {% for dog in dogs %}
+                    <tr class="border-t">
+                        <td class="py-1.5 px-3 w-10">
+                            <img src="{{ dog.profileImg }}" alt="{{ dog.name }}" class="rounded-full border w-8 h-8">
+                        </td>
+                        <td class="py-1.5 px-3">
+                            {{ dog.name }}
+                        </td>
+                        <td class="py-1.5 px-3">
+                            {{ dog.breed }}
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
+                                    {% trans %}Ficha{% endtrans %}
+                                </a>
+                                <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
+                                    {% trans %}Editar{% endtrans %}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

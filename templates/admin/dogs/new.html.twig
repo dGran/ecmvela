@@ -1,0 +1,30 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}BackOffice | New Dog{% endblock %}
+
+{% block main %}
+    {% form_theme form 'tailwind_2_layout.html.twig' %}
+    <div class="container mx-auto border rounded my-8 p-6">
+        {{ form_start(form) }}
+
+            {{ form_errors(form) }}
+
+                {{ form_row(form.name, {
+                    row_class: 'mt-2 px-3',
+                    label_class: 'font-semibold text-gray-600',
+                    error_item_class: 'text-red-700',
+                    widget_class: 'border border-gray-200 bg-gray-50',
+                    widget_disabled_class: 'border-dashed text-gray-200',
+                    widget_errors_class: 'border-double border-red-500 bg-red-50',
+                }) }}
+
+            <div class="my-3">
+                <label for="dog_breed">{% trans %}Breed{% endtrans %}</label>
+                {{ form_row(form.breed) }}
+            </div>
+
+            {{ form_row(form.submit, { 'label': 'Submit me' }) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
