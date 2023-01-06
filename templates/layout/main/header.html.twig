@@ -20,22 +20,21 @@
 
     <div class="bg-teal-50 border-b border-neutral-100">
         <div class="container mx-auto">
-            <nav class="flex items-center justify-between" style="height: 120px">
-                <a href="https://flowbite.com" class="flex items-center">
-                    <img src="{{ asset('img/logo.png') }}" alt="" class="" style="height: 180px">
-                    <img src="{{ asset('img/logo.svg') }}" alt="" class="" style="height: 60px">
+            <nav class="flex items-center justify-between py-4">
+                <a href="{{ path('home') }}" class="flex items-center" class="">
+                    <img src="{{ asset('img/logo.svg') }}" alt="logo" class="w-16 h-16 rounded-full p-0.5 bg-teal-100/75 hover:scale-125">
                     <div class="flex flex-col pl-3">
-                        <p>Estilismo canino</p>
-                        <p>Marta Vela</p>
+                        <p class="font-bold text-lg">Estilismo canino</p>
+                        <p class="text-sm">Marta Vela</p>
                     </div>
                 </a>
-                <ul class="flex font-medium text-sm uppercase gap-8">
-                    <li>inicio</li>
+                <ul class="flex font-medium text-sm uppercase gap-8 select-none">
+                    <li>{{ component('headerLink', {path: 'home', message: 'Inicio'}) }}</li>
                     <li>citas</li>
                     <li>instalaciones</li>
                     <li>trabajos</li>
                     <li>blog</li>
-                    <li>contacto</li>
+                    <li>{{ component('headerLink', {path: 'contact', message: 'Contact'}) }}</li>
                 </ul>
             </nav>
         </div>
