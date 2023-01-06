@@ -3,6 +3,29 @@
 {% block title %}BackOffice | New Dog{% endblock %}
 
 {% block main %}
+    <nav aria-label="breadcrumb" class="w-max mb-8">
+        <ol class="flex flex-wrap items-center w-full">
+            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+                <a href="#" class="opacity-60">
+                    <span>Dashboard</span>
+                </a>
+                <span class="text-blue-gray-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
+            </li>
+            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+                <a href="{{ path('admin_dogs_index') }}" class="opacity-60">
+                    <span>Fichas</span>
+                </a>
+                <span class="text-blue-gray-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
+            </li>
+            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+                <span>Nueva ficha</span>
+            </li>
+        </ol>
+    </nav>
+
+    {{ component('alert', {size: 'base', message: 'Soy un mensaje feliz 😁'}) }}
+    {{ component('alert', {type: 'warning', size: 'base', message: 'Soy un mensaje dudoso 🤖'}) }}
+
     {% form_theme form 'tailwind_2_layout.html.twig' %}
     <div class="container mx-auto border rounded my-8 p-6">
         {{ form_start(form) }}
@@ -17,6 +40,17 @@
                     widget_disabled_class: 'border-dashed text-gray-200',
                     widget_errors_class: 'border-double border-red-500 bg-red-50',
                 }) }}
+
+                <div class="">
+                    {{ component('label', {inputId: 'dog_name', label:'name'}) }}
+                </div>
+                <div class="">
+                    {{ component('input', {type: 'text', name: 'dog[name]', id: 'dog_name'}) }}
+                </div>
+        <br>
+        <input placeholder="" type="password" x-model="password"
+               class="text-md block px-3 py-2 rounded-lg w-full
+                bg-white border-2 border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-neutral-100 focus:border-red-500 focus:outline-none">
 
             <div class="my-3">
                 <label for="dog_breed">{% trans %}Breed{% endtrans %}</label>

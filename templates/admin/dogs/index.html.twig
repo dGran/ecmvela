@@ -3,43 +3,67 @@
 {% block title %}Admin | Dogs{% endblock %}
 
 {% block main %}
-    <div class="container mx-auto my-8 p-6">
-        <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
-            {% trans %}New{% endtrans %}
-        </a>
-        <table class="border rounded mt-8 w-full">
-            <thead>
-                <th class="py-1.5 px-3 text-left" colspan="2">{% trans %}Name{% endtrans %}</th>
-                <th class="py-1.5 px-3 text-left">{% trans %}Breed{% endtrans %}</th>
-                <th class="py-1.5 px-3 text-left">{% trans %}Last service{% endtrans %}</th>
-                <th class="py-1.5 px-3 text-left">{% trans %}Actions{% endtrans %}</th>
-            </thead>
-            <tbody>
-                {% for dog in dogs %}
-                    <tr class="border-t">
-                        <td class="py-1.5 px-3 w-10">
-                            <img src="{{ dog.profileImg }}" alt="{{ dog.name }}" class="rounded-full border w-8 h-8">
-                        </td>
-                        <td class="py-1.5 px-3">
-                            {{ dog.name }}
-                        </td>
-                        <td class="py-1.5 px-3">
-                            {{ dog.breed }}
-                        </td>
-                        <td></td>
-                        <td>
-                            <div class="flex items-center gap-3">
-                                <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
-                                    {% trans %}Ficha{% endtrans %}
-                                </a>
-                                <a href="{{ path('admin_dogs_new') }}" class="rounded px-3 py-1.5 bg-teal-500 text-white">
-                                    {% trans %}Editar{% endtrans %}
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <nav aria-label="breadcrumb" class="w-max mb-8">
+        <ol class="flex flex-wrap items-center w-full">
+            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+                <a href="#" class="opacity-60">
+                    <span>Dashboard</span>
+                </a>
+                <span class="text-blue-gray-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
+            </li>
+            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+                <span>Fichas</span>
+            </li>
+        </ol>
+    </nav>
+
+    <a href="{{ path('admin_dogs_new') }}" class="px-3 py-1.5 bg-teal-500 text-white text-sm">
+        {% trans %}Create new{% endtrans %}
+    </a>
+    <table class="w-full mt-6 border-l border-r bg-white text-sm">
+        <thead class="bg-neutral-100/50 border-t border-b h-10 px-3">
+            <th class="py-1.5 px-3 text-left">{% trans %}Name{% endtrans %}</th>
+            <th class="py-1.5 px-3 text-left">{% trans %}Breed{% endtrans %}</th>
+            <th class="py-1.5 px-3 text-left">{% trans %}Edad{% endtrans %}</th>
+            <th class="py-1.5 px-3 text-left">{% trans %}Last service{% endtrans %}</th>
+            <th class="py-1.5 px-3 text-left">{% trans %}Actions{% endtrans %}</th>
+        </thead>
+        <tbody>
+            {% for dog in dogs %}
+                <tr class="border-b hover:bg-neutral-50">
+                    <td class="py-1.5 px-3">
+                        <div class="flex items-center space-x-4">
+                            <img src="http://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg" alt="{{ dog.name }}" class="h-8 w-8 rounded-full object-cover">
+                            <span>{{ dog.name }}</span>
+                        </div>
+                    </td>
+                    <td class="py-1.5 px-3">
+                        {{ dog.breed }}
+                    </td>
+                    <td class="py-1.5 px-3">
+                        3
+                    </td>
+                    <td class="py-1.5 px-3">
+                    -
+                    </td>
+                    <td class="py-1.5 px-3">
+                        <div class="flex items-center space-x-1.5">
+                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-neutral-100 border text-neutral-400">
+                                {% trans %}Ficha{% endtrans %}
+                            </a>
+                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-neutral-100 border text-neutral-400">
+                                {% trans %}Servicios{% endtrans %}
+                            </a>
+                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-neutral-100 border text-neutral-400">
+                                {% trans %}Editar{% endtrans %}
+                            </a>
+{#                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-red-100 border border-red-200 text-red-400">#}
+{#                                {% trans %}Eliminar{% endtrans %}#}
+{#                            </a>#}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
