@@ -1,6 +1,6 @@
 {% extends 'base-main.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Contacto{% endblock %}
 
 {% block main %}
     <div class="container mx-auto">
@@ -9,24 +9,24 @@
                 <h3 class="text-2xl font-medium mb-3">Horarios</h3>
                 <ul>
                     <li class="flex items-center mb-2">
-                        <span class="w-2/6 uppercase text-neutral-500">Lunes</span>
+                        <span class="w-2/6 uppercase text-neutral-500 text-sm">Lunes</span>
                         <span class="text-lg">9:30 - 19:00</span>
                     </li>
                     <li class="flex items-center mb-2">
-                        <span class="w-2/6 uppercase text-neutral-500">Martes</span>
+                        <span class="w-2/6 uppercase text-neutral-500 text-sm">Martes</span>
                         <span class="text-lg">9:30 - 19:00</span>
                     </li>
 
                     <li class="flex items-center mb-2">
-                        <span class="w-2/6 uppercase text-neutral-500">Miércoles</span>
+                        <span class="w-2/6 uppercase text-neutral-500 text-sm">Miércoles</span>
                         <span class="text-lg">9:30 - 19:00</span>
                     </li>
                     <li class="flex items-center mb-2">
-                        <span class="w-2/6 uppercase text-neutral-500">Jueves</span>
+                        <span class="w-2/6 uppercase text-neutral-500 text-sm">Jueves</span>
                         <span class="text-lg">9:30 - 19:00</span>
                     </li>
                     <li class="flex items-center mb-2">
-                        <span class="w-2/6 uppercase text-neutral-500">Viernes</span>
+                        <span class="w-2/6 uppercase text-neutral-500 text-sm">Viernes</span>
                         <span class="text-lg">9:30 - 19:00</span>
                     </li>
                 </ul>
@@ -40,16 +40,13 @@
 
 
                 <h3 class="mt-8 text-2xl font-medium mb-3">E-mail</h3>
-                <span>estilismocaninomartavela@gmail.com</span>
+                <a href="mailto:estilismocaninomartavela@gmail.com" target="_blank" class="font-medium text-teal-500 hover:underline">estilismocaninomartavela@gmail.com</a>
             </div>
             <div class="">
                 <h3 class="text-2xl font-medium mb-1.5">Dónde estamos</h3>
                 <p class="mb-3">C/ Sanchis Guarner, 1 local 5 - 46530 Puzol</p>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3073.4727979777467!2d-0.3148710843836443!3d39.6165571118364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd60413ac04b3e5b%3A0x8abc3961fc44b181!2sEstilismo%20canino%20Marta%20Vela!5e0!3m2!1ses!2ses!4v1673165439679!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-
         </div>
     </div>
-
-
 {% endblock %}
