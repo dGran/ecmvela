@@ -15,6 +15,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             {{ encore_entry_script_tags('app') }}
 {#            <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>#}
         {% endblock %}
@@ -22,7 +23,7 @@
     <body class="bg-white">
         {# whatsapp float button #}
         <a class="fixed w-14 h-14 bottom-10 right-10 bg-teal-600/60 text-white rounded-full text-center text-2xl shadow-lg z-50 hover:bg-teal-600/80 transition ease-in-out duration-150"
-           href="https://api.whatsapp.com/send?phone=624273038&text=Hola!,%20me%20gustar%C3%ADa%20coger%20cita%20para%20mi%20perrito" target="_blank">
+           href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
             <i class="fa-brands fa-whatsapp mt-4"></i>
         </a>
 
@@ -33,6 +34,8 @@
             </main>
             {% include "layout/main/footer.html.twig" %}
         </div>
+
+        {% include "layout/main/cookies.html.twig" %}
 
     </body>
 </html>
