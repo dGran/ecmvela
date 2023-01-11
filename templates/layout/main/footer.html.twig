@@ -1,10 +1,10 @@
 <footer>
-    <div class="py-8" style="background-color: #3C3C3C">
+    <div class="bg-neutral-800/90 py-8 text-sm lg:text-base">
         <div class="container mx-auto">
-            <div class="flex justify-between space-x-16">
-                <div class="w-1/3 flex flex-col space-y-4">
-                    <div class="flex items-start">
-                        <a href="{{ path('home') }}" class="flex items-center" class="">
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+                <div class="xl:col-span-2 flex flex-col space-y-4 px-4">
+                    <div class="flex items-start mx-auto md:mx-0">
+                        <a href="{{ path('home') }}" class="flex items-center">
                             <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
                         </a>
                         <div class="pl-4 flex flex-col justify-center">
@@ -16,8 +16,8 @@
                             </p>
                         </div>
                     </div>
-                    <p class="text-teal-100/80">Salud y belleza para tu mascota</p>
-                    <ul class="flex items-center justify-start text-white text-xl space-x-6">
+                    <p class="text-center lg:text-left text-teal-100/80">Salud y belleza para tu mascota</p>
+                    <ul class="flex items-center justify-center lg:justify-start text-white text-xl space-x-4">
                         <li>
                             <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="opacity-80 hover:opacity-100">
                                 <i class="fa-brands fa-whatsapp"></i>
@@ -41,43 +41,44 @@
                     </ul>
                 </div>
 
-                <div class="">
-                    <h3 class="text-2xl tracking-tight text-neutral-200">Contacto</h3>
+
+                <div class="border-t border-neutral-600/50 md:border-t-0 pt-4 md:pt-0 px-4">
+                    <h3 class="text-xl lg:text-2xl tracking-tight text-neutral-200">Contacto</h3>
                     <div class="mt-4 flex flex-col space-y-4">
                         <a class="group flex items-center space-x-4" href="https://www.google.com/maps/dir/39.5790575,-0.327784/estilismo+canino+marta+vela/@39.5994968,-0.3329594,14z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!2m2!1d-0.3126824!2d39.616553" target="_blank">
                             <i class="w-6 text-center fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-100/80 group-hover:scale-110"></i>
                             <div class="flex flex-col text-base leading-5">
                                 <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300">localización</span>
-                                <span class="text-teal-100/80 group-hover:underline">C/ Sanchis Guarner, 1 - Puzol</span>
+                                <span class="text-sm lg:text-base text-teal-100/80 group-hover:underline">C/ Sanchis Guarner, 1 - Puzol</span>
                             </div>
                         </a>
                         <div class="flex items-center space-x-4">
                             <i class="w-6 text-center fa-regular fa-clock text-xl text-neutral-500"></i>
                             <div class="flex flex-col text-base leading-5">
                                 <span class="text-xs uppercase text-neutral-400">horario</span>
-                                <span class="text-teal-100/80">(L-V) 09:30 - 19:00</span>
+                                <span class="text-sm lg:text-base text-teal-100/80">(L-V) 09:30 - 19:00</span>
                             </div>
                         </div>
                         <a class="group flex items-center space-x-4" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
                             <i class="w-6 text-center fa-brands fa-whatsapp text-xl text-neutral-500 group-hover:text-teal-100/80 group-hover:scale-110"></i>
                             <div class="flex flex-col text-base leading-5">
                                 <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300">whatsapp / teléfono</span>
-                                <span class="text-teal-100/80 group-hover:underline">(+34) 624 27 30 38</span>
+                                <span class="text-sm lg:text-base text-teal-100/80 group-hover:underline">(+34) 624 27 30 38</span>
                             </div>
                         </a>
                         <a class="group flex items-center space-x-4" href="mailto:estilismocaninomartavela@gmail.com" target="_blank">
                             <i class="w-6 text-center fa-regular fa-envelope text-xl text-neutral-500 group-hover:text-teal-100/80 group-hover:scale-110"></i>
                             <div class="flex flex-col text-base leading-5">
                                 <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300">e-mail</span>
-                                <span class="text-teal-100/80 group-hover:underline">estilismocaninomartavela@gmail.com</span>
+                                <span class="text-sm lg:text-base text-teal-100/80 group-hover:underline">estilismocaninomartavela@gmail.com</span>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <div class="">
-                    <h3 class="text-2xl tracking-tight text-neutral-200">Legal</h3>
-                        <ul class="mt-4 flex flex-col space-y-3">
+                <div class="border-t border-neutral-600/50 md:border-t-0 pt-4 md:pt-0 px-4">
+                    <h3 class="text-xl lg:text-2xl tracking-tight text-neutral-200">Legal</h3>
+                        <ul class="mt-4 flex flex-col space-y-3 text-sm xl:text-base">
                             <li class="">
                                 <a href="{{ path('legal_warning') }}" class="text-teal-100/80 hover:underline">Aviso legal</a>
                             </li>
@@ -90,16 +91,16 @@
                         </ul>
                 </div>
 
-                <div>
-                    <img src="{{ asset('img/ohmydog_trans.png') }}" alt="Oh my dog!" class="w-auto h-36 animate-pulse">
+                <div class="w-full md:hidden lg:block border-t border-neutral-600/50 lg:border-t-0 pt-8 lg:pt-0">
+                    <img src="{{ asset('img/ohmydog_trans.png') }}" alt="Oh my dog!" class="mx-auto w-auto h-28 lg:h-36 animate-pulse">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="bg-neutral-100">
-        <div class="container mx-auto py-6">
-            <p class="text-center text-base tracking-tight text-neutral-400">© 2023 Estilismo canino Marta Vela™. Todos los derechos reservados.</p>
+        <div class="container mx-auto py-6 px-4">
+            <p class="text-center text-sm lg:text-base tracking-tight text-neutral-400">© 2023 Estilismo canino Marta Vela™. Todos los derechos reservados.</p>
         </div>
     </div>
 </footer>
