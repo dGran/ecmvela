@@ -1,58 +1,98 @@
 <header>
-    <div class="bg-white">
-        <div class="container mx-auto">
-            <div class="px-4 py-4 flex items-center justify-between">
-                <div class="w-full md:w-auto flex items-center justify-between">
-                    <div class="flex items-center">
-                        <a href="{{ path('home') }}" class="flex items-center">
-                            <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
+    <main>
+        <section class="bg-white">
+            <nav x-data="{ isOpen: false }" class="container mx-auto">
+                <div class="px-4 py-4 flex items-center justify-between">
+                    <div class="w-full md:w-auto flex items-center justify-between">
+                        <div class="flex items-center">
+                            <a href="{{ path('main') }}" class="flex items-center">
+                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
+                            </a>
+                            <div class="pl-4 flex flex-col justify-center">
+                                <p>
+                                    <span class="text-3xl font-thin tracking-tighter text-neutral-500">Marta</span><span class="text-3xl tracking-tighter text-neutral-600">Vela</span>
+                                </p>
+                                <p class="text-xs uppercase text-neutral-400">
+                                    estilismo canino
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Mobile menu button -->
+                        <div class="flex md:hidden">
+                            <button x-cloak @click="isOpen = !isOpen" type="button" class="text-neutral-500 hover:text-neutral-600 focus:text-neutral-600 focus:outline-none z-50" aria-label="toggle menu">
+                                <i x-show="!isOpen" class="fa-solid fa-bars text-2xl"></i>
+                                <i x-show="isOpen" class="fa-solid fa-xmark text-2xl text-white/80"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
+                        <a class="group flex items-center space-x-4" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
+                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">localización</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">C/ Sanchis Guarner, 1 - Puzol</span>
+                            </div>
                         </a>
-                        <div class="pl-4 flex flex-col justify-center">
-                            <p>
-                                <span class="text-3xl font-thin tracking-tighter text-neutral-500">Marta</span><span class="text-3xl tracking-tighter text-neutral-600">Vela</span>
-                            </p>
-                            <p class="text-xs uppercase text-neutral-400">
-                                estilismo canino
-                            </p>
+                        <div class="hidden lg:flex items-center space-x-4">
+                            <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400">horario</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
+                            </div>
                         </div>
+                        <a class="group flex items-center space-x-4" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
+                            <i class="fa-brands fa-whatsapp text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">whatsapp / teléfono</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">(+34) 624 27 30 38</span>
+                            </div>
+                        </a>
                     </div>
-
-                    <i class="md:hidden text-2xl fa-solid fa-bars"></i>
                 </div>
 
-                <div class="hidden md:flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
-                    <a class="group flex items-center space-x-4" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
-                        <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">localización</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">C/ Sanchis Guarner, 1 - Puzol</span>
-                        </div>
-                    </a>
-                    <div class="hidden lg:flex items-center space-x-4">
-                        <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400">horario</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
+                <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+                <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="md:hidden absolute inset-x-0 -mt-24 z-40 w-full shadow-md transition-all duration-300 ease-in-out">
+                    <div class="bg-neutral-800/90">
+                        <div class="container mx-auto">
+                            <div class="flex items-center p-4">
+                                <a href="{{ path('main') }}" class="flex items-center">
+                                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
+                                </a>
+                                <div class="pl-4 flex flex-col justify-center">
+                                    <p>
+                                        <span class="text-3xl font-thin tracking-tighter text-neutral-300">Marta</span><span class="text-3xl tracking-tighter text-neutral-200">Vela</span>
+                                    </p>
+                                    <p class="text-xs uppercase text-neutral-400">
+                                        estilismo canino
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a class="group flex items-center space-x-4" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
-                        <i class="fa-brands fa-whatsapp text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">whatsapp / teléfono</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">(+34) 624 27 30 38</span>
+                    <div class="bg-gradient-to-r from-teal-400 to-teal-500">
+                        <div class="lg:-px-8 flex flex-col space-y-0 lg:mt-0 lg:flex-row lg:space-y-0 ">
+                            {{ component('headerLink', {path: 'main', message: 'Inicio'}) }}
+                            {{ component('headerLink', {path: 'appointments', message: 'citas'}) }}
+                            {{ component('headerLink', {path: 'works', message: 'trabajos'}) }}
+                            {{ component('headerLink', {path: 'contact', message: 'Contact'}) }}
                         </div>
-                    </a>
-                </div>
-            </div>
 
-        </div>
-    </div>
+                        <div class="py-10 border-t border-teal-500">
+                            <img src="{{ asset('img/ohmydog_trans.png') }}" alt="Oh my dog!" class="mx-auto w-auto h-28 lg:h-36 animate-pulse">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </section>
+    </main>
 
     <div class="bg-teal-600/60">
         <div class="container mx-auto">
             <nav class="flex items-center justify-between px-4 py-2 md:py-0">
-                <ul class="w-full flex items-center text-sm uppercase select-none">
-                    <li class="hidden md:block">{{ component('headerLink', {path: 'home', message: 'Inicio'}) }}</li>
+                <ul class="w-full flex items-center text-sm">
+                    <li class="hidden md:block">{{ component('headerLink', {path: 'main', message: 'Inicio'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'appointments', message: 'citas'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'works', message: 'trabajos'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'contact', message: 'Contact'}) }}</li>
