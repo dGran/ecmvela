@@ -1,92 +1,77 @@
-<header>
-    <main>
-        <section class="bg-white">
-            <nav x-data="{ isOpen: false }" class="container mx-auto">
-                <div class="px-4 py-4 flex items-center justify-between">
-                    <div class="w-full md:w-auto flex items-center justify-between">
-                        <div class="flex items-center">
-                            <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
-                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
-                                <div class="pl-4 flex flex-col justify-center">
-                                    <p>
-                                        <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
-                                    </p>
-                                    <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
-                                        estilismo canino
-                                    </p>
-                                </div>
-                            </a>
+<header class="sticky top-0 z-30 w-full bg-white shadow-md shadow-teal-700/5">
+    <div class="mx-auto container">
+        <div class="p-4 flex items-center justify-between">
+        <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
+            <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
+            <div class="pl-4 flex flex-col justify-center">
+                <p>
+                    <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
+                </p>
+                <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
+                    estilismo canino
+                </p>
+            </div>
+        </a>
+        <div class="flex items-center space-x-1">
+            <ul class="hidden md:inline-flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
+                <li>
+                    <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
+                        <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
+                        <div class="flex flex-col text-base leading-5">
+                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>
+                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>
                         </div>
-
-                        <!-- Mobile menu button -->
-                        <div class="flex md:hidden">
-                            <button x-cloak @click="isOpen = !isOpen" type="button" class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 focus:outline-none z-50" aria-label="toggle menu">
-                                <i x-show="!isOpen" class="fa-solid fa-bars text-2xl"></i>
-                                <i x-show="isOpen" class="fa-solid fa-xmark text-2xl text-white/80"></i>
-                            </button>
+                    </a>
+                </li>
+                <li>
+                    <div class="hidden lg:flex items-center space-x-4">
+                        <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
+                        <div class="flex flex-col text-base leading-5">
+                            <span class="text-xs uppercase text-neutral-400">horario</span>
+                            <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
                         </div>
                     </div>
-
-                    <div class="hidden md:flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
-                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
-                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
-                            <div class="flex flex-col text-base leading-5">
-                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>
-                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>
-                            </div>
-                        </a>
-                        <div class="hidden lg:flex items-center space-x-4">
-                            <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
-                            <div class="flex flex-col text-base leading-5">
-                                <span class="text-xs uppercase text-neutral-400">horario</span>
-                                <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
-                            </div>
+                </li>
+                <li>
+                    <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
+                        <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
+                        <div class="flex flex-col text-base leading-5">
+                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>
+                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>
                         </div>
-                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
-                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
-                            <div class="flex flex-col text-base leading-5">
-                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>
-                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>
-                            </div>
-                        </a>
-                    </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="inline-flex md:hidden" x-data="{ open: false }">
+                <button class="flex-none px-2 " @click="open = true" x-cloak>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+                    </svg>
+                    <span class="sr-only">Open Menu</span>
+                </button>
+                <div
+                        class="absolute top-0 left-0 right-0 z-50 flex flex-col p-2 pb-4 m-2 space-y-3 bg-white rounded shadow"
+                        x-show.transition="open" @click.away="open = false" x-cloak>
+                    <button class="self-end flex-none px-2 ml-2" @click="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span class="sr-only">Close Menu</span>
+                    </button>
+                    <ul class="space-y-2">
+                        <li><a href="{{ path('home') }}" class="px-4 py-2 font-semibold text-neutral-600 rounded">Inicio</a></li>
+                        <li><a href="{{ path('appointments') }}" class="px-4 py-2 font-semibold text-neutral-600 rounded">Citas</a></li>
+                        <li><a href="{{ path('works') }}" class="px-4 py-2 font-semibold text-neutral-600 rounded">Trabajos</a></li>
+                        <li><a href="{{ path('contact') }}" class="px-4 py-2 font-semibold text-neutral-600 rounded">Contacto</a></li>
+
+                    </ul>
                 </div>
-
-                <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-                <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="md:hidden absolute inset-x-0 -mt-24 z-40 w-full shadow-md transition-all duration-300 ease-in-out">
-                    <div class="bg-neutral-800/90">
-                        <div class="container mx-auto">
-                            <div class="flex items-center p-4">
-                                <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
-                                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
-                                    <div class="pl-4 flex flex-col justify-center">
-                                        <p>
-                                            <span class="text-3xl font-thin tracking-tighter text-neutral-300 group-hover:text-neutral-200 group-focus:text-neutral-200">Marta</span><span class="text-3xl tracking-tighter text-neutral-200 group-hover:text-neutral-100 group-focus:text-neutral-100">Vela</span>
-                                        </p>
-                                        <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300 group-focus:text-neutral-300">
-                                            estilismo canino
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-r from-teal-400 to-teal-500">
-                        <div class="lg:-px-8 flex flex-col space-y-0 lg:mt-0 lg:flex-row lg:space-y-0 ">
-                            {{ component('headerLink', {path: 'home', message: 'Inicio'}) }}
-                            {{ component('headerLink', {path: 'appointments', message: 'citas'}) }}
-                            {{ component('headerLink', {path: 'works', message: 'trabajos'}) }}
-                            {{ component('headerLink', {path: 'contact', message: 'Contact'}) }}
-                        </div>
-
-                        <div class="py-10 border-t border-teal-500">
-                            <img src="{{ asset('img/ohmydog_trans.png') }}" alt="Oh my dog!" class="mx-auto w-auto h-28 lg:h-36 animate-pulse">
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </section>
-    </main>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <div class="bg-teal-600/60">
         <div class="container mx-auto">
@@ -128,3 +113,134 @@
         </div>
     </div>
 </header>
+
+{#<header>#}
+{#    <main>#}
+{#        <section class="bg-white">#}
+{#            <nav x-data="{ isOpen: false }" class="container mx-auto">#}
+{#                <div class="px-4 py-4 flex items-center justify-between">#}
+{#                    <div class="w-full md:w-auto flex items-center justify-between">#}
+{#                        <div class="flex items-center">#}
+{#                            <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">#}
+{#                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">#}
+{#                                <div class="pl-4 flex flex-col justify-center">#}
+{#                                    <p>#}
+{#                                        <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>#}
+{#                                    </p>#}
+{#                                    <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">#}
+{#                                        estilismo canino#}
+{#                                    </p>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+
+{#                        <!-- Mobile menu button -->#}
+{#                        <div class="flex md:hidden">#}
+{#                            <button x-cloak @click="isOpen = !isOpen" type="button" class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 focus:outline-none z-50" aria-label="toggle menu">#}
+{#                                <i x-show="!isOpen" class="fa-solid fa-bars text-2xl"></i>#}
+{#                                <i x-show="isOpen" class="fa-solid fa-xmark text-2xl text-white/80"></i>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </div>#}
+
+{#                    <div class="hidden md:flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">#}
+{#                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">#}
+{#                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>#}
+{#                            <div class="flex flex-col text-base leading-5">#}
+{#                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>#}
+{#                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                        <div class="hidden lg:flex items-center space-x-4">#}
+{#                            <i class="fa-regular fa-clock text-xl text-neutral-500"></i>#}
+{#                            <div class="flex flex-col text-base leading-5">#}
+{#                                <span class="text-xs uppercase text-neutral-400">horario</span>#}
+{#                                <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">#}
+{#                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>#}
+{#                            <div class="flex flex-col text-base leading-5">#}
+{#                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>#}
+{#                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+
+{#                <!-- Mobile Menu open: "block", Menu closed: "hidden" -->#}
+{#                <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="md:hidden absolute inset-x-0 -mt-24 z-40 w-full shadow-md transition-all duration-300 ease-in-out">#}
+{#                    <div class="bg-neutral-800/90">#}
+{#                        <div class="container mx-auto">#}
+{#                            <div class="flex items-center p-4">#}
+{#                                <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">#}
+{#                                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">#}
+{#                                    <div class="pl-4 flex flex-col justify-center">#}
+{#                                        <p>#}
+{#                                            <span class="text-3xl font-thin tracking-tighter text-neutral-300 group-hover:text-neutral-200 group-focus:text-neutral-200">Marta</span><span class="text-3xl tracking-tighter text-neutral-200 group-hover:text-neutral-100 group-focus:text-neutral-100">Vela</span>#}
+{#                                        </p>#}
+{#                                        <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300 group-focus:text-neutral-300">#}
+{#                                            estilismo canino#}
+{#                                        </p>#}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="bg-gradient-to-r from-teal-400 to-teal-500">#}
+{#                        <div class="lg:-px-8 flex flex-col space-y-0 lg:mt-0 lg:flex-row lg:space-y-0 ">#}
+{#                            {{ component('headerLink', {path: 'home', message: 'Inicio'}) }}#}
+{#                            {{ component('headerLink', {path: 'appointments', message: 'citas'}) }}#}
+{#                            {{ component('headerLink', {path: 'works', message: 'trabajos'}) }}#}
+{#                            {{ component('headerLink', {path: 'contact', message: 'Contact'}) }}#}
+{#                        </div>#}
+
+{#                        <div class="py-10 border-t border-teal-500">#}
+{#                            <img src="{{ asset('img/ohmydog_trans.png') }}" alt="Oh my dog!" class="mx-auto w-auto h-28 lg:h-36 animate-pulse">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </nav>#}
+{#        </section>#}
+{#    </main>#}
+
+{#    <div class="bg-teal-600/60">#}
+{#        <div class="container mx-auto">#}
+{#            <nav class="flex items-center justify-between px-4 py-2 md:py-0">#}
+{#                <ul class="w-full flex items-center text-sm">#}
+{#                    <li class="hidden md:block">{{ component('headerLink', {path: 'home', message: 'Inicio'}) }}</li>#}
+{#                    <li class="hidden md:block">{{ component('headerLink', {path: 'appointments', message: 'citas'}) }}</li>#}
+{#                    <li class="hidden md:block">{{ component('headerLink', {path: 'works', message: 'trabajos'}) }}</li>#}
+{#                    <li class="hidden md:block">{{ component('headerLink', {path: 'contact', message: 'Contact'}) }}</li>#}
+{#                    <li class="w-full">#}
+{#                        <div class="flex flex-col sm:flex-row items-center justify-between md:justify-end space-x-3 space-y-0.5 sm:space-y-0">#}
+{#                            <p class="text-left md:hidden text-white/80">Salud y belleza para tu mascota</p>#}
+{#                            <ul class="flex items-center justify-center md:justify-end text-white text-xl space-x-4">#}
+{#                                <li>#}
+{#                                    <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">#}
+{#                                        <i class="fa-brands fa-whatsapp"></i>#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="https://www.instagram.com/ec.mvela" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">#}
+{#                                        <i class="fa-brands fa-instagram"></i>#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="https://www.facebook.com/profile.php?id=100088700336392" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">#}
+{#                                        <i class="fa-brands fa-facebook"></i>#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="https://www.tiktok.com/@ec.mvela" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">#}
+{#                                        <i class="fa-brands fa-tiktok"></i>#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </nav>#}
+{#        </div>#}
+{#    </div>#}
+{#</header>#}

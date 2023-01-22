@@ -19,6 +19,12 @@ class AdminController extends AbstractController
         $this->dogManager = $dogManager;
     }
 
+    #[Route('/admin', name: 'admin_dashboard', methods: 'GET')]
+    public function dashboard(Request $request): Response
+    {;
+        return $this->render('admin/dashboard.html.twig');
+    }
+
     #[Route('/admin/dogs', name: 'admin_dogs_index', methods: 'GET')]
     public function index(Request $request): Response
     {
