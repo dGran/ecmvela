@@ -5,7 +5,7 @@
                 <div class="px-4 py-4 flex items-center justify-between">
                     <div class="w-full md:w-auto flex items-center justify-between">
                         <div class="flex items-center">
-                            <a href="{{ path('main') }}" class="flex items-center rounded focus:outline-none group">
+                            <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
                                 <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
                                 <div class="pl-4 flex flex-col justify-center">
                                     <p>
@@ -57,23 +57,23 @@
                     <div class="bg-neutral-800/90">
                         <div class="container mx-auto">
                             <div class="flex items-center p-4">
-                                <a href="{{ path('main') }}" class="flex items-center">
-                                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
+                                <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
+                                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
+                                    <div class="pl-4 flex flex-col justify-center">
+                                        <p>
+                                            <span class="text-3xl font-thin tracking-tighter text-neutral-300 group-hover:text-neutral-200 group-focus:text-neutral-200">Marta</span><span class="text-3xl tracking-tighter text-neutral-200 group-hover:text-neutral-100 group-focus:text-neutral-100">Vela</span>
+                                        </p>
+                                        <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-300 group-focus:text-neutral-300">
+                                            estilismo canino
+                                        </p>
+                                    </div>
                                 </a>
-                                <div class="pl-4 flex flex-col justify-center">
-                                    <p>
-                                        <span class="text-3xl font-thin tracking-tighter text-neutral-300">Marta</span><span class="text-3xl tracking-tighter text-neutral-200">Vela</span>
-                                    </p>
-                                    <p class="text-xs uppercase text-neutral-400">
-                                        estilismo canino
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="bg-gradient-to-r from-teal-400 to-teal-500">
                         <div class="lg:-px-8 flex flex-col space-y-0 lg:mt-0 lg:flex-row lg:space-y-0 ">
-                            {{ component('headerLink', {path: 'main', message: 'Inicio'}) }}
+                            {{ component('headerLink', {path: 'home', message: 'Inicio'}) }}
                             {{ component('headerLink', {path: 'appointments', message: 'citas'}) }}
                             {{ component('headerLink', {path: 'works', message: 'trabajos'}) }}
                             {{ component('headerLink', {path: 'contact', message: 'Contact'}) }}
@@ -92,7 +92,7 @@
         <div class="container mx-auto">
             <nav class="flex items-center justify-between px-4 py-2 md:py-0">
                 <ul class="w-full flex items-center text-sm">
-                    <li class="hidden md:block">{{ component('headerLink', {path: 'main', message: 'Inicio'}) }}</li>
+                    <li class="hidden md:block">{{ component('headerLink', {path: 'home', message: 'Inicio'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'appointments', message: 'citas'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'works', message: 'trabajos'}) }}</li>
                     <li class="hidden md:block">{{ component('headerLink', {path: 'contact', message: 'Contact'}) }}</li>
