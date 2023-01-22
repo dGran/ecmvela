@@ -1,22 +1,70 @@
-<div class="relative">
-    <img class="h-64 w-full object-cover object-center"
-         src="https://images.unsplash.com/photo-1527549993586-dff825b37782?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-         alt="mountains" />
-    <button
-            class="absolute inset-y-0 left-0 px-2 py-[25%] h-full w-8 group hover:bg-gray-500 hover:bg-opacity-75 cursor-pointer">
-        <span class="hidden group-hover:block text-gray-50">
-            &larr;
-        </span>
-    </button>
-    <button
-            class="absolute inset-y-0 right-0 px-2 py-[25%] h-full w-8 group hover:bg-gray-500 hover:bg-opacity-75 cursor-pointer">
-        <span class="hidden group-hover:block text-gray-50">
-            &rarr;
-        </span>
-    </button>
-    <div class="absolute bottom-0 w-full p-4 flex justify-center space-x-2">
-        <button class="h-2 w-2 rounded-full bg-gray-300 hover:bg-gray-300 ring-2 ring-gray-300"></button>
-        <button class="h-2 w-2 rounded-full bg-gray-500 hover:bg-gray-300 ring-2 ring-gray-300"></button>
-        <button class="h-2 w-2 rounded-full bg-gray-500 hover:bg-gray-300 ring-2 ring-gray-300"></button>
+<div
+        id="carouselExampleCrossfade"
+        class="carousel slide carousel-fade relative"
+        data-bs-ride="carousel"
+>
+    <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+        <button
+                type="button"
+                data-bs-target="#carouselExampleCrossfade"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+        ></button>
+        <button
+                type="button"
+                data-bs-target="#carouselExampleCrossfade"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+        ></button>
+        <button
+                type="button"
+                data-bs-target="#carouselExampleCrossfade"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+        ></button>
     </div>
+    <div class="carousel-inner relative w-full overflow-hidden">
+        <div class="carousel-item active float-left w-full">
+            <img
+                    src="{{ asset('img/services/WGHP5015.JPG') }}"
+                    class="block w-full"
+                    alt="Exotic Fruits"
+            />
+        </div>
+        <div class="carousel-item float-left w-full">
+            <img
+                    src="{{ asset('img/services/IMG_7976.JPG') }}"
+                    class="block w-full"
+                    alt="Camera"
+            />
+        </div>
+        <div class="carousel-item float-left w-full">
+            <img
+                    src="{{ asset('img/services/IMG_7977.JPG') }}"
+                    class="block w-full"
+                    alt="Exotic Fruits"
+            />
+        </div>
+    </div>
+    <button
+            class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+            type="button"
+            data-bs-target="#carouselExampleCrossfade"
+            data-bs-slide="prev"
+    >
+        <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+            class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+            type="button"
+            data-bs-target="#carouselExampleCrossfade"
+            data-bs-slide="next"
+    >
+        <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 </div>
