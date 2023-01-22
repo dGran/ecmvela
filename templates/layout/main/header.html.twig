@@ -1,76 +1,103 @@
 <header class="sticky top-0 z-30 w-full bg-white shadow-md shadow-teal-700/5">
     <div class="mx-auto container">
         <div class="p-4 flex items-center justify-between">
-        <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
-            <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
-            <div class="pl-4 flex flex-col justify-center">
-                <p>
-                    <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
-                </p>
-                <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
-                    estilismo canino
-                </p>
-            </div>
-        </a>
-        <div class="flex items-center space-x-1">
-            <ul class="hidden md:inline-flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
-                <li>
-                    <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
-                        <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>
+            <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
+                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
+                <div class="pl-4 flex flex-col justify-center">
+                    <p>
+                        <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
+                    </p>
+                    <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
+                        estilismo canino
+                    </p>
+                </div>
+            </a>
+            <div class="flex items-center space-x-1">
+                <ul class="hidden md:inline-flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
+                    <li>
+                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
+                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="hidden lg:flex items-center space-x-4">
+                            <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400">horario</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
+                            </div>
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <div class="hidden lg:flex items-center space-x-4">
-                        <i class="fa-regular fa-clock text-xl text-neutral-500"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400">horario</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
-                        <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
-                        <div class="flex flex-col text-base leading-5">
-                            <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>
-                            <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <div class="inline-flex md:hidden" x-data="{ open: false }">
-                <button class="flex-none px-2 " @click="open = true" x-cloak>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
-                    </svg>
-                    <span class="sr-only">Open Menu</span>
-                </button>
-                <div
-                        class="absolute top-0 left-0 right-0 z-50 flex flex-col m-2 space-y-3 bg-white h-112 rounded shadow"
-                        x-show.transition="open" @click.away="open = false" x-cloak>
-                    <button class="self-end flex-none px-4 pt-7" @click="open = false">
+                    </li>
+                    <li>
+                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
+                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
+                            <div class="flex flex-col text-base leading-5">
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="inline-flex md:hidden" x-data="{ open: false }">
+                    <button class="flex-none px-2 " @click="open = true" x-cloak>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
                         </svg>
-                        <span class="sr-only">Close Menu</span>
+                        <span class="sr-only">Open Menu</span>
                     </button>
-                    <ul class="">
-                        <li class="px-4 py-3 text-neutral-500 font-medium hover:bg-teal-600/60 hover:text-white"><a class="block" href="{{ path('home') }}">Inicio</a></li>
-                        <li class="px-4 py-3 text-neutral-500 font-medium hover:bg-teal-600/60 hover:text-white"><a class="block" href="{{ path('appointments') }}">Citas</a></li>
-                        <li class="px-4 py-3 text-neutral-500 font-medium hover:bg-teal-600/60 hover:text-white"><a class="block" href="{{ path('works') }}">Trabajos</a></li>
-                        <li class="px-4 py-3 text-neutral-500 font-medium hover:bg-teal-600/60 hover:text-white"><a class="block rounded-b" href="{{ path('contact') }}">Contacto</a></li>
 
-                    </ul>
+
+                    <div class="absolute top-0 left-0 right-0 z-50 flex flex-col space-y-3 h-screen" x-show.transition="open" @click.away="open = false" x-cloak style="background: radial-gradient(ellipse at center,#92E4DF 0,#8AB8B5 100%);
+        border-radius: 1px;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 33%);">
+                        <div class="flex items center justify-between">
+                            <div class="flex items-center rounded focus:outline-none group p-4">
+                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
+                                <div class="pl-4 flex flex-col justify-center">
+                                    <p>
+                                        <span class="text-3xl font-thin tracking-tighter text-neutral-50">Marta</span><span class="text-3xl tracking-tighter text-white">Vela</span>
+                                    </p>
+                                    <p class="text-xs uppercase text-neutral-100">
+                                        estilismo canino
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button class="px-6 focus:outline-none focus" @click="open = false">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                     stroke="white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="sr-only">Close Menu</span>
+                            </button>
+
+                        </div>
+
+                        <ul class="pt-8 pb-4 mx-auto w-3/4 pl-4 select-none">
+                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'home', message: 'Inicio'}) }}</li>
+                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'appointments', message: 'Citas'}) }}</li>
+                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'works', message: 'Trabajos'}) }}</li>
+                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'contact', message: 'Contacto'}) }}</li>
+                        </ul>
+
+                        <hr style="width: 40px; margin: 20px auto; background: hsla(0,0%,100%,.2);">
+
+                        <div class="pt-4 mx-auto">
+                            <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="w-auto text-sm uppercase bg-neutral-100 px-16 py-2.5 tracking-wider rounded font-medium text-teal-600/60 hover:text-teal-600/70 focus:text-teal-600/70 focus:outline-none">
+                                reserva tu cita
+                            </a>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <div class="bg-teal-600/60">

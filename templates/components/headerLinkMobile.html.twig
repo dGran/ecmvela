@@ -1,0 +1,10 @@
+<a class="group text-white text-xl uppercase tracking-widest flex items-center focus:outline-none {% if app.request.get('_route') == path %}pointer-events-none{% endif %}" href="{{ path(path) }}">
+    <div class="w-6">
+        {% if app.request.get('_route') == path %}
+            <i class="text-sm fa-solid fa-chevron-right text-white"></i>
+        {% else %}
+            <i class="text-sm fa-solid fa-chevron-right text-white hidden group-hover:inline-flex group-focus:inline-flex"></i>
+        {% endif %}
+    </div>
+    <span class="ml-4 pt-1">{{ message|trans }}</span>
+</a>
