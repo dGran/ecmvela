@@ -5,22 +5,22 @@
                 <div class="px-4 py-4 flex items-center justify-between">
                     <div class="w-full md:w-auto flex items-center justify-between">
                         <div class="flex items-center">
-                            <a href="{{ path('main') }}" class="flex items-center">
-                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16">
+                            <a href="{{ path('main') }}" class="flex items-center rounded focus:outline-none group">
+                                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105">
+                                <div class="pl-4 flex flex-col justify-center">
+                                    <p>
+                                        <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
+                                    </p>
+                                    <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
+                                        estilismo canino
+                                    </p>
+                                </div>
                             </a>
-                            <div class="pl-4 flex flex-col justify-center">
-                                <p>
-                                    <span class="text-3xl font-thin tracking-tighter text-neutral-500">Marta</span><span class="text-3xl tracking-tighter text-neutral-600">Vela</span>
-                                </p>
-                                <p class="text-xs uppercase text-neutral-400">
-                                    estilismo canino
-                                </p>
-                            </div>
                         </div>
 
                         <!-- Mobile menu button -->
                         <div class="flex md:hidden">
-                            <button x-cloak @click="isOpen = !isOpen" type="button" class="text-neutral-500 hover:text-neutral-600 focus:text-neutral-600 focus:outline-none z-50" aria-label="toggle menu">
+                            <button x-cloak @click="isOpen = !isOpen" type="button" class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 focus:outline-none z-50" aria-label="toggle menu">
                                 <i x-show="!isOpen" class="fa-solid fa-bars text-2xl"></i>
                                 <i x-show="isOpen" class="fa-solid fa-xmark text-2xl text-white/80"></i>
                             </button>
@@ -28,11 +28,11 @@
                     </div>
 
                     <div class="hidden md:flex items-center md:ml-6 lg:ml-0 md:space-x-3 lg:space-x-10">
-                        <a class="group flex items-center space-x-4" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
-                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
+                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://www.google.com/maps/place/Estilismo+canino+Marta+Vela/@39.6165571,-0.3148711,17z/data=!3m1!4b1!4m5!3m4!1s0xd60413ac04b3e5b:0x8abc3961fc44b181!8m2!3d39.616553!4d-0.3126824" target="_blank">
+                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
                             <div class="flex flex-col text-base leading-5">
-                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">localización</span>
-                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">C/ Sanchis Guarner, 1 - Puzol</span>
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">localización</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">C/ Sanchis Guarner, 1 - Puzol</span>
                             </div>
                         </a>
                         <div class="hidden lg:flex items-center space-x-4">
@@ -42,11 +42,11 @@
                                 <span class="text-sm lg:text-base font-medium text-teal-500">(L-V) 09:30 - 19:00</span>
                             </div>
                         </div>
-                        <a class="group flex items-center space-x-4" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
-                            <i class="fa-brands fa-whatsapp text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110"></i>
+                        <a class="group flex items-center space-x-4 focus:outline-none" href="https://api.whatsapp.com/send?phone=624273038" target="_blank">
+                            <i class="fa-solid fa-location-dot text-xl text-neutral-500 group-hover:text-teal-500 group-hover:scale-110 group-focus:text-teal-500 group-focus:scale-110"></i>
                             <div class="flex flex-col text-base leading-5">
-                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500">whatsapp / teléfono</span>
-                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline">(+34) 624 27 30 38</span>
+                                <span class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">whatsapp / teléfono</span>
+                                <span class="text-sm lg:text-base font-medium text-teal-500 group-hover:underline group-focus:underline">(+34) 624 27 30 38</span>
                             </div>
                         </a>
                     </div>
@@ -101,22 +101,22 @@
                             <p class="text-left md:hidden text-white/80">Salud y belleza para tu mascota</p>
                             <ul class="flex items-center justify-center md:justify-end text-white text-xl space-x-4">
                                 <li>
-                                    <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="opacity-80 hover:opacity-100">
+                                    <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">
                                         <i class="fa-brands fa-whatsapp"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.instagram.com/ec.mvela" target="_blank" class="opacity-80 hover:opacity-100">
+                                    <a href="https://www.instagram.com/ec.mvela" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.facebook.com/profile.php?id=100088700336392" target="_blank" class="opacity-80 hover:opacity-100">
+                                    <a href="https://www.facebook.com/profile.php?id=100088700336392" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">
                                         <i class="fa-brands fa-facebook"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.tiktok.com/@ec.mvela" target="_blank" class="opacity-80 hover:opacity-100">
+                                    <a href="https://www.tiktok.com/@ec.mvela" target="_blank" class="opacity-80 hover:opacity-100 focus:opacity-100 focus:outline-none">
                                         <i class="fa-brands fa-tiktok"></i>
                                     </a>
                                 </li>
