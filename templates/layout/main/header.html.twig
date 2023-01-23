@@ -42,21 +42,19 @@
                         </a>
                     </li>
                 </ul>
+
+                {# mobile menu #}
                 <div class="inline-flex md:hidden" x-data="{ open: false }">
-                    <button class="flex-none px-2 " @click="open = true" x-cloak>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
+                    <button class="group flex-none px-2 focus:outline-none" @click="open = true" x-cloak>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-neutral-500 group-hover:stroke-neutral-600 group-focus:stroke-neutral-600" fill="none" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
                         </svg>
                         <span class="sr-only">Open Menu</span>
                     </button>
 
-
-                    <div class="fixed top-0 left-0 right-0 z-50 flex flex-col space-y-3 h-screen" x-show.transition="open" @click.away="open = false" x-cloak style="background: radial-gradient(ellipse at center,#92E4DF 0,#8AB8B5 100%);
-        border-radius: 1px;
-        box-shadow: 0 2px 8px rgb(0 0 0 / 33%);">
+                    <div class="fixed absolute top-0 left-0 right-0 w-full z-50 flex flex-col space-y-3 h-screen" x-show.transition="open" @click.away="open = false" x-cloak style="background: radial-gradient(ellipse at center,#5CA29D 0,#77D1CC 100%); box-shadow: 0 2px 8px rgb(0 0 0 / 33%);">
                         <div class="flex items center justify-between">
-                            <div class="flex items-center rounded focus:outline-none group p-4">
+                            <div class="flex items-center rounded focus:outline-none group m-4">
                                 <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
                                 <div class="pl-4 flex flex-col justify-center">
                                     <p>
@@ -68,8 +66,8 @@
                                 </div>
                             </div>
 
-                            <button class="px-6 focus:outline-none focus" @click="open = false">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            <button class="absolute top-0 right-0 px-2 mt-9 mr-4 group focus:outline-none" @click="open = false">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-neutral-100 group-hover:stroke-white group-focus:stroke-white" fill="none" viewBox="0 0 24 24"
                                      stroke="white">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -92,8 +90,6 @@
                                 reserva tu cita
                             </a>
                         </div>
-
-
                     </div>
                 </div>
             </div>
