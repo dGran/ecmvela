@@ -3,12 +3,60 @@
 {% block title %}Citas{% endblock %}
 
 {% block main %}
-    <div class="container mx-auto px-4 text-sm md:text-base">
-        <div class="py-8">
-            <h2 class="text-2xl lg:text-3xl font-medium">
-                Próximamente...
+    <div class="container mx-auto text-sm md:text-base px-4">
+        <div class="py-8 lg:py-12">
+            <h2 class="text-3xl lg:text-4xl font-bold">
+                Reserva de citas
             </h2>
-{#            <p class="mt-3 pt-3 border-t">Dedicamos el tiempo necesario para cada peludo. Cada raza, piel, tipo de pelo o estado anterior requiere una dedicación personalizada, por lo que necesitamos calcular el tiempo a emplear según estos factores</p>#}
+
+            <p class="pt-4 text-neutral-500 text-base lg:text-lg">
+                Dedicamos el tiempo necesario para cada peludo. Cada raza, piel, tipo de pelo o estado en el que se encuentre requiere una dedicación personalizada.
+            </p>
+            <p class="text-neutral-500 text-base lg:text-lg">
+                Puedes reservar cita mediante whatsapp, teléfono o e-mail.
+            </p>
+            <p class="pt-2.5 text-neutral-500 text-base lg:text-lg">
+                ¡No cerramos a medio día!
+            </p>
+
+            <h3 class="mt-8 text-xl md:text-2xl font-medium mb-1.5 md:mb-3">Whatsapp / Teléfono</h3>
+            <span>+34 624 27 30 38</span>
+            <div class="mt-3">
+                <a href="https://api.whatsapp.com/send?phone=624273038" target="_blank" class="inline-block px-4 py-2 mx-auto bg-neutral-800/90 text-white hover:bg-fuchsia-900/70 focus:bg-fuchsia-900/70 focus:outline-none">
+                    <i class="fa-brands fa-whatsapp mr-3"></i>Whatsapp
+                </a>
+                <a href="tel:+34624273038" target="_blank" class="inline-block px-4 py-2 mx-auto bg-neutral-800/90 text-white hover:bg-fuchsia-900/70 focus:bg-fuchsia-900/70 focus:outline-none">
+                    <i class="fa-solid fa-phone mr-3"></i>Llámanos
+                </a>
+            </div>
+
+            <h3 class="mt-8 text-xl md:text-2xl font-medium mb-1.5 md:mb-3">E-mail</h3>
+            <a href="mailto:estilismocaninomartavela@gmail.com" target="_blank" class="font-medium text-teal-500 hover:underline focus:underline focus:outline-none">estilismocaninomartavela@gmail.com</a>
+
+            <h3 class="mt-8 text-xl md:text-2xl font-medium mb-1.5 md:mb-3">Nuestros horarios</h3>
+            <ul class="">
+                <li class="flex items-center justify-between md:justify-start mb-1 md:mb-2 border-b py-1 md:border-b-0 md:py-0">
+                    <span class="md:w-2/6 uppercase text-neutral-500 text-sm">Lunes</span>
+                    <span class="text-base md:text-md">9:30 - 19:00</span>
+                </li>
+                <li class="flex items-center justify-between md:justify-start mb-1 md:mb-2 border-b py-1 md:border-b-0 md:py-0">
+                    <span class="md:w-2/6 uppercase text-neutral-500 text-sm">Martes</span>
+                    <span class="text-base md:text-md">9:30 - 19:00</span>
+                </li>
+
+                <li class="flex items-center justify-between md:justify-start mb-1 md:mb-2 border-b py-1 md:border-b-0 md:py-0">
+                    <span class="md:w-2/6 uppercase text-neutral-500 text-sm">Miércoles</span>
+                    <span class="text-base md:text-md">9:30 - 19:00</span>
+                </li>
+                <li class="flex items-center justify-between md:justify-start mb-1 md:mb-2 border-b py-1 md:border-b-0 md:py-0">
+                    <span class="md:w-2/6 uppercase text-neutral-500 text-sm">Jueves</span>
+                    <span class="text-base md:text-md">9:30 - 19:00</span>
+                </li>
+                <li class="flex items-center justify-between md:justify-start mb-1 md:mb-2 py-1 md:py-0">
+                    <span class="md:w-2/6 uppercase text-neutral-500 text-sm">Viernes</span>
+                    <span class="text-base md:text-md">9:30 - 19:00</span>
+                </li>
+            </ul>
         </div>
     </div>
 {% endblock %}

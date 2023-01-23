@@ -1,4 +1,4 @@
-<a class="block p-4 text-base md:text-sm text-center leading-5 text-white hover:bg-teal-600/40 focus:bg-teal-600/40 transition ease-in-out duration-500 uppercase select-none focus:outline-none {% if app.request.get('_route') == path %}bg-teal-600/40 pointer-events-none{% endif %}"
+<a class="block w-max p-4 text-base md:text-sm text-center leading-5 text-white hover:bg-teal-600/40 focus:bg-teal-600/40 transition ease-in-out duration-500 uppercase select-none focus:outline-none {% if app.request.get('_route') == path %}bg-teal-600/40 pointer-events-none{% endif %}"
    href="{{ path(path) }}">
     {{ message|trans }}
 </a>
