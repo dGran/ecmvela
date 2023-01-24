@@ -1,14 +1,6 @@
 <header class="sticky top-0 z-30 w-full bg-white shadow-md shadow-teal-700/5">
 
-    {# header ads #}
-    <div class="bg-neutral-800/90 py-3 text-xs lg:text-sm">
-        <div class="mx-auto container px-4">
-            <p class="text-white text-center">
-                ¡Promoción de apertura! 20% de descuento en tu primera cita, hasta el 28 de febrero
-            </p>
-        </div>
-    </div>
-    {# END:header ads #}
+    {% include('layout/main/header-ads.html.twig') %}
 
     <div class="mx-auto container">
         <div class="p-4 flex items-center justify-between">
@@ -87,12 +79,14 @@
 
                         </div>
 
-                        <ul class="pt-8 pb-4 mx-auto w-3/4 pl-4 select-none">
-                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'home', message: 'Inicio'}) }}</li>
-                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'appointments', message: 'pide tu cita'}) }}</li>
-                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'works', message: 'Trabajos'}) }}</li>
-                            <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'contact', message: 'Contacto'}) }}</li>
-                        </ul>
+                        <nav>
+                            <ul class="pt-8 pb-4 mx-auto w-3/4 pl-4 select-none">
+                                <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'home', message: 'Inicio'}) }}</li>
+                                <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'appointments', message: 'pide tu cita'}) }}</li>
+                                <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'works', message: 'Trabajos'}) }}</li>
+                                <li class="flex items-center px-4 py-1.5">{{ component('headerLinkMobile', {path: 'contact', message: 'Contacto'}) }}</li>
+                            </ul>
+                        </nav>
 
                         <hr style="width: 40px; margin: 20px auto; background: hsla(0,0%,100%,.2);">
 
