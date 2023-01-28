@@ -27,7 +27,7 @@
     {{ component('alert', {type: 'warning', size: 'base', message: 'Soy un mensaje dudoso 🤖'}) }}
 
     {% form_theme form 'tailwind_2_layout.html.twig' %}
-    <div class="container mx-auto border rounded my-8 p-6">
+    <div class="max-w-[90rem] mx-auto border rounded my-8 p-6">
         {{ form_start(form) }}
 
             {{ form_errors(form) }}
