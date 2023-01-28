@@ -131,7 +131,399 @@ class LoadBreedDataCommand extends Command
                 ],
                 [
                     'id' => 203,
-                    'name' => null,
+                    'name' => 'Bedlington Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 204,
+                    'name' => 'Bichón Frisé',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 205,
+                    'name' => 'Bichón Habanero',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 206,
+                    'name' => 'Border Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 207,
+                    'name' => 'Boston Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 208,
+                    'name' => 'Braco de Auvernia',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 209,
+                    'name' => 'Bull Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 210,
+                    'name' => 'Cairn Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 211,
+                    'name' => 'Carlino',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 212,
+                    'name' => 'Cavalier King Charles',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 213,
+                    'name' => 'Coton de Tuléar',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 214,
+                    'name' => 'Dandie Dinmont Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 215,
+                    'name' => 'Fox Terrier de pelo duro',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 216,
+                    'name' => 'Fox Terrier de pelo liso',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 217,
+                    'name' => 'Grifón Belga',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 218,
+                    'name' => 'Grifón de Bruselas',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 219,
+                    'name' => 'Jack Rusell Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 220,
+                    'name' => 'Jagd Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 221,
+                    'name' => 'King Charles Spaniel',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 222,
+                    'name' => 'Lakeland Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 223,
+                    'name' => 'Lhasa Apso',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 224,
+                    'name' => 'Lundehund Noruego',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 225,
+                    'name' => 'Mudi',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 226,
+                    'name' => 'Parson Rusell Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 227,
+                    'name' => 'Pastor de los Pirineos',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 228,
+                    'name' => 'Pastor de los Pirineos de cara rasa',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 229,
+                    'name' => 'Pastor de Shetland',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 230,
+                    'name' => 'Pekinés',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 231,
+                    'name' => 'Pequeño Lebrel Italiano',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 232,
+                    'name' => 'Pequeño Perro León',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 233,
+                    'name' => 'Perro de granja Danés y Sueco',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 234,
+                    'name' => 'Pinscher miniatura',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 235,
+                    'name' => 'Podenco Portugués',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 236,
+                    'name' => 'Pumi',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 237,
+                    'name' => 'Ratonero Holandés',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 238,
+                    'name' => 'Schipperke',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 239,
+                    'name' => 'Schnauzer miniatura',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 240,
+                    'name' => 'Shiba Inu',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 241,
+                    'name' => 'Shih Tzu',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 242,
+                    'name' => 'Skye Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 243,
+                    'name' => 'Spaniel Tibetano',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 244,
+                    'name' => 'Spitz Japonés',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 245,
+                    'name' => 'Teckel',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 246,
+                    'name' => 'Terrier Australiano',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 247,
+                    'name' => 'Terrier Brasileño',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 248,
+                    'name' => 'Terrier Checo',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 249,
+                    'name' => 'Terrier de Manchester',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 250,
+                    'name' => 'Terrier de Norfolk',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 251,
+                    'name' => 'Terrier de Norwich',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 252,
+                    'name' => 'Terrier de Sealyham',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 253,
+                    'name' => 'Terrier Escocés',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 254,
+                    'name' => 'Terrier Japonés',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 255,
+                    'name' => 'Vallhund Sueco',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 256,
+                    'name' => 'Volpino Italiano',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 257,
+                    'name' => 'Welsh Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 258,
+                    'name' => 'West Highland White Terrier',
+                    'hairTypeId' => null,
+                    'hairSize' => null,
+                    'img' => null,
+                ],
+                [
+                    'id' => 259,
+                    'name' => 'Whippet',
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
@@ -266,14 +658,14 @@ class LoadBreedDataCommand extends Command
                         $io->error($exception->getMessage());
                         $totalErrorResults++;
                         $totalResults++;
-                        $breedRows[] = [$totalResults, $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_ERROR];
+                        $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_ERROR];
 
                         continue;
                     }
 
                     $totalUpdateResults++;
                     $totalResults++;
-                    $breedRows[] = [$totalResults, $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_OK];
+                    $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_OK];
 
                     continue;
                 }
@@ -285,14 +677,14 @@ class LoadBreedDataCommand extends Command
                     $io->error($exception->getMessage());
                     $totalErrorResults++;
                     $totalResults++;
-                    $breedRows[] = [$totalResults, $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_ERROR];
+                    $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_ERROR];
 
                     continue;
                 }
 
                 $totalAddResults++;
                 $totalResults++;
-                $breedRows[] = [$totalResults, $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_OK];
+                $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_OK];
             }
         }
 
@@ -361,7 +753,7 @@ class LoadBreedDataCommand extends Command
     private function renderResults(array $breedResults, SymfonyStyle $io): void
     {
         $io->table(
-            ['#', 'Breed', 'DogSize', 'Operation', 'Status'],
+            ['#', 'ID', 'Breed', 'DogSize', 'Operation', 'Status'],
             $breedResults['breedRows']
         );
 
