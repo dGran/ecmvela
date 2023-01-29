@@ -14,7 +14,7 @@ class HomeController extends AbstractController
         return $this->render('main/index.html.twig', []);
     }
 
-    #[Route('/citas', name: 'appointments')]
+    #[Route('/reserva-de-citas', name: 'appointments')]
     public function appointments(): Response
     {
         return $this->render('main/appointments/index.html.twig', []);
