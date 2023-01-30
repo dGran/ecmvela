@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class DogSize
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -24,6 +23,9 @@ class DogSize
 
     #[ORM\Column(nullable: true)]
     private ?int $maxWeight = null;
+
+    #[ORM\Column(length: 120, nullable: true)]
+    private string $slug;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdd = null;
@@ -42,6 +44,13 @@ class DogSize
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): DogSize
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -83,6 +92,18 @@ class DogSize
     public function getDateAdd(): ?\DateTimeInterface
     {
         return $this->dateAdd;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): DogSize
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
     public function setDateAdd(?\DateTimeInterface $dateAdd): DogSize
