@@ -1,0 +1,10 @@
+<li class="border-l border-slate-100 flex items-center justify-between">
+    <a class="border-l px-4 -ml-px border-transparent hover:border-slate-400 text-slate-600 hover:text-slate-900 select-none focus:outline-none
+    {% if app.request.get('_route') == path %}border-current text-sky-500 font-bold pointer-events-none{% endif %}"
+       href="{{ path(path) }}">
+        {{ message|trans }}
+    </a>
+    {% if tag %}
+        <span class="mr-4 font-medium text-xs leading-5 rounded-full text-rose-500 bg-rose-400/10 px-2">{{ tag }}</span>
+    {% endif %}
+</li>
