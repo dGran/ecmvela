@@ -2345,18 +2345,18 @@ class LoadBreedDataCommand extends Command
 
     private Slugify $slugger;
     private BreedManager $breedManager;
-    private DogSizeManager $dogSizerManager;
+    private DogSizeManager $dogSizeManager;
     private HairTypeManager $hairTypeManager;
 
     public function __construct(
         BreedManager $breedManager,
-        DogSizeManager $dogSizerManager,
+        DogSizeManager $dogSizeManager,
         Slugify $slugger,
         HairTypeManager $hairTypeManager
     ) {
         $this->slugger = $slugger;
         $this->breedManager = $breedManager;
-        $this->dogSizerManager = $dogSizerManager;
+        $this->dogSizeManager = $dogSizeManager;
         $this->hairTypeManager = $hairTypeManager;
 
         parent::__construct();
@@ -2487,7 +2487,7 @@ class LoadBreedDataCommand extends Command
         $breed->setId($dogSizeBreed['id']);
         $breed->setName($dogSizeBreed['name']);
 
-        $dogSize = $this->dogSizerManager->findOneById($dogSizeId);
+        $dogSize = $this->dogSizeManager->findOneById($dogSizeId);
 
         if (!$dogSize) {
             return;
@@ -2538,7 +2538,7 @@ class LoadBreedDataCommand extends Command
         $io->note('The images path are auto generated from the slug');
 
         $io->table(
-            ['Breeds', 'Updated', 'Added', 'Erros', 'Skip'],
+            ['Breeds', 'Updated', 'Added', 'Errors', 'Skip'],
             [
                 [
                     $breedResults['totalResults'],
