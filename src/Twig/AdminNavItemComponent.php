@@ -12,4 +12,5 @@ class AdminNavItemComponent
     public string $path;
     public string $message;
     public string $tag = '';
+    public string $tagColor = 'rose';
 }

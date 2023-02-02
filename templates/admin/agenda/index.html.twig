@@ -1,0 +1,26 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Agenda | {% endblock %}
+
+{% block main %}
+    <header id="header" class="mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            {#            <nav aria-label="breadcrumb" class="w-max mb-4">#}
+            {#                <ol class="flex flex-wrap items-center w-full">#}
+            {#                    <li class="flex items-center text-slate-900 antialiased text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-slate-500">#}
+            {#                        <a href="{{ path('admin_dashboard') }}" class="opacity-70">#}
+            {#                            <span>Dashboard</span>#}
+            {#                        </a>#}
+            {#                        <span class="text-slate-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>#}
+            {#                    </li>#}
+            {#                    <li class="flex items-center text-slate-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">#}
+            {#                        <span>Fichas</span>#}
+            {#                    </li>#}
+            {#                </ol>#}
+            {#            </nav>#}
+            <p class="mb-4 text-sm leading-6 font-semibold text-sky-500">Administración</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Agenda</h1>
+            <p class="mt-4 text-lg text-slate-700">Gestión de citas, organización de agenda.</p>
+        </div>
+    </header>
+{% endblock %}

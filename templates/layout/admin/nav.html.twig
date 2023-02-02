@@ -1,49 +1,45 @@
-<nav class="max-w-xs lg:text-sm lg:leading-6 border-r hidden lg:block md:w-1/4">
-    <ul class="py-6 h-screen overflow-y-auto">
-        <li class="border-l border-neutral-100">
-            <a href="{{ path('admin_dashboard') }}" class="mb-8 lg:mb-3 font-semibold text-neutral-900 hover:underline focus:underline">Dashboard</a>
-        </li>
-        <li class="mt-12 lg:mt-8">
-            <h5 class="mb-8 lg:mb-3 font-semibold text-neutral-900">Administración</h5>
-            <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                {{ component('adminNavItem', {path: 'admin_dogs_index', message: 'Clientes', tag: 'in progress'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Agenda', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pending'}) }}
-            </ul>
-        </li>
-        <li class="mt-12 lg:mt-8">
-            <h5 class="mb-8 lg:mb-3 font-semibold text-neutral-900">Contabilidad</h5>
-            <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Clientes', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Proveedores', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Acreedores', tag: 'pending'}) }}
-            </ul>
-        </li>
-        <li class="mt-12 lg:mt-8">
-            <h5 class="mb-8 lg:mb-3 font-semibold text-neutral-900">Informes</h5>
-            <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'IVA trimestre', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'IRPF', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: '20%', tag: 'pending'}) }}
-            </ul>
-        </li>
-        <li class="mt-12 lg:mt-8">
-            <h5 class="mb-8 lg:mb-3 font-semibold text-neutral-900">Configuración</h5>
-            <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                    {{ component('adminNavItem', {path: 'admin_test', message: 'Tareas Programadas', tag: 'pending'}) }}
-                </ul>
-            </ul>
-        </li>
-        <li class="mt-12 lg:mt-8">
-            <h5 class="mb-8 lg:mb-3 font-semibold text-neutral-900">Front</h5>
-            <ul class="space-y-6 lg:space-y-2 border-l border-neutral-100">
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Trabajos', tag: 'pending'}) }}
-                {{ component('adminNavItem', {path: 'admin_test', message: 'Blog', tag: 'pending'}) }}
-            </ul>
-        </li>
-    </ul>
-</nav>
+<ul>
+    <li class="border-l border-neutral-100">
+        <a href="{{ path('admin_dashboard') }}" class="mb-8 lg:mb-3 font-semibold text-neutral-900 hover:underline focus:underline">Dashboard</a>
+    </li>
+    <li class="mt-6 lg:mt-8">
+        <h5 class="mb-3 font-semibold text-neutral-900">Administración</h5>
+        <ul class="space-y-2 border-l border-neutral-100">
+            {{ component('adminNavItem', {path: 'admin_dogs', message: 'Clientes', tag: 'in progress', tagColor: 'teal'}) }}
+            {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'in progress', tagColor: 'slate'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'in progress', tagColor: 'slate'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pending'}) }}
+        </ul>
+    </li>
+    <li class="mt-6 lg:mt-8">
+        <h5 class="mb-3 font-semibold text-neutral-900">Contabilidad</h5>
+        <ul class="space-y-2 border-l border-neutral-100">
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Clientes', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Proveedores', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Acreedores', tag: 'pending'}) }}
+        </ul>
+    </li>
+    <li class="mt-6 lg:mt-8">
+        <h5 class="mb-3 font-semibold text-neutral-900">Informes</h5>
+        <ul class="space-y-2 border-l border-neutral-100">
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'IVA trimestre', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'IRPF', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: '20%', tag: 'pending'}) }}
+        </ul>
+    </li>
+    <li class="mt-6 lg:mt-8">
+        <h5 class="mb-3 font-semibold text-neutral-900">Configuración</h5>
+        <ul class="space-y-2 border-l border-neutral-100">
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Tareas Programadas', tag: 'pending'}) }}
+        </ul>
+    </li>
+    <li class="mt-6 lg:mt-8">
+        <h5 class="mb-3 font-semibold text-neutral-900">Front</h5>
+        <ul class="space-y-2 border-l border-neutral-100">
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Trabajos', tag: 'pending'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Blog', tag: 'pending'}) }}
+        </ul>
+    </li>
+</ul>

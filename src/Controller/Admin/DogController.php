@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminDogController extends AbstractController
+class DogController extends AbstractController
 {
     private DogManager $dogManager;
 
@@ -19,7 +19,7 @@ class AdminDogController extends AbstractController
         $this->dogManager = $dogManager;
     }
 
-    #[Route('/admin/dogs', name: 'admin_dogs_index', methods: 'GET')]
+    #[Route('/admin/dogs', name: 'admin_dogs', methods: 'GET')]
     public function index(Request $request): Response
     {
         $dogs = $this->dogManager->findAll();
@@ -41,7 +41,7 @@ class AdminDogController extends AbstractController
             $dog = $form->getData();
             $this->dogManager->save($dog);
 
-            return $this->redirectToRoute('admin_dogs_index');
+            return $this->redirectToRoute('admin_dogs');
         }
 
         return $this->render('admin/dogs/new.html.twig', [

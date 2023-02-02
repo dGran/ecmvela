@@ -3,33 +3,31 @@
 {% block title %}Admin | Dogs{% endblock %}
 
 {% block main %}
-    <header id="header" class="relative z-20 mb-10">
-        <div>
-            <nav aria-label="breadcrumb" class="w-max mb-4">
-                <ol class="flex flex-wrap items-center w-full">
-                    <li class="flex items-center text-slate-900 antialiased text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-slate-500">
-                        <a href="{{ path('admin_dashboard') }}" class="opacity-70">
-                            <span>Dashboard</span>
-                        </a>
-                        <span class="text-slate-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
-                    </li>
-                    <li class="flex items-center text-slate-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
-                        <span>Fichas</span>
-                    </li>
-                </ol>
-            </nav>
-            <p class="mb-2 text-sm leading-6 font-semibold text-sky-500">Administración</p>
-            <div class="flex items-center">
-                <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Clientes</h1>
-            </div>
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+{#            <nav aria-label="breadcrumb" class="w-max mb-4">#}
+{#                <ol class="flex flex-wrap items-center w-full">#}
+{#                    <li class="flex items-center text-slate-900 antialiased text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-slate-500">#}
+{#                        <a href="{{ path('admin_dashboard') }}" class="opacity-70">#}
+{#                            <span>Dashboard</span>#}
+{#                        </a>#}
+{#                        <span class="text-slate-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>#}
+{#                    </li>#}
+{#                    <li class="flex items-center text-slate-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">#}
+{#                        <span>Fichas</span>#}
+{#                    </li>#}
+{#                </ol>#}
+{#            </nav>#}
+            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Administración</p>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Clientes</h1>
+            <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Mantenimiento de fichas de clientes.</p>
         </div>
-        <p class="mt-2 text-lg text-slate-700">Mantenimiento de fichas de clientes.</p>
     </header>
 
     <a href="{{ path('admin_dogs_new') }}" class="px-4 py-2 bg-sky-500 rounded text-white text-sm hover:bg-sky-600 focus:bg-sky-500 focus:outline-none">
         {% trans %}Create new{% endtrans %}
     </a>
-    <table class="w-full mt-6 border-l border-r bg-white">
+    <table class="w-full mt-6 border-l border-r bg-white text-sm">
         <thead class="bg-slate-100/50 border-t border-b h-10 px-3">
             <th class="py-1.5 px-3 text-left font-semibold">{% trans %}Name{% endtrans %}</th>
             <th class="py-1.5 px-3 text-left font-semibold">{% trans %}Breed{% endtrans %}</th>

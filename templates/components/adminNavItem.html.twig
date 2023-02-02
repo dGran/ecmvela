@@ -1,10 +1,19 @@
-<li class="border-l border-slate-100 flex items-center justify-between">
-    <a class="border-l px-4 -ml-px border-transparent hover:border-slate-400 text-slate-600 hover:text-slate-900 select-none focus:outline-none
-    {% if app.request.get('_route') == path %}border-current text-sky-500 font-bold pointer-events-none{% endif %}"
+<li class="border-l-0.5 border-slate-100 flex items-center justify-between">
+    <a class="border-l px-4 -ml-px border-transparent text-slate-600 focus:outline-none
+    {% if app.request.get('_route') == path or path in app.request.get('_route') %}
+        border-current focus:border-current text-sky-500 font-bold {% if app.request.get('_route') == path %}pointer-events-none{% endif %}
+    {% else %}
+        hover:border-slate-400 focus:border-slate-400 hover:text-slate-900 focus:text-slate-900
+    {% endif %}"
        href="{{ path(path) }}">
+
+        {% if path in app.request.get('_route') and path != app.request.get('_route')%}
+            <span class="mr-1.5">/</span>
+        {% endif %}
+
         {{ message|trans }}
     </a>
     {% if tag %}
-        <span class="mr-4 font-medium text-xs leading-5 rounded-full text-rose-500 bg-rose-400/10 px-2">{{ tag }}</span>
+        <span class="px-2 font-medium text-xs leading-5 rounded-full bg-{{ tagColor }}-400/10 text-{{ tagColor }}-500">{{ tag }}</span>
     {% endif %}
 </li>

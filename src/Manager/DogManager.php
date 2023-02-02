@@ -53,15 +53,15 @@ class DogManager implements EntityManagerInterfaceBase
     }
 
     /**
-     * @param $entity
+     * @param $dogSize
      * @return mixed
      */
-    public function save($entity): mixed
+    public function save($dogSize): mixed
     {
-        $this->entityManager->persist($entity);
+        $this->entityManager->persist($dogSize);
         $this->entityManager->flush();
 
-        return $entity;
+        return $dogSize;
     }
 
     public function delete(Dog $dog): Dog

@@ -1,18 +1,56 @@
-<div class="bg-slate-50 border-b fixed w-full z-40">
-    <div class="max-w-[85rem] mx-auto px-4 py-3 sm:px-6 md:px-8">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
-                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-12">
-                <div class="pl-4 flex flex-col justify-center">
-                    <p>
-                        <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
-                    </p>
-                    <p class="text-xs uppercase text-neutral-400 group-hover:text-neutral-500 group-focus:text-neutral-500">
-                        estilismo canino
-                    </p>
+<div class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 border-b lg:border-slate-900/10 bg-white/95 supports-backdrop-blur:bg-white/60">
+    <div class="max-w-[85rem] mx-auto px-4 py-2.5 sm:px-6 md:px-8">
+        <div class="flex items-center justify-between space-x-3">
+            <div class="flex-none md:hidden" x-data="{ open: false }">
+                <button class="group flex-none mr-2 focus:outline-none" @click="open = true" x-cloak>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-slate-500 group-hover:stroke-slate-600 group-focus:stroke-slate-600" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+                    </svg>
+                    <span class="sr-only">Open Menu</span>
+                </button>
+
+                <div class="absolute top-0 left-0 bg-slate-50 shadow-md p-6 z-50 flex flex-col space-y-3" x-show.transition="open" @click.away="open = false" x-cloak>
+                    <button class="absolute top-0 right-0 m-4 group focus:outline-none" @click="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-slate-500 group-hover:stroke-slate-600 group-focus:stroke-slate-600" fill="none" viewBox="0 0 24 24"
+                             stroke="white">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span class="sr-only">Close Menu</span>
+                    </button>
+
+                    <nav class="text-sm leading-6">
+                        {% include "layout/admin/nav.html.twig" %}
+                    </nav>
                 </div>
             </div>
-            <span class="font-medium text-sm leading-5 rounded-full text-fuchsia-900/50 bg-fuchsia-200/60 px-2 py-0.5">BackOffice v0.1</span>
+{#            <button class="group md:hidden flex-none mr-2 focus:outline-none" @click="open = true" x-cloak>#}
+{#                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-neutral-500 group-hover:stroke-neutral-600 group-focus:stroke-neutral-600" fill="none" viewBox="0 0 24 24">#}
+{#                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />#}
+{#                </svg>#}
+{#                <span class="sr-only">Open Menu</span>#}
+{#            </button>#}
+            <div class="flex-none flex items-center space-x-3">
+                <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-10">
+                <div class="pt-1 flex flex-col">
+                    <span class="block text-2xl font-bold text-slate-900 tracking-tighter leading-5">Back Office</span>
+                    <span class="block uppercase text-slate-600 pt-0.5" style="font-size: 9px">estilismo canino marta vela</span>
+                </div>
+            </div>
+            <div class="flex-1 flex items-center justify-end">
+                <ul class="hidden md:flex items-center space-x-8 text-sm">
+                    <li><a href="{{ path('admin_dogs') }}" class="font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none">Clientes</a></li>
+                    <li><a href="{{ path('admin_agenda') }}" class="font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none">Agenda</a></li>
+                    <li><a href="{{ path('admin_dogs') }}" class="font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none">Servicios</a></li>
+                </ul>
+                <div class="flex items-center space-x-3 md:border-l border-slate-200 md:ml-6 pl-3">
+                    <a href="#" class="md:hidden text-slate-500 hover:text-sky-500 focus:text-sky-500 hover:border-sky-500 focus:border-sky-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
+                        <i class="fa-solid fa-thumbtack text-base"></i>
+                    </a>
+                    <a href="#" class="text-slate-500 hover:text-sky-500 focus:text-sky-500 hover:border-sky-500 focus:border-sky-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
+                        <i class="fa-solid fa-user text-base"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

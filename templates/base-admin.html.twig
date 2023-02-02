@@ -20,6 +20,22 @@
         <title>{% block title %}{% endblock %} | Back Office</title>
 
         {% block stylesheets %}
+            {#TODO: move to css file#}
+            <style>
+                *::-webkit-scrollbar {
+                    width: 5px;
+                }
+
+                *::-webkit-scrollbar-track {
+                    background-color: #F1F5F9;
+                    border-radius: 100px;
+                }
+
+                *::-webkit-scrollbar-thumb {
+                    background-color: #CBD5E1;
+                    border-radius: 100px;
+                }
+            </style>
             {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -37,21 +53,26 @@
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             {{ encore_entry_script_tags('app') }}
-            {#            <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>#}
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
             <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         {% endblock %}
     </head>
 
-    <body class="antialiased text-slate-500 dark:text-slate-400 bg-white" style="font-family: 'Inter', sans-serif">
+    <body class="antialiased bg-slate-50/25" style="font-family: 'Inter', sans-serif">
         {% include "layout/admin/header.html.twig" %}
 
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
-            <div class="flex">
-                {% include "layout/admin/nav.html.twig" %}
+        <div class="overflow-hidden">
+            <div class="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
+                <div class="fixed hidden inset-0 left-[max(0px,calc(50%-42.5rem))] lg:block overflow-y-auto pb-10 px-8 right-auto top-[3.8125rem] w-[19.5rem] z-20 border-r border-slate-200">
+                    <nav class="text-sm leading-6 pt-10">
+                        {% include "layout/admin/nav.html.twig" %}
+                    </nav>
+                </div>
 
-                <div class="py-6 lg:px-6 w-full md:border-r">
-                    {% block main %}{% endblock %}
+                <div class="lg:pl-[19.5rem]">
+                    <main class="max-w-3xl mx-auto pt-6 md:pt-10 relative xl:max-w-none z-20">
+                        {% block main %}{% endblock %}
+                    </main>
                 </div>
             </div>
         </div>

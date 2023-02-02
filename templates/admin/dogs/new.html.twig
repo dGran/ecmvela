@@ -3,25 +3,18 @@
 {% block title %}BackOffice | New Dog{% endblock %}
 
 {% block main %}
-    <nav aria-label="breadcrumb" class="w-max mb-8">
-        <ol class="flex flex-wrap items-center w-full">
-            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
-                <a href="#" class="opacity-60">
-                    <span>Dashboard</span>
-                </a>
-                <span class="text-blue-gray-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
-            </li>
-            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
-                <a href="{{ path('admin_dogs_index') }}" class="opacity-60">
-                    <span>Fichas</span>
-                </a>
-                <span class="text-blue-gray-500 text-xs antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
-            </li>
-            <li class="flex items-center text-blue-gray-900 antialiased font-sans text-xs font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
-                <span>Nueva ficha</span>
-            </li>
-        </ol>
-    </nav>
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            <div class="flex items-center">
+                <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Administración</p>
+                <p class="mb-2 md:mb-4 px-1.5 text-xs md:text-sm font-semibold">/</p>
+                <a href="{{ path('admin_dogs') }}" class="mb-2 md:mb-4 text-xs md:text-sm font-semibold hover:text-sky-500 focus:text-sky-500">Clientes</a>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Nuevo cliente</h1>
+            <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Mantenimiento de fichas de clientes.</p>
+        </div>
+    </header>
 
     {{ component('alert', {size: 'base', message: 'Soy un mensaje feliz 😁'}) }}
     {{ component('alert', {type: 'warning', size: 'base', message: 'Soy un mensaje dudoso 🤖'}) }}
