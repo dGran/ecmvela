@@ -5,7 +5,7 @@
 {% block main %}
     <div class="">
         <div class="overflow-hidden">
-            <div class="bg-gray-50">Line chart</div>
+            <div class="text-lg font-semibold">Informe semanal - caja</div>
             <canvas class="py-10" id="chartLine"></canvas>
         </div>
 
@@ -14,16 +14,28 @@
 
         <!-- Chart line -->
         <script>
-            const labels = ["January", "February", "March", "April", "May", "June"];
+            const labels = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
             const data = {
                 labels: labels,
                 datasets: [
                     {
-                        label: "My First dataset",
+                        label: "Previsión",
+                        backgroundColor: "hsl(142, 82.9%, 67.8%)",
+                        borderColor: "hsl(142, 82.9%, 67.8%)",
+                        data: [100, 100, 100, 100, 100],
+                    },
+                    {
+                        label: "Actual",
                         backgroundColor: "hsl(252, 82.9%, 67.8%)",
                         borderColor: "hsl(252, 82.9%, 67.8%)",
-                        data: [0, 10, 5, 2, 20, 30, 45],
+                        data: [120, 88, 130, 50, 90],
                     },
+                    {
+                        label: "Semana anterior",
+                        backgroundColor: "hsl(182, 82.9%, 67.8%)",
+                        borderColor: "hsl(182, 82.9%, 67.8%)",
+                        data: [100, 98, 120, 85, 75],
+                    }
                 ],
             };
 
