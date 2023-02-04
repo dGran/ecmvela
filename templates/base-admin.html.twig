@@ -20,45 +20,20 @@
         <title>{% block title %}{% endblock %} | Back Office</title>
 
         {% block stylesheets %}
-            {#TODO: move to css file#}
-            <style>
-                *::-webkit-scrollbar {
-                    width: 5px;
-                }
-
-                *::-webkit-scrollbar-track {
-                    background-color: #F1F5F9;
-                    border-radius: 100px;
-                }
-
-                *::-webkit-scrollbar-thumb {
-                    background-color: #CBD5E1;
-                    border-radius: 100px;
-                }
-            </style>
-            {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
             <script src="https://cdn.tailwindcss.com"></script>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+            {{ encore_entry_link_tags('admin-app') }}
         {% endblock %}
 
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {{ encore_entry_script_tags('app') }}
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
             <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+            {{ encore_entry_script_tags('admin-app') }}
         {% endblock %}
     </head>
 
-    <body class="antialiased bg-slate-50/25" style="font-family: 'Inter', sans-serif">
+    <body class="antialiased bg-slate-50/25 font-inter">
         <header>
             {% include "layout/admin/header.html.twig" %}
         </header>

@@ -18,35 +18,16 @@
         <title>{% block title %}{% endblock %}Estilismo canino Marta Vela</title>
 
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
             <script src="https://cdn.tailwindcss.com"></script>
-            <script>
-                tailwind.config = {
-                    theme: {
-                        extend: {
-                            spacing: {
-                                '112': '28rem',
-                                '128': '32rem',
-                            },
-                        }
-                    }
-                }
-            </script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+            {{ encore_entry_link_tags('admin-app') }}
         {% endblock %}
 
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {{ encore_entry_script_tags('app') }}
-{#            <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>#}
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
             <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
 
