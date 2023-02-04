@@ -3,7 +3,7 @@ version: '3.9'
 services:
   php:
     build:
-      context: php
+      context: docker
       args:
         TIMEZONE: ${TIMEZONE}
     env_file:
@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/var/www/ecmvela:rw
     ports:
-      - "8083:80"
+      - "8081:80"
     links:
       - db
     command:
@@ -37,6 +37,6 @@ services:
       - db-data:/var/lib/mysql:rw
     restart: always
     ports:
-      - "3303:3306"
+      - "3301:3306"
 volumes:
   db-data: {}
