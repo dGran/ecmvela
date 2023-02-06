@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BreedRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,7 @@ class Breed
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
@@ -39,6 +40,9 @@ class Breed
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
+    #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Dog::class)]
+    private Collection $dogs;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,12 +55,12 @@ class Breed
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(?string $name): Breed
+    public function setName(string $name): Breed
     {
         $this->name = $name;
 

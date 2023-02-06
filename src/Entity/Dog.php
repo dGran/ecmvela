@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DogRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DogRepository::class)]
@@ -19,13 +20,23 @@ class Dog
     #[ORM\Column(length: 60)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $breed = null;
+    #[ORM\ManyToOne(inversedBy: 'dogs')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Breed $breed = null;
 
     #[ORM\Column(length: 60, nullable: true)]
     private ?string $color = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $birthDate = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profileImg = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $notes = null;
+
+    #[ORM\Column(length: 60, nullable: true)]
     private ?string $ownerName = null;
 
     #[ORM\Column(length: 15, nullable: true)]
@@ -37,8 +48,17 @@ class Dog
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $ownerLocation = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $profileImg = null;
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $ownerAddress = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $ownerIdentification = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $dateAdd;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateUpd = null;
 
     public function getId(): ?int
     {
@@ -57,12 +77,12 @@ class Dog
         return $this;
     }
 
-    public function getBreed(): ?string
+    public function getBreed(): ?Breed
     {
         return $this->breed;
     }
 
-    public function setBreed(?string $breed): Dog
+    public function setBreed(?Breed $breed): Dog
     {
         $this->breed = $breed;
 
@@ -79,6 +99,44 @@ class Dog
         $this->color = $color;
 
         return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): void
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    public function getProfileImg(): ?string
+    {
+        return $this->profileImg;
+    }
+
+    public function setProfileImg(?string $profileImg): Dog
+    {
+        $this->profileImg = $profileImg;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param string|null $notes
+     */
+    public function setNotes(?string $notes): void
+    {
+        $this->notes = $notes;
     }
 
     public function getOwnerName(): ?string
@@ -129,14 +187,50 @@ class Dog
         return $this;
     }
 
-    public function getProfileImg(): ?string
+    public function getOwnerAddress(): ?string
     {
-        return $this->profileImg;
+        return $this->ownerAddress;
     }
 
-    public function setProfileImg(?string $profileImg): Dog
+    public function setOwnerAddress(?string $ownerAddress): Dog
     {
-        $this->profileImg = $profileImg;
+        $this->ownerAddress = $ownerAddress;
+
+        return $this;
+    }
+
+    public function getOwnerIdentification(): ?string
+    {
+        return $this->ownerIdentification;
+    }
+
+    public function setOwnerIdentification(?string $ownerIdentification): Dog
+    {
+        $this->ownerIdentification = $ownerIdentification;
+
+        return $this;
+    }
+
+    public function getDateAdd(): \DateTimeInterface
+    {
+        return $this->dateAdd;
+    }
+
+    public function setDateAdd(\DateTimeInterface $dateAdd): Dog
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    public function getDateUpd(): ?\DateTimeInterface
+    {
+        return $this->dateUpd;
+    }
+
+    public function setDateUpd(?\DateTimeInterface $dateUpd): Dog
+    {
+        $this->dateUpd = $dateUpd;
 
         return $this;
     }
