@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DogRepository::class)]
 class Dog
 {
+    protected const PROFILE_IMG_PATH = 'img/dogs/';
+    protected const DEFAULT_PROFILE_IMG_PATH = 'img/dogs/no-image.png';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -136,5 +139,14 @@ class Dog
         $this->profileImg = $profileImg;
 
         return $this;
+    }
+
+    public function getProfileImgPath(): ?string
+    {
+        if ($this->profileImg) {
+            return self::PROFILE_IMG_PATH.$this->profileImg;
+        }
+
+        return self::DEFAULT_PROFILE_IMG_PATH;
     }
 }

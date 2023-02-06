@@ -1,0 +1,21 @@
+{% use 'tailwind_2_layout.html.twig' %}
+
+{% block form_row %}
+    {% set row_class = row_class|default('mb-4 flex flex-col group') %}
+    {{ parent() }}
+{% endblock form_row %}
+
+{% block form_label %}
+    {% set label_class = label_class|default('mb-1.5 uppercase text-xs font-medium text-slate-500') %}
+    {{ parent() }}
+{% endblock form_label %}
+
+{% block form_widget %}
+    {% set widget_class = widget_class|default('text-sm pb-1 border-b border-slate-100 bg-white hover:border-slate-200 focus:border-slate-300 focus:outline-none') %}
+    {{ parent() }}
+{% endblock form_widget %}
+
+{% block form_help %}
+    {% set help_class = help_class|default('mt-1.5 text-xs text-slate-500') %}
+    {{ parent() }}
+{% endblock form_help %}

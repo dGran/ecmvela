@@ -48,7 +48,7 @@
                 <tr class="border-b hover:bg-neutral-50">
                     <td class="py-1.5 px-3">
                         <div class="flex items-center space-x-4">
-                            <img src="http://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg" alt="{{ dog.name }}" class="h-8 w-8 rounded-full object-cover">
+                            <img src="{{ asset(dog.getProfileImgPath()) }}" alt="{{ dog.name }}" class="h-8 w-8 rounded-full object-cover">
                             <span>{{ dog.name }}</span>
                         </div>
                     </td>

@@ -16,41 +16,28 @@
         </div>
     </header>
 
-    {{ component('alert', {size: 'base', message: 'Soy un mensaje feliz 😁'}) }}
-    {{ component('alert', {type: 'warning', size: 'base', message: 'Soy un mensaje dudoso 🤖'}) }}
-
-    {% form_theme form 'tailwind_2_layout.html.twig' %}
-    <div class="max-w-[85rem] mx-auto border rounded my-8 p-6">
+    <div class="max-w-[85rem] mx-auto rounded my-8">
         {{ form_start(form) }}
 
-            {{ form_errors(form) }}
-
-                {{ form_row(form.name, {
-                    row_class: 'mt-2 px-3',
-                    label_class: 'font-semibold text-gray-600',
-                    error_item_class: 'text-red-700',
-                    widget_class: 'border border-gray-200 bg-gray-50',
-                    widget_disabled_class: 'border-dashed text-gray-200',
-                    widget_errors_class: 'border-double border-red-500 bg-red-50',
-                }) }}
-
-                <div class="">
-                    {{ component('label', {inputId: 'dog_name', label:'name'}) }}
-                </div>
-                <div class="">
-                    {{ component('input', {type: 'text', name: 'dog[name]', id: 'dog_name'}) }}
-                </div>
-        <br>
-        <input placeholder="" type="password" x-model="password"
-               class="text-md block px-3 py-2 rounded-lg w-full
-                bg-white border-2 border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-neutral-100 focus:border-red-500 focus:outline-none">
-
-            <div class="my-3">
-                <label for="dog_breed">{% trans %}Breed{% endtrans %}</label>
+        <h4 class="font-semibold text-base mb-2 flex items-center space-x-2.5"><i class="fa-solid fa-circle text-[6px]"></i><span>Datos del perro</span></h4>
+        <div class="border rounded p-4 mb-6 bg-white">
+            {{ form_row(form.imageFile) }}
+            {{ form_row(form.name) }}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {{ form_row(form.breed) }}
+                {{ form_row(form.color) }}
             </div>
+        </div>
 
-            {{ form_row(form.submit, { 'label': 'Submit me' }) }}
+        <h4 class="font-semibold text-base mb-2 flex items-center space-x-2.5"><i class="fa-solid fa-circle text-[6px]"></i><span>Datos del dueñ@</span></h4>
+        <div class="border rounded p-4 mb-6 bg-white">
+            {{ form_widget(form) }}
+        </div>
+
+        <div class="mt-6">
+            <a href="{{ path('admin_dogs') }}" class="px-6 py-2.5 bg-transparent font-medium text-xs leading-tight uppercase hover:text-sky-700 focus:text-sky-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Cancelar</a>
+            <input type="submit" value="Guardar" class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+        </div>
 
         {{ form_end(form) }}
     </div>
