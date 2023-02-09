@@ -51,14 +51,26 @@ class Dog
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $ownerAddress = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $ownerCP = null;
+
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $ownerIdentification = null;
+
+    #[ORM\Column]
+    private bool $active = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $dateAdd;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
+
+    public function __construct()
+    {
+        $this->dateAdd = new \DateTime();
+        $this->active = true;
+    }
 
     public function getId(): ?int
     {
@@ -199,6 +211,18 @@ class Dog
         return $this;
     }
 
+    public function getOwnerCP(): ?string
+    {
+        return $this->ownerCP;
+    }
+
+    public function setOwnerCP(?string $ownerCP): Dog
+    {
+        $this->ownerCP = $ownerCP;
+
+        return $this;
+    }
+
     public function getOwnerIdentification(): ?string
     {
         return $this->ownerIdentification;
@@ -207,6 +231,18 @@ class Dog
     public function setOwnerIdentification(?string $ownerIdentification): Dog
     {
         $this->ownerIdentification = $ownerIdentification;
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): Dog
+    {
+        $this->active = $active;
 
         return $this;
     }
@@ -242,5 +278,29 @@ class Dog
         }
 
         return self::DEFAULT_PROFILE_IMG_PATH;
+    }
+
+    public function getDogYears(): ?string
+    {
+        if (!$this->active) {
+            if ($this->birthDate !== null) {
+                return date_format($this->birthDate, "d/m/Y");;
+            }
+
+            return null;
+        }
+
+        $age = null;
+
+        if ($this->birthDate !== null) {
+            $currentDate = new \DateTime();
+            $difference = $currentDate->diff($this->birthDate);
+
+            if ($difference->y) { $age .= $difference->format("%y años"); }
+            if ($difference->m) { $age .= $difference->format(", %m meses"); }
+            if ($difference->d) { $age .= $difference->format(" y %d días"); }
+        }
+
+        return $age;
     }
 }
