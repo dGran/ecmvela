@@ -64,35 +64,42 @@ class DogType extends AbstractType
             ->add('ownerName', TextType::class, [
                 'label' => 'Nombre',
                 'attr' => [
-                    'placeholder' => 'Nombre del dueño',
+                    'placeholder' => 'Nombre del cliente',
                 ],
                 'required' => true,
             ])
             ->add('ownerPhone', TelType::class, [
                 'label' => 'Teléfono',
                 'attr' => [
-                    'placeholder' => 'Teléfono del dueño',
+                    'placeholder' => '(+34) xxx xxx xxx',
                 ],
                 'required' => false,
             ])
             ->add('ownerEmail', EmailType::class, [
                 'label' => 'Correo electrónico',
                 'attr' => [
-                    'placeholder' => 'Correo electrónico',
+                    'placeholder' => 'example@example.com',
                 ],
                 'required' => false,
             ])
             ->add('ownerAddress', TextType::class, [
                 'label' => 'Dirección',
                 'attr' => [
-                    'placeholder' => 'Dirección de facturación',
+                    'placeholder' => 'Dirección del cliente',
                 ],
                 'required' => false,
             ])
             ->add('ownerLocation', TextType::class, [
                 'label' => 'Localidad',
                 'attr' => [
-                    'placeholder' => 'Localidad de facturación',
+                    'placeholder' => 'Ej: Puzol',
+                ],
+                'required' => false,
+            ])
+            ->add('ownerProvince', TextType::class, [
+                'label' => 'Provincia',
+                'attr' => [
+                    'placeholder' => 'Ej: Valencia',
                 ],
                 'required' => false,
             ])
@@ -106,7 +113,7 @@ class DogType extends AbstractType
             ->add('ownerCP', TextType::class, [
                 'label' => 'Código Postal',
                 'attr' => [
-                    'placeholder' => 'Código postal de facturación',
+                    'placeholder' => 'Ej: 46530',
                 ],
                 'required' => false,
             ])

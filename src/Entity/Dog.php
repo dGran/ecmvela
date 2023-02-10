@@ -48,6 +48,9 @@ class Dog
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $ownerLocation = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $ownerProvince = null;
+
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $ownerAddress = null;
 
@@ -195,6 +198,18 @@ class Dog
     public function setOwnerLocation(?string $ownerLocation): Dog
     {
         $this->ownerLocation = $ownerLocation;
+
+        return $this;
+    }
+
+    public function getOwnerProvince(): ?string
+    {
+        return $this->ownerProvince;
+    }
+
+    public function setOwnerProvince(?string $ownerProvince): Dog
+    {
+        $this->ownerProvince = $ownerProvince;
 
         return $this;
     }

@@ -71,18 +71,18 @@ class DogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $dog = $form->getData();
-//            $uploadedFile = $form['imageFile']->getData();
-//
-//            if ($uploadedFile) {
-//                $uploadedFile = $form['imageFile']->getData();
-//                $destination = $this->getParameter('kernel.project_dir').'/public/img/dogs';
-//                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-//                $newFilename = $this->slugger->slugify($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-//                $uploadedFile->move($destination,$newFilename);
-//
-//                $dog->setProfileImg($newFilename);
-//            }
+            $dog = $form->getData();
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile) {
+                $uploadedFile = $form['imageFile']->getData();
+                $destination = $this->getParameter('kernel.project_dir').'/public/img/dogs';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $this->slugger->slugify($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $uploadedFile->move($destination,$newFilename);
+
+                $dog->setProfileImg($newFilename);
+            }
 
             $this->dogManager->save($dog);
 

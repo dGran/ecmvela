@@ -10,7 +10,7 @@
             {{ form_row(form.imageFile) }}
             {{ form_row(form.active) }}
 
-    <h4 class="font-semibold text-lg md:text-xl mt-8 mb-6">Datos del dueñ@</h4>
+    <h4 class="font-semibold text-lg md:text-xl mt-8 mb-6">Datos de facturación / dueñ@</h4>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         {{ form_row(form.ownerName) }}
         {{ form_row(form.ownerIdentification) }}
@@ -19,6 +19,7 @@
         {{ form_row(form.ownerAddress) }}
         {{ form_row(form.ownerCP) }}
         {{ form_row(form.ownerLocation) }}
+        {{ form_row(form.ownerProvince) }}
     </div>
 
     <div class="mt-8 md:mt-12 flex items-center justify-end">
