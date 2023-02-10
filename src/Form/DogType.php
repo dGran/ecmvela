@@ -27,6 +27,7 @@ class DogType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nombre del perro',
                 ],
+                'required' => true,
             ])
             ->add('breed', EntityType::class, [
                 'class' => Breed::class,
@@ -38,11 +39,13 @@ class DogType extends AbstractType
                     return $breed->getDogSize()->getName();
                 },
                 'placeholder' => 'Selecciona raza',
+                'required' => false,
             ])
             ->add('birthdate', DateType::class, [
                 'label' => 'Cumpleaños',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'required' => false,
             ])
             ->add('notes', TextareaType::class, [
                 'label' => 'Observaciones',
@@ -50,53 +53,62 @@ class DogType extends AbstractType
                     'placeholder' => 'Notas o comentarios sobre el perro',
                     'rows' => 5
                 ],
+                'required' => false,
             ])
             ->add('color', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Color del perro',
                 ],
+                'required' => false,
             ])
             ->add('ownerName', TextType::class, [
                 'label' => 'Nombre',
                 'attr' => [
                     'placeholder' => 'Nombre del dueño',
                 ],
+                'required' => true,
             ])
             ->add('ownerPhone', TelType::class, [
                 'label' => 'Teléfono',
                 'attr' => [
                     'placeholder' => 'Teléfono del dueño',
                 ],
+                'required' => false,
             ])
             ->add('ownerEmail', EmailType::class, [
                 'label' => 'Correo electrónico',
                 'attr' => [
                     'placeholder' => 'Correo electrónico',
                 ],
+                'required' => false,
             ])
             ->add('ownerAddress', TextType::class, [
                 'label' => 'Dirección',
                 'attr' => [
                     'placeholder' => 'Dirección de facturación',
                 ],
+                'required' => false,
             ])
             ->add('ownerLocation', TextType::class, [
                 'label' => 'Localidad',
                 'attr' => [
                     'placeholder' => 'Localidad de facturación',
                 ],
+                'required' => false,
             ])
             ->add('ownerIdentification', TextType::class, [
                 'label' => 'Número de identificación',
                 'attr' => [
                     'placeholder' => 'DNI / NIE',
                 ],
+                'required' => false,
             ])
             ->add('ownerCP', TextType::class, [
                 'label' => 'Código Postal',
                 'attr' => [
                     'placeholder' => 'Código postal de facturación',
                 ],
+                'required' => false,
             ])
 
             ->add('active', CheckboxType::class, [

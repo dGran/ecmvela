@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <a href="{{ path('admin_dogs_new') }}" class="px-4 py-2 bg-sky-500 rounded text-white text-sm hover:bg-sky-600 focus:bg-sky-500 focus:outline-none">
+    <a href="{{ path('admin_dog_new') }}" class="px-4 py-2 bg-sky-500 rounded font-medium text-white text-sm hover:bg-sky-600 focus:bg-sky-600 focus:outline-none">
         {% trans %}Crear nuevo{% endtrans %}
     </a>
 
@@ -33,10 +33,12 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full mt-6 border-l border-r bg-white text-sm">
                         <thead class="border-t border-b h-10 px-3">
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Foto</th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Name{% endtrans %}</th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Breed{% endtrans %}</th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Color{% endtrans %}</th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Dueñ@{% endtrans %}</th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Edad{% endtrans %}</th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Last service{% endtrans %}</th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">{% trans %}Actions{% endtrans %}</th>
                         </thead>
                         <tbody class="bg-white">
@@ -44,39 +46,46 @@
                                 <tr class="border-b">
                                     <td colspan="5" class="py-4 px-3 text-center">
                                         No se han encontrado registros
-                                        <p class="text-sm">puedes crear un nuevo </p>
                                     </td>
                                 </tr>
                             {% endif %}
                             {% for dog in dogs %}
                                 <tr class="border-b hover:bg-neutral-50">
+                                    <td class="py-1.5 px-3">
+                                        <img src="{{ asset(dog.getProfileImgPath()) }}" alt="{{ dog.name }}" class="h-8 w-8 rounded-full object-cover">
+                                    </td>
                                     <td class="py-1.5 px-3 whitespace-nowrap">
-                                        <div class="flex items-center space-x-4">
-                                            <img src="{{ asset(dog.getProfileImgPath()) }}" alt="{{ dog.name }}" class="h-8 w-8 rounded-full object-cover">
-                                            <span>{{ dog.name }}</span>
-                                        </div>
+                                        <a href="{{ path('admin_dog_show', {'id': dog.id}) }}" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                            {{ dog.name }}
+                                        </a>
                                     </td>
                                     <td class="py-1.5 px-3 whitespace-nowrap">
                                         {{ dog.breed ? dog.breed.name : '-' }}
                                     </td>
                                     <td class="py-1.5 px-3 whitespace-nowrap">
+                                        {{ dog.color ? dog.color : '-' }}
+                                    </td>
+                                    <td class="py-1.5 px-3 whitespace-nowrap">
+                                        {{ dog.ownerName ? dog.ownerName : '-' }}
+                                    </td>
+                                    <td class="py-1.5 px-3 whitespace-nowrap">
                                         {{ dog.getDogYears ?? '-' }}
                                     </td>
                                     <td class="py-1.5 px-3 whitespace-nowrap">
-                                    -
-                                    </td>
-                                    <td class="py-1.5 px-3 whitespace-nowrap">
-                                        <div class="flex items-center space-x-1.5">
-                                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-neutral-100 border text-neutral-400">
-                                                {% trans %}Servicios{% endtrans %}
-                                            </a>
-                                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-neutral-100 border text-neutral-400">
-                                                {% trans %}Editar{% endtrans %}
-                                            </a>
-                {#                            <a href="{{ path('admin_dogs_new') }}" class="px-2.5 py-1 text-xs bg-red-100 border border-red-200 text-red-400">#}
-                {#                                {% trans %}Eliminar{% endtrans %}#}
-                {#                            </a>#}
-                                        </div>
+                                        <form method="post" action="{{ path('admin_dog_delete', {'id': dog.id}) }}" onsubmit="return confirm('¿Estás seguro que desear eliminar el cliente?');">
+                                            <div class="flex items-center space-x-2.5">
+                                                <a href="{{ path('admin_dog_show', {'id': dog.id}) }}" class="text-slate-400 hover:text-slate-500 focus:text-slate-500 active:text-slate-600 focus:outline-none transition duration-150 ease-in-out">
+                                                    <i class="fa-solid fa-eye text-base"></i>
+                                                </a>
+                                                <a href="{{ path('admin_dog_edit', {'id': dog.id}) }}" class="text-slate-400 hover:text-slate-500 focus:text-slate-500 active:text-slate-600 focus:outline-none transition duration-150 ease-in-out">
+                                                    <i class="fa-solid fa-pen-to-square text-base"></i>
+                                                </a>
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ dog.id) }}">
+                                                <button class="text-rose-400 hover:text-rose-500 focus:text-rose-500 active:text-rose-600 focus:outline-none transition duration-150 ease-in-out">
+                                                    <i class="fa-solid fa-trash text-base"></i>
+                                                </button>
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -89,12 +98,9 @@
     <div class="mt-12">
         <ul>
             <li>image preview</li>
-            <li>añadir cp</li>
-            <li>añadir active</li>
-            <li>editar</li>
-            <li>ver</li>
-            <li>servicios</li>
-            <li>eliminar, restricciones si tiene servicios</li>
+            <li>confirmación de borrado</li>
+            <li>agregar provincia a la entidad dog</li>
+            <li>mensajes flash de confirmación</li>
             <li>filtros</li>
             <li>paginacion</li>
             <li>estudiar como tratar a los gatos, con sus razas...o simplemente meterlo como una raza...</li>
