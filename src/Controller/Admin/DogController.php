@@ -6,7 +6,8 @@ use App\Entity\Dog;
 use App\Form\DogType;
 use App\Helper\Slugify;
 use App\Manager\DogManager;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,18 +18,28 @@ class DogController extends AbstractController
 {
     private DogManager $dogManager;
     private Slugify $slugger;
+    private PaginatorInterface $paginator;
 
-    public function __construct(DogManager $dogManager, Slugify $slugger)
+    public function __construct(DogManager $dogManager, Slugify $slugger, PaginatorInterface $paginator)
     {
         $this->dogManager = $dogManager;
         $this->slugger = $slugger;
+        $this->paginator = $paginator;
     }
 
-    #[Route('/', name: 'admin_dog', methods: 'GET')]
-    public function index(): Response
+    #[Route('/', name: 'admin_dog', methods: ['GET', 'POST'])]
+    public function index(Request $request)
     {
+        $filterName = $request->get('name') ?? null;
+        $filterBreed = $request->get('breed') ?? null;
+        //TODO: crear un metodo en el repo para buscar por nombre con LIKE
+        $criteria = $filterName ? ['name' => $filterName] : [];
+        $data = $this->dogManager->findBy($criteria, ['dateAdd' => 'DESC']);
+        $dogs = $this->paginator->paginate($data, $request->query->getInt('page', 1), 10);
+
         return $this->render('admin/dog/index.html.twig', [
-            'dogs' => $this->dogManager->findAll(),
+            'dogs' => $dogs,
+            'filterName' => $filterName,
         ]);
     }
 
@@ -54,6 +65,7 @@ class DogController extends AbstractController
             }
 
             $this->dogManager->save($dog);
+            $this->addFlash('success','El cliente se ha creado correctamente');
 
             return $this->redirectToRoute('admin_dog');
         }
@@ -106,9 +118,11 @@ class DogController extends AbstractController
     #[Route('/{id}', name: 'admin_dog_delete', methods: ['POST'])]
     public function delete(Request $request, Dog $dog): Response
     {
-//        TODO: comprobar si el cliente tiene relaciones
         if ($this->isCsrfTokenValid('delete'.$dog->getId(), $request->request->get('_token'))) {
+            //        TODO: comprobar si el cliente tiene relaciones
+
             $this->dogManager->delete($dog);
+            $this->addFlash('success','El cliente se ha eliminado correctamente');
         }
 
         return $this->redirectToRoute('admin_dog');

@@ -1,0 +1,46 @@
+{% if pageCount > 1 %}
+    <div class="flex justify-center text-sm select-none">
+        <nav aria-label="Page navigation">
+            <ul class="flex list-style-none">
+                <li class="page-item">
+                    <a rel="first" href="{% if first is defined and current != first %}{{ path(route, query|merge({(pageParameterName): first})) }}{% endif %}"
+                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if first is defined and current != first %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+                        <span class="sr-only">First</span>
+                        <i class="fa-solid fa-backward-step"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a rel="first" href="{% if previous is defined %}{{ path(route, query|merge({(pageParameterName): previous})) }}{% endif %}"
+                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if previous is defined %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+                        <span class="sr-only">Previous</span>
+                        <i class="fa-solid fa-caret-left"></i>
+                    </a>
+                </li>
+                {% for page in pagesInRange %}
+                    <li class="page-item">
+                        <a href="{% if page != current %}{{ path(route, query|merge({(pageParameterName): page})) }}{% endif %}"
+                           class="page-link relative block py-1.5 px-3 border-0 outline-none transition-all duration-300 rounded
+                                  {% if page == current %}pointer-events-none bg-sky-500 text-white hover:text-white hover:bg-sky-600 shadow-md focus:shadow-md{% else %}bg-transparent text-slate-700 hover:text-slate-800 hover:bg-slate-200 focus:shadow-none{% endif %}>"
+                        >
+                            {{ page }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="page-item">
+                    <a rel="first" href="{% if next is defined %}{{ path(route, query|merge({(pageParameterName): next})) }}{% endif %}"
+                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if next is defined %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+                        <span class="sr-only">Next</span>
+                        <i class="fa-solid fa-caret-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a rel="first" href="{% if last is defined and current != last %}{{ path(route, query|merge({(pageParameterName): last})) }}{% endif %}"
+                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if last is defined and current != last %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+                        <span class="sr-only">Last</span>
+                        <i class="fa-solid fa-forward-step"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endif %}

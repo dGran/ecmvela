@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DogRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DogRepository::class)]
 class Dog
@@ -18,6 +19,8 @@ class Dog
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 60)]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'dogs')]
@@ -25,39 +28,52 @@ class Dog
     private ?Breed $breed = null;
 
     #[ORM\Column(length: 60, nullable: true)]
+    #[Assert\Length(max: 60)]
     private ?string $color = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
     private ?string $profileImg = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
     private ?string $notes = null;
 
     #[ORM\Column(length: 60, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 60)]
     private ?string $ownerName = null;
 
     #[ORM\Column(length: 15, nullable: true)]
+    #[Assert\Length(max: 15)]
     private ?string $ownerPhone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
+    #[Assert\Email]
     private ?string $ownerEmail = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(max: 100)]
     private ?string $ownerLocation = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(max: 100)]
     private ?string $ownerProvince = null;
 
     #[ORM\Column(length: 150, nullable: true)]
+    #[Assert\Length(max: 150)]
     private ?string $ownerAddress = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\Length(max: 20)]
     private ?string $ownerCP = null;
 
     #[ORM\Column(length: 30, nullable: true)]
+    #[Assert\Length(max: 30)]
     private ?string $ownerIdentification = null;
 
     #[ORM\Column]

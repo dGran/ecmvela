@@ -1,0 +1,16 @@
+{% for flash_message in app.session.flashbag.get('success') %}
+    <script>Toast.fire({icon: 'success', title: '{{ flash_message }}'});</script>
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('info') %}
+    <script>Toast.fire({icon: 'info', title: '{{ flash_message }}'});</script>
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('warning') %}
+    <script>Toast.fire({icon: 'warning', title: '{{ flash_message }}'});</script>
+{% endfor %}
+
+{% for flash_message in app.session.flashbag.get('error') %}
+    <script>Toast.fire({icon: 'error', title: '{{ flash_message }}'});</script>
+{% endfor %}
+

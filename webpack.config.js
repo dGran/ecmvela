@@ -22,6 +22,8 @@ Encore
         config.corejs = '3.23';
     })
 
+    .enableStimulusBridge('./assets/controllers.json')
+    .enablePostCssLoader()
     .enableSassLoader()
     .autoProvidejQuery()
 ;
