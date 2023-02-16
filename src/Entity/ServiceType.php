@@ -10,6 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ServiceTypeRepository::class)]
 class ServiceType
 {
+    protected const SERVICE_TYPE_BASIC_HYGIENE_ID = 1;
+    protected const SERVICE_TYPE_TECHNIQUE_AND_ARRANGEMENT_ID = 2;
+    protected const SERVICE_TYPE_TREATMENTS_ID = 3;
+    protected const SERVICE_TYPE_COSMETIC_ID = 4;
+
+    protected const SERVICE_TYPE_BASIC_HYGIENE_NAME = 'Higiene básica';
+    protected const SERVICE_TYPE_TECHNIQUE_AND_ARRANGEMENT_NAME = 'Técnica y arreglo';
+    protected const SERVICE_TYPE_TREATMENTS_NAME = 'Tratamientos';
+    protected const SERVICE_TYPE_COSMETIC_NAME = 'Cosmética';
+
     #[ORM\Id]
     #[ORM\GeneratedValue('AUTO')]
     #[ORM\Column]
