@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\DogRepository;
@@ -14,7 +16,7 @@ class Dog
     protected const DEFAULT_PROFILE_IMG_PATH = 'img/dogs/no-image.png';
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue('AUTO')]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -80,7 +82,7 @@ class Dog
     private bool $active = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $dateAdd;
+    private ?\DateTimeInterface $dateAdd = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
@@ -91,12 +93,12 @@ class Dog
         $this->active = true;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -154,23 +156,17 @@ class Dog
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNotes(): ?string
     {
         return $this->notes;
     }
 
-    /**
-     * @param string|null $notes
-     */
     public function setNotes(?string $notes): void
     {
         $this->notes = $notes;
     }
 
-    public function getOwnerName(): ?string
+    public function getOwnerName(): string
     {
         return $this->ownerName;
     }
@@ -295,11 +291,16 @@ class Dog
         return $this->dateUpd;
     }
 
-    public function setDateUpd(?\DateTimeInterface $dateUpd): Dog
+    public function setDateUpd(\DateTimeInterface $dateUpd): Dog
     {
         $this->dateUpd = $dateUpd;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getProfileImgPath(): ?string

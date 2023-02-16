@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\BreedRepository;
@@ -42,6 +44,11 @@ class Breed
 
     #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Dog::class)]
     private Collection $dogs;
+
+    public function __construct()
+    {
+        $this->dateAdd = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -127,12 +134,12 @@ class Breed
         return $this;
     }
 
-    public function getDateAdd(): ?\DateTimeInterface
+    public function getDateAdd(): \DateTimeInterface
     {
         return $this->dateAdd;
     }
 
-    public function setDateAdd(?\DateTimeInterface $dateAdd): Breed
+    public function setDateAdd(\DateTimeInterface $dateAdd): Breed
     {
         $this->dateAdd = $dateAdd;
 
@@ -144,10 +151,15 @@ class Breed
         return $this->dateUpd;
     }
 
-    public function setDateUpd(?\DateTimeInterface $dateUpd): Breed
+    public function setDateUpd(\DateTimeInterface $dateUpd): Breed
     {
         $this->dateUpd = $dateUpd;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

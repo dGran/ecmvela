@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\DogSizeRepository;
@@ -24,8 +26,8 @@ class DogSize
     #[ORM\Column(nullable: true)]
     private ?int $maxWeight = null;
 
-    #[ORM\Column(length: 120, nullable: true)]
-    private string $slug;
+    #[ORM\Column(length: 120)]
+    private ?string $slug = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdd = null;
@@ -38,10 +40,11 @@ class DogSize
 
     public function __construct()
     {
-        $this->breed2s = new ArrayCollection();
+        $this->breeds = new ArrayCollection();
+        $this->dateAdd = new \DateTime();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -53,7 +56,7 @@ class DogSize
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -89,11 +92,6 @@ class DogSize
         return $this;
     }
 
-    public function getDateAdd(): ?\DateTimeInterface
-    {
-        return $this->dateAdd;
-    }
-
     public function getSlug(): string
     {
         return $this->slug;
@@ -106,7 +104,12 @@ class DogSize
         return $this;
     }
 
-    public function setDateAdd(?\DateTimeInterface $dateAdd): DogSize
+    public function getDateAdd(): \DateTimeInterface
+    {
+        return $this->dateAdd;
+    }
+
+    public function setDateAdd(\DateTimeInterface $dateAdd): DogSize
     {
         $this->dateAdd = $dateAdd;
 
@@ -118,7 +121,7 @@ class DogSize
         return $this->dateUpd;
     }
 
-    public function setDateUpd(?\DateTimeInterface $dateUpd): DogSize
+    public function setDateUpd(\DateTimeInterface $dateUpd): DogSize
     {
         $this->dateUpd = $dateUpd;
 
@@ -150,5 +153,10 @@ class DogSize
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
