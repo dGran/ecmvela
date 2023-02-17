@@ -21,6 +21,10 @@ class Breed
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
+    private ?AnimalType $animalType = null;
+
+    #[ORM\ManyToOne(inversedBy: 'breeds')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?DogSize $dogSize = null;
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
@@ -42,8 +46,8 @@ class Breed
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
-    #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Dog::class)]
-    private Collection $dogs;
+    #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Animal::class)]
+    private Collection $animals;
 
     public function __construct()
     {
@@ -70,6 +74,18 @@ class Breed
     public function setName(string $name): Breed
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAnimalType(): ?AnimalType
+    {
+        return $this->animalType;
+    }
+
+    public function setAnimalType(?AnimalType $animalType): Breed
+    {
+        $this->animalType = $animalType;
 
         return $this;
     }
@@ -154,6 +170,18 @@ class Breed
     public function setDateUpd(\DateTimeInterface $dateUpd): Breed
     {
         $this->dateUpd = $dateUpd;
+
+        return $this;
+    }
+
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function setAnimals(Collection $animals): Breed
+    {
+        $this->animals = $animals;
 
         return $this;
     }

@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\DogRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: DogRepository::class)]
-class Dog
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+class Animal
 {
-    protected const PROFILE_IMG_PATH = 'img/dogs/';
-    protected const DEFAULT_PROFILE_IMG_PATH = 'img/dogs/no-image.png';
+    protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/';
+    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/no-image.png';
+    protected const PROFILE_TYPE_CAT_IMG_PATH = 'img/cats/';
+    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'img/animals/cats/no-image.png';
+    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'img/rabbits/';
+    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'img/animals/rabbits/no-image.png';
 
     #[ORM\Id]
     #[ORM\GeneratedValue('AUTO')]
@@ -25,7 +29,15 @@ class Dog
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'dogs')]
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn]
+    private ?Customer $customer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\JoinColumn]
+    private ?AnimalType $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Breed $breed = null;
 
@@ -43,40 +55,6 @@ class Dog
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(max: 255)]
     private ?string $notes = null;
-
-    #[ORM\Column(length: 60, nullable: true)]
-    #[Assert\NotBlank]
-    #[Assert\Length(max: 60)]
-    private ?string $ownerName = null;
-
-    #[ORM\Column(length: 15, nullable: true)]
-    #[Assert\Length(max: 15)]
-    private ?string $ownerPhone = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(max: 255)]
-    #[Assert\Email]
-    private ?string $ownerEmail = null;
-
-    #[ORM\Column(length: 100, nullable: true)]
-    #[Assert\Length(max: 100)]
-    private ?string $ownerLocation = null;
-
-    #[ORM\Column(length: 100, nullable: true)]
-    #[Assert\Length(max: 100)]
-    private ?string $ownerProvince = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    #[Assert\Length(max: 150)]
-    private ?string $ownerAddress = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    #[Assert\Length(max: 20)]
-    private ?string $ownerCP = null;
-
-    #[ORM\Column(length: 30, nullable: true)]
-    #[Assert\Length(max: 30)]
-    private ?string $ownerIdentification = null;
 
     #[ORM\Column]
     private bool $active = true;
@@ -103,9 +81,33 @@ class Dog
         return $this->name;
     }
 
-    public function setName(string $name): Dog
+    public function setName(string $name): Animal
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(Customer $customer): Animal
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getType(): AnimalType
+    {
+        return $this->type;
+    }
+
+    public function setType(AnimalType $type): Animal
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -115,7 +117,7 @@ class Dog
         return $this->breed;
     }
 
-    public function setBreed(?Breed $breed): Dog
+    public function setBreed(?Breed $breed): Animal
     {
         $this->breed = $breed;
 
@@ -127,7 +129,7 @@ class Dog
         return $this->color;
     }
 
-    public function setColor(?string $color): Dog
+    public function setColor(?string $color): Animal
     {
         $this->color = $color;
 
@@ -149,7 +151,7 @@ class Dog
         return $this->profileImg;
     }
 
-    public function setProfileImg(?string $profileImg): Dog
+    public function setProfileImg(?string $profileImg): Animal
     {
         $this->profileImg = $profileImg;
 
@@ -166,108 +168,12 @@ class Dog
         $this->notes = $notes;
     }
 
-    public function getOwnerName(): string
-    {
-        return $this->ownerName;
-    }
-
-    public function setOwnerName(string $ownerName): Dog
-    {
-        $this->ownerName = $ownerName;
-
-        return $this;
-    }
-
-    public function getOwnerPhone(): ?string
-    {
-        return $this->ownerPhone;
-    }
-
-    public function setOwnerPhone(?string $ownerPhone): Dog
-    {
-        $this->ownerPhone = $ownerPhone;
-
-        return $this;
-    }
-
-    public function getOwnerEmail(): ?string
-    {
-        return $this->ownerEmail;
-    }
-
-    public function setOwnerEmail(?string $ownerEmail): Dog
-    {
-        $this->ownerEmail = $ownerEmail;
-
-        return $this;
-    }
-
-    public function getOwnerLocation(): ?string
-    {
-        return $this->ownerLocation;
-    }
-
-    public function setOwnerLocation(?string $ownerLocation): Dog
-    {
-        $this->ownerLocation = $ownerLocation;
-
-        return $this;
-    }
-
-    public function getOwnerProvince(): ?string
-    {
-        return $this->ownerProvince;
-    }
-
-    public function setOwnerProvince(?string $ownerProvince): Dog
-    {
-        $this->ownerProvince = $ownerProvince;
-
-        return $this;
-    }
-
-    public function getOwnerAddress(): ?string
-    {
-        return $this->ownerAddress;
-    }
-
-    public function setOwnerAddress(?string $ownerAddress): Dog
-    {
-        $this->ownerAddress = $ownerAddress;
-
-        return $this;
-    }
-
-    public function getOwnerCP(): ?string
-    {
-        return $this->ownerCP;
-    }
-
-    public function setOwnerCP(?string $ownerCP): Dog
-    {
-        $this->ownerCP = $ownerCP;
-
-        return $this;
-    }
-
-    public function getOwnerIdentification(): ?string
-    {
-        return $this->ownerIdentification;
-    }
-
-    public function setOwnerIdentification(?string $ownerIdentification): Dog
-    {
-        $this->ownerIdentification = $ownerIdentification;
-
-        return $this;
-    }
-
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    public function setActive(bool $active): Dog
+    public function setActive(bool $active): Animal
     {
         $this->active = $active;
 
@@ -279,7 +185,7 @@ class Dog
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): Dog
+    public function setDateAdd(\DateTimeInterface $dateAdd): Animal
     {
         $this->dateAdd = $dateAdd;
 
@@ -291,7 +197,7 @@ class Dog
         return $this->dateUpd;
     }
 
-    public function setDateUpd(\DateTimeInterface $dateUpd): Dog
+    public function setDateUpd(\DateTimeInterface $dateUpd): Animal
     {
         $this->dateUpd = $dateUpd;
 
@@ -306,13 +212,13 @@ class Dog
     public function getProfileImgPath(): ?string
     {
         if ($this->profileImg) {
-            return self::PROFILE_IMG_PATH.$this->profileImg;
+            return self::PROFILE_TYPE_DOG_IMG_PATH.$this->profileImg;
         }
 
-        return self::DEFAULT_PROFILE_IMG_PATH;
+        return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
     }
 
-    public function getDogYears(): ?string
+    public function getAnimalYears(): ?string
     {
         if (!$this->active) {
             if ($this->birthDate !== null) {

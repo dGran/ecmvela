@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Breed;
-use App\Entity\Dog;
+use App\Entity\Animal;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -118,7 +118,7 @@ class DogType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Dog::class,
+            'data_class' => Animal::class,
             'attr' => [
                 'novalidate' => 'novalidate',
             ]

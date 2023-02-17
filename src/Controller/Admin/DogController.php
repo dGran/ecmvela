@@ -2,11 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Dog;
+use App\Entity\Animal;
 use App\Form\DogType;
 use App\Helper\Slugify;
-use App\Manager\DogManager;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Manager\AnimalManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/dogs')]
 class DogController extends AbstractController
 {
-    private DogManager $dogManager;
+    private AnimalManager $dogManager;
     private Slugify $slugger;
     private PaginatorInterface $paginator;
 
-    public function __construct(DogManager $dogManager, Slugify $slugger, PaginatorInterface $paginator)
+    public function __construct(AnimalManager $dogManager, Slugify $slugger, PaginatorInterface $paginator)
     {
         $this->dogManager = $dogManager;
         $this->slugger = $slugger;
@@ -46,7 +45,7 @@ class DogController extends AbstractController
     #[Route('/nuevo', name: 'admin_dog_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $dog = new Dog();
+        $dog = new Animal();
         $form = $this->createForm(DogType::class, $dog);
         $form->handleRequest($request);
 
@@ -77,7 +76,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/editar/{id}', name: 'admin_dog_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Dog $dog): Response
+    public function edit(Request $request, Animal $dog): Response
     {
         $form = $this->createForm(DogType::class, $dog);
         $form->handleRequest($request);
@@ -108,7 +107,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/ver/{id}', name: 'admin_dog_show', methods: ['GET'])]
-    public function show(Dog $dog): Response
+    public function show(Animal $dog): Response
     {
         return $this->render('admin/dog/show.html.twig', [
             'dog' => $dog,
@@ -116,7 +115,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/{id}', name: 'admin_dog_delete', methods: ['POST'])]
-    public function delete(Request $request, Dog $dog): Response
+    public function delete(Request $request, Animal $dog): Response
     {
         if ($this->isCsrfTokenValid('delete'.$dog->getId(), $request->request->get('_token'))) {
             //        TODO: comprobar si el cliente tiene relaciones

@@ -8,7 +8,7 @@ use App\Entity\Breed;
 use App\Helper\Slugify;
 use App\Manager\BreedManager;
 use App\Manager\DogSizeManager;
-use App\Manager\HairTypeManager;
+use App\Manager\AnimalTypeManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -2346,13 +2346,13 @@ class LoadBreedDataCommand extends Command
     private Slugify $slugger;
     private BreedManager $breedManager;
     private DogSizeManager $dogSizeManager;
-    private HairTypeManager $hairTypeManager;
+    private AnimalTypeManager $hairTypeManager;
 
     public function __construct(
         BreedManager $breedManager,
         DogSizeManager $dogSizeManager,
         Slugify $slugger,
-        HairTypeManager $hairTypeManager
+        AnimalTypeManager $hairTypeManager
     ) {
         $this->slugger = $slugger;
         $this->breedManager = $breedManager;
