@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Entity\AnimalType;
+use App\Entity\PetCategory;
 use App\Repository\AnimalTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -16,19 +16,19 @@ class AnimalTypeManager
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository(AnimalType::class);
+        $this->repository = $this->entityManager->getRepository(PetCategory::class);
     }
 
-    public function create(): AnimalType
+    public function create(): PetCategory
     {
-        return new AnimalType();
+        return new PetCategory();
     }
 
     /**
      * @param $animalType
      * @return mixed
      */
-    public function save($animalType): AnimalType
+    public function save($animalType): PetCategory
     {
         $this->entityManager->persist($animalType);
         $this->entityManager->flush();
@@ -36,7 +36,7 @@ class AnimalTypeManager
         return $animalType;
     }
 
-    public function delete(AnimalType $animalType): AnimalType
+    public function delete(PetCategory $animalType): PetCategory
     {
         $this->entityManager->remove($animalType);
         $this->entityManager->flush();
@@ -44,17 +44,17 @@ class AnimalTypeManager
         return $animalType;
     }
 
-    public function findOneById($id): ?AnimalType
+    public function findOneById($id): ?PetCategory
     {
-        /** @var AnimalType $animalType */
+        /** @var PetCategory $animalType */
         $animalType = $this->repository->find($id);
 
         return $animalType;
     }
 
-    public function findOneBy(array $criteria): AnimalType
+    public function findOneBy(array $criteria): PetCategory
     {
-        /** @var AnimalType $animalType */
+        /** @var PetCategory $animalType */
         $animalType = $this->repository->findOneBy($criteria);
 
         return $animalType;

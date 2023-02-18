@@ -23,15 +23,14 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
-    public function findBySearch(string $search): array
+    public function findByIndexSearchFields(string $search): array
     {
         return $this->createQueryBuilder('customer')
             ->where('customer.name LIKE :search')
             ->orWhere('customer.phone LIKE :search')
-            ->orWhere('customer.email LIKE :search')
             ->orWhere('customer.location LIKE :search')
             ->setParameter('search', '%'.$search.'%')
-            ->orderBy('customer.id', 'ASC')
+            ->orderBy('customer.id', 'DESC')
             ->getQuery()
             ->getResult();
     }

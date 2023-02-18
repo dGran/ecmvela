@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-class Animal
+class Pet
 {
     protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/';
     protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/no-image.png';
@@ -29,15 +29,15 @@ class Animal
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\ManyToOne(inversedBy: 'pets')]
     #[ORM\JoinColumn]
     private ?Customer $customer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\ManyToOne(inversedBy: 'pets')]
     #[ORM\JoinColumn]
-    private ?AnimalType $type = null;
+    private ?PetCategory $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'animals')]
+    #[ORM\ManyToOne(inversedBy: 'pets')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Breed $breed = null;
 
@@ -81,7 +81,7 @@ class Animal
         return $this->name;
     }
 
-    public function setName(string $name): Animal
+    public function setName(string $name): Pet
     {
         $this->name = $name;
 
@@ -93,21 +93,21 @@ class Animal
         return $this->customer;
     }
 
-    public function setCustomer(Customer $customer): Animal
+    public function setCustomer(Customer $customer): Pet
     {
         $this->customer = $customer;
 
         return $this;
     }
 
-    public function getType(): AnimalType
+    public function getCategory(): PetCategory
     {
-        return $this->type;
+        return $this->category;
     }
 
-    public function setType(AnimalType $type): Animal
+    public function setCategory(PetCategory $category): Pet
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }
@@ -117,7 +117,7 @@ class Animal
         return $this->breed;
     }
 
-    public function setBreed(?Breed $breed): Animal
+    public function setBreed(?Breed $breed): Pet
     {
         $this->breed = $breed;
 
@@ -129,7 +129,7 @@ class Animal
         return $this->color;
     }
 
-    public function setColor(?string $color): Animal
+    public function setColor(?string $color): Pet
     {
         $this->color = $color;
 
@@ -151,7 +151,7 @@ class Animal
         return $this->profileImg;
     }
 
-    public function setProfileImg(?string $profileImg): Animal
+    public function setProfileImg(?string $profileImg): Pet
     {
         $this->profileImg = $profileImg;
 
@@ -173,7 +173,7 @@ class Animal
         return $this->active;
     }
 
-    public function setActive(bool $active): Animal
+    public function setActive(bool $active): Pet
     {
         $this->active = $active;
 
@@ -185,7 +185,7 @@ class Animal
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): Animal
+    public function setDateAdd(\DateTimeInterface $dateAdd): Pet
     {
         $this->dateAdd = $dateAdd;
 
@@ -197,7 +197,7 @@ class Animal
         return $this->dateUpd;
     }
 
-    public function setDateUpd(\DateTimeInterface $dateUpd): Animal
+    public function setDateUpd(\DateTimeInterface $dateUpd): Pet
     {
         $this->dateUpd = $dateUpd;
 

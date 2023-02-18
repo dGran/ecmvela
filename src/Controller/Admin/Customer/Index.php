@@ -26,14 +26,14 @@ class Index extends AbstractController
         $search = $request->get('search');
 
         if (!empty($search)) {
-            $data = $this->customerManager->findBySearch($search);
+            $data = $this->customerManager->findByIndexSearchFields($search);
         }
 
         $customers = $this->paginator->paginate($data, $request->query->getInt('page', 1), 10);
 
         return $this->render('admin/customer/index.html.twig', [
             'customers' => $customers,
-            'filterName' => $search,
+            'search' => $search,
         ]);
     }
 }

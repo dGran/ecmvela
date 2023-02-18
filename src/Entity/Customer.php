@@ -62,8 +62,8 @@ class Customer
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Animal::class)]
-    private Collection $animals;
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Pet::class)]
+    private Collection $pets;
 
     public function __construct()
     {
@@ -207,14 +207,14 @@ class Customer
         return $this;
     }
 
-    public function getAnimals(): Collection
+    public function getPets(): Collection
     {
-        return $this->animals;
+        return $this->pets;
     }
 
-    public function setAnimals(Collection $animals): Customer
+    public function setPets(Collection $pets): Customer
     {
-        $this->animals = $animals;
+        $this->pets = $pets;
 
         return $this;
     }

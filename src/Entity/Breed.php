@@ -21,7 +21,7 @@ class Breed
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
-    private ?AnimalType $animalType = null;
+    private ?PetCategory $petCategory = null;
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
@@ -46,8 +46,8 @@ class Breed
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
-    #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Animal::class)]
-    private Collection $animals;
+    #[ORM\OneToMany(mappedBy: 'breed', targetEntity: Pet::class)]
+    private Collection $pets;
 
     public function __construct()
     {
@@ -78,14 +78,14 @@ class Breed
         return $this;
     }
 
-    public function getAnimalType(): ?AnimalType
+    public function getPetCategory(): ?PetCategory
     {
-        return $this->animalType;
+        return $this->petCategory;
     }
 
-    public function setAnimalType(?AnimalType $animalType): Breed
+    public function setPetCategory(?PetCategory $petCategory): Breed
     {
-        $this->animalType = $animalType;
+        $this->petCategory = $petCategory;
 
         return $this;
     }
@@ -174,14 +174,14 @@ class Breed
         return $this;
     }
 
-    public function getAnimals(): Collection
+    public function getPets(): Collection
     {
-        return $this->animals;
+        return $this->pets;
     }
 
-    public function setAnimals(Collection $animals): Breed
+    public function setPets(Collection $pets): Breed
     {
-        $this->animals = $animals;
+        $this->pets = $pets;
 
         return $this;
     }

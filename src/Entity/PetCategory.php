@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnimalTypeRepository::class)]
-class AnimalType
+class PetCategory
 {
     protected const TYPE_DOG_ID = 1;
     protected const TYPE_CAT_ID = 2;
@@ -27,10 +27,10 @@ class AnimalType
     #[ORM\Column(length: 60)]
     private ?string $name = self::TYPE_DOG_NAME;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Animal::class)]
-    private Collection $animals;
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Pet::class)]
+    private Collection $pets;
 
-    #[ORM\OneToMany(mappedBy: 'animalType', targetEntity: Breed::class)]
+    #[ORM\OneToMany(mappedBy: 'petCategory', targetEntity: Breed::class)]
     private Collection $breeds;
 
     public function getId(): int
@@ -43,7 +43,7 @@ class AnimalType
         return $this->name;
     }
 
-    public function setName(string $name): AnimalType
+    public function setName(string $name): PetCategory
     {
         $this->name = $name;
 
@@ -53,18 +53,18 @@ class AnimalType
     /**
      * @return Collection
      */
-    public function getAnimals(): Collection
+    public function getPets(): Collection
     {
-        return $this->animals;
+        return $this->pets;
     }
 
     /**
-     * @param Collection $animals
-     * @return AnimalType
+     * @param Collection $pets
+     * @return PetCategory
      */
-    public function setAnimals(Collection $animals): AnimalType
+    public function setPets(Collection $pets): PetCategory
     {
-        $this->animals = $animals;
+        $this->pets = $pets;
 
         return $this;
     }
@@ -74,7 +74,7 @@ class AnimalType
         return $this->breeds;
     }
 
-    public function setBreeds(Collection $breeds): AnimalType
+    public function setBreeds(Collection $breeds): PetCategory
     {
         $this->breeds = $breeds;
 

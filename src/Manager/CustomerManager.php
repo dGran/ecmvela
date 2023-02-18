@@ -70,8 +70,8 @@ class CustomerManager
         return $this->repository->findBy($criteria);
     }
 
-    public function findBySearch(string $name): array
+    public function findByIndexSearchFields(string $name): array
     {
-        return $this->repository->findBySearch($name);
+        return $this->repository->findByIndexSearchFields($name);
     }
 }

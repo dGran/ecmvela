@@ -44,6 +44,16 @@ class HairType
         return $this;
     }
 
+    public function getDateAdd(): \DateTime
+    {
+        return $this->dateAdd;
+    }
+
+    public function setDateAdd(\DateTime $dateAdd): void
+    {
+        $this->dateAdd = $dateAdd;
+    }
+
     /**
      * @return Collection<int, Breed>|null
      */

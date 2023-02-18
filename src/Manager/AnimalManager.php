@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Entity\Animal;
+use App\Entity\Pet;
 use App\Model\EntityManagerInterface as EntityManagerInterfaceBase;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,20 +18,20 @@ class AnimalManager implements EntityManagerInterfaceBase
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository(Animal::class);
+        $this->repository = $this->entityManager->getRepository(Pet::class);
     }
 
-    public function findOneById($id): Animal
+    public function findOneById($id): Pet
     {
-        /** @var Animal $animal */
+        /** @var Pet $animal */
         $animal = $this->repository->find($id);
 
         return $animal;
     }
 
-    public function findOneBy(array $criteria): Animal
+    public function findOneBy(array $criteria): Pet
     {
-        /** @var Animal $animal */
+        /** @var Pet $animal */
         $animal = $this->repository->findOneBy($criteria);
 
         return $animal;
@@ -47,9 +47,9 @@ class AnimalManager implements EntityManagerInterfaceBase
         return $this->repository->findBy($criteria);
     }
 
-    public function create(): Animal
+    public function create(): Pet
     {
-        return new Animal();
+        return new Pet();
     }
 
     /**
@@ -64,7 +64,7 @@ class AnimalManager implements EntityManagerInterfaceBase
         return $animal;
     }
 
-    public function delete(Animal $animal): Animal
+    public function delete(Pet $animal): Pet
     {
         $this->entityManager->remove($animal);
         $this->entityManager->flush();

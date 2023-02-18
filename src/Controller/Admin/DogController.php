@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Animal;
+use App\Entity\Pet;
 use App\Form\DogType;
 use App\Helper\Slugify;
 use App\Manager\AnimalManager;
@@ -45,7 +45,7 @@ class DogController extends AbstractController
     #[Route('/nuevo', name: 'admin_dog_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $dog = new Animal();
+        $dog = new Pet();
         $form = $this->createForm(DogType::class, $dog);
         $form->handleRequest($request);
 
@@ -76,7 +76,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/editar/{id}', name: 'admin_dog_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Animal $dog): Response
+    public function edit(Request $request, Pet $dog): Response
     {
         $form = $this->createForm(DogType::class, $dog);
         $form->handleRequest($request);
@@ -107,7 +107,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/ver/{id}', name: 'admin_dog_show', methods: ['GET'])]
-    public function show(Animal $dog): Response
+    public function show(Pet $dog): Response
     {
         return $this->render('admin/dog/show.html.twig', [
             'dog' => $dog,
@@ -115,7 +115,7 @@ class DogController extends AbstractController
     }
 
     #[Route('/{id}', name: 'admin_dog_delete', methods: ['POST'])]
-    public function delete(Request $request, Animal $dog): Response
+    public function delete(Request $request, Pet $dog): Response
     {
         if ($this->isCsrfTokenValid('delete'.$dog->getId(), $request->request->get('_token'))) {
             //        TODO: comprobar si el cliente tiene relaciones
