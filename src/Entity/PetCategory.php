@@ -27,7 +27,7 @@ class PetCategory
     #[ORM\Column(length: 60)]
     private ?string $name = self::TYPE_DOG_NAME;
 
-    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Pet::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pet::class)]
     private Collection $pets;
 
     #[ORM\OneToMany(mappedBy: 'petCategory', targetEntity: Breed::class)]

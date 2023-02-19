@@ -8,8 +8,8 @@
     <li class="mt-6 lg:mt-8">
         <h5 class="mb-3 font-semibold text-neutral-900">Administración</h5>
         <ul class="space-y-2 border-l border-neutral-100">
-            {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes', tag: 'in progress', tagColor: 'teal'}) }}
-{#            {{ component('adminNavItem', {path: 'admin_animal', message: 'Animales', tag: 'in progress', tagColor: 'teal'}) }}#}
+            {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes'}) }}
+            {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas', tag: 'in progress', tagColor: 'teal'}) }}
             {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'in progress', tagColor: 'slate'}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'in progress', tagColor: 'slate'}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pending'}) }}

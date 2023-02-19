@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\CustomerRepository;
+use App\Repository\PetRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[ORM\Entity(repositoryClass: PetRepository::class)]
 class Pet
 {
     protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/';
@@ -88,7 +88,7 @@ class Pet
         return $this;
     }
 
-    public function getCustomer(): Customer
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
@@ -100,7 +100,7 @@ class Pet
         return $this;
     }
 
-    public function getCategory(): PetCategory
+    public function getCategory(): ?PetCategory
     {
         return $this->category;
     }

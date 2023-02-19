@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Pet;
 use App\Form\DogType;
 use App\Helper\Slugify;
-use App\Manager\AnimalManager;
+use App\Manager\PetManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/dogs')]
 class DogController extends AbstractController
 {
-    private AnimalManager $dogManager;
+    private PetManager $dogManager;
     private Slugify $slugger;
     private PaginatorInterface $paginator;
 
-    public function __construct(AnimalManager $dogManager, Slugify $slugger, PaginatorInterface $paginator)
+    public function __construct(PetManager $dogManager, Slugify $slugger, PaginatorInterface $paginator)
     {
         $this->dogManager = $dogManager;
         $this->slugger = $slugger;

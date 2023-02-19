@@ -65,12 +65,28 @@
             </div>
         </div>
         <div class="w-40 flex flex-col space-y-4">
-            <form method="post" action="{{ path('admin_dog_edit', {'id': customer.id}) }}">
-                <button class="w-full px-4 py-1.5 bg-sky-500 rounded font-medium text-white text-sm hover:bg-sky-600 focus:bg-sky-600 focus:outline-none">Editar</button>
+            <a href="{{ path_index }}" class="w-full px-4 py-1.5 bg-sky-500 rounded font-medium text-white text-sm hover:bg-sky-600 focus:bg-sky-600 focus:outline-none">
+                Atrás
+            </a>
+            <form method="post" action="{{ path('admin_customer_edit', {'id': customer.id}) }}">
+                <input type="hidden" name="pathIndex" value="{{ path_index }}">
+                <input type="hidden" name="pathFrom" value="show">
+                <button type="submit" class="w-full px-4 py-1.5 bg-sky-500 rounded font-medium text-white text-sm hover:bg-sky-600 focus:bg-sky-600 focus:outline-none">
+                    Editar
+                </button>
             </form>
-            <form method="post" action="{{ path('admin_dog_delete', {'id': customer.id}) }}">
-                <button class="w-full px-4 py-1.5 bg-rose-500 rounded font-medium text-white text-sm hover:bg-rose-600 focus:bg-rose-600 focus:outline-none">Eliminar</button>
+            <form method="post" action="{{ path('admin_customer_delete', {'id': customer.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ customer.id) }}">
+                <input type="hidden" name="pathIndex" value="{{ path_index }}">
+                <button type="submit" data-name="{{ customer.name }}"
+                        class="delete-action-button | w-full px-4 py-1.5 bg-rose-500 rounded font-medium text-white text-sm hover:bg-rose-600 focus:bg-rose-600 focus:outline-none">
+                    Eliminar
+                </button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('build/app/js/admin/customer/delete-confirmation.js') }}"></script>
 {% endblock %}

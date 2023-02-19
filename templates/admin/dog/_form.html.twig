@@ -1,6 +1,7 @@
 {{ form_start(form) }}
     <h4 class="font-semibold text-lg md:text-xl mb-6">Datos del perro</h4>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.customer) }}
         {{ form_row(form.name) }}
         {{ form_row(form.breed) }}
         {{ form_row(form.color) }}
@@ -24,6 +25,6 @@
 
     <div class="mt-8 md:mt-12 flex items-center justify-end">
         <a href="{{ path('admin_dog') }}" class="px-6 py-2.5 bg-transparent font-medium text-xs leading-tight uppercase hover:text-sky-700 focus:text-sky-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Cancelar</a>
-        <button class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">{{ button_label|default('Guardar cliente') }}</button>
+        <button class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">{{ button_label|default('Guardar mascota') }}</button>
     </div>
 {{ form_end(form) }}

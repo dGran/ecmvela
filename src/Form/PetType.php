@@ -17,12 +17,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DogType extends AbstractType
+class PetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('customer', EntityType::class, [
+                'label' => 'Cliente',
                 'class' => Customer::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
@@ -31,10 +32,11 @@ class DogType extends AbstractType
                 'placeholder' => 'Selecciona el cliente',
             ])
             ->add('category', EntityType::class, [
+                'label' => 'Categoría',
                 'class' => PetCategory::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('category-type')->orderBy('category-type.name', 'ASC');
+                    return $er->createQueryBuilder('category')->orderBy('category.name', 'ASC');
                 },
                 'placeholder' => 'Selecciona la categoría',
             ])
