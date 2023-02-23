@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\AnimalTypeRepository;
+use App\Repository\PetCategoryRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AnimalTypeRepository::class)]
+#[ORM\Entity(repositoryClass: PetCategoryRepository::class)]
 class PetCategory
 {
-    protected const TYPE_DOG_ID = 1;
+    public const TYPE_DOG_ID = 1;
     protected const TYPE_CAT_ID = 2;
     protected const TYPE_RABBIT_ID = 3;
 

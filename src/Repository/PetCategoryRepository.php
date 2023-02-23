@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method PetCategory[]    findAll()
  * @method PetCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AnimalTypeRepository extends ServiceEntityRepository
+class PetCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

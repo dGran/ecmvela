@@ -6,6 +6,7 @@ use App\Entity\Breed;
 use App\Entity\Customer;
 use App\Entity\Pet;
 use App\Entity\PetCategory;
+use App\Manager\PetCategoryManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,17 +20,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PetType extends AbstractType
 {
+    public function __construct(private PetCategoryManager $petCategoryManager)
+    {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('customer', EntityType::class, [
-                'label' => 'Cliente',
+                'label' => 'Cliente (dueñ@)',
                 'class' => Customer::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('customer')->orderBy('customer.name', 'ASC');
                 },
-                'placeholder' => 'Selecciona el cliente',
+                'placeholder' => 'Selecciona el cliente (dueñ@)',
             ])
             ->add('category', EntityType::class, [
                 'label' => 'Categoría',
@@ -39,6 +43,7 @@ class PetType extends AbstractType
                     return $er->createQueryBuilder('category')->orderBy('category.name', 'ASC');
                 },
                 'placeholder' => 'Selecciona la categoría',
+                'data' => $this->petCategoryManager->findOneById(PetCategory::TYPE_DOG_ID),
             ])
             ->add('breed', EntityType::class, [
                 'class' => Breed::class,
