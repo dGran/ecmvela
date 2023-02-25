@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\DogSizeRepository;
+use App\Repository\PetSizeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DogSizeRepository::class)]
-class DogSize
+#[ORM\Entity(repositoryClass: PetSizeRepository::class)]
+class PetSize
 {
     #[ORM\Id]
     #[ORM\Column]
@@ -49,7 +49,7 @@ class DogSize
         return $this->id;
     }
 
-    public function setId(?int $id): DogSize
+    public function setId(?int $id): PetSize
     {
         $this->id = $id;
 
@@ -61,7 +61,7 @@ class DogSize
         return $this->name;
     }
 
-    public function setName(string $name): DogSize
+    public function setName(string $name): PetSize
     {
         $this->name = $name;
 
@@ -73,7 +73,7 @@ class DogSize
         return $this->minWeight;
     }
 
-    public function setMinWeight(?int $minWeight): DogSize
+    public function setMinWeight(?int $minWeight): PetSize
     {
         $this->minWeight = $minWeight;
 
@@ -85,7 +85,7 @@ class DogSize
         return $this->maxWeight;
     }
 
-    public function setMaxWeight(?int $maxWeight): DogSize
+    public function setMaxWeight(?int $maxWeight): PetSize
     {
         $this->maxWeight = $maxWeight;
 
@@ -97,7 +97,7 @@ class DogSize
         return $this->slug;
     }
 
-    public function setSlug(string $slug): DogSize
+    public function setSlug(string $slug): PetSize
     {
         $this->slug = $slug;
 
@@ -109,7 +109,7 @@ class DogSize
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): DogSize
+    public function setDateAdd(\DateTimeInterface $dateAdd): PetSize
     {
         $this->dateAdd = $dateAdd;
 
@@ -121,7 +121,7 @@ class DogSize
         return $this->dateUpd;
     }
 
-    public function setDateUpd(\DateTimeInterface $dateUpd): DogSize
+    public function setDateUpd(\DateTimeInterface $dateUpd): PetSize
     {
         $this->dateUpd = $dateUpd;
 
@@ -136,20 +136,20 @@ class DogSize
         return $this->breeds;
     }
 
-    public function addBreed(Breed $breed): DogSize
+    public function addBreed(Breed $breed): PetSize
     {
         if (!$this->breeds->contains($breed)) {
             $this->breeds->add($breed);
-            $breed->setDogSize($this);
+            $breed->setPetSize($this);
         }
 
         return $this;
     }
 
-    public function removeBreed(Breed $breed): DogSize
+    public function removeBreed(Breed $breed): PetSize
     {
-        if ($this->breeds->removeElement($breed) && $breed->getDogSize() === $this) {
-            $breed->setDogSize(null);
+        if ($this->breeds->removeElement($breed) && $breed->getPetSize() === $this) {
+            $breed->setPetSize(null);
         }
 
         return $this;

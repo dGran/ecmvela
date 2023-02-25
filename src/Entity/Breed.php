@@ -25,7 +25,7 @@ class Breed
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
-    private ?DogSize $dogSize = null;
+    private ?PetSize $petSize = null;
 
     #[ORM\ManyToOne(inversedBy: 'breeds')]
     #[ORM\JoinColumn(nullable: true)]
@@ -90,14 +90,14 @@ class Breed
         return $this;
     }
 
-    public function getDogSize(): ?DogSize
+    public function getPetSize(): ?PetSize
     {
-        return $this->dogSize;
+        return $this->petSize;
     }
 
-    public function setDogSize(?DogSize $dogSize): Breed
+    public function setPetSize(?PetSize $petSize): Breed
     {
-        $this->dogSize = $dogSize;
+        $this->petSize = $petSize;
 
         return $this;
     }
