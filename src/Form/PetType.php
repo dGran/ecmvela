@@ -49,10 +49,10 @@ class PetType extends AbstractType
                 'class' => Breed::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('breed')->orderBy('breed.dogSize', 'ASC')->addOrderBy('breed.name', 'ASC');
+                    return $er->createQueryBuilder('breed')->addOrderBy('breed.name', 'ASC');
                 },
                 'group_by' => function($breed) {
-                    return $breed->getDogSize()->getName();
+                    return $breed->getPetCategory()->getName();
                 },
                 'placeholder' => 'Selecciona raza',
             ])

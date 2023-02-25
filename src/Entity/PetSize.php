@@ -17,17 +17,18 @@ class PetSize
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'petSizes')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?PetCategory $category = null;
+
     #[ORM\Column(length: 60)]
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $minWeight = null;
+    private ?float $minWeight = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $maxWeight = null;
-
-    #[ORM\Column(length: 120)]
-    private ?string $slug = null;
+    private ?float $maxWeight = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdd = null;
@@ -56,6 +57,19 @@ class PetSize
         return $this;
     }
 
+    public function getCategory(): ?PetCategory
+    {
+        return $this->category;
+
+    }
+
+    public function setCategory(?PetCategory $category): PetSize
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -68,24 +82,24 @@ class PetSize
         return $this;
     }
 
-    public function getMinWeight(): ?int
+    public function getMinWeight(): ?float
     {
         return $this->minWeight;
     }
 
-    public function setMinWeight(?int $minWeight): PetSize
+    public function setMinWeight(?float $minWeight): PetSize
     {
         $this->minWeight = $minWeight;
 
         return $this;
     }
 
-    public function getMaxWeight(): ?int
+    public function getMaxWeight(): ?float
     {
         return $this->maxWeight;
     }
 
-    public function setMaxWeight(?int $maxWeight): PetSize
+    public function setMaxWeight(?float $maxWeight): PetSize
     {
         $this->maxWeight = $maxWeight;
 

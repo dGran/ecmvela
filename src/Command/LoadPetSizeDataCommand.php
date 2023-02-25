@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\DogSize;
+use App\Entity\PetSize;
 use App\Helper\Slugify;
-use App\Manager\DogSizeManager;
+use App\Manager\PetSizeManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,14 +17,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'app:fixture:dog-size:update',
     description: 'Update DogSize data',
 )]
-class LoadDogSizeDataCommand extends Command
+class LoadPetSizeDataCommand extends Command
 {
     protected const STATUS_OK = 'OK';
     protected const STATUS_ERROR = 'ERROR';
     protected const OPERATION_INSERT = 'INSERT';
     protected const OPERATION_UPDATE = 'UPDATE';
 
-    protected array $dogSizes = [
+    protected array $petSizes = [
         [
             'id' => 1,
             'name' => 'Very small',
@@ -58,9 +58,9 @@ class LoadDogSizeDataCommand extends Command
     ];
 
     private Slugify $slugger;
-    private DogSizeManager $dogSizeManager;
+    private PetSizeManager $dogSizeManager;
 
-    public function __construct(DogSizeManager $dogSizeManager, Slugify $slugger)
+    public function __construct(PetSizeManager $dogSizeManager, Slugify $slugger)
     {
         $this->slugger = $slugger;
         $this->dogSizeManager = $dogSizeManager;
@@ -78,7 +78,7 @@ class LoadDogSizeDataCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $dogSizes = $this->dogSizes;
+        $dogSizes = $this->petSizes;
 
         $output->writeln(\date(\DATE_W3C).' - Start process');
         $io->title('Updating DogSize table');
@@ -167,11 +167,11 @@ class LoadDogSizeDataCommand extends Command
     }
 
     /**
-     * @param DogSize $dogSize
+     * @param PetSize $dogSize
      * @param array $dogSizeData
      * @return void
      */
-    private function saveDogSizeData(DogSize $dogSize, array $dogSizeData, string $operation): void
+    private function saveDogSizeData(PetSize $dogSize, array $dogSizeData, string $operation): void
     {
         $dogSize->setId($dogSizeData['id']);
         $dogSize->setName($dogSizeData['name']);

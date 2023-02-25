@@ -15,7 +15,7 @@ function deleteConfirmation(form, name)
         html: '<div class="border-b">' +
             '<p>¿Seguro que quieres eliminar el cliente?</p>' +
             '<div class="py-3 flex flex-col items-center">' +
-            '<p class="pt-1.5 font-medium text-lg">'+name+'</p>' +
+            '<p class="font-medium text-lg">'+name+'</p>' +
             '</div>' +
             '</div>',
         showCloseButton: true,

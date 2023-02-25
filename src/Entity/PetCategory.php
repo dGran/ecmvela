@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class PetCategory
 {
     public const TYPE_DOG_ID = 1;
-    protected const TYPE_CAT_ID = 2;
-    protected const TYPE_RABBIT_ID = 3;
+    public const TYPE_CAT_ID = 2;
+    public const TYPE_RABBIT_ID = 3;
 
     protected const TYPE_DOG_NAME = 'Perro';
     protected const TYPE_CAT_NAME = 'Gato';
@@ -32,6 +32,9 @@ class PetCategory
 
     #[ORM\OneToMany(mappedBy: 'petCategory', targetEntity: Breed::class)]
     private Collection $breeds;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: PetSize::class)]
+    private Collection $petSizes;
 
     public function getId(): int
     {
@@ -77,6 +80,18 @@ class PetCategory
     public function setBreeds(Collection $breeds): PetCategory
     {
         $this->breeds = $breeds;
+
+        return $this;
+    }
+
+    public function getPetSizes(): Collection
+    {
+        return $this->petSizes;
+    }
+
+    public function setPetSizes(Collection $petSizes): PetCategory
+    {
+        $this->petSizes = $petSizes;
 
         return $this;
     }

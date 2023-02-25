@@ -19,7 +19,7 @@ class Index extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $data = $this->customerManager->findAll();
+        $data = $this->customerManager->findBy([], ['dateAdd' => 'DESC']);
         $search = $request->get('search');
 
         if (!empty($search)) {

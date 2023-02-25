@@ -64,28 +64,31 @@
                 </p>
             </div>
         </div>
-        <div class="my-8 w-3/4 mx-auto md:mx-0 md:w-40 flex flex-col space-y-3">
-            <a href="{{ path_index }}" class="w-full px-6 py-2.5 bg-slate-50 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-100 hover:shadow-lg focus:bg-slate-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg transition duration-150 ease-in-out | flex items-center space-x-1.5">
-                <i class="fa-solid fa-chevron-left text-sm w-6 text-center"></i>
+        <div class="my-8 w-full md:w-1/4 mx-auto lg:mx-0 lg:w-28 flex flex-row md:flex-col space-x-2 justify-between md:justify-start md:space-x-0 md:space-y-2 border-t pt-4 md:border-t-0 md:pt-0">
+            <a href="{{ path_index }}" class="w-28 px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+                <i class="fa-solid fa-chevron-left text-sm w-4 text-center"></i>
                 <span>atrás</span>
             </a>
-            <form method="post" action="{{ path('admin_customer_edit', {'id': customer.id}) }}">
-                <input type="hidden" name="pathIndex" value="{{ path_index }}">
-                <input type="hidden" name="pathFrom" value="show">
-                <button type="submit" class="w-full text-left px-6 py-2.5 bg-slate-50 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-100 hover:shadow-lg focus:bg-slate-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg transition duration-150 ease-in-out | flex items-center space-x-1.5">
-                    <i class="fa-solid fa-pen-to-square text-sm w-6 text-center"></i>
-                    <span>Editar</span>
-                </button>
-            </form>
-            <form method="post" action="{{ path('admin_customer_delete', {'id': customer.id}) }}">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ customer.id) }}">
-                <input type="hidden" name="pathIndex" value="{{ path_index }}">
-                <button type="submit" data-name="{{ customer.name }}"
-                        class="delete-action-button | w-full text-left px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out | flex items-center space-x-1.5">
-                    <i class="fa-solid fa-trash text-sm w-6 text-center"></i>
-                    <span>Eliminar</span>
-                </button>
-            </form>
+            <div class="flex md:flex-col items-center md:items-start justify-end md:justify-start space-x-2 md:space-x-0 md:space-y-2">
+                <form method="post" action="{{ path('admin_customer_edit', {'id': customer.id}) }}" class="w-28">
+                    <input type="hidden" name="pathIndex" value="{{ path_index }}">
+                    <input type="hidden" name="pathFrom" value="show">
+                    <button type="submit" class="w-full px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+                        <i class="fa-solid fa-pen-to-square text-sm w-4 text-center"></i>
+                        <span>Editar</span>
+                    </button>
+                </form>
+                <form method="post" action="{{ path('admin_customer_delete', {'id': customer.id}) }}" class="w-28">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ customer.id) }}">
+                    <input type="hidden" name="pathIndex" value="{{ path_index }}">
+                    <button type="submit" data-name="{{ customer.name }}"
+                            class="delete-action-button | w-full text-left px-3 py-1.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow focus:outline-none focus:ring-0 active:bg-red-700 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+                        <i class="fa-solid fa-trash text-sm w-4 text-center"></i>
+                        <span>Eliminar</span>
+                    </button>
+                </form>
+            </div>
+
         </div>
     </div>
 {% endblock %}
