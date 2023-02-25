@@ -52,10 +52,10 @@ class PetCategoryManager
         return $petCategory;
     }
 
-    public function findOneBy(array $criteria): PetCategory
+    public function findOneBy(array $criteria, array $orderBy = null): PetCategory
     {
         /** @var PetCategory $petCategory */
-        $petCategory = $this->repository->findOneBy($criteria);
+        $petCategory = $this->repository->findOneBy($criteria, $orderBy);
 
         return $petCategory;
     }
@@ -65,13 +65,8 @@ class PetCategoryManager
         return $this->repository->findAll();
     }
 
-    public function findBy(array $criteria): array
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
-        return $this->repository->findBy($criteria);
-    }
-
-    public function findByIndexSearchFields(string $name): array
-    {
-        return $this->repository->findByIndexSearchFields($name);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 }

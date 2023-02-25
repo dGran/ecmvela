@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Entity\DogSize;
-use App\Repository\DogSizeRepository;
+use App\Entity\PetSize;
+use App\Repository\PetSizeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class DogSizeManager
+class PetSizeManager
 {
     protected EntityManagerInterface $entityManager;
-    protected DogSizeRepository $repository;
+    protected PetSizeRepository $repository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository(DogSize::class);
+        $this->repository = $this->entityManager->getRepository(PetSize::class);
     }
 
-    public function create(): DogSize
+    public function create(): PetSize
     {
-        return new DogSize();
+        return new PetSize();
     }
 
     /**
      * @param $dogSize
      * @return mixed
      */
-    public function save($dogSize): DogSize
+    public function save($dogSize): PetSize
     {
         $this->entityManager->persist($dogSize);
         $this->entityManager->flush();
@@ -36,7 +36,7 @@ class DogSizeManager
         return $dogSize;
     }
 
-    public function delete(DogSize $dogSize): DogSize
+    public function delete(PetSize $dogSize): PetSize
     {
         $this->entityManager->remove($dogSize);
         $this->entityManager->flush();
@@ -44,18 +44,18 @@ class DogSizeManager
         return $dogSize;
     }
 
-    public function findOneById($id): ?DogSize
+    public function findOneById($id): ?PetSize
     {
-        /** @var DogSize $dogSize */
+        /** @var PetSize $dogSize */
         $dogSize = $this->repository->find($id);
 
         return $dogSize;
     }
 
-    public function findOneBy(array $criteria): DogSize
+    public function findOneBy(array $criteria, array $orderBy = null): PetSize
     {
-        /** @var DogSize $dogSize */
-        $dogSize = $this->repository->findOneBy($criteria);
+        /** @var PetSize $dogSize */
+        $dogSize = $this->repository->findOneBy($criteria, $orderBy);
 
         return $dogSize;
     }
@@ -65,8 +65,8 @@ class DogSizeManager
         return $this->repository->findAll();
     }
 
-    public function findBy(array $criteria): array
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
-        return $this->repository->findBy($criteria);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 }

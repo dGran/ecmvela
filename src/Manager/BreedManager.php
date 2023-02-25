@@ -46,18 +46,18 @@ class BreedManager
 
     public function findOneById($id): ?Breed
     {
-        /** @var Breed $dogSize */
-        $dogSize = $this->repository->find($id);
+        /** @var Breed $breed */
+        $breed = $this->repository->find($id);
 
-        return $dogSize;
+        return $breed;
     }
 
-    public function findOneBy(array $criteria): Breed
+    public function findOneBy(array $criteria, array $orderBy = null): Breed
     {
-        /** @var Breed $dogSize */
-        $dogSize = $this->repository->findOneBy($criteria);
+        /** @var Breed $breed */
+        $breed = $this->repository->findOneBy($criteria, $orderBy);
 
-        return $dogSize;
+        return $breed;
     }
 
     public function findAll(): array
@@ -65,8 +65,8 @@ class BreedManager
         return $this->repository->findAll();
     }
 
-    public function findBy(array $criteria): array
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
-        return $this->repository->findBy($criteria);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 }

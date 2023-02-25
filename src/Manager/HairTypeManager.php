@@ -52,10 +52,10 @@ class HairTypeManager
         return $hairType;
     }
 
-    public function findOneBy(array $criteria): HairType
+    public function findOneBy(array $criteria, array $orderBy = null): HairType
     {
         /** @var HairType $hairType */
-        $hairType = $this->repository->findOneBy($criteria);
+        $hairType = $this->repository->findOneBy($criteria, $orderBy);
 
         return $hairType;
     }
@@ -65,8 +65,8 @@ class HairTypeManager
         return $this->repository->findAll();
     }
 
-    public function findBy(array $criteria): array
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
-        return $this->repository->findBy($criteria);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 }

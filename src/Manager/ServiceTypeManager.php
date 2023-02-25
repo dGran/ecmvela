@@ -52,10 +52,10 @@ class ServiceTypeManager
         return $serviceType;
     }
 
-    public function findOneBy(array $criteria): ServiceType
+    public function findOneBy(array $criteria, array $orderBy = null): ServiceType
     {
         /** @var ServiceType $serviceType */
-        $serviceType = $this->repository->findOneBy($criteria);
+        $serviceType = $this->repository->findOneBy($criteria, $orderBy);
 
         return $serviceType;
     }
@@ -65,8 +65,8 @@ class ServiceTypeManager
         return $this->repository->findAll();
     }
 
-    public function findBy(array $criteria): array
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
-        return $this->repository->findBy($criteria);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 }
