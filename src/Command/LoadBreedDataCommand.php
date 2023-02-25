@@ -7,8 +7,9 @@ namespace App\Command;
 use App\Entity\Breed;
 use App\Helper\Slugify;
 use App\Manager\BreedManager;
-use App\Manager\DogSizeManager;
-use App\Manager\AnimalTypeManager;
+use App\Manager\PetSizeManager;
+use App\Manager\HairTypeManager;
+use App\Manager\PetCategoryManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +28,7 @@ class LoadBreedDataCommand extends Command
     protected const OPERATION_INSERT = 'INSERT';
     protected const OPERATION_UPDATE = 'UPDATE';
 
-    protected array $breedsIndexedByDogSizeId = [
+    protected array $breedsIndexedByPetSizeId = [
         1 => [
                 [
                     'id' => 1001,
@@ -35,6 +36,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1002,
@@ -42,6 +44,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1003,
@@ -49,6 +52,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1004,
@@ -56,6 +60,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1005,
@@ -63,6 +68,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1006,
@@ -70,6 +76,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1007,
@@ -77,6 +84,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1008,
@@ -84,6 +92,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1009,
@@ -91,6 +100,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1010,
@@ -98,6 +108,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1011,
@@ -105,6 +116,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 1012,
@@ -112,6 +124,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
             ],
         2 => [
@@ -121,6 +134,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2002,
@@ -128,6 +142,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2003,
@@ -135,6 +150,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2004,
@@ -142,6 +158,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2005,
@@ -149,6 +166,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2006,
@@ -156,6 +174,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2007,
@@ -163,6 +182,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2008,
@@ -170,6 +190,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2009,
@@ -177,6 +198,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2010,
@@ -184,6 +206,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2011,
@@ -191,6 +214,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2012,
@@ -198,6 +222,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2013,
@@ -205,6 +230,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2014,
@@ -212,6 +238,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2015,
@@ -219,6 +246,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2016,
@@ -226,6 +254,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2017,
@@ -233,6 +262,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2018,
@@ -240,6 +270,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2019,
@@ -247,6 +278,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2020,
@@ -254,6 +286,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2021,
@@ -261,6 +294,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2022,
@@ -268,6 +302,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2023,
@@ -275,6 +310,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2024,
@@ -282,6 +318,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2025,
@@ -289,6 +326,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2026,
@@ -296,6 +334,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2027,
@@ -303,6 +342,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2028,
@@ -310,6 +350,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2029,
@@ -317,6 +358,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2030,
@@ -324,6 +366,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2031,
@@ -331,6 +374,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2032,
@@ -338,6 +382,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2033,
@@ -345,6 +390,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2034,
@@ -352,6 +398,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2035,
@@ -359,6 +406,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2036,
@@ -366,6 +414,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2037,
@@ -373,6 +422,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2038,
@@ -380,6 +430,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2039,
@@ -387,6 +438,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2040,
@@ -394,6 +446,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2041,
@@ -401,6 +454,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2042,
@@ -408,6 +462,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2043,
@@ -415,6 +470,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2044,
@@ -422,6 +478,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2045,
@@ -429,6 +486,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2046,
@@ -436,6 +494,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2047,
@@ -443,6 +502,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2048,
@@ -450,6 +510,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2049,
@@ -457,6 +518,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2050,
@@ -464,6 +526,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2051,
@@ -471,6 +534,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2052,
@@ -478,6 +542,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2053,
@@ -485,6 +550,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2054,
@@ -492,6 +558,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2055,
@@ -499,6 +566,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2056,
@@ -506,6 +574,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2057,
@@ -513,6 +582,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2058,
@@ -520,6 +590,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 2059,
@@ -527,6 +598,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
             ],
         3 => [
@@ -536,6 +608,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3002,
@@ -543,6 +616,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3003,
@@ -550,6 +624,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3004,
@@ -557,6 +632,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3005,
@@ -564,6 +640,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3006,
@@ -571,6 +648,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3007,
@@ -578,6 +656,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3008,
@@ -585,6 +664,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3009,
@@ -592,6 +672,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3010,
@@ -599,6 +680,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3011,
@@ -606,6 +688,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3012,
@@ -613,6 +696,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3013,
@@ -620,6 +704,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3014,
@@ -627,6 +712,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3015,
@@ -634,6 +720,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3016,
@@ -641,6 +728,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3017,
@@ -648,6 +736,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3018,
@@ -655,6 +744,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3019,
@@ -662,6 +752,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3020,
@@ -669,6 +760,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3021,
@@ -676,6 +768,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3022,
@@ -683,6 +776,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3023,
@@ -690,6 +784,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3024,
@@ -697,6 +792,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3025,
@@ -704,6 +800,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3026,
@@ -711,6 +808,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3027,
@@ -718,6 +816,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3028,
@@ -725,6 +824,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3029,
@@ -732,6 +832,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3030,
@@ -739,6 +840,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3031,
@@ -746,6 +848,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3032,
@@ -753,6 +856,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3033,
@@ -760,6 +864,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3034,
@@ -767,6 +872,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3035,
@@ -774,6 +880,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3036,
@@ -781,6 +888,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3037,
@@ -788,6 +896,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3038,
@@ -795,6 +904,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3039,
@@ -802,6 +912,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3040,
@@ -809,6 +920,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3041,
@@ -816,6 +928,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3042,
@@ -823,6 +936,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3043,
@@ -830,6 +944,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3044,
@@ -837,6 +952,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3045,
@@ -844,6 +960,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3046,
@@ -851,6 +968,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3047,
@@ -858,6 +976,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3048,
@@ -865,6 +984,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3049,
@@ -872,6 +992,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3050,
@@ -879,6 +1000,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3051,
@@ -886,6 +1008,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3052,
@@ -893,6 +1016,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3053,
@@ -900,6 +1024,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3054,
@@ -907,6 +1032,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3055,
@@ -914,6 +1040,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3056,
@@ -921,6 +1048,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3057,
@@ -928,6 +1056,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3058,
@@ -935,6 +1064,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3059,
@@ -942,6 +1072,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3060,
@@ -949,6 +1080,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3061,
@@ -956,6 +1088,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3062,
@@ -963,6 +1096,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3063,
@@ -970,6 +1104,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3064,
@@ -977,6 +1112,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3065,
@@ -984,6 +1120,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3066,
@@ -991,6 +1128,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3067,
@@ -998,6 +1136,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3068,
@@ -1005,6 +1144,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3069,
@@ -1012,6 +1152,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3070,
@@ -1019,6 +1160,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3071,
@@ -1026,6 +1168,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3072,
@@ -1033,6 +1176,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3073,
@@ -1040,6 +1184,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3074,
@@ -1047,6 +1192,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3075,
@@ -1054,6 +1200,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3076,
@@ -1061,6 +1208,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3077,
@@ -1068,6 +1216,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3078,
@@ -1075,6 +1224,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3079,
@@ -1082,6 +1232,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3080,
@@ -1089,6 +1240,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3081,
@@ -1096,6 +1248,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3082,
@@ -1103,6 +1256,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3083,
@@ -1110,6 +1264,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3084,
@@ -1117,6 +1272,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3085,
@@ -1124,6 +1280,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3086,
@@ -1131,6 +1288,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3087,
@@ -1138,6 +1296,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3088,
@@ -1145,6 +1304,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3089,
@@ -1152,6 +1312,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3090,
@@ -1159,6 +1320,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3091,
@@ -1166,6 +1328,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3092,
@@ -1173,6 +1336,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3093,
@@ -1180,6 +1344,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3094,
@@ -1187,6 +1352,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3095,
@@ -1194,6 +1360,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3096,
@@ -1201,6 +1368,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3097,
@@ -1208,6 +1376,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3098,
@@ -1215,6 +1384,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3099,
@@ -1222,6 +1392,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3100,
@@ -1229,6 +1400,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3101,
@@ -1236,6 +1408,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3102,
@@ -1243,6 +1416,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3103,
@@ -1250,6 +1424,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3104,
@@ -1257,6 +1432,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3105,
@@ -1264,6 +1440,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3106,
@@ -1271,6 +1448,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3107,
@@ -1278,6 +1456,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3108,
@@ -1285,6 +1464,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3109,
@@ -1292,6 +1472,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3110,
@@ -1299,6 +1480,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3111,
@@ -1306,6 +1488,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3112,
@@ -1313,6 +1496,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3113,
@@ -1320,6 +1504,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3114,
@@ -1327,6 +1512,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3115,
@@ -1334,6 +1520,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3116,
@@ -1341,6 +1528,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3117,
@@ -1348,6 +1536,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3118,
@@ -1355,6 +1544,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3119,
@@ -1362,6 +1552,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3120,
@@ -1369,6 +1560,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3121,
@@ -1376,6 +1568,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3122,
@@ -1383,6 +1576,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3123,
@@ -1390,6 +1584,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3124,
@@ -1397,6 +1592,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3125,
@@ -1404,6 +1600,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3126,
@@ -1411,6 +1608,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3127,
@@ -1418,6 +1616,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3128,
@@ -1425,6 +1624,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3129,
@@ -1432,6 +1632,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3130,
@@ -1439,6 +1640,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3131,
@@ -1446,6 +1648,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3132,
@@ -1453,6 +1656,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3133,
@@ -1460,6 +1664,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3134,
@@ -1467,6 +1672,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3135,
@@ -1474,6 +1680,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3136,
@@ -1481,6 +1688,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3137,
@@ -1488,6 +1696,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3138,
@@ -1495,6 +1704,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3139,
@@ -1502,6 +1712,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3140,
@@ -1509,6 +1720,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3141,
@@ -1516,6 +1728,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3142,
@@ -1523,6 +1736,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3143,
@@ -1530,6 +1744,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3144,
@@ -1537,6 +1752,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3145,
@@ -1544,6 +1760,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3146,
@@ -1551,6 +1768,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3147,
@@ -1558,6 +1776,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3148,
@@ -1565,6 +1784,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3149,
@@ -1572,6 +1792,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
                 [
                     'id' => 3150,
@@ -1579,6 +1800,7 @@ class LoadBreedDataCommand extends Command
                     'hairTypeId' => null,
                     'hairSize' => null,
                     'img' => null,
+                    'petCategoryId' => 1,
                 ],
             ],
         4 => [
@@ -1588,6 +1810,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4002,
@@ -1595,6 +1818,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4003,
@@ -1602,6 +1826,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4004,
@@ -1609,6 +1834,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4005,
@@ -1616,6 +1842,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4006,
@@ -1623,6 +1850,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4007,
@@ -1630,6 +1858,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4008,
@@ -1637,6 +1866,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4009,
@@ -1644,6 +1874,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4010,
@@ -1651,6 +1882,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4011,
@@ -1658,6 +1890,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4012,
@@ -1665,6 +1898,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4013,
@@ -1672,6 +1906,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4014,
@@ -1679,6 +1914,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4015,
@@ -1686,6 +1922,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4016,
@@ -1693,6 +1930,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4017,
@@ -1700,6 +1938,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4018,
@@ -1707,6 +1946,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4019,
@@ -1714,6 +1954,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4020,
@@ -1721,6 +1962,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4021,
@@ -1728,6 +1970,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4022,
@@ -1735,6 +1978,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4023,
@@ -1742,6 +1986,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4024,
@@ -1749,6 +1994,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4025,
@@ -1756,6 +2002,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4026,
@@ -1763,6 +2010,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4027,
@@ -1770,6 +2018,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4028,
@@ -1777,6 +2026,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4029,
@@ -1784,6 +2034,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4030,
@@ -1791,6 +2042,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4031,
@@ -1798,6 +2050,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4032,
@@ -1805,6 +2058,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4033,
@@ -1812,6 +2066,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4034,
@@ -1819,6 +2074,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4035,
@@ -1826,6 +2082,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4036,
@@ -1833,6 +2090,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4037,
@@ -1840,6 +2098,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4038,
@@ -1847,6 +2106,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4039,
@@ -1854,6 +2114,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4040,
@@ -1861,6 +2122,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4041,
@@ -1868,6 +2130,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4042,
@@ -1875,6 +2138,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4043,
@@ -1882,6 +2146,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4044,
@@ -1889,6 +2154,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4045,
@@ -1896,6 +2162,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4046,
@@ -1903,6 +2170,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4047,
@@ -1910,6 +2178,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4048,
@@ -1917,6 +2186,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4049,
@@ -1924,6 +2194,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4050,
@@ -1931,6 +2202,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4051,
@@ -1938,6 +2210,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4052,
@@ -1945,6 +2218,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4053,
@@ -1952,6 +2226,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4054,
@@ -1959,6 +2234,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4055,
@@ -1966,6 +2242,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4056,
@@ -1973,6 +2250,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4057,
@@ -1980,6 +2258,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4058,
@@ -1987,6 +2266,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4059,
@@ -1994,6 +2274,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4060,
@@ -2001,6 +2282,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4061,
@@ -2008,6 +2290,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4062,
@@ -2015,6 +2298,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4063,
@@ -2022,6 +2306,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4064,
@@ -2029,6 +2314,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4065,
@@ -2036,6 +2322,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4066,
@@ -2043,6 +2330,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4067,
@@ -2050,6 +2338,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4068,
@@ -2057,6 +2346,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4069,
@@ -2064,6 +2354,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4070,
@@ -2071,6 +2362,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4071,
@@ -2078,6 +2370,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4072,
@@ -2085,6 +2378,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4073,
@@ -2092,6 +2386,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4074,
@@ -2099,6 +2394,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4075,
@@ -2106,6 +2402,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4076,
@@ -2113,6 +2410,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4077,
@@ -2120,6 +2418,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4078,
@@ -2127,6 +2426,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4079,
@@ -2134,6 +2434,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4080,
@@ -2141,6 +2442,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4081,
@@ -2148,6 +2450,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4082,
@@ -2155,6 +2458,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4083,
@@ -2162,6 +2466,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4084,
@@ -2169,6 +2474,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4085,
@@ -2176,6 +2482,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4086,
@@ -2183,6 +2490,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4087,
@@ -2190,6 +2498,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 4088,
@@ -2197,6 +2506,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
         ],
         5 => [
@@ -2206,6 +2516,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5002,
@@ -2213,6 +2524,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5003,
@@ -2220,6 +2532,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5004,
@@ -2227,6 +2540,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5005,
@@ -2234,6 +2548,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5006,
@@ -2241,6 +2556,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5007,
@@ -2248,6 +2564,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5008,
@@ -2255,6 +2572,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5009,
@@ -2262,6 +2580,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5010,
@@ -2269,6 +2588,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5011,
@@ -2276,6 +2596,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5012,
@@ -2283,6 +2604,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5013,
@@ -2290,6 +2612,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5014,
@@ -2297,6 +2620,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5015,
@@ -2304,6 +2628,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5016,
@@ -2311,6 +2636,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5017,
@@ -2318,6 +2644,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5018,
@@ -2325,6 +2652,7 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
             [
                 'id' => 5019,
@@ -2332,10 +2660,11 @@ class LoadBreedDataCommand extends Command
                 'hairTypeId' => null,
                 'hairSize' => null,
                 'img' => null,
+                'petCategoryId' => 1,
             ],
         ],
     ];
-    protected array $dogSizesNames = [
+    protected array $petSizeNamesGroupedByPetSizeId = [
         1 => ['imageFolder' => 'very-small', 'headerTitle' => 'Muy pequeño'],
         2 => ['imageFolder' => 'small', 'headerTitle' => 'Pequeño'],
         3 => ['imageFolder' => 'medium', 'headerTitle' => 'Mediano'],
@@ -2343,29 +2672,20 @@ class LoadBreedDataCommand extends Command
         5 => ['imageFolder' => 'very-big', 'headerTitle' => 'Muy grande']
     ];
 
-    private Slugify $slugger;
-    private BreedManager $breedManager;
-    private DogSizeManager $dogSizeManager;
-    private AnimalTypeManager $hairTypeManager;
-
     public function __construct(
-        BreedManager $breedManager,
-        DogSizeManager $dogSizeManager,
-        Slugify $slugger,
-        AnimalTypeManager $hairTypeManager
+        private readonly BreedManager $breedManager,
+        private readonly PetSizeManager $petSizeManager,
+        private readonly Slugify $slugger,
+        private readonly HairTypeManager $hairTypeManager,
+        private readonly PetCategoryManager $petCategoryManager
     ) {
-        $this->slugger = $slugger;
-        $this->breedManager = $breedManager;
-        $this->dogSizeManager = $dogSizeManager;
-        $this->hairTypeManager = $hairTypeManager;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->addOption('dogSizeId', null, InputOption::VALUE_OPTIONAL, 'Dog size ID')
+            ->addOption('petSizeId', null, InputOption::VALUE_OPTIONAL, 'Pet size ID')
             ->setHelp('This command allows update breeds table')
         ;
     }
@@ -2374,11 +2694,11 @@ class LoadBreedDataCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $specifiedDogSizeId = (int)$input->getOption('dogSizeId');
-        $dogSizeBreedsIndexedByDogSizeId = $this->breedsIndexedByDogSizeId;
+        $specifiedPetSizeId = (int)$input->getOption('petSizeId');
+        $petSizeBreedsIndexedByPetSizeId = $this->breedsIndexedByPetSizeId;
 
-        if ($specifiedDogSizeId && !\array_key_exists($specifiedDogSizeId, $dogSizeBreedsIndexedByDogSizeId)) {
-            $io->error('dogSizeId not found!. Abort process');
+        if ($specifiedPetSizeId && !\array_key_exists($specifiedPetSizeId, $petSizeBreedsIndexedByPetSizeId)) {
+            $io->error('petSizeId not found!. Abort process');
 
             return Command::FAILURE;
         }
@@ -2386,11 +2706,11 @@ class LoadBreedDataCommand extends Command
         $output->writeln(\date(\DATE_W3C).' - Start process');
         $io->title('Updating Breed table');
 
-        if ($specifiedDogSizeId) {
-            $dogSizeBreedsIndexedByDogSizeId = [$specifiedDogSizeId => $dogSizeBreedsIndexedByDogSizeId[$specifiedDogSizeId]];
+        if ($specifiedPetSizeId) {
+            $petSizeBreedsIndexedByPetSizeId = [$specifiedPetSizeId => $petSizeBreedsIndexedByPetSizeId[$specifiedPetSizeId]];
         }
 
-        $breedResults = $this->handleBreeds($dogSizeBreedsIndexedByDogSizeId, $io);
+        $breedResults = $this->handleBreeds($petSizeBreedsIndexedByPetSizeId, $io);
         $this->renderResults($breedResults, $io);
 
         $output->writeln(\date(\DATE_W3C).' - End process');
@@ -2398,7 +2718,7 @@ class LoadBreedDataCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function handleBreeds(array $dogSizeBreedsIndexedByDogSizeId, SymfonyStyle $io): array
+    private function handleBreeds(array $petSizeBreedsIndexedByPetSizeId, SymfonyStyle $io): array
     {
         $breedRows = [];
         $totalResults = 0;
@@ -2407,18 +2727,18 @@ class LoadBreedDataCommand extends Command
         $totalErrorResults = 0;
         $totalSkipResults = 0;
 
-        foreach ($dogSizeBreedsIndexedByDogSizeId as $dogSizeId => $dogSizeBreeds) {
-            foreach ($dogSizeBreeds as $key => $dogSizeBreed) {
+        foreach ($petSizeBreedsIndexedByPetSizeId as $petSizeId => $petSizeBreeds) {
+            foreach ($petSizeBreeds as $key => $petSizeBreed) {
                 if (
-                    empty($dogSizeBreed)
+                    empty($petSizeBreed)
                     || (
-                        !\array_key_exists('id', $dogSizeBreed)
-                        || !\array_key_exists('name', $dogSizeBreed)
-                        || !\array_key_exists('hairTypeId', $dogSizeBreed)
-                        || !\array_key_exists('hairSize', $dogSizeBreed)
-                        || !\array_key_exists('img', $dogSizeBreed)
-                        || !$dogSizeBreed['id']
-                        || !$dogSizeBreed['name']
+                        !\array_key_exists('id', $petSizeBreed)
+                        || !\array_key_exists('name', $petSizeBreed)
+                        || !\array_key_exists('hairTypeId', $petSizeBreed)
+                        || !\array_key_exists('hairSize', $petSizeBreed)
+                        || !\array_key_exists('img', $petSizeBreed)
+                        || !$petSizeBreed['id']
+                        || !$petSizeBreed['name']
                     )
                 ) {
                     $totalSkipResults++;
@@ -2427,42 +2747,42 @@ class LoadBreedDataCommand extends Command
                     continue;
                 }
 
-                $breed = $this->breedManager->findOneById($dogSizeBreed['id']);
+                $breed = $this->breedManager->findOneById($petSizeBreed['id']);
 
                 if ($breed) {
                     try {
-                        $this->saveBreedData($breed, $dogSizeBreed, $dogSizeId, self::OPERATION_UPDATE);
+                        $this->saveBreedData($breed, $petSizeBreed, $petSizeId, self::OPERATION_UPDATE);
                     } catch (\Throwable $exception) {
                         $io->error($exception->getMessage());
                         $totalErrorResults++;
                         $totalResults++;
-                        $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_ERROR];
+                        $breedRows[] = [$totalResults, $petSizeBreed['id'], $petSizeBreed['name'], $this->petSizeNamesGroupedByPetSizeId[$petSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_ERROR];
 
                         continue;
                     }
 
                     $totalUpdateResults++;
                     $totalResults++;
-                    $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_OK];
+                    $breedRows[] = [$totalResults, $petSizeBreed['id'], $petSizeBreed['name'], $this->petSizeNamesGroupedByPetSizeId[$petSizeId]['headerTitle'], self::OPERATION_UPDATE, self::STATUS_OK];
 
                     continue;
                 }
 
                 try {
                     $breed = $this->breedManager->create();
-                    $this->saveBreedData($breed, $dogSizeBreed, $dogSizeId, self::OPERATION_INSERT);
+                    $this->saveBreedData($breed, $petSizeBreed, $petSizeId, self::OPERATION_INSERT);
                 } catch (\Throwable $exception) {
                     $io->error($exception->getMessage());
                     $totalErrorResults++;
                     $totalResults++;
-                    $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_ERROR];
+                    $breedRows[] = [$totalResults, $petSizeBreed['id'], $petSizeBreed['name'], $this->petSizeNamesGroupedByPetSizeId[$petSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_ERROR];
 
                     continue;
                 }
 
                 $totalAddResults++;
                 $totalResults++;
-                $breedRows[] = [$totalResults, $dogSizeBreed['id'], $dogSizeBreed['name'], $this->dogSizesNames[$dogSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_OK];
+                $breedRows[] = [$totalResults, $petSizeBreed['id'], $petSizeBreed['name'], $this->petSizeNamesGroupedByPetSizeId[$petSizeId]['headerTitle'], self::OPERATION_INSERT, self::STATUS_OK];
             }
         }
 
@@ -2478,41 +2798,49 @@ class LoadBreedDataCommand extends Command
 
     /**
      * @param Breed $breed
-     * @param array $dogSizeBreed
-     * @param int $dogSizeId
+     * @param array $petSizeBreed
+     * @param int $petSizeId
      * @return void
      */
-    private function saveBreedData(Breed $breed, array $dogSizeBreed, int $dogSizeId, string $operation): void
+    private function saveBreedData(Breed $breed, array $petSizeBreed, int $petSizeId, string $operation): void
     {
-        $breed->setId($dogSizeBreed['id']);
-        $breed->setName($dogSizeBreed['name']);
+        $breed->setId($petSizeBreed['id']);
+        $breed->setName($petSizeBreed['name']);
 
-        $dogSize = $this->dogSizeManager->findOneById($dogSizeId);
+        $petSize = $this->petSizeManager->findOneById($petSizeId);
 
-        if (!$dogSize) {
+        if (!$petSize) {
             return;
         }
 
-        $breed->setDogSize($dogSize);
+        $breed->setPetSize($petSize);
 
-        if (!$dogSizeBreed['hairTypeId']) {
+        $petCategory = $this->petCategoryManager->findOneById($petSizeBreed['petCategoryId']);
+
+        if (!$petCategory) {
+            return;
+        }
+
+        $breed->setPetCategory($petCategory);
+
+        if (!$petSizeBreed['hairTypeId']) {
             $breed->setHairType(null);
         }
 
-        if ($dogSizeBreed['hairTypeId']) {
-            $hairType = $this->hairTypeManager->findOneById($dogSizeBreed['hairTypeId']);
+        if ($petSizeBreed['hairTypeId']) {
+            $hairType = $this->hairTypeManager->findOneById($petSizeBreed['hairTypeId']);
 
             if ($hairType) {
                 $breed->setHairType($hairType);
             }
         }
 
-        $slug = $this->slugger->slugify($dogSizeBreed['name']);
+        $slug = $this->slugger->slugify($petSizeBreed['name']);
         $breed->setSlug($slug);
-        $image = $dogSizeBreed['img'];
+        $image = $petSizeBreed['img'];
 
-        if (!$dogSizeBreed['img']) {
-            $image = 'img/breeds/'.$this->dogSizesNames[$dogSizeId]['imageFolder'].'/'.$slug.'.jpeg';
+        if (!$petSizeBreed['img']) {
+            $image = 'img/breeds/'.$this->petSizeNamesGroupedByPetSizeId[$petSizeId]['imageFolder'].'/'.$slug.'.jpeg';
         }
 
         $breed->setImg($image);
@@ -2531,7 +2859,7 @@ class LoadBreedDataCommand extends Command
     private function renderResults(array $breedResults, SymfonyStyle $io): void
     {
         $io->table(
-            ['#', 'ID', 'Breed', 'DogSize', 'Operation', 'Status'],
+            ['#', 'ID', 'Breed', 'PetSize', 'Operation', 'Status'],
             $breedResults['breedRows']
         );
 
