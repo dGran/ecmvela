@@ -76,7 +76,7 @@
                                     {{ pet.id }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover">
+                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {{ pet.category.name ?? '-' }}
@@ -102,7 +102,7 @@
                                     {{ pet.getPetShortAge ?? '-' }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {% if pet.birthDate %}
+                                    {% if pet.birthDate is not null %}
                                         {{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}
                                     {% else %}
                                         -
