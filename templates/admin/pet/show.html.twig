@@ -15,18 +15,62 @@
         </div>
     </header>
 
-    <div class="my-8 flex items-start space-x-16">
-        <div class="flex-1 mt-4 flex flex-col space-y-3 text-sm">
-            <div class="flex items-start justify-between p-1.5 border-b space-x-4 hover:bg-slate-50">
+    <div class="my-8 flex flex-col md:flex-row items-start md:space-x-8">
+        <div class="flex-1 mt-4 w-full flex flex-col text-sm md:border-r md:pr-8">
+            <div class="mb-8 p-4 border bg-slate-50 rounded-md flex flex-col items-center md:justify-start md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+                <img src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen del cliente" class="h-48 w-48 rounded-full object-cover shadow-lg bg-white p-0.5">
+                <div class="flex flex-col items-center md:items-start space-y-4">
+                    <p class="text-2xl font-semibold">{{ pet.name }}</p>
+                    <div class="flex flex-col items-center md:items-start space-y-1.5">
+                        <p class="text-sm"><span class="font-medium mr-1">Dueñ@:</span>{{ pet.customer ? pet.customer.name : '-' }}</p>
+                        <p class="text-sm"><span class="font-medium mr-1">Raza:</span>{{ pet.breed ? pet.breed.name : '-' }}</p>
+                        <p class="text-sm"><span class="font-medium mr-1">Color:</span>{{ pet.color ?? '-' }}</p>
+                        <p class="text-sm"><span class="font-medium mr-1">Edad:</span>{{ pet.getPetFullAge ?? '-' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
                 <p class="flex-1 font-medium text-right md:text-left w-full">Id</p>
                 <p class="flex-1 text-left w-full">{{ pet.id }}</p>
             </div>
-            <div class="flex items-start justify-between p-1.5 border-b space-x-4 hover:bg-slate-50">
-                <p class="flex-1 font-medium text-right md:text-left w-full">Nombre del perro</p>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Categoría</p>
+                <p class="flex-1 text-left w-full">{{ pet.category.name }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Nombre</p>
                 <p class="flex-1 text-left w-full">{{ pet.name }}</p>
             </div>
-            <div class="flex items-start justify-between space-x-4">
-                <p class="flex-1 font-medium text-right p-1.5 md:text-left w-full">Observaciones</p>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Dueñ@</p>
+                <p class="flex-1 text-left w-full">{{ pet.customer.name ?? '-' }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Raza</p>
+                <p class="flex-1 text-left w-full">{{ pet.breed ? pet.breed.name : '-' }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Color</p>
+                <p class="flex-1 text-left w-full">{{ pet.color ?? '-' }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Fecha nacimiento</p>
+                <p class="flex-1 text-left w-full">{{ pet.birthDate|date('d/m/Y') }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Activo</p>
+                <p class="flex-1 text-left w-full"><i class="{% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i></p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Fecha alta</p>
+                <p class="flex-1 text-left w-full">{{ pet.dateAdd|date('d/m/Y, h:i') }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Fecha última modificación</p>
+                <p class="flex-1 text-left w-full">{{ pet.dateUpd|date('d/m/Y, h:i') }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Observaciones</p>
                 <p class="flex-1 text-left w-full">
                     {% if pet.notes %}
                         <textarea readonly class="w-full focus:outline-none" rows="3">{{ pet.notes }}</textarea>
@@ -53,7 +97,7 @@
                 <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}" class="w-28">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
                     <input type="hidden" name="pathIndex" value="{{ path_index }}">
-                    <button type="submit" data-name="{{ pet.name }}"
+                    <button type="submit" data-name="{{ pet.name }}" data-img="{{ asset(pet.getProfileImgPath()) }}"
                             class="delete-action-button | w-full text-left px-3 py-1.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow focus:outline-none focus:ring-0 active:bg-red-700 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
                         <i class="fa-solid fa-trash text-sm w-4 text-center"></i>
                         <span>Eliminar</span>
