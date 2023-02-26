@@ -36,7 +36,7 @@ class PetType extends AbstractType
                 'placeholder' => 'Selecciona el cliente (dueñ@)',
             ])
             ->add('category', EntityType::class, [
-                'label' => 'Categoría',
+                'label' => '*Categoría',
                 'class' => PetCategory::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
