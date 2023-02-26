@@ -43,6 +43,7 @@
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                                 {{ knp_pagination_sortable(pets, 'Id', 'id') }}
                             </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                                 {{ knp_pagination_sortable(pets, 'Nombre', 'name') }}
                             </th>
@@ -55,7 +56,12 @@
                                     {{ pet.id }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.name }}
+                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-8 w-8 rounded-full object-cover">
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                        {{ pet.name }}
+                                    </a>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <div class="flex items-center space-x-2.5">
