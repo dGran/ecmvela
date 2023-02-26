@@ -43,7 +43,6 @@ class PetType extends AbstractType
                     return $er->createQueryBuilder('category')->orderBy('category.name', 'ASC');
                 },
                 'placeholder' => 'Selecciona la categoría',
-                'data' => $this->petCategoryManager->findOneById(PetCategory::TYPE_DOG_ID),
             ])
             ->add('breed', EntityType::class, [
                 'class' => Breed::class,

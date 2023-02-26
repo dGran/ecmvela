@@ -6,6 +6,7 @@ namespace App\Controller\Admin\Pet;
 
 use App\Entity\Pet;
 use App\Form\PetType;
+use App\Helper\Slugify;
 use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ class Edit extends AbstractController
     protected const FROM_SHOW = 'show';
     protected const SHOW_URL = '/admin/pet/show';
 
-    public function __construct(private readonly PetManager $petManager)
+    public function __construct(private readonly PetManager $petManager, private readonly Slugify $slugger)
     {}
 
     public function __invoke(Request $request, Pet $pet): Response
@@ -32,16 +33,27 @@ class Edit extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('edit-'.$pet->getId(), $request->request->get('_token'))) {
             $pet = $form->getData();
-            $this->petManager->save($pet);
+            $uploadedFile = $form['imageFile']->getData();
 
-            $this->addFlash('success','Se han guardado los cambios correctamente');
+            if ($uploadedFile) {
+                $uploadedFile = $form['imageFile']->getData();
+                $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
+                $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $uploadedFile->move($destination, $filename);
 
-            if ($pathFrom === self::FROM_SHOW) {
-                return $this->render('admin/pet/show.html.twig', [
-                    'pet' => $pet,
-                    'path_index' => $pathIndex,
-                ]);
+                if ($pet->getProfileImg()) {
+                    $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+
+                    if (\file_exists($currentImg)) {
+                        unlink($currentImg);
+                    }
+                }
+
+                $pet->setProfileImg($filename);
             }
+
+            $this->petManager->save($pet);
+            $this->addFlash('success','Se han guardado los cambios correctamente');
 
             return $this->redirect($backPath);
         }
@@ -55,10 +67,10 @@ class Edit extends AbstractController
         ]);
     }
 
-    private function handleBackPath($pathIndex, $from, $petId): string
+    private function handleBackPath($pathIndex, $from, $customerId): string
     {
         if ($from === self::FROM_SHOW) {
-            return self::SHOW_URL.'/'.$petId;
+            return self::SHOW_URL.'/'.$customerId;
         }
 
         return $pathIndex;

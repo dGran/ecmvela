@@ -12,12 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 class Pet
 {
-    protected const PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dogs/';
-    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dogs/no-image.png';
-    protected const PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cats/';
-    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cats/no-image.png';
-    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbits/';
-    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbits/no-image.png';
+    protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/pets/dogs/';
+    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dog-no-image.png';
+
+    protected const PROFILE_TYPE_CAT_IMG_PATH = 'img/pets/cats/';
+    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cat-no-image.png';
+
+    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'img/pets/rabbits/';
+    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbit-no-image.png';
 
     #[ORM\Id]
     #[ORM\GeneratedValue('AUTO')]
@@ -35,6 +37,7 @@ class Pet
 
     #[ORM\ManyToOne(inversedBy: 'pets')]
     #[ORM\JoinColumn]
+    #[Assert\NotBlank]
     private ?PetCategory $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'pets')]
@@ -211,6 +214,10 @@ class Pet
 
     public function getProfileImgPath(): ?string
     {
+        if (!$this->getCategory()) {
+            return '';
+        }
+
         switch ($this->getCategory()->getId()) {
             case PetCategory::TYPE_DOG_ID:
                 if ($this->profileImg) {
@@ -235,7 +242,25 @@ class Pet
         }
     }
 
-    public function getAnimalYears(): ?string
+    public function getProfileImgDir(): ?string
+    {
+        if (!$this->getCategory()) {
+            return '';
+        }
+
+        switch ($this->getCategory()->getId()) {
+            case PetCategory::TYPE_DOG_ID:
+                return self::PROFILE_TYPE_DOG_IMG_PATH;
+            case PetCategory::TYPE_CAT_ID:
+                return self::PROFILE_TYPE_CAT_IMG_PATH;
+            case PetCategory::TYPE_RABBIT_ID:
+                return self::PROFILE_TYPE_RABBIT_IMG_PATH;
+            default:
+                return self::PROFILE_TYPE_DOG_IMG_PATH;
+        }
+    }
+
+    public function getPetYears(): ?string
     {
         if (!$this->active) {
             if ($this->birthDate !== null) {
