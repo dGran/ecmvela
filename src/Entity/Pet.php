@@ -12,12 +12,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 class Pet
 {
-    protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/';
-    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'img/animals/dogs/no-image.png';
-    protected const PROFILE_TYPE_CAT_IMG_PATH = 'img/cats/';
-    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'img/animals/cats/no-image.png';
-    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'img/rabbits/';
-    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'img/animals/rabbits/no-image.png';
+    protected const PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dogs/';
+    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dogs/no-image.png';
+    protected const PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cats/';
+    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cats/no-image.png';
+    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbits/';
+    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbits/no-image.png';
 
     #[ORM\Id]
     #[ORM\GeneratedValue('AUTO')]
@@ -211,11 +211,28 @@ class Pet
 
     public function getProfileImgPath(): ?string
     {
-        if ($this->profileImg) {
-            return self::PROFILE_TYPE_DOG_IMG_PATH.$this->profileImg;
-        }
+        switch ($this->getCategory()->getId()) {
+            case PetCategory::TYPE_DOG_ID:
+                if ($this->profileImg) {
+                    return self::PROFILE_TYPE_DOG_IMG_PATH.$this->profileImg;
+                }
 
-        return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
+                return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
+            case PetCategory::TYPE_CAT_ID:
+                if ($this->profileImg) {
+                    return self::PROFILE_TYPE_CAT_IMG_PATH.$this->profileImg;
+                }
+
+                return self::DEFAULT_PROFILE_TYPE_CAT_IMG_PATH;
+            case PetCategory::TYPE_RABBIT_ID:
+                if ($this->profileImg) {
+                    return self::PROFILE_TYPE_RABBIT_IMG_PATH.$this->profileImg;
+                }
+
+                return self::DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH;
+            default:
+                return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
+        }
     }
 
     public function getAnimalYears(): ?string
