@@ -22,6 +22,14 @@ class Delete extends AbstractController
         if ($this->isCsrfTokenValid('delete-'.$pet->getId(), $request->request->get('_token'))) {
             //        TODO: comprobar si las mascota tiene relaciones
 
+            if ($pet->getProfileImg()) {
+                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+
+                if (\file_exists($currentImg)) {
+                    unlink($currentImg);
+                }
+            }
+
             $this->petManager->delete($pet);
             $this->addFlash('success','La mascota se ha eliminado correctamente');
         }
