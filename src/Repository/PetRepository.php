@@ -26,7 +26,11 @@ class PetRepository extends ServiceEntityRepository
     public function findByIndexSearchFields(string $search): array
     {
         return $this->createQueryBuilder('pet')
+            ->leftJoin('pet.customer', 'customer')
+            ->leftJoin('pet.breed', 'breed')
             ->where('pet.name LIKE :search')
+            ->orWhere('customer.name LIKE :search')
+            ->orWhere('breed.name LIKE :search')
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('pet.id', 'DESC')
             ->getQuery()

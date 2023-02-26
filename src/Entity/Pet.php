@@ -260,7 +260,7 @@ class Pet
         }
     }
 
-    public function getPetYears(): ?string
+    public function getPetFullAge(): ?string
     {
         if (!$this->active) {
             if ($this->birthDate !== null) {
@@ -276,11 +276,63 @@ class Pet
             $currentDate = new \DateTime();
             $difference = $currentDate->diff($this->birthDate);
 
-            if ($difference->y) { $age .= $difference->format("%y años"); }
-            if ($difference->m) { $age .= $difference->format(", %m meses"); }
-            if ($difference->d) { $age .= $difference->format(" y %d días"); }
+            if ($difference->y) {
+                $age .= $difference->format("%y");
+                $age .= $difference->y === 1 ? ' año ' : ' años ';
+            }
+
+            if ($difference->m) {
+                $age .= $difference->format("%m");
+                $age .= $difference->m === 1 ? ' mes ' : ' meses ';
+            }
+
+            if ($difference->d) {
+                $age .= $difference->format("%d");
+                $age .= $difference->d === 1 ? ' día ' : ' días ';
+            }
         }
 
         return $age;
+    }
+
+    public function getPetShortAge(): ?string
+    {
+        if (!$this->active) {
+            if ($this->birthDate !== null) {
+                return date_format($this->birthDate, "d/m/Y");;
+            }
+
+            return null;
+        }
+
+        $age = null;
+
+        if ($this->birthDate !== null) {
+            $currentDate = new \DateTime();
+            $difference = $currentDate->diff($this->birthDate);
+
+            if ($difference->y) {
+                $age .= $difference->format("%y");
+                $age .= $difference->y === 1 ? ' año ' : ' años ';
+
+                return $age;
+            }
+
+            if ($difference->m) {
+                $age .= $difference->format("%m");
+                $age .= $difference->m === 1 ? ' mes ' : ' meses ';
+
+                return $age;
+            }
+
+            if ($difference->d) {
+                $age .= $difference->format("%d");
+                $age .= $difference->d === 1 ? ' día ' : ' días ';
+
+                return $age;
+            }
+        }
+
+        return '-';
     }
 }

@@ -43,9 +43,29 @@
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                                 {{ knp_pagination_sortable(pets, 'Id', 'id') }}
                             </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Foto</th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Categoría', 'category') }}
+                            </th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                                 {{ knp_pagination_sortable(pets, 'Nombre', 'name') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Dueño', 'customer') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Raza', 'breed') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Edad</th>
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Cumpleaños', 'birthDate') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Activo', 'active') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(pets, 'Fecha alta', 'dateAdd') }}
                             </th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
                         </thead>
@@ -56,12 +76,39 @@
                                     {{ pet.id }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-8 w-8 rounded-full object-cover">
+                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover">
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ pet.category.name ?? '-' }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
                                         {{ pet.name }}
                                     </a>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {% if pet.customer %}
+                                        <a href="{{ path('admin_customer_show', {'id': pet.customer.id}) }}" target="_blank" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                            {{ pet.customer.name }}
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ pet.breed.name ?? '-' }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ pet.getPetShortAge ?? '-' }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <i class="w-4 text-center {% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ pet.dateAdd|date('d/m/Y') }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <div class="flex items-center space-x-2.5">
@@ -81,7 +128,7 @@
                                         <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
                                             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                            <button type="submit" data-name="{{ pet.name }}"
+                                            <button type="submit" data-name="{{ pet.name }}" data-img="{{ asset(pet.getProfileImgPath()) }}"
                                                     class="delete-action-button | text-rose-500 hover:text-rose-600 focus:text-rose-600 active:text-rose-700 focus:outline-none transition duration-150 ease-in-out">
                                                 <i class="fa-solid fa-trash text-base"></i>
                                             </button>

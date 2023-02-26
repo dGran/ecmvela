@@ -26,9 +26,11 @@ class CustomerRepository extends ServiceEntityRepository
     public function findByIndexSearchFields(string $search): array
     {
         return $this->createQueryBuilder('customer')
+            ->leftJoin('customer.pets', 'pets')
             ->where('customer.name LIKE :search')
             ->orWhere('customer.phone LIKE :search')
             ->orWhere('customer.location LIKE :search')
+            ->orWhere('pets.name LIKE :search')
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('customer.id', 'DESC')
             ->getQuery()
