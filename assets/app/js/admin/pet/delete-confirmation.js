@@ -12,7 +12,7 @@ $('.delete-action-button').click(function(e) {
 function deleteConfirmation(form, name, img)
 {
     Swal.fire({
-        title: 'Eliminar cliente',
+        title: 'Eliminar mascota',
         html: '<div class="border-b">' +
             '<p>¿Seguro que quieres eliminar el cliente?</p>' +
             '<div class="py-3 flex flex-col items-center">' +

@@ -68,8 +68,12 @@
                                     {{ customer.name }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {% for index, animal in customer.getPets() %}
-                                        <span>{% if index > 0 %}, {% endif %}{{ animal.name }}</span>
+                                    {% for index, pet in customer.getPets() %}
+                                        <span>{% if index > 0 %}, {% endif %}
+                                            <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" target="_blank" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                                {{ pet.name }}
+                                            </a>
+                                        </span>
                                     {% endfor %}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
