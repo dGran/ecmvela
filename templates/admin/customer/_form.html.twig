@@ -3,12 +3,20 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
     {{ form_row(form.name) }}
     {{ form_row(form.identification) }}
-    {{ form_row(form.phone) }}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-8">
+        {{ form_row(form.phone) }}
+        {{ form_row(form.phone2) }}
+        {{ form_row(form.phone3) }}
+    </div>
     {{ form_row(form.email) }}
-    {{ form_row(form.address) }}
-    {{ form_row(form.postalCode) }}
-    {{ form_row(form.location) }}
-    {{ form_row(form.province) }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.address) }}
+        {{ form_row(form.postalCode) }}
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.location) }}
+        {{ form_row(form.province) }}
+    </div>
     {{ form_row(form.notes) }}
 </div>
 

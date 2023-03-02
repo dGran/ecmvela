@@ -15,9 +15,9 @@ class PetCategory
     public const TYPE_CAT_ID = 2;
     public const TYPE_RABBIT_ID = 3;
 
-    protected const TYPE_DOG_NAME = 'Perro';
-    protected const TYPE_CAT_NAME = 'Gato';
-    protected const TYPE_RABBIT_NAME = 'Conejo';
+    public const TYPE_DOG_NAME = 'Perro';
+    public const TYPE_CAT_NAME = 'Gato';
+    public const TYPE_RABBIT_NAME = 'Conejo';
 
     #[ORM\Id]
     #[ORM\GeneratedValue('NONE')]

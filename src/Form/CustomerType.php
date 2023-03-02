@@ -20,10 +20,23 @@ class CustomerType extends AbstractType
                 'label' => '*Nombre',
                 'attr' => [
                     'placeholder' => 'Nombre',
+                    'autofocus' => true,
                 ],
             ])
             ->add('phone', TelType::class, [
                 'label' => 'Teléfono',
+                'attr' => [
+                    'placeholder' => '(+34) xxx xxx xxx',
+                ],
+            ])
+            ->add('phone2', TelType::class, [
+                'label' => 'Teléfono 2',
+                'attr' => [
+                    'placeholder' => '(+34) xxx xxx xxx',
+                ],
+            ])
+            ->add('phone3', TelType::class, [
+                'label' => 'Teléfono 3',
                 'attr' => [
                     'placeholder' => '(+34) xxx xxx xxx',
                 ],

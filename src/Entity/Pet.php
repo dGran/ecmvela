@@ -59,6 +59,9 @@ class Pet
     #[Assert\Length(max: 255)]
     private ?string $notes = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateRecommendedNextService = null;
+
     #[ORM\Column]
     private bool $active = true;
 
@@ -169,6 +172,18 @@ class Pet
     public function setNotes(?string $notes): void
     {
         $this->notes = $notes;
+    }
+
+    public function getDateRecommendedNextService(): ?\DateTimeInterface
+    {
+        return $this->dateRecommendedNextService;
+    }
+
+    public function setDateRecommendedNextService(?\DateTimeInterface $dateRecommendedNextService): Pet
+    {
+        $this->dateRecommendedNextService = $dateRecommendedNextService;
+
+        return $this;
     }
 
     public function isActive(): bool

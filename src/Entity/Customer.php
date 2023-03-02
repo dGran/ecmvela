@@ -23,9 +23,17 @@ class Customer
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
-    #[Assert\Length(max: 15)]
+    #[ORM\Column(length: 25, nullable: true)]
+    #[Assert\Length(max: 25)]
     private ?string $phone = null;
+
+    #[ORM\Column(length: 25, nullable: true)]
+    #[Assert\Length(max: 25)]
+    private ?string $phone2 = null;
+
+    #[ORM\Column(length: 25, nullable: true)]
+    #[Assert\Length(max: 25)]
+    private ?string $phone3 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(max: 255)]
@@ -95,6 +103,30 @@ class Customer
     public function setPhone(?string $phone): Customer
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPhone2(): ?string
+    {
+        return $this->phone2;
+    }
+
+    public function setPhone2(?string $phone2): Customer
+    {
+        $this->phone2 = $phone2;
+
+        return $this;
+    }
+
+    public function getPhone3(): ?string
+    {
+        return $this->phone3;
+    }
+
+    public function setPhone3(?string $phone3): Customer
+    {
+        $this->phone3 = $phone3;
 
         return $this;
     }
