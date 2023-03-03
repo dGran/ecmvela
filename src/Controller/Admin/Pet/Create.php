@@ -9,6 +9,7 @@ use App\Form\PetType;
 use App\Helper\Slugify;
 use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,19 +30,10 @@ class Create extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('create', $request->request->get('_token'))) {
             $pet = $form->getData();
-            $uploadedFile = $form['imageFile']->getData();
-
-            if ($uploadedFile) {
-                $uploadedFile = $form['imageFile']->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
-                $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-                $uploadedFile->move($destination,$filename);
-
-                $pet->setProfileImg($filename);
-            }
-
+            $this->handleUploadedFile($form, $pet);
             $this->petManager->save($pet);
-            $this->addFlash('success','Se han guardado los cambios correctamente');
+            
+            $this->addFlash('success','Se ha creado la nueva mascota correctamente');
 
             return $this->redirect($pathIndex);
         }
@@ -51,5 +43,18 @@ class Create extends AbstractController
             'form' => $form,
             'path_index' => $pathIndex,
         ]);
+    }
+
+    private function handleUploadedFile(FormInterface $form, Pet $pet): void
+    {
+        $uploadedFile = $form['imageFile']->getData();
+
+        if ($uploadedFile) {
+            $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
+            $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move($destination, $filename);
+
+            $pet->setProfileImg($filename);
+        }
     }
 }

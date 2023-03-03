@@ -30,7 +30,7 @@ class Create extends AbstractController
             $customer = $form->getData();
             $this->customerManager->save($customer);
 
-            $this->addFlash('success','Se han guardado los cambios correctamente');
+            $this->addFlash('success','Se ha creado el nuevo cliente correctamente');
 
             return $this->redirect($pathIndex);
         }

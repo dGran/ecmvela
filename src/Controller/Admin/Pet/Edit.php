@@ -9,6 +9,7 @@ use App\Form\PetType;
 use App\Helper\Slugify;
 use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,27 +34,17 @@ class Edit extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('edit-'.$pet->getId(), $request->request->get('_token'))) {
             $pet = $form->getData();
-            $uploadedFile = $form['imageFile']->getData();
+            $this->handleUploadedFile($form, $pet);
+            $this->petManager->update($pet);
 
-            if ($uploadedFile) {
-                $uploadedFile = $form['imageFile']->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
-                $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-                $uploadedFile->move($destination, $filename);
+            $this->addFlash('success','Se ha actualizado la mascota correctamente');
 
-                if ($pet->getProfileImg()) {
-                    $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-                    if (\file_exists($currentImg)) {
-                        unlink($currentImg);
-                    }
-                }
-
-                $pet->setProfileImg($filename);
+            if ($pathFrom === self::FROM_SHOW) {
+                return $this->render('admin/pet/show.html.twig', [
+                    'pet' => $pet,
+                    'path_index' => $pathIndex,
+                ]);
             }
-
-            $this->petManager->save($pet);
-            $this->addFlash('success','Se han guardado los cambios correctamente');
 
             return $this->redirect($backPath);
         }
@@ -67,10 +58,31 @@ class Edit extends AbstractController
         ]);
     }
 
-    private function handleBackPath($pathIndex, $from, $customerId): string
+    private function handleUploadedFile(FormInterface $form, Pet $pet): void
+    {
+        $uploadedFile = $form['imageFile']->getData();
+
+        if ($uploadedFile) {
+            $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
+            $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move($destination, $filename);
+
+            if ($pet->getProfileImg()) {
+                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+
+                if (\file_exists($currentImg)) {
+                    unlink($currentImg);
+                }
+            }
+
+            $pet->setProfileImg($filename);
+        }
+    }
+
+    private function handleBackPath(string $pathIndex, string $from, $petId): string
     {
         if ($from === self::FROM_SHOW) {
-            return self::SHOW_URL.'/'.$customerId;
+            return self::SHOW_URL.'/'.$petId;
         }
 
         return $pathIndex;

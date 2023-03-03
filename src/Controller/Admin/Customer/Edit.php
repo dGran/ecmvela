@@ -8,6 +8,7 @@ use App\Entity\Customer;
 use App\Form\CustomerType;
 use App\Manager\CustomerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,9 +33,9 @@ class Edit extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('edit-'.$customer->getId(), $request->request->get('_token'))) {
             $customer = $form->getData();
-            $this->customerManager->save($customer);
+            $this->customerManager->update($customer);
 
-            $this->addFlash('success','Se han guardado los cambios correctamente');
+            $this->addFlash('success','Se ha actualizado el cliente correctamente');
 
             if ($pathFrom === self::FROM_SHOW) {
                 return $this->render('admin/customer/show.html.twig', [
