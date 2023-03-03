@@ -26,6 +26,9 @@ class PetType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $defaultCategory = $this->petCategoryManager->findOneById(PetCategory::TYPE_DOG_ID);
+        $categoryData = $options['data']->getCategory() ?? $defaultCategory;
+
         $builder
             ->add('customer', EntityType::class, [
                 'label' => 'Cliente (dueñ@)',
@@ -44,6 +47,7 @@ class PetType extends AbstractType
                     return $er->createQueryBuilder('category')->orderBy('category.name', 'ASC');
                 },
                 'placeholder' => 'Selecciona la categoría',
+                'data' => $categoryData,
             ])
             ->add('breed', EntityType::class, [
                 'class' => Breed::class,
