@@ -30,12 +30,6 @@ class PetSize
     #[ORM\Column(nullable: true)]
     private ?float $maxWeight = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateAdd = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateUpd = null;
-
     #[ORM\OneToMany(mappedBy: 'dogSize', targetEntity: Breed::class)]
     private Collection $breeds;
 
@@ -102,42 +96,6 @@ class PetSize
     public function setMaxWeight(?float $maxWeight): PetSize
     {
         $this->maxWeight = $maxWeight;
-
-        return $this;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): PetSize
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getDateAdd(): \DateTimeInterface
-    {
-        return $this->dateAdd;
-    }
-
-    public function setDateAdd(\DateTimeInterface $dateAdd): PetSize
-    {
-        $this->dateAdd = $dateAdd;
-
-        return $this;
-    }
-
-    public function getDateUpd(): ?\DateTimeInterface
-    {
-        return $this->dateUpd;
-    }
-
-    public function setDateUpd(\DateTimeInterface $dateUpd): PetSize
-    {
-        $this->dateUpd = $dateUpd;
 
         return $this;
     }
