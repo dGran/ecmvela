@@ -25,39 +25,39 @@ class PetSizeManager
     }
 
     /**
-     * @param $dogSize
+     * @param $petSize
      * @return mixed
      */
-    public function save($dogSize): PetSize
+    public function save($petSize): PetSize
     {
-        $this->entityManager->persist($dogSize);
+        $this->entityManager->persist($petSize);
         $this->entityManager->flush();
 
-        return $dogSize;
+        return $petSize;
     }
 
-    public function delete(PetSize $dogSize): PetSize
+    public function delete(PetSize $petSize): PetSize
     {
-        $this->entityManager->remove($dogSize);
+        $this->entityManager->remove($petSize);
         $this->entityManager->flush();
 
-        return $dogSize;
+        return $petSize;
     }
 
     public function findOneById($id): ?PetSize
     {
-        /** @var PetSize $dogSize */
-        $dogSize = $this->repository->find($id);
+        /** @var PetSize $petSize */
+        $petSize = $this->repository->find($id);
 
-        return $dogSize;
+        return $petSize;
     }
 
     public function findOneBy(array $criteria, array $orderBy = null): PetSize
     {
-        /** @var PetSize $dogSize */
-        $dogSize = $this->repository->findOneBy($criteria, $orderBy);
+        /** @var PetSize $petSize */
+        $petSize = $this->repository->findOneBy($criteria, $orderBy);
 
-        return $dogSize;
+        return $petSize;
     }
 
     public function findAll(): array

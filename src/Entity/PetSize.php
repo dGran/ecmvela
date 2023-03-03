@@ -30,7 +30,7 @@ class PetSize
     #[ORM\Column(nullable: true)]
     private ?float $maxWeight = null;
 
-    #[ORM\OneToMany(mappedBy: 'dogSize', targetEntity: Breed::class)]
+    #[ORM\OneToMany(mappedBy: 'petSize', targetEntity: Breed::class)]
     private Collection $breeds;
 
     public function __construct()

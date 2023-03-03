@@ -14,8 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:fixture:dog-size:update',
-    description: 'Update DogSize data',
+    name: 'app:fixture:pet-size:update',
+    description: 'Update PetSize data',
 )]
 class LoadPetSizeDataCommand extends Command
 {
@@ -58,12 +58,12 @@ class LoadPetSizeDataCommand extends Command
     ];
 
     private Slugify $slugger;
-    private PetSizeManager $dogSizeManager;
+    private PetSizeManager $petSizeManager;
 
-    public function __construct(PetSizeManager $dogSizeManager, Slugify $slugger)
+    public function __construct(PetSizeManager $petSizeManager, Slugify $slugger)
     {
         $this->slugger = $slugger;
-        $this->dogSizeManager = $dogSizeManager;
+        $this->petSizeManager = $petSizeManager;
 
         parent::__construct();
     }
@@ -78,38 +78,38 @@ class LoadPetSizeDataCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $dogSizes = $this->petSizes;
+        $petSizes = $this->petSizes;
 
         $output->writeln(\date(\DATE_W3C).' - Start process');
-        $io->title('Updating DogSize table');
+        $io->title('Updating PetSize table');
 
-        $dogSizesResults = $this->handleDogSizes($dogSizes, $io);
-        $this->renderResults($dogSizesResults, $io);
+        $petSizesResults = $this->handlePetSizes($petSizes, $io);
+        $this->renderResults($petSizesResults, $io);
 
         $output->writeln(\date(\DATE_W3C).' - End process');
 
         return Command::SUCCESS;
     }
 
-    private function handleDogSizes(array $dogSizesData, SymfonyStyle $io): array
+    private function handlePetSizes(array $petSizesData, SymfonyStyle $io): array
     {
-        $dogSizeRows = [];
+        $petSizeRows = [];
         $totalResults = 0;
         $totalAddResults = 0;
         $totalUpdateResults = 0;
         $totalErrorResults = 0;
         $totalSkipResults = 0;
 
-        foreach ($dogSizesData as $dogSizeData) {
+        foreach ($petSizesData as $petSizeData) {
             if (
-                empty($dogSizeData)
+                empty($petSizeData)
                 || (
-                    !\array_key_exists('id', $dogSizeData)
-                    || !\array_key_exists('name', $dogSizeData)
-                    || !\array_key_exists('minWeight', $dogSizeData)
-                    || !\array_key_exists('maxWeight', $dogSizeData)
-                    || !$dogSizeData['id']
-                    || !$dogSizeData['name']
+                    !\array_key_exists('id', $petSizeData)
+                    || !\array_key_exists('name', $petSizeData)
+                    || !\array_key_exists('minWeight', $petSizeData)
+                    || !\array_key_exists('maxWeight', $petSizeData)
+                    || !$petSizeData['id']
+                    || !$petSizeData['name']
                 )
             ) {
                 $totalSkipResults++;
@@ -118,46 +118,46 @@ class LoadPetSizeDataCommand extends Command
                 continue;
             }
 
-            $dogSize = $this->dogSizeManager->findOneById($dogSizeData['id']);
+            $petSize = $this->petSizeManager->findOneById($petSizeData['id']);
 
-            if ($dogSize) {
+            if ($petSize) {
                 try {
-                    $this->saveDogSizeData($dogSize, $dogSizeData, self::OPERATION_UPDATE);
+                    $this->savePetSizeData($petSize, $petSizeData, self::OPERATION_UPDATE);
                 } catch (\Throwable $exception) {
                     $io->error($exception->getMessage());
                     $totalErrorResults++;
                     $totalResults++;
-                    $dogSizeRows[] = [$totalResults, $dogSizeData['id'], $dogSizeData['name'], self::OPERATION_UPDATE, self::STATUS_ERROR];
+                    $petSizeRows[] = [$totalResults, $petSizeData['id'], $petSizeData['name'], self::OPERATION_UPDATE, self::STATUS_ERROR];
 
                     continue;
                 }
 
                 $totalUpdateResults++;
                 $totalResults++;
-                $dogSizeRows[] = [$totalResults, $dogSizeData['id'], $dogSizeData['name'], self::OPERATION_UPDATE, self::STATUS_OK];
+                $petSizeRows[] = [$totalResults, $petSizeData['id'], $petSizeData['name'], self::OPERATION_UPDATE, self::STATUS_OK];
 
                 continue;
             }
 
             try {
-                $dogSize = $this->dogSizeManager->create();
-                $this->saveDogSizeData($dogSize, $dogSizeData, self::OPERATION_INSERT);
+                $petSize = $this->petSizeManager->create();
+                $this->savePetSizeData($petSize, $petSizeData, self::OPERATION_INSERT);
             } catch (\Throwable $exception) {
                 $io->error($exception->getMessage());
                 $totalErrorResults++;
                 $totalResults++;
-                $dogSizeRows[] = [$totalResults, $dogSizeData['id'], $dogSizeData['name'], self::OPERATION_INSERT, self::STATUS_ERROR];
+                $petSizeRows[] = [$totalResults, $petSizeData['id'], $petSizeData['name'], self::OPERATION_INSERT, self::STATUS_ERROR];
 
                 continue;
             }
 
             $totalAddResults++;
             $totalResults++;
-            $dogSizeRows[] = [$totalResults, $dogSizeData['id'], $dogSizeData['name'], self::OPERATION_INSERT, self::STATUS_OK];
+            $petSizeRows[] = [$totalResults, $petSizeData['id'], $petSizeData['name'], self::OPERATION_INSERT, self::STATUS_OK];
         }
 
         return [
-            'dogSizeRows' => $dogSizeRows,
+            'petSizeRows' => $petSizeRows,
             'totalResults' => $totalResults,
             'totalAddResults' => $totalAddResults,
             'totalUpdateResults' => $totalUpdateResults,
@@ -167,46 +167,46 @@ class LoadPetSizeDataCommand extends Command
     }
 
     /**
-     * @param PetSize $dogSize
-     * @param array $dogSizeData
+     * @param PetSize $petSize
+     * @param array $petSizeData
      * @return void
      */
-    private function saveDogSizeData(PetSize $dogSize, array $dogSizeData, string $operation): void
+    private function savePetSizeData(PetSize $petSize, array $petSizeData, string $operation): void
     {
-        $dogSize->setId($dogSizeData['id']);
-        $dogSize->setName($dogSizeData['name']);
-        $dogSize->setMinWeight($dogSizeData['minWeight']);
-        $dogSize->setMaxWeight($dogSizeData['maxWeight']);
-        $slug = $this->slugger->slugify($dogSizeData['name']);
-        $dogSize->setSlug($slug);
+        $petSize->setId($petSizeData['id']);
+        $petSize->setName($petSizeData['name']);
+        $petSize->setMinWeight($petSizeData['minWeight']);
+        $petSize->setMaxWeight($petSizeData['maxWeight']);
+        $slug = $this->slugger->slugify($petSizeData['name']);
+        $petSize->setSlug($slug);
 
         if ($operation === self::OPERATION_INSERT) {
-            $dogSize->setDateAdd(new \DateTime());
+            $petSize->setDateAdd(new \DateTime());
         }
 
         if ($operation === self::OPERATION_UPDATE) {
-            $dogSize->setDateUpd(new \DateTime());
+            $petSize->setDateUpd(new \DateTime());
         }
 
-        $this->dogSizeManager->save($dogSize);
+        $this->petSizeManager->save($petSize);
     }
 
-    private function renderResults(array $dogSizeResults, SymfonyStyle $io): void
+    private function renderResults(array $petSizeResults, SymfonyStyle $io): void
     {
         $io->table(
             ['#', 'ID', 'Name', 'Operation', 'Status'],
-            $dogSizeResults['dogSizeRows']
+            $petSizeResults['petSizeRows']
         );
 
         $io->table(
-            ['DogSizes', 'Updated', 'Added', 'Errors', 'Skip'],
+            ['PetSizes', 'Updated', 'Added', 'Errors', 'Skip'],
             [
                 [
-                    $dogSizeResults['totalResults'],
-                    $dogSizeResults['totalUpdateResults'],
-                    $dogSizeResults['totalAddResults'],
-                    $dogSizeResults['totalErrorResults'],
-                    $dogSizeResults['totalSkipResults'],
+                    $petSizeResults['totalResults'],
+                    $petSizeResults['totalUpdateResults'],
+                    $petSizeResults['totalAddResults'],
+                    $petSizeResults['totalErrorResults'],
+                    $petSizeResults['totalSkipResults'],
                 ],
             ]
         );
