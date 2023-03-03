@@ -24,12 +24,18 @@ class CustomerManager
         return new Customer();
     }
 
-    /**
-     * @param $customer
-     * @return mixed
-     */
-    public function save($customer): Customer
+    public function save(Customer $customer): Customer
     {
+        $this->entityManager->persist($customer);
+        $this->entityManager->flush();
+
+        return $customer;
+    }
+
+    public function update(Customer $customer): Customer
+    {
+        $customer->setDateUpd(new \DateTime());
+
         $this->entityManager->persist($customer);
         $this->entityManager->flush();
 

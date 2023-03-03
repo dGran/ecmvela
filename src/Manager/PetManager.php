@@ -24,12 +24,18 @@ class PetManager
         return new Pet();
     }
 
-    /**
-     * @param $pet
-     * @return mixed
-     */
-    public function save($pet): Pet
+    public function save(Pet $pet): Pet
     {
+        $this->entityManager->persist($pet);
+        $this->entityManager->flush();
+
+        return $pet;
+    }
+
+    public function update(Pet $pet): Pet
+    {
+        $pet->setDateUpd(new \DateTime());
+
         $this->entityManager->persist($pet);
         $this->entityManager->flush();
 

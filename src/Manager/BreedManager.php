@@ -24,12 +24,18 @@ class BreedManager
         return new Breed();
     }
 
-    /**
-     * @param $breed
-     * @return mixed
-     */
     public function save($breed): Breed
     {
+        $this->entityManager->persist($breed);
+        $this->entityManager->flush();
+
+        return $breed;
+    }
+
+    public function update(Breed $breed): Breed
+    {
+        $breed->setDateUpd(new \DateTime());
+
         $this->entityManager->persist($breed);
         $this->entityManager->flush();
 
