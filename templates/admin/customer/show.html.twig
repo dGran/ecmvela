@@ -22,7 +22,7 @@
                 <p class="flex-1 text-left w-full">{{ customer.id }}</p>
             </div>
             <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
-                <p class="flex-1 font-medium text-right md:text-left w-full">Nombre del perro</p>
+                <p class="flex-1 font-medium text-right md:text-left w-full">Nombre</p>
                 <p class="flex-1 text-left w-full">{{ customer.name }}</p>
             </div>
             <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
@@ -48,6 +48,14 @@
             <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
                 <p class="flex-1 font-medium text-right md:text-left w-full">Teléfono</p>
                 <p class="flex-1 text-left w-full">{{ customer.phone ?? '-' }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Teléfono 2</p>
+                <p class="flex-1 text-left w-full">{{ customer.phone2 ?? '-' }}</p>
+            </div>
+            <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
+                <p class="flex-1 font-medium text-right md:text-left w-full">Teléfono 3</p>
+                <p class="flex-1 text-left w-full">{{ customer.phone3 ?? '-' }}</p>
             </div>
             <div class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-slate-50">
                 <p class="flex-1 font-medium text-right md:text-left w-full">E-Mail</p>

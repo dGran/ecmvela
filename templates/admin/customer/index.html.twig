@@ -65,7 +65,12 @@
                                     {{ customer.id }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ customer.name }}
+                                    <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
+                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                        <button type="submit" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                            {{ customer.name }}
+                                        </button>
+                                    </form>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {% for index, pet in customer.getPets() %}

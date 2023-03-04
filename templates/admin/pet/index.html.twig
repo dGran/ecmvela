@@ -79,9 +79,12 @@
                                     <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
-                                        {{ pet.name }}
-                                    </a>
+                                    <form method="post" action="{{ path('admin_pet_show', {'id': pet.id}) }}">
+                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                        <button type="submit" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                            {{ pet.name }}
+                                        </button>
+                                    </form>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {% if pet.customer %}
