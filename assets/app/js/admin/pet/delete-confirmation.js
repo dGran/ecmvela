@@ -14,7 +14,7 @@ function deleteConfirmation(form, name, img)
     Swal.fire({
         title: 'Eliminar mascota',
         html: '<div class="border-b">' +
-            '<p>¿Seguro que quieres eliminar el cliente?</p>' +
+            '<p>¿Seguro que quieres eliminar la mascota?</p>' +
             '<div class="py-3 flex flex-col items-center">' +
             '<img src="'+img+'" alt="name" class="h-28 w-28 rounded-full object-cover shadow-lg border p-1">' +
             '<p class="pt-1.5 font-medium text-lg">'+name+'</p>' +
