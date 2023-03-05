@@ -58,6 +58,9 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?float $salePrice = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $img = null;
+
     #[ORM\Column]
     private ?bool $active = null;
 
@@ -196,6 +199,18 @@ class Product
     public function setSalePrice(?float $salePrice): Product
     {
         $this->salePrice = $salePrice;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): Product
+    {
+        $this->img = $img;
 
         return $this;
     }
