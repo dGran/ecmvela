@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\PaymentMethodRepository;
@@ -29,7 +31,7 @@ class PaymentMethod
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): PaymentMethod
     {
         $this->name = $name;
 

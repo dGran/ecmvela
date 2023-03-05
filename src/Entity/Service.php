@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
@@ -36,7 +38,7 @@ class Service
         return $this->type;
     }
 
-    public function setType(?ServiceType $type): self
+    public function setType(?ServiceType $type): Service
     {
         $this->type = $type;
 
@@ -48,7 +50,7 @@ class Service
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): Service
     {
         $this->name = $name;
 
@@ -60,7 +62,7 @@ class Service
         return $this->price;
     }
 
-    public function setPrice(?float $price): self
+    public function setPrice(?float $price): Service
     {
         $this->price = $price;
 

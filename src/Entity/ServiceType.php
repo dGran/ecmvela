@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ServiceTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServiceTypeRepository::class)]
 class ServiceType
@@ -26,7 +29,17 @@ class ServiceType
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 60)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: Service::class)]
+    private Collection $services;
+
+    public function __construct()
+    {
+        $this->services = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -48,5 +61,35 @@ class ServiceType
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): ServiceType
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): ServiceType
+    {
+        if ($this->services->removeElement($service)) {
+            // set the owning side to null (unless already changed)
+            if ($service->getType() === $this) {
+                $service->setType(null);
+            }
+        }
+
+        return $this;
     }
 }
