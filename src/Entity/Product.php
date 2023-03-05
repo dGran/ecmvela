@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,6 +66,14 @@ class Product
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductStock::class)]
+    private Collection $productStocks;
+
+    public function __construct()
+    {
+        $this->productStocks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -222,6 +232,36 @@ class Product
     public function setDateUpd(?\DateTimeInterface $date_upd): Product
     {
         $this->date_upd = $date_upd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductStock>
+     */
+    public function getProductStocks(): Collection
+    {
+        return $this->productStocks;
+    }
+
+    public function addProductStock(ProductStock $productStock): self
+    {
+        if (!$this->productStocks->contains($productStock)) {
+            $this->productStocks->add($productStock);
+            $productStock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductStock(ProductStock $productStock): self
+    {
+        if ($this->productStocks->removeElement($productStock)) {
+            // set the owning side to null (unless already changed)
+            if ($productStock->getProduct() === $this) {
+                $productStock->setProduct(null);
+            }
+        }
 
         return $this;
     }
