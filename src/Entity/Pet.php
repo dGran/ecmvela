@@ -82,11 +82,15 @@ class Pet
     #[ORM\Column(nullable: true)]
     private ?float $maitenancePlanPrice = null;
 
+    #[ORM\OneToMany(mappedBy: 'pet', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
+
     public function __construct()
     {
         $this->dateAdd = new \DateTime();
         $this->active = true;
         $this->sales = new ArrayCollection();
+        $this->saleLines = new ArrayCollection();
     }
 
     public function getId(): int
@@ -413,6 +417,36 @@ class Pet
     public function setMaitenancePlanPrice(?float $maitenancePlanPrice): self
     {
         $this->maitenancePlanPrice = $maitenancePlanPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSaleLines(): Collection
+    {
+        return $this->saleLines;
+    }
+
+    public function addSaleLine(SaleLine $saleLine): self
+    {
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setPet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleLine(SaleLine $saleLine): self
+    {
+        if ($this->saleLines->removeElement($saleLine)) {
+            // set the owning side to null (unless already changed)
+            if ($saleLine->getPet() === $this) {
+                $saleLine->setPet(null);
+            }
+        }
 
         return $this;
     }

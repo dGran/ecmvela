@@ -263,7 +263,7 @@ class Product
         return $this->productStocks;
     }
 
-    public function addProductStock(ProductStock $productStock): self
+    public function addProductStock(ProductStock $productStock): Product
     {
         if (!$this->productStocks->contains($productStock)) {
             $this->productStocks->add($productStock);
@@ -273,7 +273,7 @@ class Product
         return $this;
     }
 
-    public function removeProductStock(ProductStock $productStock): self
+    public function removeProductStock(ProductStock $productStock): Product
     {
         if ($this->productStocks->removeElement($productStock)) {
             // set the owning side to null (unless already changed)
@@ -293,7 +293,7 @@ class Product
         return $this->saleLines;
     }
 
-    public function addSaleLine(SaleLine $saleLine): self
+    public function addSaleLine(SaleLine $saleLine): Product
     {
         if (!$this->saleLines->contains($saleLine)) {
             $this->saleLines->add($saleLine);
@@ -303,7 +303,7 @@ class Product
         return $this;
     }
 
-    public function removeSaleLine(SaleLine $saleLine): self
+    public function removeSaleLine(SaleLine $saleLine): Product
     {
         if ($this->saleLines->removeElement($saleLine)) {
             // set the owning side to null (unless already changed)

@@ -87,7 +87,7 @@ class Service
         return $this->saleLines;
     }
 
-    public function addSaleLine(SaleLine $saleLine): self
+    public function addSaleLine(SaleLine $saleLine): Service
     {
         if (!$this->saleLines->contains($saleLine)) {
             $this->saleLines->add($saleLine);
@@ -97,7 +97,7 @@ class Service
         return $this;
     }
 
-    public function removeSaleLine(SaleLine $saleLine): self
+    public function removeSaleLine(SaleLine $saleLine): Service
     {
         if ($this->saleLines->removeElement($saleLine)) {
             // set the owning side to null (unless already changed)

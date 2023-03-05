@@ -65,7 +65,7 @@ class Sale
         return $this->customer;
     }
 
-    public function setCustomer(?Customer $customer): self
+    public function setCustomer(?Customer $customer): Sale
     {
         $this->customer = $customer;
 
@@ -77,7 +77,7 @@ class Sale
         return $this->pet;
     }
 
-    public function setPet(?Pet $pet): self
+    public function setPet(?Pet $pet): Sale
     {
         $this->pet = $pet;
 
@@ -89,7 +89,7 @@ class Sale
         return $this->discount;
     }
 
-    public function setDiscount(?float $discount): self
+    public function setDiscount(?float $discount): Sale
     {
         $this->discount = $discount;
 
@@ -101,7 +101,7 @@ class Sale
         return $this->notes;
     }
 
-    public function setNotes(?string $notes): self
+    public function setNotes(?string $notes): Sale
     {
         $this->notes = $notes;
 
@@ -113,7 +113,7 @@ class Sale
         return $this->manitenancePlan;
     }
 
-    public function setManitenancePlan(bool $manitenancePlan): self
+    public function setManitenancePlan(bool $manitenancePlan): Sale
     {
         $this->manitenancePlan = $manitenancePlan;
 
@@ -125,7 +125,7 @@ class Sale
         return $this->dateNextBooking;
     }
 
-    public function setDateNextBooking(?\DateTimeInterface $dateNextBooking): self
+    public function setDateNextBooking(?\DateTimeInterface $dateNextBooking): Sale
     {
         $this->dateNextBooking = $dateNextBooking;
 
@@ -137,7 +137,7 @@ class Sale
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): self
+    public function setDateAdd(\DateTimeInterface $dateAdd): Sale
     {
         $this->dateAdd = $dateAdd;
 
@@ -149,7 +149,7 @@ class Sale
         return $this->dateUpd;
     }
 
-    public function setDateUpd(?\DateTimeInterface $dateUpd): self
+    public function setDateUpd(?\DateTimeInterface $dateUpd): Sale
     {
         $this->dateUpd = $dateUpd;
 
@@ -164,7 +164,7 @@ class Sale
         return $this->saleLines;
     }
 
-    public function addSaleLine(SaleLine $saleLine): self
+    public function addSaleLine(SaleLine $saleLine): Sale
     {
         if (!$this->saleLines->contains($saleLine)) {
             $this->saleLines->add($saleLine);
@@ -174,7 +174,7 @@ class Sale
         return $this;
     }
 
-    public function removeSaleLine(SaleLine $saleLine): self
+    public function removeSaleLine(SaleLine $saleLine): Sale
     {
         if ($this->saleLines->removeElement($saleLine)) {
             // set the owning side to null (unless already changed)

@@ -42,7 +42,7 @@ class SalePayment
         return $this->sale;
     }
 
-    public function setSale(?Sale $sale): self
+    public function setSale(?Sale $sale): SalePayment
     {
         $this->sale = $sale;
 
@@ -54,7 +54,7 @@ class SalePayment
         return $this->paymentMethod;
     }
 
-    public function setPaymentMethod(?PaymentMethod $paymentMethod): self
+    public function setPaymentMethod(?PaymentMethod $paymentMethod): SalePayment
     {
         $this->paymentMethod = $paymentMethod;
 
@@ -66,7 +66,7 @@ class SalePayment
         return $this->amount;
     }
 
-    public function setAmount(float $amount): self
+    public function setAmount(float $amount): SalePayment
     {
         $this->amount = $amount;
 
@@ -78,7 +78,7 @@ class SalePayment
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): self
+    public function setDateAdd(\DateTimeInterface $dateAdd): SalePayment
     {
         $this->dateAdd = $dateAdd;
 

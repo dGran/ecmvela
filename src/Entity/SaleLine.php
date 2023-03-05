@@ -63,7 +63,7 @@ class SaleLine
         return $this->sale;
     }
 
-    public function setSale(?Sale $sale): self
+    public function setSale(?Sale $sale): SaleLine
     {
         $this->sale = $sale;
 
@@ -75,7 +75,7 @@ class SaleLine
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(?string $title): SaleLine
     {
         $this->title = $title;
 
@@ -87,7 +87,7 @@ class SaleLine
         return $this->product;
     }
 
-    public function setProduct(?Product $product): self
+    public function setProduct(?Product $product): SaleLine
     {
         $this->product = $product;
 
@@ -99,7 +99,7 @@ class SaleLine
         return $this->service;
     }
 
-    public function setService(?Service $service): self
+    public function setService(?Service $service): SaleLine
     {
         $this->service = $service;
 
@@ -111,7 +111,7 @@ class SaleLine
         return $this->taxType;
     }
 
-    public function setTaxType(?TaxType $taxType): self
+    public function setTaxType(?TaxType $taxType): SaleLine
     {
         $this->taxType = $taxType;
 
@@ -123,7 +123,7 @@ class SaleLine
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(int $quantity): SaleLine
     {
         $this->quantity = $quantity;
 
@@ -135,7 +135,7 @@ class SaleLine
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(float $price): SaleLine
     {
         $this->price = $price;
 
@@ -147,7 +147,7 @@ class SaleLine
         return $this->discount;
     }
 
-    public function setDiscount(float $discount): self
+    public function setDiscount(float $discount): SaleLine
     {
         $this->discount = $discount;
 
@@ -159,7 +159,7 @@ class SaleLine
         return $this->dateAdd;
     }
 
-    public function setDateAdd(\DateTimeInterface $dateAdd): self
+    public function setDateAdd(\DateTimeInterface $dateAdd): SaleLine
     {
         $this->dateAdd = $dateAdd;
 
@@ -171,7 +171,7 @@ class SaleLine
         return $this->dateUpd;
     }
 
-    public function setDateUpd(?\DateTimeInterface $dateUpd): self
+    public function setDateUpd(?\DateTimeInterface $dateUpd): SaleLine
     {
         $this->dateUpd = $dateUpd;
 
