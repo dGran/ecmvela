@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -71,10 +73,20 @@ class Pet
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
+    #[ORM\OneToMany(mappedBy: 'pet', targetEntity: Sale::class)]
+    private Collection $sales;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $weeksRecommendedPeriodicity = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $maitenancePlanPrice = null;
+
     public function __construct()
     {
         $this->dateAdd = new \DateTime();
         $this->active = true;
+        $this->sales = new ArrayCollection();
     }
 
     public function getId(): int
@@ -349,5 +361,59 @@ class Pet
         }
 
         return '-';
+    }
+
+    /**
+     * @return Collection<int, Sale>
+     */
+    public function getSales(): Collection
+    {
+        return $this->sales;
+    }
+
+    public function addSale(Sale $sale): self
+    {
+        if (!$this->sales->contains($sale)) {
+            $this->sales->add($sale);
+            $sale->setPet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSale(Sale $sale): self
+    {
+        if ($this->sales->removeElement($sale)) {
+            // set the owning side to null (unless already changed)
+            if ($sale->getPet() === $this) {
+                $sale->setPet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getWeeksRecommendedPeriodicity(): ?int
+    {
+        return $this->weeksRecommendedPeriodicity;
+    }
+
+    public function setWeeksRecommendedPeriodicity(?int $weeksRecommendedPeriodicity): self
+    {
+        $this->weeksRecommendedPeriodicity = $weeksRecommendedPeriodicity;
+
+        return $this;
+    }
+
+    public function getMaitenancePlanPrice(): ?float
+    {
+        return $this->maitenancePlanPrice;
+    }
+
+    public function setMaitenancePlanPrice(?float $maitenancePlanPrice): self
+    {
+        $this->maitenancePlanPrice = $maitenancePlanPrice;
+
+        return $this;
     }
 }
