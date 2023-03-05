@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,6 +29,14 @@ class Service
 
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
+
+    #[ORM\OneToMany(mappedBy: 'service', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
+
+    public function __construct()
+    {
+        $this->saleLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,6 +75,36 @@ class Service
     public function setPrice(?float $price): Service
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSaleLines(): Collection
+    {
+        return $this->saleLines;
+    }
+
+    public function addSaleLine(SaleLine $saleLine): self
+    {
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleLine(SaleLine $saleLine): self
+    {
+        if ($this->saleLines->removeElement($saleLine)) {
+            // set the owning side to null (unless already changed)
+            if ($saleLine->getService() === $this) {
+                $saleLine->setService(null);
+            }
+        }
 
         return $this;
     }

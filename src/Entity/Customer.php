@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -73,9 +74,13 @@ class Customer
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Pet::class)]
     private Collection $pets;
 
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sale::class)]
+    private Collection $sales;
+
     public function __construct()
     {
         $this->dateAdd = new \DateTime();
+        $this->sales = new ArrayCollection();
     }
 
     public function getId(): int
@@ -254,5 +259,35 @@ class Customer
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Sale>
+     */
+    public function getSales(): Collection
+    {
+        return $this->sales;
+    }
+
+    public function addSale(Sale $sale): self
+    {
+        if (!$this->sales->contains($sale)) {
+            $this->sales->add($sale);
+            $sale->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSale(Sale $sale): self
+    {
+        if ($this->sales->removeElement($sale)) {
+            // set the owning side to null (unless already changed)
+            if ($sale->getCustomer() === $this) {
+                $sale->setCustomer(null);
+            }
+        }
+
+        return $this;
     }
 }

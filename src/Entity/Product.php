@@ -73,9 +73,13 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductStock::class)]
     private Collection $productStocks;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
+
     public function __construct()
     {
         $this->productStocks = new ArrayCollection();
+        $this->saleLines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -275,6 +279,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($productStock->getProduct() === $this) {
                 $productStock->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSaleLines(): Collection
+    {
+        return $this->saleLines;
+    }
+
+    public function addSaleLine(SaleLine $saleLine): self
+    {
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleLine(SaleLine $saleLine): self
+    {
+        if ($this->saleLines->removeElement($saleLine)) {
+            // set the owning side to null (unless already changed)
+            if ($saleLine->getProduct() === $this) {
+                $saleLine->setProduct(null);
             }
         }
 

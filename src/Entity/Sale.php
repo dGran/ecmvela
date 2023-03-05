@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\SaleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,9 +46,13 @@ class Sale
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
 
+    #[ORM\OneToMany(mappedBy: 'sale', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
+
     public function __construct()
     {
         $this->salePayments = new ArrayCollection();
+        $this->saleLines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +152,36 @@ class Sale
     public function setDateUpd(?\DateTimeInterface $dateUpd): self
     {
         $this->dateUpd = $dateUpd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSaleLines(): Collection
+    {
+        return $this->saleLines;
+    }
+
+    public function addSaleLine(SaleLine $saleLine): self
+    {
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setSale($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleLine(SaleLine $saleLine): self
+    {
+        if ($this->saleLines->removeElement($saleLine)) {
+            // set the owning side to null (unless already changed)
+            if ($saleLine->getSale() === $this) {
+                $saleLine->setSale(null);
+            }
+        }
 
         return $this;
     }

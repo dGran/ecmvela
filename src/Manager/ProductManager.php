@@ -75,9 +75,4 @@ class ProductManager
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
-
-    public function findByIndexSearchFields(string $name): array
-    {
-        return $this->repository->findByIndexSearchFields($name);
-    }
 }
