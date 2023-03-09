@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('/assets/app/scss/icomoon/icomoon.eot?5kja8b');
+    src:  url('/assets/app/scss/icomoon/icomoon.eot?5kja8b#iefix') format('embedded-opentype'),
+    url('/assets/app/scss/icomoon/icomoon.ttf?5kja8b') format('truetype'),
+    url('/assets/app/scss/icomoon/icomoon.woff?5kja8b') format('woff'),
+    url('/assets/app/scss/icomoon/icomoon.svg?5kja8b#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-martavela:before {
+    content: "\e900";
+}
+.icon-estilismocanino:before {
+    content: "\e901";
+}
+.icon-logo:before {
+    content: "\e902";
+}

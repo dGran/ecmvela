@@ -2,5 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'icomoon/icomoon.css';
-@import 'fonts';
+@import 'styles/fonts';
+@import 'styles/scrollbar';
+@import 'styles/icomoon/icomoon.css';

@@ -27,9 +27,13 @@ class TaxType
     #[ORM\OneToMany(mappedBy: 'tax', targetEntity: Product::class)]
     private Collection $products;
 
+    #[ORM\OneToMany(mappedBy: 'taxType', targetEntity: SaleLine::class)]
+    private Collection $saleLines;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->saleLines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +89,36 @@ class TaxType
             // set the owning side to null (unless already changed)
             if ($product->getTax() === $this) {
                 $product->setTax(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSaleLines(): Collection
+    {
+        return $this->saleLines;
+    }
+
+    public function addSaleLine(SaleLine $saleLine): TaxType
+    {
+        if (!$this->saleLines->contains($saleLine)) {
+            $this->saleLines->add($saleLine);
+            $saleLine->setTaxType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleLine(SaleLine $saleLine): TaxType
+    {
+        if ($this->saleLines->removeElement($saleLine)) {
+            // set the owning side to null (unless already changed)
+            if ($saleLine->getTaxType() === $this) {
+                $saleLine->setTaxType(null);
             }
         }
 

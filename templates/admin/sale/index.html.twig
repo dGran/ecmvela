@@ -1,0 +1,151 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}TPV | {% endblock %}
+
+{% block main %}
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">TPV</h1>
+            <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Gestión de ventas / servicios.</p>
+        </div>
+    </header>
+
+    <div class="flex items-center justify-between space-x-4">
+        <form method="post" action="{{ path('admin_sale_create') }}">
+            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+            <button type="submit" class="flex-initial px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+                Nuevo
+            </button>
+        </form>
+        <form action="{{ path('admin_sale') }}" class="flex-1">
+            <div class="input-group relative flex flex-wrap items-stretch w-full">
+                <input type="search" name="search"
+                       class="form-control relative flex-auto min-w-0 block w-full px-2.5 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none"
+                       placeholder="Buscar..." aria-label="Search" aria-describedby="btn-search" value="{{ search }}"
+                       autofocus autocomplete="off">
+            </div>
+        </form>
+    </div>
+
+    <div class="overflow-x-auto">
+        <div class="py-2 inline-block min-w-full">
+            <div class="overflow-x-auto">
+                <table class="min-w-full mt-6 border-l border-r bg-white text-sm">
+                    {% if sales is empty %}
+                        <tr class="border-b border-t">
+                            <td colspan="99" class="py-6 px-3 text-center">
+                                No se han encontrado TPV's
+                            </td>
+                        </tr>
+                    {% else %}
+                        <thead class="border-t border-b h-10 px-3">
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(sales, 'Id', 'id') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(sales, 'Fecha', 'dateAdd') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(sales, 'Mascota', 'pet') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(sales, 'Cliente', 'customer') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                {{ knp_pagination_sortable(sales, 'Mantenimiento', 'maintenance_plan') }}
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                Total
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                Estado
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                Descuentos
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                                IVA
+                            </th>
+                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
+                        </thead>
+                        <tbody class="bg-white">
+                        {% for sale in sales %}
+                            <tr class="border-b hover:bg-neutral-50">
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ sale.id }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ sale.dateAdd|date('d/m/Y H:i') }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ sale.pet ? sale.pet : '-' }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    {{ sale.customer ? sale.customer : '-' }}
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <i class="w-4 text-center {% if sale.maintenancePlan %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <span>{{ sale.getTotals.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <span class="text-xs uppercase p-1 rounded bg-emerald-400 text-white">
+                                        {{ sale.getState }}
+                                    </span>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <span>{{ sale.getTotals.totalDiscountLines|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <span>{{ sale.getTotals.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                </td>
+                                <td class="py-1.5 px-3 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2.5">
+                                        <form method="post" action="{{ path('admin_sale_show', {'id': sale.id}) }}">
+                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                            <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                                <i class="fa-solid fa-eye text-base"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" action="{{ path('admin_sale_edit', {'id': sale.id}) }}">
+                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                            <input type="hidden" name="pathFrom" value="index">
+                                            <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                                <i class="fa-solid fa-pen-to-square text-base"></i>
+                                            </button>
+                                        </form>
+                                        <a href="" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-print"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('admin_sale_delete', {'id': sale.id}) }}">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ sale.id) }}">
+                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                            <button type="submit"
+                                                    class="delete-action-button | text-rose-500 hover:text-rose-600 focus:text-rose-600 active:text-rose-700 focus:outline-none transition duration-150 ease-in-out">
+                                                <i class="fa-solid fa-trash text-base"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="py-3 flex flex-col">
+        {{ knp_pagination_render(sales) }}
+        {% if sales.pageCount > 1 %}
+            <div class="pt-3 flex flex-col items-end space-y-0.5 text-slate-400 italic text-xs md:text-sm">
+                <span>{{ sales.currentPageNumber * sales.itemNumberPerPage - sales.itemNumberPerPage + 1 }} / {% if sales.currentPageNumber != sales.pageCount %}{{ sales.currentPageNumber * sales.itemNumberPerPage }}{% else %}{{ sales.getTotalItemCount }}{% endif %} de {{ sales.getTotalItemCount }} registros</span>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('js/admin/sale/delete-confirmation.js') }}"></script>
+{% endblock %}

@@ -1,3 +1,5 @@
 import './app/scss/admin-app.scss';
 
-// import './bootstrap';
+import './bootstrap';
+
+import 'flowbite';

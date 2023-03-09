@@ -1,0 +1,21 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Mascota: crear | {% endblock %}
+
+{% block main %}
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            <div class="flex items-center">
+                <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Administración</p>
+                <p class="mb-2 md:mb-4 px-1.5 text-xs md:text-sm font-semibold">/</p>
+                <a href="{{ path('admin_pet') }}" class="mb-2 md:mb-4 text-xs md:text-sm font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none">Mascotas</a>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Crear mascota</h1>
+        </div>
+    </header>
+
+    <div class="max-w-[85rem] mx-auto rounded my-8">
+        {% include 'admin/pet/_form.html.twig' with {'mode': 'create'}  %}
+    </div>
+{% endblock %}

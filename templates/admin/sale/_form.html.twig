@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+    {{ form_row(form.customer) }}
+    {{ form_row(form.pet) }}
+</div>
+{{ form_row(form.notes) }}
+
+<div class="mt-8 md:mt-12 flex flex-row-reverse items-center justify-end">
+    <button type="submit" class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+        {{ button_label|default('Guardar mascota') }}
+    </button>
+
+    <input type="hidden" name="pathIndex" value="{{ path_index }}">
+    {% if mode == 'edit' %}
+        <input type="hidden" name="pathFrom" value="{{ path_from }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('edit-' ~ pet.id) }}">
+    {% else %}
+        <input type="hidden" name="_token" value="{{ csrf_token('create') }}">
+    {% endif %}
+{{ form_end(form) }}
+
+    {% if mode == 'edit' %}
+        {% if path_index == back_path %}
+            <a href="{{ back_path }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-sky-700 focus:text-sky-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                Cancelar
+            </a>
+        {% else %}
+            <form method="post" action="{{ path('admin_pet_show', {'id': pet.id}) }}">
+                <input type="hidden" name="pathIndex" value="{{ path_index }}">
+                <button type="submit" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-sky-700 focus:text-sky-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                    Cancelar
+                </button>
+            </form>
+        {% endif %}
+    {% else %}
+        <a href="{{ path_index }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-sky-700 focus:text-sky-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+            Cancelar
+        </a>
+    {% endif %}
+</div>

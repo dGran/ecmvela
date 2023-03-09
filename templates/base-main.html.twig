@@ -18,14 +18,12 @@
         <title>{% block title %}{% endblock %}Estilismo canino Marta Vela</title>
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
-            <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
@@ -46,6 +44,5 @@
         </div>
 
 {#        {% include "layout/main/cookies.html.twig" %}#}
-
     </body>
 </html>

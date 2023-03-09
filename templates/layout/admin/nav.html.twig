@@ -1,12 +1,20 @@
 <ul>
     <li>
-        <a href="{{ path('admin_dashboard') }}" class="flex items-center space-x-1.5 mb-8 lg:mb-3 font-semibold text-neutral-900 hover:text-sky-500 focus:text-sky-500 focus:outline-none {% if app.request.get('_route') == 'admin_dashboard' %}text-sky-500 pointer-events-none{% endif %}">
+        <a href="{{ path('admin_dashboard') }}" class="flex items-center space-x-2 mb-8 lg:mb-3 font-semibold text-neutral-900 hover:text-sky-500 focus:text-sky-500 focus:outline-none {% if app.request.get('_route') == 'admin_dashboard' %}text-sky-500 pointer-events-none{% endif %}">
             <i class="fa-solid fa-gauge-simple text-base"></i>
             <span>Dashboard</span>
         </a>
+        <a href="{{ path('admin_sale') }}" class="flex items-center space-x-2 mb-8 lg:mb-3 font-semibold text-neutral-900 hover:text-sky-500 focus:text-sky-500 focus:outline-none {% if app.request.get('_route') == 'admin_sale' %}text-sky-500 pointer-events-none{% endif %}">
+            <i class="fa-solid fa-cash-register text-base"></i>
+            <span>TPV</span>
+        </a>
+        <a href="{{ path('admin_dashboard') }}" class="flex items-center space-x-2 mb-8 lg:mb-3 font-semibold text-neutral-900 hover:text-sky-500 focus:text-sky-500 focus:outline-none {% if app.request.get('_route') == 'admin_dashboard' %}text-sky-500 pointer-events-none{% endif %}">
+            <i class="fa-solid fa-calendar text-base"></i>
+            <span>Reservas</span>
+        </a>
     </li>
     <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Administración</h5>
+        <h5 class="mb-3 font-semibold text-neutral-900">Mantenieminto</h5>
         <ul class="space-y-2 border-l border-neutral-100">
             {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas'}) }}
             {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes'}) }}

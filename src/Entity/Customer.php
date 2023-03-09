@@ -269,7 +269,7 @@ class Customer
         return $this->sales;
     }
 
-    public function addSale(Sale $sale): self
+    public function addSale(Sale $sale): Customer
     {
         if (!$this->sales->contains($sale)) {
             $this->sales->add($sale);
@@ -279,7 +279,7 @@ class Customer
         return $this;
     }
 
-    public function removeSale(Sale $sale): self
+    public function removeSale(Sale $sale): Customer
     {
         if ($this->sales->removeElement($sale)) {
             // set the owning side to null (unless already changed)

@@ -28,14 +28,11 @@ class Sale
     #[ORM\ManyToOne(inversedBy: 'sales')]
     private ?Pet $pet = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $discount = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
     #[ORM\Column]
-    private ?bool $manitenancePlan = null;
+    private ?bool $maintenancePlan = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateNextBooking = null;
@@ -49,10 +46,14 @@ class Sale
     #[ORM\OneToMany(mappedBy: 'sale', targetEntity: SaleLine::class)]
     private Collection $saleLines;
 
+    #[ORM\OneToMany(mappedBy: 'sale', targetEntity: SalePayment::class)]
+    private Collection $salePayments;
+
     public function __construct()
     {
         $this->salePayments = new ArrayCollection();
         $this->saleLines = new ArrayCollection();
+        $this->maintenancePlan = false;
     }
 
     public function getId(): ?int
@@ -84,18 +85,6 @@ class Sale
         return $this;
     }
 
-    public function getDiscount(): ?float
-    {
-        return $this->discount;
-    }
-
-    public function setDiscount(?float $discount): Sale
-    {
-        $this->discount = $discount;
-
-        return $this;
-    }
-
     public function getNotes(): ?string
     {
         return $this->notes;
@@ -108,14 +97,14 @@ class Sale
         return $this;
     }
 
-    public function isManitenancePlan(): ?bool
+    public function isMaintenancePlan(): ?bool
     {
-        return $this->manitenancePlan;
+        return $this->maintenancePlan;
     }
 
-    public function setManitenancePlan(bool $manitenancePlan): Sale
+    public function setMaintenancePlan(bool $maintenancePlan): Sale
     {
-        $this->manitenancePlan = $manitenancePlan;
+        $this->maintenancePlan = $maintenancePlan;
 
         return $this;
     }
@@ -184,5 +173,93 @@ class Sale
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, SaleLine>
+     */
+    public function getSalePayments(): Collection
+    {
+        return $this->salePayments;
+    }
+
+    public function addSalePayment(SalePayment $salePayment): Sale
+    {
+        if (!$this->salePayments->contains($salePayment)) {
+            $this->salePayments->add($salePayment);
+            $salePayment->setSale($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalePayment(SalePayment $salePayment): Sale
+    {
+        if ($this->salePayments->removeElement($salePayment)) {
+            // set the owning side to null (unless already changed)
+            if ($salePayment->getSale() === $this) {
+                $salePayment->setSale(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, float>
+     */
+    public function getTotals(): array
+    {
+        $total = 0.0;
+        $totalTaxes = 0.0;
+        $totalWithoutTaxes = 0.0;
+        $totalDiscounts = 0.0;
+
+        foreach ($this->saleLines as $saleLine) {
+            $discountMultiplier = (100 - $saleLine->getDiscount()) / 100;
+            $finalPrice = $saleLine->getPrice() * $discountMultiplier;
+            $priceWithoutTaxes = $finalPrice / (1 + ($saleLine->getTaxType()->getRate() / 100));
+            $quantity = $saleLine->getQuantity();
+
+            $totalLineWithoutDiscount = $quantity * $saleLine->getPrice();
+            $totalLine = $quantity * $finalPrice;
+            $totalLineWithoutTaxes = $quantity * $priceWithoutTaxes;
+            $totalLineDiscount = $totalLineWithoutDiscount - $totalLine;
+
+            $totalWithoutTaxes += $totalLineWithoutTaxes;
+            $total += $totalLine;
+            $totalTaxes += $totalLine - $totalLineWithoutTaxes;
+            $totalDiscounts += $totalLineDiscount;
+        }
+
+        return [
+            'totalWithoutTaxes' => $totalWithoutTaxes,
+            'totalTaxes' => $totalTaxes,
+            'total' => $total,
+            'totalDiscountLines' => $totalDiscounts,
+        ];
+    }
+
+    public function getState()
+    {
+        if (empty($this->salePayments)) {
+            return self::STATE_PENDING_PAYMENT;
+        }
+
+        $totalAmount = $this->getTotals()['total'];
+        $totalPaid = 0.0;
+
+        foreach ($this->salePayments as $payment) {
+            $totalPaid += $payment->getAmount();
+        }
+
+        switch ($totalPaid) {
+            case 0:
+                return self::STATE_PENDING_PAYMENT;
+            case $totalPaid < $totalAmount:
+                return self::STATE_PARTIAL_PAYMENT;
+            case $totalAmount:
+                return self::STATE_PAID;
+        }
     }
 }
