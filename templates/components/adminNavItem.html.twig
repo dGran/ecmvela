@@ -1,14 +1,13 @@
 <li class="border-l-0.5 border-slate-100 flex items-center justify-between">
-    <a class="border-l px-4 -ml-px border-transparent text-slate-600 focus:outline-none
+    <a class="border-l px-4 -ml-px border-transparent focus:outline-none
     {% if app.request.get('_route') == path or path in app.request.get('_route') %}
-        border-current focus:border-current text-sky-500 font-bold hover:text-sky-600 focus:text-sky-600{% if app.request.get('_route') == path %}hover:text-sky-500 focus:text-sky-500 pointer-events-none{% endif %}
+        border-current focus:border-current text-sky-500 font-bold hover:text-sky-600 focus:text-sky-600{% if app.request.get('_route') == path %}hover:text-sky-600 focus:text-sky-600 pointer-events-none{% endif %}
     {% else %}
-        hover:border-slate-400 focus:border-slate-400 hover:text-slate-900 focus:text-slate-900
+        text-slate-600 hover:text-sky-500 focus:text-sky-500 hover:border-slate-400 focus:border-slate-400
     {% endif %}"
        href="{{ path(path) }}">
-
         {% if path in app.request.get('_route') and path != app.request.get('_route')%}
-            <span class="mr-1.5">/</span>
+            <span class="mr-1.5"><i class="fa-solid fa-left-long"></i></span>
         {% endif %}
 
         {{ message|trans }}

@@ -11,6 +11,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TaxTypeRepository::class)]
 class TaxType
 {
+    public const TAXT_TYPE_SUPEREDUCED_ID = 1;
+    public const TAXT_TYPE_REDUCED_ID = 2;
+    public const TAXT_TYPE_GENERAL_ID = 3;
+    public const TAXT_TYPE_EXEMPT_ID = 4;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

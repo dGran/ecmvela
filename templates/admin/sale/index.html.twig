@@ -90,7 +90,7 @@
                                     <span>{{ sale.getTotals.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <span class="text-xs uppercase p-1 rounded bg-emerald-400 text-white">
+                                    <span class="text-[10px] uppercase p-1 rounded bg-{% if sale.getState == constant('App\\Entity\\Sale::STATE_PAID') %}emerald{% elseif sale.getState == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}yellow{% else %}red{% endif %}-400 text-white">
                                         {{ sale.getState }}
                                     </span>
                                 </td>
@@ -115,6 +115,12 @@
                                                 <i class="fa-solid fa-pen-to-square text-base"></i>
                                             </button>
                                         </form>
+                                        <a href="" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-list"></i>
+                                        </a>
+                                        <a href="" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-euro-sign"></i>
+                                        </a>
                                         <a href="" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
                                             <i class="fa-solid fa-print"></i>
                                         </a>
@@ -147,5 +153,5 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{{ asset('js/admin/sale/delete-confirmation.js') }}"></script>
+{#    <script src="{{ asset('js/admin/sale/delete-confirmation.js') }}"></script>#}
 {% endblock %}

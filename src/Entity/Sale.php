@@ -28,6 +28,18 @@ class Sale
     #[ORM\ManyToOne(inversedBy: 'sales')]
     private ?Pet $pet = null;
 
+    #[ORM\Column(scale: 2)]
+    private ?float $totalDiscounts = null;
+
+    #[ORM\Column(scale: 2)]
+    private ?float $totalWithoutTaxes = null;
+
+    #[ORM\Column(scale: 2)]
+    private ?float $totalTaxes = null;
+
+    #[ORM\Column(scale: 2)]
+    private ?float $total = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
@@ -81,6 +93,54 @@ class Sale
     public function setPet(?Pet $pet): Sale
     {
         $this->pet = $pet;
+
+        return $this;
+    }
+
+    public function getTotalDiscounts(): ?float
+    {
+        return $this->totalDiscounts;
+    }
+
+    public function setTotalDiscounts(?float $totalDiscounts): Sale
+    {
+        $this->totalDiscounts = $totalDiscounts;
+
+        return $this;
+    }
+
+    public function getTotalWithoutTaxes(): ?float
+    {
+        return $this->totalWithoutTaxes;
+    }
+
+    public function setTotalWithoutTaxes(?float $totalWithoutTaxes): Sale
+    {
+        $this->totalWithoutTaxes = $totalWithoutTaxes;
+
+        return $this;
+    }
+
+    public function getTotalTaxes(): ?float
+    {
+        return $this->totalTaxes;
+    }
+
+    public function setTotalTaxes(?float $totalTaxes): Sale
+    {
+        $this->totalTaxes = $totalTaxes;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(?float $total): Sale
+    {
+        $this->total = $total;
 
         return $this;
     }

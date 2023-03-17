@@ -39,13 +39,16 @@ class SaleLine
     #[Assert\NotBlank]
     private ?int $quantity = null;
 
-    #[ORM\Column]
+    #[ORM\Column(scale: 2)]
     #[Assert\NotBlank]
     private ?float $price = null;
 
-    #[ORM\Column]
+    #[ORM\Column(scale: 2)]
     #[Assert\NotBlank]
     private ?float $discount = null;
+
+    #[ORM\Column(scale: 2)]
+    private ?float $total = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdd = null;
@@ -157,6 +160,18 @@ class SaleLine
     public function getDateAdd(): ?\DateTimeInterface
     {
         return $this->dateAdd;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(?float $total): SaleLine
+    {
+        $this->total = $total;
+
+        return $this;
     }
 
     public function setDateAdd(\DateTimeInterface $dateAdd): SaleLine

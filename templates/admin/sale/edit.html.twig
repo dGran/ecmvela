@@ -1,21 +1,29 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Mascota: editar | {% endblock %}
+{% block title %}TPV: editar | {% endblock %}
 
 {% block main %}
-    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
-        <div class="flex-auto max-w-4xl">
-            <div class="flex items-center">
-                <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Administración</p>
-                <p class="mb-2 md:mb-4 px-1.5 text-xs md:text-sm font-semibold">/</p>
-                <a href="{{ path('admin_pet') }}" class="mb-2 md:mb-4 text-xs md:text-sm font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none">Mascotas</a>
-            </div>
-
-            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Editar mascota</h1>
-        </div>
-    </header>
-
-    <div class="max-w-[85rem] mx-auto rounded my-8">
-        {% include 'admin/pet/_form.html.twig' with {'button_label': 'Actualizar mascota', 'mode': 'edit'}  %}
+<header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+    <div class="flex-auto max-w-4xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">TPV #{{ sale.id }} - Editar</h1>
     </div>
+</header>
+
+<div class="max-w-[85rem] mx-auto rounded my-8">
+    <div class="flex flex-col space-y-3">
+        <div id="sale-header" data-sale-id="{{ sale.id }}">
+            {% include 'admin/sale/_sale.html.twig' %}
+        </div>
+        <div id="sale-detail">
+            {% include 'admin/sale/_sale-detail.html.twig' %}
+        </div>
+        <div id="sale-payments">
+            {% include 'admin/sale/_payments.html.twig' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('build/app/js/admin/sale/sale.js') }}"></script>
 {% endblock %}
