@@ -17,11 +17,11 @@
         <div id="sale-detail">
             {% include 'admin/sale/_sale-detail.html.twig' %}
         </div>
-        <div class="grid grid cols-1 lg:grid-cols-2 gap-6">
-            <div id="sale-payments">
+        <div class="flex flex-col-reverse lg:flex-row lg:space-x-6">
+            <div id="sale-payments" class="flex-1">
                 {% include 'admin/sale/_payments.html.twig' %}
             </div>
-            <div id="summary">
+            <div id="summary" class="flex-1">
                 {% include 'admin/sale/_summary.html.twig' %}
             </div>
         </div>

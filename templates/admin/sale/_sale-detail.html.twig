@@ -4,9 +4,9 @@
         <i class="animate-pulse fa-solid fa-floppy-disk bg-emerald-100 rounded-full p-1 w-7 h-7 flex items-center justify-center shadow"></i>
     </h4>
 
-    <div class="flex flex-col space-y-2.5 mt-4 p-4">
+    <div class="flex flex-col space-y-1.5 mt-4 p-4">
         {% include 'admin/sale/_sale-lines.html.twig' %}
-        <div class="pt-2 flex items-center">
+        <div class="pt-1 flex items-center">
             <a href="{{ path('admin_sale_edit_add_line', {'sale': sale.id}) }}" id="add-line"
                class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
                 <i class="fa-solid fa-plus mr-1.5"></i>nueva línea
