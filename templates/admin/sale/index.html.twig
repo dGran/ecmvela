@@ -19,10 +19,10 @@
         </form>
         <form action="{{ path('admin_sale') }}" class="flex-1">
             <div class="input-group relative flex flex-wrap items-stretch w-full">
-                <input type="search" name="search"
-                       class="form-control relative flex-auto min-w-0 block w-full px-2.5 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none"
-                       placeholder="Buscar..." aria-label="Search" aria-describedby="btn-search" value="{{ search }}"
-                       autofocus autocomplete="off">
+                <div class="relative z-0 w-full">
+                    <input type="search" id="search" name="search" class="block w-full px-0 py-2 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-200 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" placeholder=" " autofocus autocomplete="off" value="{{ search }}" />
+                    <label for="search" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Buscar</label>
+                </div>
             </div>
         </form>
     </div>
@@ -58,7 +58,7 @@
                                 Total
                             </th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                Estado
+                                Pago
                             </th>
                             <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                                 Descuentos
@@ -70,7 +70,7 @@
                         </thead>
                         <tbody class="bg-white">
                         {% for sale in sales %}
-                            <tr class="border-b hover:bg-neutral-50">
+                            <tr class="border-b hover:bg-neutral-50 {% if sale.total == 0 %}bg-red-50{% endif %}">
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {{ sale.id }}
                                 </td>
@@ -87,7 +87,7 @@
                                     <i class="w-4 text-center {% if sale.maintenancePlan %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <span>{{ sale.getTotals.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                    <span>{{ sale.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <span class="text-[10px] uppercase p-1 rounded bg-{% if sale.getState == constant('App\\Entity\\Sale::STATE_PAID') %}emerald{% elseif sale.getState == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}yellow{% else %}red{% endif %}-400 text-white">
@@ -95,10 +95,10 @@
                                     </span>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <span>{{ sale.getTotals.totalDiscountLines|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                    <span>{{ sale.totalDiscounts|format_currency('EUR', {fraction_digit: 2}) }}</span>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <span>{{ sale.getTotals.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                    <span>{{ sale.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <div class="flex items-center space-x-2.5">

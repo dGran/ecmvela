@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Pet;
+namespace App\Controller\Admin\Sale;
 
-use App\Entity\Pet;
+use App\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/pet/show/{id}', name: 'admin_pet_show', methods: ['GET', 'POST'])]
-class Show extends AbstractController
+#[Route('/admin/sale/show/{id}', name: 'admin_sale_show', methods: ['GET', 'POST'])]
+class ShowController extends AbstractController
 {
-    public function __invoke(Request $request, pet $pet): Response
+    public function __invoke(Request $request, Sale $sale): Response
     {
         $pathIndex = $request->get('pathIndex');
 
-        return $this->render('admin/pet/show.html.twig', [
-            'pet' => $pet,
+        return $this->render('admin/sale/show.html.twig', [
+            'sale' => $sale,
             'path_index' => $pathIndex,
         ]);
     }

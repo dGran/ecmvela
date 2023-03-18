@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Update extends AbstractController
+class UpdateController extends AbstractController
 {
     public function __construct(
         private readonly SaleManager $saleManager,
@@ -37,6 +37,28 @@ class Update extends AbstractController
             throw new \RuntimeException();
         }
 
-        return new JsonResponse([]);
+        if (!empty($sale->getCustomer())) {
+            //find customerByPet
+            $customers = $this->customerManager->findBy([], ['name' => 'asc']);
+        }
+
+        if (!empty($sale->getCustomer())) {
+            //find petsByCustomer
+            $pets = $this->petManager->findBy([], ['name' => 'asc']);
+
+            if (empty($sale->getPet())) {
+
+            }
+
+            $customers = $this->customerManager->findBy([], ['name' => 'asc']);
+        }
+
+        $pets = $this->petManager->findBy([], ['name' => 'asc']);
+
+        return new JsonResponse([
+            'sale' => $sale,
+            'pets' => $pets,
+            'customers' => $customers,
+        ]);
     }
 }

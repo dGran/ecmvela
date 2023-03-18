@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/customer', name: 'admin_customer', methods: ['GET', 'POST'])]
-class Index extends AbstractController
+class IndexController extends AbstractController
 {
     public function __construct(private readonly CustomerManager $customerManager, private readonly PaginatorInterface $paginator)
     {}

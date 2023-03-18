@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/sale/create', name: 'admin_sale_create', methods: ['GET', 'POST'])]
-class Create extends AbstractController
+class CreateController extends AbstractController
 {
     public function __construct(
         private readonly SaleManager $saleManager,

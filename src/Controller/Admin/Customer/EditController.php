@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/customer/edit/{id}', name: 'admin_customer_edit', methods: ['GET', 'POST'])]
-class Edit extends AbstractController
+class EditController extends AbstractController
 {
     protected const FROM_SHOW = 'show';
     protected const SHOW_URL = '/admin/customer/show';

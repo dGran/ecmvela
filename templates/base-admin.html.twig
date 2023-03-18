@@ -54,15 +54,15 @@
         </header>
 
         <div class="overflow-hidden">
-            <div class="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
-                <div class="fixed hidden inset-0 left-[max(0px,calc(50%-42.5rem))] md:block overflow-y-auto pb-10 px-8 right-auto top-[3.8125rem] w-[19.5rem] border-r border-slate-200">
+            <div class="px-4 sm:px-6 md:px-8">
+                <div class="fixed hidden inset-0 md:block overflow-y-auto pb-10 px-8 right-auto top-[3.8125rem] w-[19.5rem] border-r border-slate-200">
                     <nav class="text-sm leading-6 pt-10">
                         {% include "layout/admin/nav.html.twig" %}
                     </nav>
                 </div>
 
                 <div class="md:pl-[19.5rem] mt-16">
-                    <main class="max-w-3xl mx-auto pt-6 md:pt-10 relative xl:max-w-none">
+                    <main class="pt-6 md:pt-10 relative">
                         {% include "layout/admin/flash-messages.html.twig" %}
                         {% block main %}{% endblock %}
                     </main>

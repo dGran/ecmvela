@@ -265,48 +265,13 @@ class Sale
         return $this;
     }
 
-    /**
-     * @return array<string, float>
-     */
-    public function getTotals(): array
-    {
-        $total = 0.0;
-        $totalTaxes = 0.0;
-        $totalWithoutTaxes = 0.0;
-        $totalDiscounts = 0.0;
-
-        foreach ($this->saleLines as $saleLine) {
-            $discountMultiplier = (100 - $saleLine->getDiscount()) / 100;
-            $finalPrice = $saleLine->getPrice() * $discountMultiplier;
-            $priceWithoutTaxes = $finalPrice / (1 + ($saleLine->getTaxType()->getRate() / 100));
-            $quantity = $saleLine->getQuantity();
-
-            $totalLineWithoutDiscount = $quantity * $saleLine->getPrice();
-            $totalLine = $quantity * $finalPrice;
-            $totalLineWithoutTaxes = $quantity * $priceWithoutTaxes;
-            $totalLineDiscount = $totalLineWithoutDiscount - $totalLine;
-
-            $totalWithoutTaxes += $totalLineWithoutTaxes;
-            $total += $totalLine;
-            $totalTaxes += $totalLine - $totalLineWithoutTaxes;
-            $totalDiscounts += $totalLineDiscount;
-        }
-
-        return [
-            'totalWithoutTaxes' => $totalWithoutTaxes,
-            'totalTaxes' => $totalTaxes,
-            'total' => $total,
-            'totalDiscountLines' => $totalDiscounts,
-        ];
-    }
-
     public function getState()
     {
         if (empty($this->salePayments)) {
             return self::STATE_PENDING_PAYMENT;
         }
 
-        $totalAmount = $this->getTotals()['total'];
+        $totalAmount = $this->getTotal();
         $totalPaid = 0.0;
 
         foreach ($this->salePayments as $payment) {

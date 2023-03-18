@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Delete extends AbstractController
+class DeleteController extends AbstractController
 {
     public function __construct(
         private readonly SaleLineManager $saleLineManager,

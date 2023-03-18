@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/sale/{id}/edit', name: 'admin_sale_edit', methods: ['GET', 'POST'])]
-class Edit extends AbstractController
+class EditController extends AbstractController
 {
     public function __construct(
         private readonly TaxTypeManager $taxTypeManager,

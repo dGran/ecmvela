@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Update extends AbstractController
+class UpdateController extends AbstractController
 {
     public function __construct(
         private readonly SaleLineManager $saleLineManager,

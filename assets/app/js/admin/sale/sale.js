@@ -6,6 +6,13 @@ $( document ).ready(function() {
         updateSale(url);
     });
 
+    $(document).on('change', '.sale_field', function() {
+        let saleId = $('#sale-header').data('sale-id');
+        let url = '/admin/sale/'+saleId+'/update';
+
+        updateSaleCustomerPet(url);
+    });
+
     $(document).on('change', '.sale_line_field', function() {
         let form = $(this).closest('form');
 
@@ -60,6 +67,10 @@ $( document ).ready(function() {
                 }, 200);
             }
         });
+    }
+
+    function updateSaleCustomerPet() {
+        sale-customer-pet-data
     }
 
     function updateSaleLine(form) {
