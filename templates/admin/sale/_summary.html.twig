@@ -1,7 +1,10 @@
-<div class="mt-10 pt-4 border-t relative">
-    <h4 class="uppercase text-sm tracking-widest text-slate-800 font-medium absolute top-0 left-0 ml-3 -mt-2.5 bg-white px-1.5">totales</h4>
+<div class="mt-6 relative border rounded bg-slate-50">
+    <h4 class="uppercase text-[12px] tracking-widest text-slate-500 font-medium absolute top-0 left-0 ml-4 -mt-3 bg-white px-2 py-0.5 border rounded">totales</h4>
+    <h4 id="spinner-sale-summary" class="hidden uppercase text-sm tracking-widest text-slate-800 font-medium absolute top-0 right-0 mr-4 -mt-3 bg-white">
+        <i class="animate-spin fa-solid fa-arrows-rotate bg-amber-100 rounded-full p-1 w-7 h-7 flex items-center justify-center shadow"></i>
+    </h4>
 
-    <div class="flex flex-col space-y-2.5 border border-slate-200 rounded py-4 px-3 bg-slate-50">
+    <div class="flex flex-col space-y-2.5 mt-4 p-4">
         <div class="flex items-center justify-between px-3 space-x-8 border-b border-slate-200 pb-2">
             <span class="text-sm text-slate-500"><i class="fa-solid fa-circle-info text-blue-600 mr-1.5"></i>Total descuentos</span>
             <span id="sale_total_discounts" class="text-sm text-right text-slate-500">{{ sale.getTotalDiscounts|format_currency('EUR') }}</span>
@@ -15,7 +18,7 @@
             <span id="sale_total_taxes" class="text-sm text-right text-slate-500">{{ sale.getTotalTaxes|format_currency('EUR') }}</span>
         </div>
         <div class="flex items-start justify-between px-3 py-2 space-x-8 border rounded bg-white">
-            <span class="text-base font-medium ">Total</span>
+            <span class="text-base font-medium">Total</span>
             <span id="sale_total" class="font-medium text-base text-right">{{ sale.getTotal|format_currency('EUR') }}</span>
         </div>
     </div>

@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sale', name: 'admin_sale', methods: ['GET', 'POST'])]
 class IndexController extends AbstractController
 {
+    private const DEFAULT_PER_PAGE = 20;
     public function __construct(private readonly SaleManager $saleManager, private readonly PaginatorInterface $paginator)
     {}
 
@@ -26,7 +27,7 @@ class IndexController extends AbstractController
 //            $data = $this->saleManager->findByIndexSearchFields($search);
         }
 
-        $sales = $this->paginator->paginate($data, $request->query->getInt('page', 1), 10);
+        $sales = $this->paginator->paginate($data, $request->query->getInt('page', 1), self::DEFAULT_PER_PAGE);
 
         return $this->render('admin/sale/index.html.twig', [
             'sales' => $sales,

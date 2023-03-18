@@ -35,6 +35,8 @@ $( document ).ready(function() {
         toggleEditDate();
     });
 
+    // $("#mydiv").load(location.href + " #mydiv");
+
     function updateSale(url) {
         $('#spinner-sale').removeClass('hidden').addClass('block');
 
@@ -75,6 +77,7 @@ $( document ).ready(function() {
 
     function updateSaleLine(form) {
         $('#spinner-sale-lines').removeClass('hidden').addClass('block');
+        $('#spinner-sale-summary').removeClass('hidden').addClass('block');
 
         let title = $(form.find('.title')).val();
         let quantity = $(form.find('.quantity')).val();
@@ -103,6 +106,7 @@ $( document ).ready(function() {
 
                 setTimeout(function() {
                     $('#spinner-sale-lines').removeClass('block').addClass('hidden');
+                    $('#spinner-sale-summary').removeClass('block').addClass('hidden');
                 }, 200);
 
             },
@@ -113,6 +117,7 @@ $( document ).ready(function() {
 
                 setTimeout(function() {
                     $('#spinner-sale-lines').removeClass('block').addClass('hidden');
+                    $('#spinner-sale-summary').removeClass('block').addClass('hidden');
                 }, 200);
             }
         });

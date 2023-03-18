@@ -1,15 +1,16 @@
-<div class="mt-8 pt-4 border-t relative">
-    <h4 class="uppercase text-sm tracking-widest text-slate-700 font-medium absolute top-0 left-0 ml-3 -mt-2.5 bg-white px-1.5">detalle</h4>
-    <h4 id="spinner-sale-lines" class="hidden uppercase text-sm tracking-widest text-slate-800 font-medium absolute top-0 right-0 mr-2.5 -mt-2.5 bg-white px-1.5"><i class="animate-pulse fa-solid fa-floppy-disk"></i></h4>
+<div class="mt-6 relative border rounded">
+    <h4 class="uppercase text-[12px] tracking-widest text-slate-500 font-medium absolute top-0 left-0 ml-4 -mt-3 bg-white px-2 py-0.5 border rounded">detalle</h4>
+    <h4 id="spinner-sale-lines" class="hidden uppercase text-sm tracking-widest text-slate-800 font-medium absolute top-0 right-0 mr-4 -mt-3 bg-white">
+        <i class="animate-pulse fa-solid fa-floppy-disk bg-emerald-100 rounded-full p-1 w-7 h-7 flex items-center justify-center shadow"></i>
+    </h4>
 
-    {% include 'admin/sale/_sale-lines.html.twig' %}
-    <div class="mt-4 flex items-center">
-        <a href="{{ path('admin_sale_edit_add_line', {'sale': sale.id}) }}" id="add-line"
-           class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
-            <i class="fa-solid fa-plus mr-1.5"></i>nueva línea
-        </a>
+    <div class="flex flex-col space-y-2.5 mt-4 p-4">
+        {% include 'admin/sale/_sale-lines.html.twig' %}
+        <div class="pt-2 flex items-center">
+            <a href="{{ path('admin_sale_edit_add_line', {'sale': sale.id}) }}" id="add-line"
+               class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+                <i class="fa-solid fa-plus mr-1.5"></i>nueva línea
+            </a>
+        </div>
     </div>
-</div>
-<div id="summary">
-    {% include 'admin/sale/_summary.html.twig' %}
 </div>
