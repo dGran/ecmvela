@@ -1,0 +1,27 @@
+<div class="mb-8 flex items-center justify-start space-x-1.5">
+    <form method="post" action="{{ path('admin_sale') }}" class="">
+        <input type="hidden" name="pathIndex" value="{{ path_index }}">
+        <button type="submit" class="px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+            <i class="fa-solid fa-pen-to-square text-sm w-4 text-center"></i>
+            <span>atrás</span>
+        </button>
+    </form>
+
+    <button type="button"
+            class="px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+        <i class="fa-solid fa-print text-sm w-4 text-center"></i>
+        <span>imprimir</span>
+    </button>
+
+    <button type="button"
+            class="px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+        <i class="fa-regular fa-file-pdf text-sm w-4 text-center"></i>
+        <span>imprimir en pdf</span>
+    </button>
+
+    <button type="button"
+            class="px-3 py-1.5 bg-white border rounded font-medium text-xs leading-tight uppercase rounded hover:bg-slate-50 hover:shadow focus:bg-slate-50 focus:shadow focus:outline-none focus:ring-0 active:bg-slate-100 active:shadow transition duration-150 ease-in-out | flex items-center space-x-1.5">
+        <i class="fa-regular fa-envelope text-sm w-4 text-center"></i>
+        <span>imprimir en pdf</span>
+    </button>
+</div>

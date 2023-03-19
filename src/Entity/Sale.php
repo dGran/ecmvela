@@ -236,7 +236,7 @@ class Sale
     }
 
     /**
-     * @return Collection<int, SaleLine>
+     * @return Collection<int, SalePayment>
      */
     public function getSalePayments(): Collection
     {
@@ -263,28 +263,5 @@ class Sale
         }
 
         return $this;
-    }
-
-    public function getState()
-    {
-        if (empty($this->salePayments)) {
-            return self::STATE_PENDING_PAYMENT;
-        }
-
-        $totalAmount = $this->getTotal();
-        $totalPaid = 0.0;
-
-        foreach ($this->salePayments as $payment) {
-            $totalPaid += $payment->getAmount();
-        }
-
-        switch ($totalPaid) {
-            case 0:
-                return self::STATE_PENDING_PAYMENT;
-            case $totalPaid < $totalAmount:
-                return self::STATE_PARTIAL_PAYMENT;
-            case $totalAmount:
-                return self::STATE_PAID;
-        }
     }
 }

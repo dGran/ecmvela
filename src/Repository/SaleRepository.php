@@ -22,4 +22,17 @@ class SaleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sale::class);
     }
+
+    public function findByIndexSearchFields(string $search): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->leftJoin('sale.pet', 'pet')
+            ->leftJoin('sale.customer', 'customer')
+            ->where('pet.name LIKE :search')
+            ->orWhere('customer.name LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->orderBy('sale.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

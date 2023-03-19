@@ -3,6 +3,11 @@
 {% block title %}TPV: editar | {% endblock %}
 
 {% block main %}
+{% set sale = view.sale %}
+{% set sale_payment_info = view.salePaymentInfo %}
+{% set tax_types = view.taxTypes %}
+{% set customers = view.customers %}
+{% set pets = view.pets %}
 <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
     <div class="flex-auto max-w-4xl">
         <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">TPV #{{ sale.id }} - Editar</h1>
@@ -11,6 +16,7 @@
 
 <div class="rounded my-8">
     <div class="flex flex-col space-y-3">
+        {% include 'admin/sale/_actions.html.twig' %}
         <div id="sale-header" data-sale-id="{{ sale.id }}">
             {% include 'admin/sale/_sale.html.twig' %}
         </div>

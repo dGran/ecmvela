@@ -80,4 +80,38 @@ class SaleService
             'total' => $total,
         ];
     }
+
+    public function getPaymentState(Sale $sale)
+    {
+        if (empty($sale->getSalePayments())) {
+            return Sale::STATE_PENDING_PAYMENT;
+        }
+
+        $totalAmount = $sale->getTotal();
+        $totalPaid = 0.0;
+
+        foreach ($sale->getSalePayments() as $payment) {
+            $totalPaid += $payment->getAmount();
+        }
+
+        switch ($totalPaid) {
+            case 0:
+                return SALE::STATE_PENDING_PAYMENT;
+            case $totalPaid < $totalAmount:
+                return SALE::STATE_PARTIAL_PAYMENT;
+            case $totalAmount:
+                return SALE::STATE_PAID;
+        }
+    }
+
+    public function getTotalPaid(Sale $sale)
+    {
+        $totalPaid = 0.0;
+
+        foreach ($sale->getSalePayments() as $payment) {
+            $totalPaid += $payment->getAmount();
+        }
+
+        return $totalPaid;
+    }
 }

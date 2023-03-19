@@ -79,4 +79,9 @@ class SaleManager
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    public function findByIndexSearchFields(string $search): array
+    {
+        return $this->repository->findByIndexSearchFields($search);
+    }
 }

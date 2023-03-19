@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\Entity\Sale;
 use App\Entity\SaleLine;
 use App\Repository\SaleLineRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,5 +75,12 @@ class SaleLineManager
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    public function deleteFromSale(Sale $sale): void
+    {
+        foreach ($sale->getSaleLines() as $saleLine) {
+            $this->delete($saleLine);
+        }
     }
 }

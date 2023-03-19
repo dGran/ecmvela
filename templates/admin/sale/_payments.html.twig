@@ -1,10 +1,31 @@
-<div class="mt-9 lg:mt-6 relative border rounded">
+<div class="mt-9 lg:mt-6 relative border rounded bg-white {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500{% else %}border-red-500{% endif %}">
     <h4 class="uppercase text-[12px] tracking-widest text-slate-500 font-medium absolute top-0 left-0 ml-4 -mt-3 bg-white px-2 py-0.5 border rounded">pagos</h4>
-    <h4 id="spinner-sale-payments" class="hidden uppercase text-sm tracking-widest text-slate-800 font-medium absolute top-0 right-0 mr-4 -mt-3 bg-white">
-        <i class="animate-pulse fa-solid fa-floppy-disk bg-slate-100 rounded-full p-1 w-7 h-7 flex items-center justify-center shadow"></i>
+    <h4 class="uppercase text-xl absolute top-0 right-0 mr-[20px] -mt-[15px] bg-white">
+        <i class="fa-solid {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}fa-circle-check text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}fa-circle-minus text-amber-500{% else %}fa-circle-xmark text-red-500{% endif %}"></i>
     </h4>
 
     <div class="flex flex-col space-y-2.5 mt-4 p-4">
-        <span class="text-sm">work in progress...</span>
+        {% if sale.salePayments.count() == 0 %}
+            <span class="text-sm">No se han registrado pagos</span>
+        {% endif %}
+        {% for payment in sale.salePayments %}
+            <div class="flex items-center justify-between text-sm border-b">
+                <span class="flex-1">{{ payment.paymentMethod.name }}</span>
+                <span>{{ payment.amount|format_currency('EUR') }}</span>
+                <a href=""
+                   class="ml-4 px-2 py-1 text-red-500 text-sm rounded bg-transparent hover:bg-red-500 hover:text-white focus:bg-red-500 focus:text-white focus:outline-none">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        {% endfor %}
+
+        {% if sale_payment_info.state != constant('App\\Entity\\Sale::STATE_PAID') and sale_payment_info.totalPaid < sale.total %}
+        <div class="pt-1 flex items-center">
+            <a href="" id="add-payment"
+               class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+                <i class="fa-solid fa-plus mr-1.5"></i>nuevo pago
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
