@@ -25,8 +25,6 @@ class DeleteController extends AbstractController
     public function __invoke(Request $request, Sale $sale): Response
     {
         if ($this->isCsrfTokenValid('delete-'.$sale->getId(), $request->request->get('_token'))) {
-            //        TODO: comprobar si el cliente tiene relaciones
-
             $this->saleLineManager->deleteFromSale($sale);
             $this->salePaymentManager->deleteFromSale($sale);
             $this->saleManager->delete($sale);
