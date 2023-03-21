@@ -40,6 +40,8 @@ class UpdateController extends AbstractController
             return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        return new JsonResponse([Response::HTTP_OK]);
+        return new JsonResponse([
+            'total_line' => $saleLine->getTotal(),
+        ]);
     }
 }

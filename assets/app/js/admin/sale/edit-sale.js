@@ -142,8 +142,8 @@ $( document ).ready(function() {
                 taxType: taxType,
                 total: total,
             },
-            success: function() {
-                $("#sale-detail").load(location.href + " #sale-detail");
+            success: function(data) {
+                $(form.find('.total')).val(data.total_line);
                 $("#sale-payments").load(location.href + " #sale-payments");
                 $("#summary").load(location.href + " #summary");
 
@@ -151,7 +151,6 @@ $( document ).ready(function() {
                     $('#spinner-sale-lines').removeClass('block').addClass('hidden');
                     $('#spinner-sale-summary').removeClass('block').addClass('hidden');
                 }, 200);
-
             },
             error: function() {
                 Toast.fire({
