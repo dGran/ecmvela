@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PaymentMethodRepository::class)]
 class PaymentMethod
 {
+    public const CASH_METHOD_ID = 1;
+    public const BIZUM_METHOD_ID = 2;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

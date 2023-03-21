@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\Entity\PaymentMethod;
 use App\Model\SalePaymentInfo;
 use App\Model\View\SalesIndexView;
 use App\Services\SaleService;
@@ -26,6 +27,16 @@ class SalesIndexViewManager
             $paymentInfo = new SalePaymentInfo();
             $paymentInfo->setState($this->saleService->getPaymentState($sale));
             $paymentInfo->setTotalPaid($this->saleService->getTotalPaid($sale));
+
+            $allCash = true;
+
+            foreach ($sale->getSalePayments() as $payment) {
+                if ($payment->getPaymentMethod()->getId() !== PaymentMethod::CASH_METHOD_ID) {
+                    $allCash = false;
+                }
+            }
+
+            $paymentInfo->setAllCash($allCash);
 
             $paymentsInfo[$sale->getId()] = $paymentInfo;
         }

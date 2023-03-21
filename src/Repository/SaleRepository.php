@@ -30,6 +30,7 @@ class SaleRepository extends ServiceEntityRepository
             ->leftJoin('sale.customer', 'customer')
             ->where('pet.name LIKE :search')
             ->orWhere('customer.name LIKE :search')
+            ->orWhere('sale.dateAdd LIKE :search')
             ->setParameter('search', '%'.$search.'%')
             ->orderBy('sale.id', 'DESC')
             ->getQuery()
