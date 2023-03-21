@@ -36,7 +36,7 @@
                 <select id="pet" class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none">
                     <option selected value=""><< Ninguna >></option>
                     {% for pet in pets %}
-                        <option {% if sale.pet and pet.id == sale.pet.id %}selected{% endif %} value="{{ pet.id }}">{{ pet.name }}</option>
+                        <option {% if sale.pet and pet.id == sale.pet.id %}selected{% endif %} value="{{ pet.id }}">{{ pet.name }} ({{ pet.customer ? pet.customer.name : 'N/D' }})</option>
                     {% endfor %}
                 </select>
             </div>
