@@ -31,11 +31,22 @@ $( document ).ready(function() {
         deleteSaleLine($(this).attr('href'));
     });
 
+    $(document).on('click', '.delete_payment_button', function(event) {
+        event.preventDefault();
+
+        deleteSalePayment($(this).attr('href'));
+    });
+
+    $(document).on('click', '#add-payment-button', function(event) {
+        event.preventDefault();
+
+        let form = $(this).closest('form');
+        addSalePayment(form);
+    });
+
     $(document).on('click', '#edit-date', function() {
         toggleEditDate();
     });
-
-    // $("#mydiv").load(location.href + " #mydiv");
 
     function updateSale(url) {
         $('#spinner-sale').removeClass('hidden').addClass('block');
@@ -50,9 +61,11 @@ $( document ).ready(function() {
                 notes: $('#notes').val(),
                 maintenancePlan: $('#maintenance-plan').prop('checked'),
             },
-            success: function(data) {
+            success: function() {
                 //aqui solamente tendremos que actualizar en el caso que el plan de mantenimineto aplique un descuento
                 //tambien si almacenamos el redonde en base de datos, se actualizarían los totales de línea o simplemente el total de la venta
+
+                $("#sale-header").load(location.href + " #sale-header");
 
                 setTimeout(function() {
                     $('#spinner-sale').removeClass('block').addClass('hidden');
@@ -72,7 +85,6 @@ $( document ).ready(function() {
     }
 
     function updateSaleCustomerPet() {
-        sale-customer-pet-data
     }
 
     function updateSaleLine(form) {
@@ -97,12 +109,10 @@ $( document ).ready(function() {
                 taxType: taxType,
                 total: total,
             },
-            success: function(data) {
-                $(form.find('.total')).val(data.sale_line_total.toFixed(2));
-                $("#sale_total_discounts").html(data.sale_total_discounts.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }));
-                $("#sale_total_without_taxes").html(data.sale_total_without_taxes.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }));
-                $("#sale_total_taxes").html(data.sale_total_taxes.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }));
-                $("#sale_total").html(data.sale_total.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }));
+            success: function() {
+                $("#sale-detail").load(location.href + " #sale-detail");
+                $("#sale-payments").load(location.href + " #sale-payments");
+                $("#summary").load(location.href + " #summary");
 
                 setTimeout(function() {
                     $('#spinner-sale-lines').removeClass('block').addClass('hidden');
@@ -127,8 +137,9 @@ $( document ).ready(function() {
         $.ajax({
             type: 'GET',
             url: url,
-            success: function(data) {
-                $("#sale-detail").html(data);
+            success: function() {
+                // $("#sale-detail").html(data);
+                $("#sale-detail").load(location.href + " #sale-detail");
 
                 //set focus on new line title
                 $('form').last().find('.title').focus();
@@ -173,10 +184,73 @@ $( document ).ready(function() {
                                 icon: 'success', title: 'Se ha eliminado la línea correctamente'
                             });
 
-                            $("#sale-detail").html(data);
+                            $("#sale-detail").load(location.href + " #sale-detail");
+                            $("#sale-payments").load(location.href + " #sale-payments");
+                            $("#summary").load(location.href + " #summary");
                             //set focus on last line title
-                            $('form').last().find('.title').focus();
+                            // $('form').last().find('.title').focus();
                         }
+                    },
+                    error: function() {
+                        Toast.fire({
+                            icon: 'error', title: 'Se ha producido un error'
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    function addSalePayment(form) {
+        let payment_method = $(form.find('.payment_method')).val();
+        let amount = $(form.find('.amount')).val();
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: {
+                paymentMethod: payment_method,
+                amount: amount,
+            },
+            success: function() {
+                $("#sale-payments").load(location.href + " #sale-payments");
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error', title: 'Se ha producido un error'
+                });
+            }
+        });
+    }
+
+    function deleteSalePayment(url) {
+        Swal.fire({
+            html: '<p>¿Seguro que quieres eliminar el pago?</p>',
+            showCloseButton: true,
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sí, eliminar",
+            customClass: {
+                title: 'text-2xl font-medium',
+                htmlContainer: 'text-base',
+                closeButton: 'text-slate-300 text-[28px] hover:text-slate-500 focus:text-slate-500 focus:outline-none',
+                cancelButton: 'px-6 py-2.5 bg-transparent font-medium text-xs leading-tight uppercase text-slate-400 hover:text-slate-700 focus:text-slate-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out',
+                confirmButton: 'px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out',
+            },
+            buttonsStyling: false,
+            reverseButtons: true,
+        })
+        .then(result => {
+            if (result.value) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function() {
+                        Toast.fire({
+                            icon: 'success', title: 'Se ha eliminado el pago correctamente'
+                        });
+
+                        $("#sale-payments").load(location.href + " #sale-payments");
                     },
                     error: function() {
                         Toast.fire({

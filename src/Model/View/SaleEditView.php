@@ -14,6 +14,7 @@ class SaleEditView
     protected ?array $taxTypes = null;
     protected ?array $customers = null;
     protected ?array $pets = null;
+    protected ?array $paymentMethods = null;
 
     public function getSale(): ?Sale
     {
@@ -71,6 +72,18 @@ class SaleEditView
     public function setPets(?array $pets): SaleEditView
     {
         $this->pets = $pets;
+
+        return $this;
+    }
+
+    public function getPaymentMethods(): ?array
+    {
+        return $this->paymentMethods;
+    }
+
+    public function setPaymentMethods(?array $paymentMethods): SaleEditView
+    {
+        $this->paymentMethods = $paymentMethods;
 
         return $this;
     }

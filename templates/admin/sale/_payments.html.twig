@@ -1,31 +1,58 @@
-<div class="mt-9 lg:mt-6 relative border rounded bg-white {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500{% else %}border-red-500{% endif %}">
+{% set sale_payment_info = view.salePaymentInfo %}
+<div class="mt-9 lg:mt-6 relative border rounded {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500 bg-emerald-50{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500 bg-amber-50{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}border-red-500 bg-red-50{% else %}bg-white{% endif %}">
     <h4 class="uppercase text-[12px] tracking-widest text-slate-500 font-medium absolute top-0 left-0 ml-4 -mt-3 bg-white px-2 py-0.5 border rounded">pagos</h4>
-    <h4 class="uppercase text-xl absolute top-0 right-0 mr-[20px] -mt-[15px] bg-white">
-        <i class="fa-solid {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}fa-circle-check text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}fa-circle-minus text-amber-500{% else %}fa-circle-xmark text-red-500{% endif %}"></i>
-    </h4>
+    <div class="absolute top-0 right-0 mr-[20px] -mt-[15px] bg-white border rounded flex items-center px-2.5 {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500 text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500 text-amber-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}border-red-500 text-red-500{% else %}text-red-800{% endif %}">
+        <span class="uppercase text-[11px] tracking-widest font-medium">Pagado {{ sale_payment_info.totalPaid|format_currency('EUR') }} / {{ sale.total|format_currency('EUR') }}</span>
+        <i class="ml-2.5 text-lg fa-solid {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}fa-circle-check text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}fa-circle-minus text-amber-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}fa-circle-xmark text-red-500{% else %}fa-triangle-exclamation text-red-800 animate-pulse"{% endif %}"></i>
+    </div>
 
     <div class="flex flex-col space-y-2.5 mt-4 p-4">
+        {% if sale_payment_info.totalPaid > sale.total %}
+            <div class="p-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                <span class="font-medium">¡Alerta!</span> El total de pagos supera al total.
+            </div>
+        {% endif %}
         {% if sale.salePayments.count() == 0 %}
-            <span class="text-sm">No se han registrado pagos</span>
+            <div class="p-4 text-sm text-gray-800 border rounded-lg bg-white" role="alert">
+                No se han registrado pagos.
+            </div>
         {% endif %}
         {% for payment in sale.salePayments %}
-            <div class="flex items-center justify-between text-sm border-b">
-                <span class="flex-1">{{ payment.paymentMethod.name }}</span>
+            <div class="flex items-center justify-between text-sm">
+                <p class="flex-1"><span class="uppercase text-[12px] slate-500 mr-1.5">Método de pago:</span><span class="text-sm font-medium">{{ payment.paymentMethod.name }}</span></p>
                 <span>{{ payment.amount|format_currency('EUR') }}</span>
-                <a href=""
-                   class="ml-4 px-2 py-1 text-red-500 text-sm rounded bg-transparent hover:bg-red-500 hover:text-white focus:bg-red-500 focus:text-white focus:outline-none">
+                <a href="{{ path('admin_sale_edit_delete_payment', {'sale': sale.id, 'salePayment': payment.id}) }}"
+                   class="delete_payment_button ml-4 px-2 py-1 text-red-500 text-sm rounded bg-transparent hover:bg-red-500 hover:text-white focus:bg-red-500 focus:text-white focus:outline-none">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </div>
         {% endfor %}
 
         {% if sale_payment_info.state != constant('App\\Entity\\Sale::STATE_PAID') and sale_payment_info.totalPaid < sale.total %}
-        <div class="pt-1 flex items-center">
-            <a href="" id="add-payment"
-               class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
-                <i class="fa-solid fa-plus mr-1.5"></i>nuevo pago
-            </a>
-        </div>
+            {% set payment_methods = view.paymentMethods %}
+            <form action="{{ path('admin_sale_edit_add_payment', {'sale': sale.id}) }}" method="POST" class="border-t pt-4 overflow-x-auto pb-2">
+                <div class="flex items-end space-x-2.5 justify-between">
+                    <div class="flex flex-col space-y-1 w-[12rem] min-w-[12rem]">
+                        <label for="payment-method" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Método de pago</label>
+                        <select id="payment-method"
+                                class="payment_method appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none">
+                            {% for payment_method in payment_methods %}
+                                <option value="{{ payment_method.id }}">{{ payment_method.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
+                        <label for="amount" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Cantidad</label>
+                        <input type="number" id="amount" min="0" value="{{ sale.total - sale_payment_info.totalPaid }}"
+                               class="amount w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-400 focus:outline-none">
+                    </div>
+                    <div class="flex-1 text-right">
+                        <button type="submit" id="add-payment-button" class="px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+                            <i class="fa-solid fa-plus mr-1.5"></i>añadir pago
+                        </button>
+                    </div>
+                </div>
+            </form>
         {% endif %}
     </div>
 </div>

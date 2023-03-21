@@ -11,6 +11,7 @@ use App\Manager\SaleManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends AbstractController
@@ -28,37 +29,21 @@ class UpdateController extends AbstractController
             $dateAdd = new \DateTime($request->request->get('date'));
             $sale->setDateAdd($dateAdd);
             $sale->setPet($this->petManager->findOneById((int)$request->get('pet')));
-            $sale->setCustomer($this->customerManager->findOneById((int)$request->get('customer')));
+
+            if ($sale->getPet() && $sale->getPet()->getCustomer()) {
+                $sale->setCustomer($this->customerManager->findOneById($sale->getPet()->getCustomer()->getId()));
+            } else {
+                $sale->setCustomer($this->customerManager->findOneById((int)$request->get('customer')));
+            }
+
             $sale->setNotes((string)$request->get('notes'));
             $sale->setMaintenancePlan($request->get('maintenancePlan') === "true");
 
             $this->saleManager->update($sale);
         } catch (\Exception $exception) {
-            throw new \RuntimeException();
+            return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        if (!empty($sale->getCustomer())) {
-            //find customerByPet
-            $customers = $this->customerManager->findBy([], ['name' => 'asc']);
-        }
-
-        if (!empty($sale->getCustomer())) {
-            //find petsByCustomer
-            $pets = $this->petManager->findBy([], ['name' => 'asc']);
-
-            if (empty($sale->getPet())) {
-
-            }
-
-            $customers = $this->customerManager->findBy([], ['name' => 'asc']);
-        }
-
-        $pets = $this->petManager->findBy([], ['name' => 'asc']);
-
-        return new JsonResponse([
-            'sale' => $sale,
-            'pets' => $pets,
-            'customers' => $customers,
-        ]);
+        return new JsonResponse([Response::HTTP_OK]);
     }
 }

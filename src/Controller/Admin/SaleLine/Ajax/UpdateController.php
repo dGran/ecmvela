@@ -12,6 +12,7 @@ use App\Services\SaleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends AbstractController
@@ -19,7 +20,7 @@ class UpdateController extends AbstractController
     public function __construct(
         private readonly SaleLineManager $saleLineManager,
         private readonly TaxTypeManager $taxTypeManager,
-        private readonly SaleService $saleService
+        private readonly SaleService $saleService,
     ) {}
 
     #[Route('/admin/sale/{sale}/edit/{saleLine}/update-line', name: 'admin_sale_edit_update_line', methods: ['POST'])]
@@ -36,15 +37,9 @@ class UpdateController extends AbstractController
             $this->saleService->updateSaleLineTotal($saleLine);
             $this->saleService->updateSaleTotals($sale);
         } catch (\Exception $exception) {
-            throw new \RuntimeException();
+            return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        return new JsonResponse([
-            'sale_line_total' => $saleLine->getTotal(),
-            'sale_total_discounts' => $sale->getTotalDiscounts(),
-            'sale_total_without_taxes' => $sale->getTotalWithoutTaxes(),
-            'sale_total_taxes' => $sale->getTotalTaxes(),
-            'sale_total' => $sale->getTotal(),
-        ]);
+        return new JsonResponse([Response::HTTP_OK]);
     }
 }

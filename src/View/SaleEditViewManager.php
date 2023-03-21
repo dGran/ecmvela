@@ -6,6 +6,7 @@ namespace App\View;
 
 use App\Entity\Sale;
 use App\Manager\CustomerManager;
+use App\Manager\PaymentMethodManager;
 use App\Manager\PetManager;
 use App\Manager\TaxTypeManager;
 use App\Model\SalePaymentInfo;
@@ -18,7 +19,8 @@ class SaleEditViewManager
         private readonly TaxTypeManager $taxTypeManager,
         private readonly CustomerManager $customerManager,
         private readonly PetManager $petManager,
-        private readonly SaleService $saleService
+        private readonly PaymentMethodManager $paymentMethodManager,
+        private readonly SaleService $saleService,
     ) {
     }
 
@@ -35,6 +37,7 @@ class SaleEditViewManager
         $view->setCustomers($this->customerManager->findBy([], ['name' => 'asc']));
         $view->setPets($this->petManager->findBy([], ['name' => 'asc']));
         $view->setTaxTypes($this->taxTypeManager->findBy([], ['rate' => 'asc']));
+        $view->setPaymentMethods($this->paymentMethodManager->findBy([], ['name' => 'asc']));
 
         return $view;
     }

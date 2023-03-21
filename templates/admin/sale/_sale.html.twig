@@ -25,13 +25,14 @@
                 <div class="flex items-center justify-between">
                     <label for="pet" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Mascota</label>
                     <a data-tooltip-target="tooltip-pet" id="history-pet"
-                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
+                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-sky-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
                         <i class="fa-solid fa-clock-rotate-left"></i>
                     </a>
                     <div id="tooltip-pet" role="tooltip" class="absolute z-10 invisible inline-block px-2.5 py-1 text-[12px] font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Historial de mascota
                     </div>
                 </div>
+                {% set pets = view.pets %}
                 <select id="pet" class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none">
                     <option selected value=""><< Ninguna >></option>
                     {% for pet in pets %}
@@ -43,13 +44,14 @@
                 <div class="flex items-center justify-between">
                     <label for="customer" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Cliente</label>
                     <a data-tooltip-target="tooltip-customer" id="history-customer"
-                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
+                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-sky-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
                         <i class="fa-solid fa-clock-rotate-left"></i>
                     </a>
                     <div id="tooltip-customer" role="tooltip" class="absolute z-10 invisible inline-block px-2.5 py-1 text-[12px] font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Historial de cliente
                     </div>
                 </div>
+                {% set customers = view.customers %}
                 <select id="customer" {% if sale.pet %}disabled{% endif %}
                         class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none {% if sale.pet %}bg-slate-50{% else %}bg-white {% endif %}">
                     <option selected value=""><< Ninguno >></option>
