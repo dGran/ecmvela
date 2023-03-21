@@ -26,8 +26,6 @@ class UpdateController extends AbstractController
     public function __invoke(Request $request, Sale $sale): JsonResponse
     {
         try {
-            $dateAdd = new \DateTime($request->request->get('date'));
-            $sale->setDateAdd($dateAdd);
             $sale->setPet($this->petManager->findOneById((int)$request->get('pet')));
 
             if ($sale->getPet() && $sale->getPet()->getCustomer()) {

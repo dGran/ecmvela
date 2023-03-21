@@ -6,6 +6,13 @@ $( document ).ready(function() {
         updateSale(url);
     });
 
+    $(document).on('change', '#date', function() {
+        let saleId = $('#sale-header').data('sale-id');
+        let url = '/admin/sale/'+saleId+'/update-date';
+
+        updateSaleDate(url);
+    });
+
     $(document).on('change', '.sale_field', function() {
         let saleId = $('#sale-header').data('sale-id');
         let url = '/admin/sale/'+saleId+'/update';
@@ -55,7 +62,6 @@ $( document ).ready(function() {
             type: 'POST',
             url: url,
             data: {
-                date: $('#date').val(),
                 customer: $('#customer').val(),
                 pet: $('#pet').val(),
                 notes: $('#notes').val(),
@@ -67,6 +73,33 @@ $( document ).ready(function() {
 
                 $("#sale-header").load(location.href + " #sale-header");
 
+                setTimeout(function() {
+                    $('#spinner-sale').removeClass('block').addClass('hidden');
+                }, 200);
+
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error', title: 'Se ha producido un error'
+                });
+
+                setTimeout(function() {
+                    $('#spinner-sale').removeClass('block').addClass('hidden');
+                }, 200);
+            }
+        });
+    }
+
+    function updateSaleDate(url) {
+        $('#spinner-sale').removeClass('hidden').addClass('block');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                date: $('#date').val(),
+            },
+            success: function() {
                 setTimeout(function() {
                     $('#spinner-sale').removeClass('block').addClass('hidden');
                 }, 200);
