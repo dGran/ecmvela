@@ -33,7 +33,7 @@ class DashboardController extends AbstractController
 
 //        dump($start, $finish);die;
 
-        $view = $this->dashboardViewManager->build();
+//        $view = $this->dashboardViewManager->build();
 
 //
 //        $dateFrom = new \DateTime();
@@ -48,7 +48,7 @@ class DashboardController extends AbstractController
 //        $yesterdaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
 
         return $this->render('admin/dashboard.html.twig', [
-            'view' => $view,
+//            'view' => $view,
         ]);
     }
 }
