@@ -28,8 +28,8 @@ class DashboardController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $start = (date('D') !== 'Mon') ? date('Y-m-d', strtotime('last Monday')) : date('Y-m-d');
-        $finish = (date('D') !== 'Sun') ? date('Y-m-d', strtotime('next Sunday')) : date('Y-m-d');
+//        $start = (date('D') !== 'Mon') ? date('Y-m-d', strtotime('last Monday')) : date('Y-m-d');
+//        $finish = (date('D') !== 'Sun') ? date('Y-m-d', strtotime('next Sunday')) : date('Y-m-d');
 
 //        dump($start, $finish);die;
 
