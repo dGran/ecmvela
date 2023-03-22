@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Manager\SaleManager;
+use App\View\DashboardViewManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,7 @@ class DashboardController extends AbstractController
 {
     public function __construct(
         private readonly SaleManager $saleManager,
+        private readonly DashboardViewManager $dashboardViewManager
     ) {
     }
 
@@ -26,20 +28,27 @@ class DashboardController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $dateFrom = new \DateTime();
-        $dateFrom->setTime(0,0);
-        $dateTo = new \DateTime('+1 days');
-        $dateTo->setTime(0,0);
+        $start = (date('D') !== 'Mon') ? date('Y-m-d', strtotime('last Monday')) : date('Y-m-d');
+        $finish = (date('D') !== 'Sun') ? date('Y-m-d', strtotime('next Sunday')) : date('Y-m-d');
 
-        $todaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
+//        dump($start, $finish);die;
 
-        $dateFrom->modify('-1 days');
-        $dateTo->modify('-1 days');
-        $yesterdaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
+        $view = $this->dashboardViewManager->build();
+
+//
+//        $dateFrom = new \DateTime();
+//        $dateFrom->setTime(0,0);
+//        $dateTo = new \DateTime('+1 days');
+//        $dateTo->setTime(0,0);
+//
+//        $todaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
+//
+//        $dateFrom->modify('-1 days');
+//        $dateTo->modify('-1 days');
+//        $yesterdaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
 
         return $this->render('admin/dashboard.html.twig', [
-            'today_sales' => $todaySales,
-            'yesterday_sales' => $yesterdaySales,
+            'view' => $view,
         ]);
     }
 }

@@ -95,4 +95,19 @@ class SaleManager
     {
         return $this->repository->getTotalByDateRange($dateFrom, $dateTo);
     }
+
+    public function findAllGroupedByDay(): array
+    {
+        return $this->repository->findAllGroupedByDay();
+    }
+
+    public function findAllGroupedByWeek(): array
+    {
+        return $this->repository->findAllGroupedByWeek();
+    }
+
+    public function findAllGroupedByMonth(): array
+    {
+        return $this->repository->findAllGroupedByMonth();
+    }
 }

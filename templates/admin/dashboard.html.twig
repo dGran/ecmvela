@@ -3,100 +3,13 @@
 {% block title %}Dashboard | {% endblock %}
 
 {% block main %}
-    <div class="">
-        <p>ventas de hoy: {{ today_sales|format_currency('EUR') }}</p>
-        <p>ventas de ayer: {{ yesterday_sales|format_currency('EUR') }}</p>
-        <hr class="my-4">
-
-        <div class="overflow-hidden">
-            <div class="text-lg font-semibold">Informe semanal - caja</div>
-            <canvas class="py-10" id="chartLine"></canvas>
-        </div>
-
-        <!-- Required chart.js -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <!-- Chart line -->
-        <script>
-            const labels = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-            const data = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "Previsión",
-                        backgroundColor: "hsl(142, 82.9%, 67.8%)",
-                        borderColor: "hsl(142, 82.9%, 67.8%)",
-                        data: [100, 100, 100, 100, 100],
-                    },
-                    {
-                        label: "Actual",
-                        backgroundColor: "hsl(252, 82.9%, 67.8%)",
-                        borderColor: "hsl(252, 82.9%, 67.8%)",
-                        data: [120, 88, 130, 50, 90],
-                    },
-                    {
-                        label: "Semana anterior",
-                        backgroundColor: "hsl(182, 82.9%, 67.8%)",
-                        borderColor: "hsl(182, 82.9%, 67.8%)",
-                        data: [100, 98, 120, 85, 75],
-                    }
-                ],
-            };
-
-            const configLineChart = {
-                type: "line",
-                data,
-                options: {},
-            };
-
-            var chartLine = new Chart(
-                document.getElementById("chartLine"),
-                configLineChart
-            );
-        </script>
-    </div>
-
-
-
-    <div class="overflow-hidden">
-        <div class="bg-gray-50">Bar chart</div>
-        <canvas class="py-10" id="chartBar"></canvas>
-    </div>
-
-    <!-- Required chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Chart bar -->
-    <script>
-        const labelsBarChart = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-        ];
-        const dataBarChart = {
-            labels: labelsBarChart,
-            datasets: [
-                {
-                    label: "My First dataset",
-                    backgroundColor: "hsl(252, 82.9%, 67.8%)",
-                    borderColor: "hsl(252, 82.9%, 67.8%)",
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                },
-            ],
-        };
-
-        const configBarChart = {
-            type: "bar",
-            data: dataBarChart,
-            options: {},
-        };
-
-        var chartBar = new Chart(
-            document.getElementById("chartBar"),
-            configBarChart
-        );
-    </script>
+    <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotal.total|format_currency('EUR') }}</span></h2>
+    <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
+        {% for day in view.saleTotal.days %}
+            <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
+                <p>{{ day.day|date('d/m/Y') }}</p>
+                <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

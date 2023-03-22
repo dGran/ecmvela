@@ -54,4 +54,34 @@ class SaleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function findAllGroupedByDay(): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('SUM(sale.total) AS total', 'DATE(sale.dateAdd) as day')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->groupBy('day')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllGroupedByWeek(): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->groupBy('week')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllGroupedByMonth(): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('SUM(sale.total) AS total', 'MONTH(sale.dateAdd) as month')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->groupBy('month')
+            ->getQuery()
+            ->getResult();
+    }
 }
