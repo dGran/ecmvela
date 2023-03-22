@@ -59,7 +59,7 @@ class SaleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('sale')
             ->select('SUM(sale.total) AS total', 'DATE(sale.dateAdd) as day')
-            ->orderBy('sale.dateAdd', 'DESC')
+            ->orderBy('day', 'DESC')
             ->groupBy('day')
             ->getQuery()
             ->getResult();
@@ -69,7 +69,7 @@ class SaleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('sale')
             ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week')
-            ->orderBy('sale.dateAdd', 'DESC')
+            ->orderBy('week', 'DESC')
             ->groupBy('week')
             ->getQuery()
             ->getResult();
@@ -79,7 +79,7 @@ class SaleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('sale')
             ->select('SUM(sale.total) AS total', 'MONTH(sale.dateAdd) as month')
-            ->orderBy('sale.dateAdd', 'DESC')
+            ->orderBy('month', 'DESC')
             ->groupBy('month')
             ->getQuery()
             ->getResult();
