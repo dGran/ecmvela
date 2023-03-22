@@ -6,6 +6,8 @@ namespace App\Repository;
 
 use App\Entity\Sale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -35,5 +37,21 @@ class SaleRepository extends ServiceEntityRepository
             ->orderBy('sale.id', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalByDateRange(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('SUM(sale.total) AS total')
+            ->where('sale.dateAdd >= :dateFrom')
+            ->andWhere('sale.dateAdd <= :dateTo')
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

@@ -4,6 +4,10 @@
 
 {% block main %}
     <div class="">
+        <p>ventas de hoy: {{ today_sales|format_currency('EUR') }}</p>
+        <p>ventas de ayer: {{ yesterday_sales|format_currency('EUR') }}</p>
+        <hr class="my-4">
+
         <div class="overflow-hidden">
             <div class="text-lg font-semibold">Informe semanal - caja</div>
             <canvas class="py-10" id="chartLine"></canvas>

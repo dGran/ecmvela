@@ -7,6 +7,8 @@ namespace App\Manager;
 use App\Entity\Sale;
 use App\Repository\SaleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 class SaleManager
 {
@@ -83,5 +85,14 @@ class SaleManager
     public function findByIndexSearchFields(string $search): array
     {
         return $this->repository->findByIndexSearchFields($search);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalByDateRange(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    {
+        return $this->repository->getTotalByDateRange($dateFrom, $dateTo);
     }
 }
