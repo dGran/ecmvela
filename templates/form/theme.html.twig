@@ -11,37 +11,37 @@
 {% endblock form_label %}
 
 {% block form_widget %}
-    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-400 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none') %}
     {{ parent() }}
 {% endblock form_widget %}
 
 {% block email_widget %}
-    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-400 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none') %}
     {{ parent() }}
 {% endblock email_widget %}
 
 {% block tel_widget %}
-    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-400 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none') %}
     {{ parent() }}
 {% endblock tel_widget %}
 
 {% block date_widget %}
-    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none') %}
     {{ parent() }}
 {% endblock date_widget %}
 
 {% block choice_widget %}
-    {% set widget_class = widget_class|default('form-select appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-select appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none') %}
     {{ parent() }}
 {% endblock choice_widget %}
 
 {% block textarea_widget %}
-    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none') %}
+    {% set widget_class = widget_class|default('form-control block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none') %}
     {{ parent() }}
 {% endblock textarea_widget %}
 
 {% block checkbox_widget %}
-    {% set widget_class = widget_class|default('form-check-input appearance-none -mt-1.5 mr-2.5 h-4 w-4 border border-slate-300 rounded-sm bg-white checked:bg-sky-400 checked:border-sky-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer') %}
+    {% set widget_class = widget_class|default('form-check-input appearance-none -mt-1.5 mr-2.5 h-4 w-4 border border-slate-300 rounded-sm bg-white checked:bg-blue-400 checked:border-blue-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer') %}
     {{ parent() }}
 {% endblock checkbox_widget %}
 

@@ -10,14 +10,14 @@
                 <div class="flex items-center justify-between">
                     <label for="date" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Fecha</label>
                     <a data-tooltip-target="tooltip-date" id="edit-date"
-                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
+                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-blue-500 text-[12px] rounded bg-transparent hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white focus:outline-none">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
                     <div id="tooltip-date" role="tooltip" class="absolute z-10 invisible inline-block px-2.5 py-1 text-[12px] font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Editar fecha
                     </div>
                 </div>
-                <input type="datetime-local" id="date" disabled class="w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-slate-50 border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-400 focus:outline-none"
+                <input type="datetime-local" id="date" disabled class="w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-slate-50 border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none"
                        value="{{ sale.dateAdd|date('Y-m-d H:i:s') }}"
                        required>
             </div>
@@ -25,7 +25,7 @@
                 <div class="flex items-center justify-between">
                     <label for="pet" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Mascota</label>
                     <a data-tooltip-target="tooltip-pet" id="history-pet"
-                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-sky-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
+                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-blue-500 text-blue-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white focus:outline-none">
                         <i class="fa-solid fa-clock-rotate-left"></i>
                     </a>
                     <div id="tooltip-pet" role="tooltip" class="absolute z-10 invisible inline-block px-2.5 py-1 text-[12px] font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 {% set pets = view.pets %}
-                <select id="pet" class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none">
+                <select id="pet" class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none">
                     <option selected value=""><< Ninguna >></option>
                     {% for pet in pets %}
                         <option {% if sale.pet and pet.id == sale.pet.id %}selected{% endif %} value="{{ pet.id }}">{{ pet.name }} ({{ pet.customer ? pet.customer.name : 'N/D' }})</option>
@@ -44,7 +44,7 @@
                 <div class="flex items-center justify-between">
                     <label for="customer" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Cliente</label>
                     <a data-tooltip-target="tooltip-customer" id="history-customer"
-                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-sky-500 text-sky-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-sky-500 hover:text-white focus:bg-sky-500 focus:text-white focus:outline-none">
+                       class="px-1 py-0.5 w-6 text-center cursor-pointer text-blue-500 text-blue-200 pointer-events-none text-[12px] rounded bg-transparent hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white focus:outline-none">
                         <i class="fa-solid fa-clock-rotate-left"></i>
                     </a>
                     <div id="tooltip-customer" role="tooltip" class="absolute z-10 invisible inline-block px-2.5 py-1 text-[12px] font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -53,7 +53,7 @@
                 </div>
                 {% set customers = view.customers %}
                 <select id="customer" {% if sale.pet %}disabled{% endif %}
-                        class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none {% if sale.pet %}bg-slate-50{% else %}bg-white {% endif %}">
+                        class="sale_field appearance-none block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-clip-padding bg-no-repeat border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none {% if sale.pet %}bg-slate-50{% else %}bg-white {% endif %}">
                     <option selected value=""><< Ninguno >></option>
                     {% for customer in customers %}
                         <option {% if sale.customer and customer.id == sale.customer.id %}selected{% endif %} value="{{ customer.id }}">{{ customer.name }}</option>
@@ -65,7 +65,7 @@
         <div class="flex flex-col space-y-1">
             <label for="notes" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Observaciones</label>
             <textarea id="notes" rows="4"
-                      class="sale_field block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none"
+                      class="sale_field block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none"
                       placeholder="">{{ sale.notes }}</textarea>
         </div>
 

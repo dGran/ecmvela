@@ -7,7 +7,7 @@
     {% set search = view.search %}
     <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
         <div class="flex-auto max-w-4xl">
-            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Ventas</p>
+            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Ventas</p>
             <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Tickets</h1>
             <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Gestión de tickets.</p>
         </div>
@@ -16,7 +16,7 @@
     <div class="flex items-center justify-between space-x-4">
         <form method="post" action="{{ path('admin_sale_create') }}">
             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-            <button type="submit" class="flex-initial px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+            <button type="submit" class="flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
                 Nuevo
             </button>
         </form>
@@ -41,7 +41,7 @@
                         </td>
                     </tr>
                     {% else %}
-                    <thead class="border-t border-b h-10 px-3">
+                    <thead class="border-t border-b h-10 px-3 bg-slate-100">
                         <th class="w-12 py-1.5 px-3 text-left font-semibold whitespace-nowrap">
                             {{ knp_pagination_sortable(sales, 'Id', 'id') }}
                         </th>
@@ -71,7 +71,7 @@
                     <tbody class="bg-white">
                     {% for sale in sales %}
                         {% set paymentInfo = view.paymentsInfo[sale.id] %}
-                        <tr class="h-10 border-b hover:bg-neutral-50 {% if sale.total == 0 or (not paymentInfo.allCash and sale.totalTaxes == 0) %}bg-red-50 hover:bg-red-100{% endif %}">
+                        <tr class="h-10 border-b {% if sale.total == 0 or (not paymentInfo.allCash and sale.totalTaxes == 0) %}bg-red-50 hover:bg-red-100{% else %}even:bg-neutral-50 hover:bg-amber-50{% endif %}">
                             <td class="py-1.5 px-3 whitespace-nowrap">
                                 {{ sale.id }}
                             </td>
@@ -88,7 +88,7 @@
                                 <span>{{ sale.totalDiscounts|format_currency('EUR', {fraction_digit: 2}) }}</span>
                             </td>
                             <td class="py-1.5 px-3 whitespace-nowrap">
-                                {% if not paymentInfo.allCash and sale.totalTaxes == 0 %}<i class="text-base fa-solid fa-triangle-exclamation mr-1.5 text-amber-500 animate-pulse"></i><span class="text-red-700">{% else %}<span>{% endif %}{{ sale.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                {% if not paymentInfo.allCash and sale.totalTaxes == 0 %}<i class="text-base fa-solid fa-triangle-exclamation mr-1.5 text-amber-500 animate__animated animate__tada animate__infinite animate__slow"></i><span class="text-red-700">{% else %}<span>{% endif %}{{ sale.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
                             </td>
                             <td class="py-1.5 px-3 whitespace-nowrap">
                                 <span class="{% if sale.total == 0 %}text-red-700{% endif %}">{{ sale.total|format_currency('EUR', {fraction_digit: 2}) }}</span>

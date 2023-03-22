@@ -20,7 +20,7 @@
                     <li class="page-item">
                         <a href="{% if page != current %}{{ path(route, query|merge({(pageParameterName): page})) }}{% endif %}"
                            class="page-link relative block py-1.5 px-3 border-0 outline-none transition-all duration-300 rounded
-                                  {% if page == current %}pointer-events-none bg-sky-500 text-white hover:text-white hover:bg-sky-600 shadow-md focus:shadow-md{% else %}bg-transparent text-slate-700 hover:text-slate-800 hover:bg-slate-200 focus:shadow-none{% endif %}>"
+                                  {% if page == current %}pointer-events-none bg-blue-500 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md{% else %}bg-transparent text-slate-700 hover:text-slate-800 hover:bg-slate-200 focus:shadow-none{% endif %}>"
                         >
                             {{ page }}
                         </a>

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sale', name: 'admin_sale', methods: ['GET', 'POST'])]
 class IndexController extends AbstractController
 {
-    private const DEFAULT_PER_PAGE = 20;
+    private const DEFAULT_PER_PAGE = 15;
 
     public function __construct(
         private readonly SaleManager $saleManager,

@@ -26,6 +26,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "animate.css": "^4.1.1",
         "flowbite": "^1.6.3",
         "sass-loader": "^13.2.0"
     }

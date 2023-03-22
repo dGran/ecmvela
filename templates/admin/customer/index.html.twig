@@ -5,7 +5,7 @@
 {% block main %}
     <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
         <div class="flex-auto max-w-4xl">
-            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-sky-500">Administración</p>
+            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Administración</p>
             <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Clientes</h1>
             <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Mantenimiento de fichas de clientes.</p>
         </div>
@@ -14,14 +14,14 @@
     <div class="flex items-center justify-between space-x-4">
         <form method="post" action="{{ path('admin_customer_create') }}">
             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-            <button type="submit" class="flex-initial px-6 py-2.5 bg-sky-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-sky-600 hover:shadow-lg focus:bg-sky-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-sky-700 active:shadow-lg transition duration-150 ease-in-out">
+            <button type="submit" class="flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
                 Nuevo
             </button>
         </form>
         <form action="{{ path('admin_customer') }}" class="flex-1">
             <div class="input-group relative flex flex-wrap items-stretch w-full">
                 <input type="search" name="search"
-                       class="form-control relative flex-auto min-w-0 block w-full px-2.5 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none"
+                       class="form-control relative flex-auto min-w-0 block w-full px-2.5 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none"
                        placeholder="Buscar..." aria-label="Search" aria-describedby="btn-search" value="{{ search }}"
                        autofocus autocomplete="off">
             </div>
@@ -67,7 +67,7 @@
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
                                         <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                        <button type="submit" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                        <button type="submit" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
                                             {{ customer.name }}
                                         </button>
                                     </form>
@@ -75,7 +75,7 @@
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {% for index, pet in customer.getPets() %}
                                         <span>{% if index > 0 %}, {% endif %}
-                                            <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" target="_blank" class="text-sky-500 hover:underline hover:text-sky-600 focus:underline focus:text-sky-600 focus:outline-none">
+                                            <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" target="_blank" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
                                                 {{ pet.name }}
                                             </a>
                                         </span>

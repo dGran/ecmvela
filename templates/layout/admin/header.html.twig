@@ -31,23 +31,23 @@
                 </div>
             </a>
             <div class="flex-1 flex items-center justify-end">
-                <ul class="hidden md:flex items-center space-x-6 text-sm">
-                    {% include 'layout/admin/header-pinned-items.html.twig' with {'classes': 'font-semibold hover:text-sky-500 focus:text-sky-500 focus:outline-none'} %}
+                <ul class="hidden md:flex items-center space-x-4 text-xs">
+                    {% include 'layout/admin/_header-pinned-items.html.twig' with {'classes': 'uppercase font-semibold hover:text-blue-500 focus:text-blue-500 focus:outline-none'} %}
                 </ul>
                 <div class="flex items-center space-x-3 md:border-l border-slate-200 md:ml-6 pl-3">
                     <div class="dropdown relative md:hidden">
                         <button type="button" id="dropdownPinnedOptions" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="text-slate-500 hover:text-sky-500 focus:text-sky-500 hover:border-sky-500 focus:border-sky-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
+                                class="text-slate-500 hover:text-blue-500 focus:text-blue-500 hover:border-blue-500 focus:border-blue-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
                             <i class="fa-solid fa-thumbtack text-base"></i>
                         </button>
                         <ul aria-labelledby="dropdownPinnedOptions" class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none">
-                            {% include 'layout/admin/header-pinned-items.html.twig' with {'classes': 'dropdown-item text-xs py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'} %}
+                            {% include 'layout/admin/_header-pinned-items.html.twig' with {'classes': 'dropdown-item text-xs py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'} %}
                         </ul>
                     </div>
 
                     <div class="dropdown relative">
                         <button type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="text-slate-500 hover:text-sky-500 focus:text-sky-500 hover:border-sky-500 focus:border-sky-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
+                                class="text-slate-500 hover:text-blue-500 focus:text-blue-500 hover:border-blue-500 focus:border-blue-500 focus:outline-none border rounded-full h-8 w-8 flex items-center justify-center">
                             <i class="fa-solid fa-user text-base"></i>
                         </button>
                         <ul aria-labelledby="dropdownUser" class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none">

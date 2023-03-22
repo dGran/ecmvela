@@ -11,6 +11,12 @@ class AdminNavItemComponent
 {
     public string $path;
     public string $message;
-    public string $tag = '';
-    public string $tagColor = 'rose';
+    public ?string $tag = null;
+    public ?string $tagBgColor = null;
+    public ?bool $disable = false;
+
+    public function __construct()
+    {
+        $this->tagBgColor = 'bg-slate-100';
+    }
 }

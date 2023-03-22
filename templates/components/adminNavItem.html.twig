@@ -1,18 +1,13 @@
 <li class="border-l-0.5 border-slate-100 flex items-center justify-between">
-    <a class="border-l px-4 -ml-px border-transparent focus:outline-none
-    {% if app.request.get('_route') == path or path in app.request.get('_route') %}
-        border-current focus:border-current text-sky-500 font-bold hover:text-sky-600 focus:text-sky-600{% if app.request.get('_route') == path %}hover:text-sky-600 focus:text-sky-600 pointer-events-none{% endif %}
-    {% else %}
-        text-slate-600 hover:text-sky-500 focus:text-sky-500 hover:border-slate-400 focus:border-slate-400
-    {% endif %}"
+    <a class="border-l px-4 -ml-px focus:outline-none {% if app.request.get('_route') == path or path in app.request.get('_route') %}border-blue-500 focus:border-blue-600 text-blue-500 font-medium hover:text-blue-600 focus:text-blue-600{% if app.request.get('_route') == path %}hover:text-blue-600 focus:text-blue-600 pointer-events-none{% endif %}{% else %}border-slate-100 text-slate-600 hover:text-blue-500 focus:text-blue-500 hover:border-slate-400 focus:border-slate-400{% endif %}
+             {% if disable %}pointer-events-none{% endif %}"
        href="{{ path(path) }}">
         {% if path in app.request.get('_route') and path != app.request.get('_route')%}
-            <span class="mr-1.5"><i class="fa-solid fa-left-long"></i></span>
+        <span class="mr-1.5"><i class="fa-solid fa-left-long"></i></span>
         {% endif %}
-
         {{ message|trans }}
     </a>
     {% if tag %}
-        <span class="px-2 font-medium text-xs leading-5 rounded-full bg-{{ tagColor }}-400 text-white">{{ tag }}</span>
+        <span class="px-2 text-[9px] uppercase leading-4 rounded-lg {{ tagBgColor }} text-slate-600 border">{{ tag }}</span>
     {% endif %}
 </li>
