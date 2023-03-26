@@ -12,17 +12,17 @@
         </div>
         <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
             <label for="quantity" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Cantidad</label>
-            <input type="number" pattern="[0-9]*" inputmode="numeric" id="quantity" value="{{ saleLine.quantity }}"
+            <input type="number" id="quantity" value="{{ saleLine.quantity }}"
                    class="sale_line_field quantity | w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none">
         </div>
         <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
             <label for="price" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Precio</label>
-            <input type="number" pattern="[0-9]*" inputmode="numeric" id="price" min="0" value="{{ saleLine.price }}"
+            <input type="number" id="price" min="0" value="{{ saleLine.price }}"
                    class="sale_line_field price | w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none">
         </div>
         <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
             <label for="discount" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Descuento</label>
-            <input type="number" pattern="[0-9]*" inputmode="numeric" id="discount" min="0" value="{{ saleLine.discount }}"
+            <input type="number" id="discount" min="0" value="{{ saleLine.discount }}"
                    class="sale_line_field discount | w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none">
         </div>
         <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
@@ -36,7 +36,7 @@
         </div>
         <div class="flex flex-col space-y-1 w-[6rem] min-w-[6rem]">
             <label for="total" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Total</label>
-            <input type="number" pattern="[0-9]*" inputmode="numeric" id="total" step="0.01" disabled value="{{ saleLine.total }}"
+            <input type="number" id="total" step="0.01" disabled value="{{ saleLine.total }}"
                    class="sale_line_field total w-full px-3 py-1.5 text-sm font-normal bg-slate-50 text-slate-700 border-solid border-slate-300 rounded transition ease-in-out m-0 focus:outline-none">
         </div>
         <a href="{{ path('admin_sale_edit_delete_line', {'sale': sale.id, 'saleLine': saleLine.id}) }}"
