@@ -22,7 +22,7 @@ class CreateController extends AbstractController
     ) {}
 
     #[Route('/admin/sale/{sale}/edit/add-line', name: 'admin_sale_edit_add_line', methods: ['GET'])]
-    public function __invoke(Sale $sale): JsonResponse
+    public function __invoke(Sale $sale): Response
     {
         $saleLine = (new SaleLine())
             ->setSale($sale)
@@ -40,6 +40,10 @@ class CreateController extends AbstractController
             return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        return new JsonResponse([Response::HTTP_OK]);
+        return $this->render('admin/sale/_sale-detail-line.html.twig', [
+            'sale' => $sale,
+            'saleLine' => $saleLine,
+            'tax_types' => $this->taxTypeManager->findBy([], ['rate' => 'asc'])
+        ]);
     }
 }

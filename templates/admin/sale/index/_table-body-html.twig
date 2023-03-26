@@ -1,0 +1,112 @@
+<tbody>
+{% for sale in sales %}
+    {% set paymentInfo = view.paymentsInfo[sale.id] %}
+    <tr class="h-12 border-b last:border-b-0 border-slate-200 {% if sale.total == 0 or (not paymentInfo.allCash and sale.totalTaxes == 0) %}bg-red-50 hover:bg-red-100{% else %}even:bg-neutral-50 hover:bg-amber-50{% endif %}">
+        <td class="md:hidden py-1.5 pl-4 pr-1 whitespace-nowrap">
+            <button type="button" id="dropdownSaleButton" data-dropdown-toggle="dropdownSale{{ sale.id }}" data-dropdown-offset-distance="5" data-dropdown-placement="right-start"
+                    class="w-9 px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent active:bg-blue-600 focus:outline-none">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div id="dropdownSale{{ sale.id }}" class="hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
+                <ul class="text-xs py-1.5" aria-labelledby="dropdownSaleButton">
+                    <li class="px-1.5">
+                        <button data-modal-target="show-modal" data-modal-toggle="show-modal" data-url="{{ path('admin_sale_show', {'sale': sale.id}) }}" title="Ver"
+                                type="button" class="sale_show_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-eye"></i>
+                            <span class="ml-1.5">Ver</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <form method="post" action="{{ path('admin_sale_edit', {'id': sale.id}) }}">
+                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                            <button type="submit" class="text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none" title="Editar" >
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="ml-1.5">Editar</span>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="px-1.5">
+                        <button title="Imprimir"
+                                type="button" class="sale_show_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-print"></i>
+                            <span class="ml-1.5">Imprimir</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <form method="post" action="{{ path('admin_sale_delete', {'id': sale.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ sale.id) }}">
+                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                            <button type="submit" title="Eliminar" data-sale-id="{{ sale.id }}"
+                                    class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="ml-1.5">Eliminar</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {{ sale.id }}
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {{ sale.dateAdd|date('d/m/Y H:i') }}
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {{ sale.pet ? sale.pet : '-' }}
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {{ sale.customer ? sale.customer : '-' }}
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            <span>{{ sale.totalDiscounts|format_currency('EUR', {fraction_digit: 2}) }}</span>
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {% if not paymentInfo.allCash and sale.totalTaxes == 0 %}<i class="text-base fa-solid fa-triangle-exclamation mr-1.5 text-amber-500 animate__animated animate__tada animate__infinite animate__slow"></i><span class="text-red-700">{% else %}<span>{% endif %}{{ sale.totalTaxes|format_currency('EUR', {fraction_digit: 2}) }}</span>
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            <span class="{% if sale.total == 0 %}text-red-700{% endif %}">{{ sale.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
+        </td>
+        <td class="py-1.5 px-4 whitespace-nowrap">
+            {% if sale.total > 0 %}
+                <div class="flex items-center space-x-2">
+                    <i class="text-base fa-solid {% if paymentInfo.state == constant('App\\Entity\\Sale::STATE_PAID') %}fa-circle-check text-emerald-500{% elseif paymentInfo.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}fa-circle-minus text-amber-500{% else %}fa-circle-xmark text-red-500{% endif %}"></i>
+                    {% if not paymentInfo.allCash %}
+                        <span class="text-[10px] uppercase">bizum / tarjeta</span>
+                    {% endif %}
+                </div>
+            {% else %}
+                {% if paymentInfo.totalPaid > 0 %}
+                    <span class="text-[10px] uppercase text-red-700 font-medium">pagos erróneos</span>
+                {% endif %}
+            {% endif %}
+        </td>
+        <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
+            <div class="flex items-center justify-end space-x-0.5">
+                <button data-modal-target="show-modal" data-modal-toggle="show-modal" data-url="{{ path('admin_sale_show', {'sale': sale.id}) }}" title="Ver"
+                        type="button" class="sale_show_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <form method="post" action="{{ path('admin_sale_edit', {'id': sale.id}) }}">
+                    <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                    <button type="submit" class=" px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none" title="Editar" >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </form>
+                <button class="px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none" title="Imprimir">
+                    <i class="fa-solid fa-print"></i>
+                </button>
+                <form method="post" action="{{ path('admin_sale_delete', {'id': sale.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ sale.id) }}">
+                    <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                    <button type="submit" title="Eliminar"
+                            class="delete-action-button |  px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

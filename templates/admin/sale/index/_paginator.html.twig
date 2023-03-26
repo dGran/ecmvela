@@ -1,0 +1,8 @@
+{% if sales.pageCount > 1 %}
+    <div class="border-l border-r border-b border-slate-300 rounded-b-md p-4 flex items-center justify-between">
+        <div class="text-xs md:text-sm">
+            <span>Mostrando <strong>{{ sales.currentPageNumber * sales.itemNumberPerPage - sales.itemNumberPerPage + 1 }}-{% if sales.currentPageNumber != sales.pageCount %}{{ sales.currentPageNumber * sales.itemNumberPerPage }}{% else %}{{ sales.getTotalItemCount }}{% endif %}</strong> de <strong>{{ sales.getTotalItemCount }}</strong></span>
+        </div>
+        {{ knp_pagination_render(sales) }}
+    </div>
+{% endif %}

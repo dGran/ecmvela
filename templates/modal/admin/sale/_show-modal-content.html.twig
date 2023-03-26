@@ -1,0 +1,24 @@
+<!-- Modal header -->
+<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Ticket #{{ sale.id }}
+    </h3>
+</div>
+<!-- Modal body -->
+<div class="p-6 space-y-6">
+    <p>{{ sale.dateAdd|date('d/m/Y H:i') }}</p>
+
+    {% for saleLine in sale.getSaleLines %}
+        {{ saleLine.title }}
+        {{ saleLine.quantity }}
+        {{ saleLine.price }}
+        {{ saleLine.discount }}
+        {{ saleLine.total }}
+    {% endfor %}
+
+    <p>pagos</p>
+    {% for salePayment in sale.getSalePayments %}
+        {{ salePayment.paymentMethod.name }}
+        {{ salePayment.amount }}
+    {% endfor %}
+</div>

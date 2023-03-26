@@ -1,43 +1,58 @@
 <ul class="select-none">
     <li>
-        <a href="{{ path('admin_dashboard') }}" class="flex items-center space-x-2 mb-8 lg:mb-3 font-semibold text-neutral-900 hover:text-blue-500 focus:text-blue-500 focus:outline-none {% if app.request.get('_route') == 'admin_dashboard' %}text-blue-500 pointer-events-none{% endif %}">
-{#            <i class="fa-solid fa-gauge-simple text-base"></i>#}
+        <a href="{{ path('admin_dashboard') }}" class="flex items-center space-x-2.5 mb-6 lg:mb-3 font-semibold focus:outline-none {% if app.request.get('_route') == 'admin_dashboard' %}text-blue-500 pointer-events-none{% else %}text-neutral-900 hover:text-blue-500 focus:text-blue-500 {% endif %}">
+            <i class="fa-solid fa-chart-pie text-base w-4 text-center"></i>
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Agenda</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-calendar-days text-base w-4 text-center"></i>
+            <span>Agenda</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Reservas', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Ventas</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-cash-register text-base w-4 text-center"></i>
+            <span>Ventas</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_sale', message: 'Tickets'}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Informe de ventas', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Gastos</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-cart-shopping text-base w-4 text-center"></i>
+            <span>Gastos</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Proveedores', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Acreedores', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Informe de gastos', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Informes</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-chart-column text-base w-4 text-center"></i>
+            <span>Informes</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Mantenimiento</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-database text-base w-4 text-center"></i>
+            <span>Mantenimiento</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas'}) }}
             {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes'}) }}
             {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'pendiente', disable: true}) }}
@@ -45,16 +60,22 @@
             {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Front</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-paw text-base w-4 text-center"></i>
+            <span>Contenidos</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Trabajos', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Blog', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
-    <li class="mt-6 lg:mt-8">
-        <h5 class="mb-3 font-semibold text-neutral-900">Configuración</h5>
-        <ul class="space-y-2 border-l border-slate-100">
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-gear text-base w-4 text-center"></i>
+            <span>Configuración</span>
+        </h5>
+        <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Tareas Programadas', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Comandos', tag: 'pendiente', disable: true}) }}
         </ul>

@@ -1,45 +1,43 @@
 {% if pageCount > 1 %}
-    <div class="flex justify-end text-sm select-none">
+    <div class="flex justify-end text-sm select-none border border-slate-300 rounded-md bg-white">
         <nav aria-label="Page navigation">
-            <ul class="flex list-style-none">
-                <li class="page-item">
-                    <a rel="first" href="{% if first is defined and current != first %}{{ path(route, query|merge({(pageParameterName): first})) }}{% endif %}"
-                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if first is defined and current != first %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
-                        <span class="sr-only">First</span>
-                        <i class="fa-solid fa-backward-step"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a rel="first" href="{% if previous is defined %}{{ path(route, query|merge({(pageParameterName): previous})) }}{% endif %}"
-                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if previous is defined %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+            <ul class="flex items-center">
+{#                <li class="page-item">#}
+{#                    <a rel="first" href="{% if first is defined and current != first %}{{ path(route, query|merge({(pageParameterName): first})) }}{% endif %}"#}
+{#                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 focus:shadow-none {% if first is defined and current != first %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">#}
+{#                        <span class="sr-only">First</span>#}
+{#                        <i class="fa-solid fa-backward-step text-base"></i>#}
+{#                    </a>#}
+{#                </li>#}
+                <li>
+                    <a href="{% if previous is defined %}{{ path(route, query|merge({(pageParameterName): previous})) }}{% endif %}"
+                       class="relative block py-1.5 px-4 border-r border-slate-300 rounded-l-md bg-transparent outline-none transition-all duration-300 focus:shadow-none {% if previous is defined %}text-slate-700 hover:bg-slate-100{% else %}text-slate-400 pointer-events-none{% endif %}">
                         <span class="sr-only">Previous</span>
-                        <i class="fa-solid fa-caret-left"></i>
+                        <i class="fa-solid fa-angle-left"></i>
                     </a>
                 </li>
                 {% for page in pagesInRange %}
-                    <li class="page-item">
+                    <li class="hidden md:block">
                         <a href="{% if page != current %}{{ path(route, query|merge({(pageParameterName): page})) }}{% endif %}"
-                           class="page-link relative block py-1.5 px-3 border-0 outline-none transition-all duration-300 rounded
-                                  {% if page == current %}pointer-events-none bg-blue-500 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md{% else %}bg-transparent text-slate-700 hover:text-slate-800 hover:bg-slate-200 focus:shadow-none{% endif %}>"
-                        >
+                           class="relative block py-1.5 px-3 outline-none transition-all duration-300 text-slate-700 border-r border-slate-300 hover:bg-slate-100 focus:bg-slate-300{% if page == current %}pointer-events-none bg-blue-100{% else %}bg-white{% endif %}">
                             {{ page }}
                         </a>
                     </li>
                 {% endfor %}
-                <li class="page-item">
-                    <a rel="first" href="{% if next is defined %}{{ path(route, query|merge({(pageParameterName): next})) }}{% endif %}"
-                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if next is defined %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
+                <li>
+                    <a href="{% if next is defined %}{{ path(route, query|merge({(pageParameterName): next})) }}{% endif %}"
+                       class="relative block py-1.5 px-4 border-0 rounded-r-md outline-none transition-all duration-300 focus:shadow-none {% if next is defined %}text-slate-700 hover:bg-slate-100{% else %}text-slate-400 pointer-events-none{% endif %}">
                         <span class="sr-only">Next</span>
-                        <i class="fa-solid fa-caret-right"></i>
+                        <i class="fa-solid fa-angle-right"></i>
                     </a>
                 </li>
-                <li class="page-item">
-                    <a rel="first" href="{% if last is defined and current != last %}{{ path(route, query|merge({(pageParameterName): last})) }}{% endif %}"
-                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded focus:shadow-none {% if last is defined and current != last %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">
-                        <span class="sr-only">Last</span>
-                        <i class="fa-solid fa-forward-step"></i>
-                    </a>
-                </li>
+{#                <li class="page-item">#}
+{#                    <a rel="first" href="{% if last is defined and current != last %}{{ path(route, query|merge({(pageParameterName): last})) }}{% endif %}"#}
+{#                       class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 focus:shadow-none {% if last is defined and current != last %}text-slate-700 hover:text-slate-800 hover:bg-slate-200{% else %}text-slate-400 pointer-events-none{% endif %}">#}
+{#                        <span class="sr-only">Last</span>#}
+{#                        <i class="fa-solid fa-forward-step"></i>#}
+{#                    </a>#}
+{#                </li>#}
             </ul>
         </nav>
     </div>

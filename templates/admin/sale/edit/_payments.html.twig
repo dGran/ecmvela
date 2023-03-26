@@ -1,10 +1,12 @@
 {% set sale_payment_info = view.salePaymentInfo %}
 <div class="mt-9 lg:mt-6 relative border rounded {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500 bg-emerald-50{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500 bg-amber-50{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}border-red-500 bg-red-50{% else %}bg-white{% endif %}">
     <h4 class="uppercase text-[12px] tracking-widest text-slate-500 font-medium absolute top-0 left-0 ml-4 -mt-3 bg-white px-2 py-0.5 border rounded">pagos</h4>
+    {% if sale.total > 0 or sale_payment_info.totalPaid > 0 %}
     <div class="absolute top-0 right-0 mr-[20px] -mt-[15px] bg-white border rounded flex items-center px-2.5 {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}border-emerald-500 text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}border-amber-500 text-amber-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}border-red-500 text-red-500{% else %}text-red-800{% endif %}">
         <span class="uppercase text-[11px] tracking-widest font-medium">Pagado {{ sale_payment_info.totalPaid|format_currency('EUR') }} / {{ sale.total|format_currency('EUR') }}</span>
         <i class="ml-2.5 text-lg fa-solid {% if sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PAID') %}fa-circle-check text-emerald-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PARTIAL_PAYMENT') %}fa-circle-minus text-amber-500{% elseif sale_payment_info.state == constant('App\\Entity\\Sale::STATE_PENDING_PAYMENT') %}fa-circle-xmark text-red-500{% else %}fa-triangle-exclamation text-red-800 animate-pulse"{% endif %}"></i>
     </div>
+    {% endif %}
 
     <div class="flex flex-col space-y-2.5 mt-4 p-4">
         {% if sale_payment_info.totalPaid > sale.total %}

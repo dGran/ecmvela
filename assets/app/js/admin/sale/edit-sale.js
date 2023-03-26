@@ -169,12 +169,9 @@ $( document ).ready(function() {
         $.ajax({
             type: 'GET',
             url: url,
-            success: function() {
-                // $("#sale-detail").html(data);
-                $("#sale-detail").load(location.href + " #sale-detail");
-
-                //set focus on new line title
-                $('form').last().find('.title').focus();
+            success: function(data) {
+                $("#sale-detail-lines").append(data);
+                $('.sale_line_form').last().find('.title').focus();
             },
             error: function() {
                 Toast.fire({
@@ -216,11 +213,12 @@ $( document ).ready(function() {
                                 icon: 'success', title: 'Se ha eliminado la línea correctamente'
                             });
 
-                            $("#sale-detail").load(location.href + " #sale-detail");
+                            let saleLine = $("form[data-sale-line-id='" + data +"']");
+                            saleLine.remove();
+                            //set focus on last line title
+                            $('.sale_line_form').last().find('.title').focus();
                             $("#sale-payments").load(location.href + " #sale-payments");
                             $("#summary").load(location.href + " #summary");
-                            //set focus on last line title
-                            // $('form').last().find('.title').focus();
                         }
                     },
                     error: function() {

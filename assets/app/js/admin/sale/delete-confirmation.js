@@ -3,16 +3,15 @@ $('.delete-action-button').click(function(e) {
 
     let clickedElement = $(this);
     let form = $(this).parents('form');
-    let name = clickedElement.data('name');
-    let img = clickedElement.data('img');
+    let saleId = clickedElement.data('sale-id');
 
-    deleteConfirmation(form, name, img)
+    deleteConfirmation(form, saleId)
 });
 
-function deleteConfirmation(form)
+function deleteConfirmation(form, saleId)
 {
     Swal.fire({
-        html: '<div class="py-1.5">¿Seguro que quieres eliminar el TPV?</div>',
+        html: '<div class="py-1.5">¿Seguro que quieres eliminar el TPV <strong>#'+saleId+'</strong>?</div>',
         showCloseButton: true,
         showCancelButton: true,
         cancelButtonText: "Cancelar",

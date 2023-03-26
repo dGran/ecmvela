@@ -23,6 +23,8 @@ class DeleteController extends AbstractController
     #[Route('/admin/sale/{sale}/edit/{saleLine}/delete-line', name: 'admin_sale_edit_delete_line', methods: ['GET'])]
     public function __invoke(Sale $sale, SaleLine $saleLine): JsonResponse
     {
+        $saleLineId = $saleLine->getId();
+
         if ($sale->getSaleLines()->count() === 1) {
             return new JsonResponse(Response::HTTP_NOT_ACCEPTABLE);
         }
@@ -34,6 +36,6 @@ class DeleteController extends AbstractController
             return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        return new JsonResponse([Response::HTTP_OK]);
+        return new JsonResponse($saleLineId);
     }
 }
