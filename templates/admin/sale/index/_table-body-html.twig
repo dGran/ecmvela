@@ -100,8 +100,8 @@
                 <form method="post" action="{{ path('admin_sale_delete', {'id': sale.id}) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ sale.id) }}">
                     <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                    <button type="submit" title="Eliminar"
-                            class="delete-action-button |  px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <button type="submit" title="Eliminar" data-sale-id="{{ sale.id }}"
+                            class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </form>
