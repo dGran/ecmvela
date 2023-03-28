@@ -26,6 +26,10 @@
                         <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
                         <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
                     </li>
+                    <li class="hidden py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-0.5 text-red-600">
+                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
+                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
