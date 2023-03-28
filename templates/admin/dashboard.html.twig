@@ -4,7 +4,8 @@
 
 {% block main %}
     <div>
-        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">DIAS: Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+        <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por días</h2>
         <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
             {% for day in view.saleTotalDays.days %}
                 <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
@@ -16,7 +17,7 @@
     </div>
 
     <div class="py-8">
-        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">SEMANAS: Total caja acumulada: <span class="font-bold">{{ view.saleTotalWeeks.total|format_currency('EUR') }}</span></h2>
+        <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por semanas</h2>
         <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
             {% for week in view.saleTotalWeeks.weeks %}
                 <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
