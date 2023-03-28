@@ -4,20 +4,34 @@ declare(strict_types=1);
 
 namespace App\Model\View;
 
-use App\Model\SaleTotal;
+use App\Model\SaleTotalDays;
+use App\Model\SaleTotalWeeks;
 
 class DashboardView
 {
-    protected ?SaleTotal $saleTotal = null;
+    protected ?SaleTotalDays $saleTotalDays = null;
+    protected ?SaleTotalWeeks $saleTotalWeeks = null;
 
-    public function getSaleTotal(): ?SaleTotal
+    public function getSaleTotalDays(): ?SaleTotalDays
     {
-        return $this->saleTotal;
+        return $this->saleTotalDays;
     }
 
-    public function setSaleTotal(?SaleTotal $saleTotal): DashboardView
+    public function setSaleTotalDays(?SaleTotalDays $saleTotal): DashboardView
     {
-        $this->saleTotal = $saleTotal;
+        $this->saleTotalDays = $saleTotal;
+
+        return $this;
+    }
+
+    public function getSaleTotalWeeks(): ?SaleTotalWeeks
+    {
+        return $this->saleTotalWeeks;
+    }
+
+    public function setSaleTotalWeeks(?SaleTotalWeeks $saleTotalWeeks): DashboardView
+    {
+        $this->saleTotalWeeks = $saleTotalWeeks;
 
         return $this;
     }

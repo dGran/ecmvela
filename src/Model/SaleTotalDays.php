@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class SaleTotal
+class SaleTotalDays
 {
     /** @var SaleTotalDay[]|null  */
     protected ?array $days = null;
@@ -15,7 +15,10 @@ class SaleTotal
         return $this->days;
     }
 
-    public function setDays(?array $days): SaleTotal
+    /**
+     * @param SaleTotalDay[]|null $days
+     */
+    public function setDays(?array $days): SaleTotalDays
     {
         $this->days = $days;
 
@@ -27,7 +30,7 @@ class SaleTotal
         return $this->total;
     }
 
-    public function setTotal(?float $total): SaleTotal
+    public function setTotal(?float $total): SaleTotalDays
     {
         $this->total = $total;
 

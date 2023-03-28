@@ -3,13 +3,27 @@
 {% block title %}Dashboard | {% endblock %}
 
 {% block main %}
-    <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotal.total|format_currency('EUR') }}</span></h2>
-    <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
-        {% for day in view.saleTotal.days %}
-            <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
-                <p>{{ day.day|date('d/m/Y') }}</p>
-                <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+    <div>
+        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">DIAS: Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+        <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
+            {% for day in view.saleTotalDays.days %}
+                <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
+                    <p>{{ day.day|date('d/m/Y') }}</p>
+                    <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="py-8">
+        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">SEMANAS: Total caja acumulada: <span class="font-bold">{{ view.saleTotalWeeks.total|format_currency('EUR') }}</span></h2>
+        <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
+            {% for week in view.saleTotalWeeks.weeks %}
+                <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
+                    <p>Semana {{ week.week }}: {{ week.startDate|date('d/m/Y') }}-{{ week.endDate|date('d/m/Y') }}</p>
+                    <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
