@@ -7,6 +7,7 @@ namespace App\Model;
 class SaleTotalDay
 {
     protected ?\DateTime $day = null;
+    protected ?int $tickets = null;
     protected ?float $total = null;
 
     public function getDay(): ?\DateTime
@@ -17,6 +18,18 @@ class SaleTotalDay
     public function setDay(?\DateTime $day): SaleTotalDay
     {
         $this->day = $day;
+
+        return $this;
+    }
+
+    public function getTickets(): ?int
+    {
+        return $this->tickets;
+    }
+
+    public function setTickets(?int $tickets): SaleTotalDay
+    {
+        $this->tickets = $tickets;
 
         return $this;
     }

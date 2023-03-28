@@ -58,7 +58,7 @@ class SaleRepository extends ServiceEntityRepository
     public function findAllGroupedByDay(): array
     {
         return $this->createQueryBuilder('sale')
-            ->select('SUM(sale.total) AS total', 'DATE(sale.dateAdd) as day')
+            ->select('SUM(sale.total) AS total', 'COUNT(sale.id) as tickets', 'DATE(sale.dateAdd) as day')
             ->orderBy('day', 'DESC')
             ->groupBy('day')
             ->getQuery()

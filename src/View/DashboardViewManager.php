@@ -22,6 +22,13 @@ class DashboardViewManager
     {
         $view = new DashboardView();
 
+
+        /**
+         * unica query groupedByDay
+         * recorrer ese array y montar un array con todos los datos, day, dayOfWeek, Week, Year
+         * con ese array ya se podria generar cualquier modelo para la vista
+         */
+
         $salesGroupedByDay = $this->saleManager->findAllGroupedByDay();
 
         $saleTotalDays = [];
@@ -30,6 +37,7 @@ class DashboardViewManager
         foreach ($salesGroupedByDay as $sale) {
             $saleTotalDay = new SaleTotalDay();
             $saleTotalDay->setTotal($sale['total']);
+            $saleTotalDay->setTickets($sale['tickets']);
             $saleTotalDay->setDay(new \DateTime($sale['day']));
 
             $saleTotalDays[] = $saleTotalDay;
