@@ -3,28 +3,32 @@
 {% block title %}Dashboard | {% endblock %}
 
 {% block main %}
-    <div>
-        <h2 class="mb-6 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
-        <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por días</h2>
-        <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
-            {% for day in view.saleTotalDays.days %}
-                <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
-                    <p>{{ day.day|date('d/m/y') }} - {{ day.tickets }} {{ day.tickets == 1 ? 'ticket' : 'tickets' }}</p>
-                    <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="w-full">
+            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por días</h2>
+            <ul class="text-sm border rounded text-gray-500">
+                {% for day in view.saleTotalDays.days %}
+                    <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
+                        <p>{{ day.day|date('d/m/y') }} - {{ day.tickets }} {{ day.tickets == 1 ? 'ticket' : 'tickets' }}</p>
+                        <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por semanas</h2>
+            <ul class="text-sm border rounded text-gray-500">
+                {% for week in view.saleTotalWeeks.weeks %}
+                    <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
+                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
+                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
-    <div class="py-8">
-        <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por semanas</h2>
-        <ul class="max-w-md text-sm border rounded text-gray-500 list-disc list-inside dark:text-gray-400">
-            {% for week in view.saleTotalWeeks.weeks %}
-                <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-slate-50 space-x-8">
-                    <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
-                    <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
 {% endblock %}
