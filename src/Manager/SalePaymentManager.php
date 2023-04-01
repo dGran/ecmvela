@@ -77,4 +77,9 @@ class SalePaymentManager
             $this->delete($salePayment);
         }
     }
+
+    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): float
+    {
+        return $this->repository->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
+    }
 }

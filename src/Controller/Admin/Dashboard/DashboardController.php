@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Dashboard;
 
 use App\Manager\SaleManager;
+use App\Manager\SalePaymentManager;
 use App\View\DashboardViewManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -18,6 +19,7 @@ class DashboardController extends AbstractController
 {
     public function __construct(
         private readonly SaleManager $saleManager,
+        private readonly SalePaymentManager $salePaymentManager,
         private readonly DashboardViewManager $dashboardViewManager
     ) {
     }
@@ -47,8 +49,14 @@ class DashboardController extends AbstractController
 //        $dateTo->modify('-1 days');
 //        $yesterdaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
 
+
+        $dateFrom = new \DateTime('2023-01-01');
+        $dateTo = new \DateTime('2023-03-31');
+        $totalBizum = $this->salePaymentManager->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
+
         return $this->render('admin/dashboard.html.twig', [
             'view' => $view,
+            'total_bizum' => $totalBizum,
         ]);
     }
 }

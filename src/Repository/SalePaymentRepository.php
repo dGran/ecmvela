@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\PaymentMethod;
 use App\Entity\SalePayment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,5 +24,19 @@ class SalePaymentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SalePayment::class);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): float
+    {
+        return $this->createQueryBuilder('sale_payment')
+            ->select('SUM(sale_payment.amount) AS total')
+            ->where('sale_payment.paymentMethod = :paymentMethodBizumId')
+            ->setParameter('paymentMethodBizumId', PaymentMethod::BIZUM_METHOD_ID)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
