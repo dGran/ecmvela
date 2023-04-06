@@ -36,4 +36,14 @@ class CustomerRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByName(string $name): array
+    {
+        return $this->createQueryBuilder('customer')
+            ->where('customer.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
+            ->orderBy('customer.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

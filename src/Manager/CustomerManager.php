@@ -80,4 +80,22 @@ class CustomerManager
     {
         return $this->repository->findByIndexSearchFields($search);
     }
+
+    public function findByName(string $name): array
+    {
+        return $this->repository->findByName($name);
+//        $customers = $this->repository->findByName($name);
+//        $results = [];
+//
+//        foreach ($customers as $customer) {
+//            $results[] = [
+//                'id' => $customer->getId(),
+//                'name' => $customer->getName(),
+//                'email' => $customer->getEmail(),
+//                'phone' => $customer->getPhone()
+//            ];
+//        }
+//
+//        return $results;
+    }
 }

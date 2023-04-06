@@ -14,9 +14,7 @@ class SaleService
     public function __construct(
         private readonly SaleManager $saleManager,
         private readonly SaleLineManager $saleLineManager,
-    ) {
-
-    }
+    ) {}
 
     public function updateSaleLineTotal(SaleLine $saleLine): void
     {
@@ -104,7 +102,7 @@ class SaleService
         }
     }
 
-    public function getTotalPaid(Sale $sale)
+    public function getTotalPaid(Sale $sale): ?float
     {
         $totalPaid = 0.0;
 

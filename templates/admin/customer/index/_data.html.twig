@@ -1,0 +1,103 @@
+<div class="overflow-x-auto">
+    <div class="py-2 inline-block min-w-full">
+        <div class="overflow-x-auto">
+            <table class="min-w-full mt-6 border-l border-r bg-white text-sm">
+                {% if customers is empty %}
+                    <tr class="border-b border-t">
+                        <td colspan="99" class="py-6 px-3 text-center">
+                            No se han encontrado clientes
+                        </td>
+                    </tr>
+                {% else %}
+                    <thead class="border-t border-b h-10 px-3">
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                        {{ knp_pagination_sortable(customers, 'Id', 'id') }}
+                    </th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                        {{ knp_pagination_sortable(customers, 'Nombre', 'name') }}
+                    </th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">Mascota/s</th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                        {{ knp_pagination_sortable(customers, 'Teléfono', 'phone') }}
+                    </th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                        {{ knp_pagination_sortable(customers, 'Población', 'location') }}
+                    </th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+                        {{ knp_pagination_sortable(customers, 'Fecha alta', 'dateAdd') }}
+                    </th>
+                    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
+                    </thead>
+                    <tbody class="bg-white">
+                    {% for customer in customers %}
+                        <tr class="border-b hover:bg-neutral-50">
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                {{ customer.id }}
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
+                                    <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                    <button type="submit" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                                        {{ customer.name }}
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                {% for index, pet in customer.getPets() %}
+                                    <span>{% if index > 0 %}, {% endif %}
+                                            <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" target="_blank" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                                                {{ pet.name }}
+                                            </a>
+                                        </span>
+                                {% endfor %}
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                {{ customer.phone ? customer.phone : '-' }}
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                {{ customer.location ? customer.location : '-' }}
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                {{ customer.dateAdd|date('d/m/Y') }}
+                            </td>
+                            <td class="py-1.5 px-3 whitespace-nowrap">
+                                <div class="flex items-center space-x-2.5">
+                                    <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
+                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                        <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-eye text-base"></i>
+                                        </button>
+                                    </form>
+                                    <form method="post" action="{{ path('admin_customer_edit', {'id': customer.id}) }}">
+                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                        <input type="hidden" name="pathFrom" value="index">
+                                        <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-pen-to-square text-base"></i>
+                                        </button>
+                                    </form>
+                                    <form method="post" action="{{ path('admin_customer_delete', {'id': customer.id}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ customer.id) }}">
+                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                                        <button type="submit" data-name="{{ customer.name }}"
+                                                class="delete-action-button | text-rose-500 hover:text-rose-600 focus:text-rose-600 active:text-rose-700 focus:outline-none transition duration-150 ease-in-out">
+                                            <i class="fa-solid fa-trash text-base"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+<div class="py-3 flex flex-col">
+    {{ knp_pagination_render(customers) }}
+    {% if customers.pageCount > 1 %}
+        <div class="pt-3 flex flex-col items-end space-y-0.5 text-slate-400 italic text-xs md:text-sm">
+            <span>{{ customers.currentPageNumber * customers.itemNumberPerPage - customers.itemNumberPerPage + 1 }} / {% if customers.currentPageNumber != customers.pageCount %}{{ customers.currentPageNumber * customers.itemNumberPerPage }}{% else %}{{ customers.getTotalItemCount }}{% endif %} de {{ customers.getTotalItemCount }} registros</span>
+        </div>
+    {% endif %}
+</div>
