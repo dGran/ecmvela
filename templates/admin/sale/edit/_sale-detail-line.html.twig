@@ -11,6 +11,17 @@
                    autofocus>
         </div>
         <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
+            <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
+                <label for="maintenance-plan" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide"><i class="fa-solid fa-scissors mr-1.5"></i>Mant.</label>
+                <div class="px-3 py-[0.20rem]">
+                    <label class="border relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="maintenance-plan" class="sale_line_field maintenance_plan | sr-only peer" {% if saleLine.maintenancePlan %}checked{% endif %}>
+                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-1 w-[5rem] min-w-[5rem]">
             <label for="quantity" class="text-[12px] font-medium text-slate-600 uppercase tracking-wide">Cantidad</label>
             <input type="number" id="quantity" value="{{ saleLine.quantity }}"
                    class="sale_line_field quantity | w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none">

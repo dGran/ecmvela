@@ -130,6 +130,7 @@ $( document ).ready(function() {
         let discount = $(form.find('.discount')).val();
         let taxType = $(form.find('.taxType')).val();
         let total = $(form.find('.total')).val();
+        let maintenancePlan = $(form.find('.maintenance_plan')).prop('checked');
 
         $.ajax({
             type: 'POST',
@@ -141,6 +142,7 @@ $( document ).ready(function() {
                 discount: discount,
                 taxType: taxType,
                 total: total,
+                maintenancePlan: maintenancePlan,
             },
             success: function(data) {
                 $(form.find('.total')).val(data.total_line);

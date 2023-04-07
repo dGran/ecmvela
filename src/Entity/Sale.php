@@ -43,8 +43,8 @@ class Sale
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
-    #[ORM\Column]
-    private ?bool $maintenancePlan = null;
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $declared = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateNextBooking = null;
@@ -65,7 +65,6 @@ class Sale
     {
         $this->salePayments = new ArrayCollection();
         $this->saleLines = new ArrayCollection();
-        $this->maintenancePlan = false;
     }
 
     public function getId(): ?int
@@ -157,14 +156,14 @@ class Sale
         return $this;
     }
 
-    public function isMaintenancePlan(): ?bool
+    public function isDeclared(): bool
     {
-        return $this->maintenancePlan;
+        return $this->declared;
     }
 
-    public function setMaintenancePlan(bool $maintenancePlan): Sale
+    public function setDeclared(bool $declared): Sale
     {
-        $this->maintenancePlan = $maintenancePlan;
+        $this->declared = $declared;
 
         return $this;
     }

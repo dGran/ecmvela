@@ -47,6 +47,9 @@ class SaleLine
     #[Assert\NotBlank]
     private ?float $discount = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $maintenancePlan = false;
+
     #[ORM\Column(scale: 2)]
     private ?float $total = null;
 
@@ -153,6 +156,18 @@ class SaleLine
     public function setDiscount(float $discount): SaleLine
     {
         $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function isMaintenancePlan(): bool
+    {
+        return $this->maintenancePlan;
+    }
+
+    public function setMaintenancePlan(bool $maintenancePlan): SaleLine
+    {
+        $this->maintenancePlan = $maintenancePlan;
 
         return $this;
     }

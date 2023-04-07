@@ -35,7 +35,6 @@ class UpdateController extends AbstractController
             }
 
             $sale->setNotes((string)$request->get('notes'));
-            $sale->setMaintenancePlan($request->get('maintenancePlan') === "true");
 
             $this->saleManager->update($sale);
         } catch (\Exception $exception) {
