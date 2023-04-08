@@ -46,6 +46,9 @@ class Sale
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $declared = false;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $locked = false;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateNextBooking = null;
 
@@ -164,6 +167,18 @@ class Sale
     public function setDeclared(bool $declared): Sale
     {
         $this->declared = $declared;
+
+        return $this;
+    }
+
+    public function isLocked(): bool
+    {
+        return $this->locked;
+    }
+
+    public function setLocked(bool $locked): Sale
+    {
+        $this->locked = $locked;
 
         return $this;
     }

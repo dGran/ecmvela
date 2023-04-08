@@ -28,7 +28,7 @@
     <li class="mt-6">
         <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
             <i class="fa-solid fa-cart-shopping text-base w-4 text-center"></i>
-            <span>Gastos</span>
+            <span>Compras / Gastos</span>
         </h5>
         <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true}) }}
@@ -45,6 +45,18 @@
         <ul>
             {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pendiente', disable: true}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pendiente', disable: true}) }}
+        </ul>
+    </li>
+    <li class="mt-6">
+        <h5 class="mb-3 font-semibold text-neutral-900 flex items-center space-x-2.5">
+            <i class="fa-solid fa-percent text-base w-4 text-center"></i>
+            <span>Impuestos</span>
+        </h5>
+        <ul>
+            {{ component('adminNavItem', {path: 'admin_test', message: 'IVA', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Retenciones', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Beneficios', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'IRPF', tag: 'pendiente', disable: true}) }}
         </ul>
     </li>
     <li class="mt-6">
