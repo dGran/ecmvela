@@ -4,6 +4,10 @@
 
 {% block main %}
 
+    <div class="mb-8">
+    {{ render_chart(chart) }}
+    </div>
+
     <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">1T: Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
     <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
 

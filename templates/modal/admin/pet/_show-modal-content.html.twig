@@ -1,0 +1,95 @@
+<!-- Modal header -->
+<div class="flex items-start justify-between p-4 border-b rounded-t">
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        {{ pet.name }}
+    </h3>
+</div>
+<!-- Modal body -->
+<div class="p-6 text-sm">
+    <div class="w-full flex flex-col">
+        <img src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen del cliente" class="mb-6 mx-auto h-40 w-40 rounded-full object-cover shadow-lg bg-white p-0.5">
+        <ul class="border rounded-md">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50 rounded-t-md">
+                <p class="flex-1 font-medium text-right w-full">Id</p>
+                <p class="flex-1 text-left w-full">{{ pet.id }}</p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Categoría</p>
+                <p class="flex-1 text-left w-full">{{ pet.category.name }}</p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Nombre</p>
+                <p class="flex-1 text-left w-full">{{ pet.name }}</p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Dueñ@</p>
+                <p class="flex-1 text-left w-full">
+                {% if pet.customer %}
+                    <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal"
+                            data-url="{{ path('admin_customer_show', {'customer': pet.customer.id}) }}" title="Ver"
+                            type="button"
+                            class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                        {{ pet.customer.name }}
+                    </button>
+                {% else %}
+                    -
+                {% endif %}
+                </p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Raza</p>
+                <div class="flex-1 flex flex-col">
+                {% if pet.breed %}
+                    <p class="text-left w-full">{{ pet.breed.name }}</p>
+                    {% if pet.breed.img %}
+                    <figure class="pt-1.5">
+                        <img src="{{ asset(pet.breed.img) }}" class="h-20 w-auto border rounded-md p-1 bg-white">
+                    </figure>
+                    {% endif %}
+                {% else %}
+                    <span>-</span>
+                {% endif %}
+                </div>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Color</p>
+                <p class="flex-1 text-left w-full">{{ pet.color ?? '-' }}</p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Fecha nacimiento</p>
+                <div class="flex-1 flex flex-col space-y-1">
+                {% if pet.birthDate %}
+                    <p class="text-left w-full">{{ pet.birthDate|date('d/m/Y') }}</p>
+                    <p class="text-left w-full">{{ pet.getPetFullAge }}</p>
+                {% else %}
+                    <span>-</span>
+                {% endif %}
+                </div>
+
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Activo</p>
+                <p class="flex-1 text-left w-full"><i class="{% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i></p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Fecha alta</p>
+                <p class="flex-1 text-left w-full">{{ pet.dateAdd|date('d/m/Y, h:i') }}</p>
+            </li>
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Fecha última modificación</p>
+                <p class="flex-1 text-left w-full">{{ pet.dateUpd|date('d/m/Y, h:i') }}</p>
+            </li>
+            {% if pet.notes %}
+            <li class="px-4 py-2.5 even:bg-neutral-50 hover:bg-amber-50 rounded-b-md">
+                <p class="text-center font-medium w-full mb-1">Observaciones</p>
+                <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="4">{{ pet.notes }}</textarea>
+            </li>
+            {% else %}
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50 rounded-b-md">
+                <p class="flex-1 font-medium text-right w-full">Observaciones</p>
+                <p class="flex-1 text-left w-full">-</p>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

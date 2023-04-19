@@ -3,163 +3,32 @@
 {% block title %}Mascotas | {% endblock %}
 
 {% block main %}
-    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
-        <div class="flex-auto max-w-4xl">
-            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Administración</p>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Mascotas</h1>
-            <p class="mt-2 md:mt-4 text-base md:text-lg text-slate-700">Mantenimiento de fichas de mascotas.</p>
-        </div>
-    </header>
+    {% include 'admin/pet/index/_header.html.twig' %}
+    {% include 'admin/pet/index/_filters.html.twig' %}
 
-    <div class="flex items-center justify-between space-x-4">
-        <form method="post" action="{{ path('admin_pet_create') }}">
-            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-            <button type="submit" class="flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
-                Nuevo
-            </button>
-        </form>
-        <form action="{{ path('admin_pet') }}" class="flex-1">
-            <div class="input-group relative flex flex-wrap items-stretch w-full">
-                <input type="search" name="search"
-                       class="form-control relative flex-auto min-w-0 block w-full px-2.5 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none"
-                       placeholder="Buscar..." aria-label="Search" aria-describedby="btn-search" value="{{ search }}"
-                       autofocus autocomplete="off">
+    <div class="my-6">
+        <div class="border border-slate-300 rounded-t-md {% if pets.pageCount == 1 %}rounded-b-md{% endif%} overflow-x-auto">
+            {% if pets is empty %}
+            <div class="py-6 px-3 flex flex-col items-center space-y-1.5 bg-slate-50">
+                <span class="text-2xl animate__animated animate__tada animate__infinite">😖</span>
+                <span>No se han encontrado mascotas</span>
             </div>
-        </form>
+            {% else %}
+            <table class="min-w-full text-sm">
+                {% include 'admin/pet/index/_table-header.html.twig' %}
+                {% include 'admin/pet/index/_table-body-html.twig' %}
+            </table>
+            {% endif %}
+        </div>
+        {% include 'admin/pet/index/_paginator.html.twig' %}
     </div>
 
-    <div class="overflow-x-auto">
-        <div class="py-2 inline-block min-w-full">
-            <div class="overflow-x-auto">
-                <table class="min-w-full mt-6 border-l border-r bg-white text-sm">
-                    {% if pets is empty %}
-                        <tr class="border-b border-t">
-                            <td colspan="99" class="py-6 px-3 text-center">
-                                No se han encontrado mascotas
-                            </td>
-                        </tr>
-                    {% else %}
-                        <thead class="border-t border-b h-10 px-3">
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Id', 'id') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Foto</th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Nombre', 'name') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Dueño', 'customer') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Categoría', 'category') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Raza', 'breed') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Edad</th>
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Cumpleaños', 'birthDate') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Activo', 'active') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
-                                {{ knp_pagination_sortable(pets, 'Fecha alta', 'dateAdd') }}
-                            </th>
-                            <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap"></th>
-                        </thead>
-                        <tbody class="bg-white">
-                        {% for pet in pets %}
-                            <tr class="border-b hover:bg-neutral-50">
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.id }}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <form method="post" action="{{ path('admin_pet_show', {'id': pet.id}) }}">
-                                        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                        <button type="submit" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
-                                            {{ pet.name }}
-                                        </button>
-                                    </form>
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {% if pet.customer %}
-                                        <a href="{{ path('admin_customer_show', {'id': pet.customer.id}) }}" target="_blank" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
-                                            {{ pet.customer.name }}
-                                        </a>
-                                    {% else %}
-                                        -
-                                    {% endif %}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.category.name ?? '-' }}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.breed.name ?? '-' }}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.getPetShortAge ?? '-' }}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {% if pet.birthDate is not null %}
-                                        {{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}
-                                    {% else %}
-                                        -
-                                    {% endif %}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <i class="w-4 text-center {% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i>
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    {{ pet.dateAdd|date('d/m/Y') }}
-                                </td>
-                                <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2.5">
-                                        <form method="post" action="{{ path('admin_pet_show', {'id': pet.id}) }}">
-                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                            <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
-                                                <i class="fa-solid fa-eye text-base"></i>
-                                            </button>
-                                        </form>
-                                        <form method="post" action="{{ path('admin_pet_edit', {'id': pet.id}) }}">
-                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                            <input type="hidden" name="pathFrom" value="index">
-                                            <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
-                                                <i class="fa-solid fa-pen-to-square text-base"></i>
-                                            </button>
-                                        </form>
-                                        <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
-                                            <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
-                                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                                            <button type="submit" data-name="{{ pet.name }}" data-img="{{ asset(pet.getProfileImgPath()) }}"
-                                                    class="delete-action-button | text-rose-500 hover:text-rose-600 focus:text-rose-600 active:text-rose-700 focus:outline-none transition duration-150 ease-in-out">
-                                                <i class="fa-solid fa-trash text-base"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    {% endif %}
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="py-3 flex flex-col">
-        {{ knp_pagination_render(pets) }}
-        {% if pets.pageCount > 1 %}
-            <div class="pt-3 flex flex-col items-end space-y-0.5 text-slate-400 italic text-xs md:text-sm">
-                <span>{{ pets.currentPageNumber * pets.itemNumberPerPage - pets.itemNumberPerPage + 1 }} / {% if pets.currentPageNumber != pets.pageCount %}{{ pets.currentPageNumber * pets.itemNumberPerPage }}{% else %}{{ pets.getTotalItemCount }}{% endif %} de {{ pets.getTotalItemCount }} registros</span>
-            </div>
-        {% endif %}
-    </div>
+    {% include 'modal/admin/ajax-modal.html.twig' %}
+    {% include 'modal/admin/ajax-static-modal.html.twig' %}
 {% endblock %}
 
 {% block js %}
     <script src="{{ asset('build/app/js/admin/pet/delete-confirmation.js') }}"></script>
+    <script src="{{ asset('build/app/js/admin/pet/pet-crud.js') }}"></script>
+    <script src="{{ asset('build/app/js/admin/ajax-modal.js') }}"></script>
 {% endblock %}

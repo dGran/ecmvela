@@ -27,10 +27,10 @@
         {% include 'admin/sale/index/_paginator.html.twig' %}
     </div>
 
-    {% include 'modal/admin/sale/show-modal.html.twig' %}
+    {% include 'modal/admin/ajax-modal.html.twig' %}
 {% endblock %}
 
 {% block js %}
     <script src="{{ asset('build/app/js/admin/sale/delete-confirmation.js') }}"></script>
-    <script src="{{ asset('build/app/js/admin/sale/show-modal.js') }}"></script>
+    <script src="{{ asset('build/app/js/admin/ajax-modal.js') }}"></script>
 {% endblock %}

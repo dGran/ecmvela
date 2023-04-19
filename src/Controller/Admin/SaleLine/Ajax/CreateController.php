@@ -24,6 +24,12 @@ class CreateController extends AbstractController
     #[Route('/admin/sale/{sale}/edit/add-line', name: 'admin_sale_edit_add_line', methods: ['GET'])]
     public function __invoke(Sale $sale): Response
     {
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede editar');
+
+            return $this->redirect('admin_sale');
+        }
+
         $saleLine = (new SaleLine())
             ->setSale($sale)
             ->setQuantity(1)

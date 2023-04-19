@@ -21,6 +21,12 @@ class UpdateDateController extends AbstractController
     #[Route('/admin/sale/{sale}/update-date', name: 'admin_sale_update_date', methods: ['POST'])]
     public function __invoke(Request $request, Sale $sale): JsonResponse
     {
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede editar');
+
+            return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
+        }
+
         try {
             $dateAdd = new \DateTime($request->request->get('date'));
             $sale->setDateAdd($dateAdd);

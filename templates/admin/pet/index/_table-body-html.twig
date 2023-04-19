@@ -1,0 +1,120 @@
+<tbody>
+{% for pet in pets %}
+    <tr class="h-12 border-b last:border-b-0 border-slate-200 {% if pet.active == 0 %}bg-red-50 hover:bg-red-100{% else %}even:bg-neutral-50 hover:bg-amber-50{% endif %}">
+        <td class="md:hidden py-1.5 pl-4 pr-1 whitespace-nowrap">
+            <button type="button" id="dropdownActionsButton" data-dropdown-toggle="dropdownActions{{ pet.id }}" data-dropdown-offset-distance="5" data-dropdown-placement="right-start"
+                    class="w-9 px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent active:bg-blue-600 focus:outline-none">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div id="dropdownActions{{ pet.id }}" class="hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
+                <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">
+                    <li class="px-1.5">
+                        <button type="button" title="Ver"
+                                data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}"
+                                class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-eye"></i>
+                            <span class="ml-1.5">Ver</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <button type="button" title="Editar"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal"
+                                data-url="{{ path('admin_pet_edit', {'pet': pet.id}) }}"
+                                data-path-index="{{ app.request.requesturi }}"
+                                class="edit-button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span class="ml-1.5">Editar</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <button title="Imprimir"
+                                type="button" class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-print"></i>
+                            <span class="ml-1.5">Imprimir</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
+                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                            <button type="submit" title="Eliminar" data-pet-id="{{ pet.id }}"
+                                    class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="ml-1.5">Eliminar</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ pet.id }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
+                    type="button" class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                {{ pet.name }}
+            </button>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {% if pet.customer %}
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': pet.customer.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                    {{ pet.customer.name }}
+                </button>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ pet.category.name ?? '-' }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ pet.breed.name ?? '-' }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ pet.getPetShortAge ?? '-' }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {% if pet.birthDate is not null %}
+                {{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <i class="w-4 text-center {% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ pet.dateAdd|date('d/m/Y') }}
+        </td>
+        <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
+            <div class="flex items-center justify-end space-x-1">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button type="button" title="Editar"
+                        data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                        data-url="{{ path('admin_pet_edit', {'pet': pet.id}) }}"
+                        data-path-index="{{ app.request.requesturi }}"
+                        class="edit_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
+                    <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                    <button type="submit" title="Eliminar" data-pet-id="{{ pet.id }}"
+                            class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

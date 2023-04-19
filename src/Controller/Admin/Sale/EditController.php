@@ -19,6 +19,12 @@ class EditController extends AbstractController
 
     public function __invoke(Request $request, Sale $sale): Response
     {
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede editar');
+
+            return $this->redirect($request->get('pathIndex'));
+        }
+
         $pathIndex = $request->get('pathIndex');
 
         $view = $this->saleEditViewManager->build($sale);

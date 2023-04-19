@@ -1,0 +1,31 @@
+<thead class="h-10 px-3 bg-neutral-100 border-b border-slate-300">
+    <th class="md:hidden py-1.5 text-left font-semibold whitespace-nowrap"></th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Id', 'id') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Foto</th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Nombre', 'name') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Dueño', 'customer') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Categoría', 'category') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Raza', 'breed') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">Edad</th>
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Cumpleaños', 'birthDate') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Activo', 'active') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap">
+        {{ knp_pagination_sortable(pets, 'Fecha alta', 'dateAdd') }}
+    </th>
+    <th class="hidden md:block w-auto py-1.5 px-4 text-left font-semibold whitespace-nowrap uppercase text-xs"></th>
+</thead>

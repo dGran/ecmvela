@@ -26,7 +26,12 @@ class UpdateController extends AbstractController
     #[Route('/admin/sale/{sale}/edit/{saleLine}/update-line', name: 'admin_sale_edit_update_line', methods: ['POST'])]
     public function __invoke(Request $request, Sale $sale, SaleLine $saleLine): JsonResponse
     {
-        dump($request->get('maintenancePlan'));
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede editar');
+
+            return new JsonResponse([Response::HTTP_OK]);
+        }
+
         try {
             $saleLine->setQuantity((int)$request->get('quantity'));
             $saleLine->setTitle((string)$request->get('title'));

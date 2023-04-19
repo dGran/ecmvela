@@ -24,11 +24,17 @@ class DeleteController extends AbstractController
 
     public function __invoke(Request $request, Sale $sale): Response
     {
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede eliminar');
+
+            return $this->redirect($request->get('pathIndex'));
+        }
+
         if ($this->isCsrfTokenValid('delete-'.$sale->getId(), $request->request->get('_token'))) {
             $this->saleLineManager->deleteFromSale($sale);
             $this->salePaymentManager->deleteFromSale($sale);
             $this->saleManager->delete($sale);
-            $this->addFlash('success','El TPV se ha eliminado correctamente');
+            $this->addFlash('success','El ticket se ha eliminado correctamente');
         }
 
         return $this->redirect($request->get('pathIndex'));

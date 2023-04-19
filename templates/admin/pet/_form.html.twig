@@ -1,47 +1,49 @@
-{{ form_start(form) }}
+{{ form_start(form, { 'attr': { 'class': 'ajax-form' } }) }}
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-    {{ form_row(form.name) }}
-    {{ form_row(form.customer) }}
-    {{ form_row(form.category) }}
-    {{ form_row(form.breed) }}
-    {{ form_row(form.color) }}
-    {{ form_row(form.birthDate) }}
+<div class="p-6 text-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.name) }}
+        {{ form_row(form.customer) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.breed) }}
+        {{ form_row(form.color) }}
+        {{ form_row(form.birthDate) }}
+    </div>
+
+    {{ form_row(form.notes) }}
+    <input type="hidden" name="pathIndex" value="{{ path_index }}">
+    <input type="hidden" id="deleteImage" name="deleteImage" value="false">
+
+    <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" class="sr-only peer" id="active" name="active" {% if pet.active %}checked{% endif %}>
+        <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+        <span class="ml-2 text-[12px] font-medium text-slate-600 uppercase tracking-wide">activo</span>
+    </label>
+
+
+    <div class="mt-4">
+        {{ form_row(form.imageFile, {'attr': {'class': 'hidden'}} ) }}
+        <img id="preview" src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen de la mascota" class="-mt-4 h-40 w-auto rounded-md bg-white border p-0.5">
+        <div class="mt-2.5 flex items-center space-x-2.5">
+            {% if pet.profileImg %}
+            <button type="button" id="delete-image-button" class="w-auto px-2.5 py-1.5 bg-red-50 text-red-600 font-medium text-[11px] border border-red-200 leading-tight uppercase rounded-md hover:bg-red-100 focus:bg-red-100 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                <i class="fa-solid fa-trash mr-1.5"></i>Eliminar
+            </button>
+            {% endif %}
+            <button type="button" id="load-image-button" class="w-auto px-2.5 py-1.5 bg-slate-50 text-slate-600 font-medium text-[11px] border border-slate-200 leading-tight uppercase rounded-md hover:bg-slate-100 focus:bg-slate-100 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                <i class="fa-solid fa-upload mr-1.5"></i>Cargar
+            </button>
+        </div>
+    </div>
 </div>
-{{ form_row(form.notes) }}
-{{ form_row(form.imageFile) }}
-{{ form_row(form.active) }}
 
-<div class="mt-8 md:mt-12 flex flex-row-reverse items-center justify-end">
-    <button type="submit" class="px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+<div class="p-6 flex items-center justify-end border-t rounded-b-md bg-slate-50 relative">
+    <button type="button" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            onclick="$('.close-modal').trigger('click');">
+        Cancelar
+    </button>
+    <button type="submit" id="{{ button_id }}" class="px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
         {{ button_label|default('Guardar mascota') }}
     </button>
-
-    <input type="hidden" name="pathIndex" value="{{ path_index }}">
-    {% if mode == 'edit' %}
-        <input type="hidden" name="pathFrom" value="{{ path_from }}">
-        <input type="hidden" name="_token" value="{{ csrf_token('edit-' ~ pet.id) }}">
-    {% else %}
-        <input type="hidden" name="_token" value="{{ csrf_token('create') }}">
-    {% endif %}
-{{ form_end(form) }}
-
-    {% if mode == 'edit' %}
-        {% if path_index == back_path %}
-            <a href="{{ back_path }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-                Cancelar
-            </a>
-        {% else %}
-            <form method="post" action="{{ path('admin_pet_show', {'id': pet.id}) }}">
-                <input type="hidden" name="pathIndex" value="{{ path_index }}">
-                <button type="submit" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-                    Cancelar
-                </button>
-            </form>
-        {% endif %}
-    {% else %}
-        <a href="{{ path_index }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-            Cancelar
-        </a>
-    {% endif %}
 </div>
+{{ form_end(form) }}

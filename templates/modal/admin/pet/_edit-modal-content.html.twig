@@ -1,0 +1,12 @@
+<!-- Modal header -->
+<div class="flex items-center space-x-3 border-b rounded-t-md p-4 bg-slate-50">
+    <img src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen de la mascota" class="h-20 w-20 rounded-full object-cover bg-white shadow-lg p-0.5">
+    <div class="flex flex-col">
+        <h3 class="text-xl font-semibold text-gray-900">
+            {{ pet.name }}
+        </h3>
+        <span class="text-sm text-slate-500">Editar mascota</span>
+    </div>
+</div>
+<!-- Modal body -->
+{% include 'admin/pet/_form.html.twig' with {'button_label': 'Actualizar mascota', 'button_id': 'update-button'}  %}

@@ -19,7 +19,7 @@ class IndexController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $data = $this->petManager->findAll();
+        $data = $this->petManager->findBy([], ['id' => 'DESC']);
         $search = $request->get('search');
 
         if (!empty($search)) {

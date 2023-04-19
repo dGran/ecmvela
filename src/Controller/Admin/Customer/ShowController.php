@@ -6,20 +6,16 @@ namespace App\Controller\Admin\Customer;
 
 use App\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/customer/show/{id}', name: 'admin_customer_show', methods: ['GET', 'POST'])]
+#[Route('/admin/customer/{customer}/show', name: 'admin_customer_show', methods: ['GET'])]
 class ShowController extends AbstractController
 {
-    public function __invoke(Request $request, Customer $customer): Response
+    public function __invoke(Customer $customer): Response
     {
-        $pathIndex = $request->get('pathIndex');
-
-        return $this->render('admin/customer/show.html.twig', [
+        return $this->render('modal/admin/customer/_show-modal-content.html.twig', [
             'customer' => $customer,
-            'path_index' => $pathIndex,
         ]);
     }
 }

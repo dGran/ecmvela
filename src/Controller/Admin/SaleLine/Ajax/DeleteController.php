@@ -23,6 +23,12 @@ class DeleteController extends AbstractController
     #[Route('/admin/sale/{sale}/edit/{saleLine}/delete-line', name: 'admin_sale_edit_delete_line', methods: ['GET'])]
     public function __invoke(Sale $sale, SaleLine $saleLine): JsonResponse
     {
+        if ($sale->isLocked()) {
+            $this->addFlash('error','El ticket esta bloqueado y no se puede editar');
+
+            return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
+        }
+
         $saleLineId = $saleLine->getId();
 
         if ($sale->getSaleLines()->count() === 1) {

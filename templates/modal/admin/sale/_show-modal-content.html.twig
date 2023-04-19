@@ -5,8 +5,10 @@
     </h3>
 </div>
 <!-- Modal body -->
-<div class="p-6 space-y-6">
+<div class="p-6">
     <p>{{ sale.dateAdd|date('d/m/Y H:i') }}</p>
+    <p>{{ sale.customer.name }}</p>
+    <p>{{ sale.pet.name }}</p>
 
     {% for saleLine in sale.getSaleLines %}
         {{ saleLine.title }}
@@ -16,9 +18,17 @@
         {{ saleLine.total }}
     {% endfor %}
 
-    <p>pagos</p>
+    <h4 class="uppercase font-medium mb-1.5">pagos</h4>
+    <ul>
     {% for salePayment in sale.getSalePayments %}
-        {{ salePayment.paymentMethod.name }}
-        {{ salePayment.amount }}
+        <li class="flex items-center justify-between border-t py-1.5">
+            <div>{{ salePayment.paymentMethod.name }}</div>
+            <div>{{ salePayment.amount }}</div>
+        </li>
+        <li class="flex items-center justify-between border-t py-1.5">
+            <div>{{ salePayment.paymentMethod.name }}</div>
+            <div>{{ salePayment.amount }}</div>
+        </li>
     {% endfor %}
+    </ul>
 </div>
