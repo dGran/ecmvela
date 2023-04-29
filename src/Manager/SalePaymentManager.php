@@ -8,6 +8,8 @@ use App\Entity\Sale;
 use App\Entity\SalePayment;
 use App\Repository\SalePaymentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 class SalePaymentManager
 {
@@ -78,8 +80,21 @@ class SalePaymentManager
         }
     }
 
-    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): float
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
     {
         return $this->repository->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalCashPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    {
+        return $this->repository->getTotalCashPaymentMethodByRangeDates($dateFrom, $dateTo);
     }
 }

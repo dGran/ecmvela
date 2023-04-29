@@ -53,10 +53,10 @@ class DashboardController extends AbstractController
 //        $yesterdaySales = $this->saleManager->getTotalByDateRange($dateFrom, $dateTo);
 
 
-        $dateFrom = new \DateTime('2023-04-01');
-        $dateTo = new \DateTime('2023-04-31');
+        $dateFrom = new \DateTime('2023-04-01 0:00:00');
+        $dateTo = new \DateTime('2023-06-30 23:59:59');
         $totalBizum = $this->salePaymentManager->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
-
+        $totalCash = $this->salePaymentManager->getTotalCashPaymentMethodByRangeDates($dateFrom, $dateTo);
 
         $saleTotalWeeks = $view->getSaleTotalWeeks()->getWeeks();
         $saleTotalWeeksTotal = [];
@@ -102,6 +102,7 @@ class DashboardController extends AbstractController
         return $this->render('admin/dashboard.html.twig', [
             'view' => $view,
             'total_bizum' => $totalBizum,
+            'total_cash' => $totalCash,
             'chart' => $chart,
         ]);
     }

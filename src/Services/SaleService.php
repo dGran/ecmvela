@@ -15,7 +15,6 @@ class SaleService
         private readonly SaleManager $saleManager,
         private readonly SaleLineManager $saleLineManager,
     ) {
-
     }
 
     public function updateSaleLineTotal(SaleLine $saleLine): void
@@ -81,7 +80,7 @@ class SaleService
         ];
     }
 
-    public function getPaymentState(Sale $sale)
+    public function getPaymentState(Sale $sale): string
     {
         if (empty($sale->getSalePayments())) {
             return Sale::STATE_PENDING_PAYMENT;
@@ -104,7 +103,7 @@ class SaleService
         }
     }
 
-    public function getTotalPaid(Sale $sale)
+    public function getTotalPaid(Sale $sale): ?float
     {
         $totalPaid = 0.0;
 

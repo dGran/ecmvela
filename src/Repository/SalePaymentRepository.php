@@ -30,12 +30,34 @@ class SalePaymentRepository extends ServiceEntityRepository
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): float
+    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
     {
         return $this->createQueryBuilder('sale_payment')
+            ->join('sale_payment.sale', 'sale')
             ->select('SUM(sale_payment.amount) AS total')
             ->where('sale_payment.paymentMethod = :paymentMethodBizumId')
+            ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
             ->setParameter('paymentMethodBizumId', PaymentMethod::BIZUM_METHOD_ID)
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalCashPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    {
+        return $this->createQueryBuilder('sale_payment')
+            ->join('sale_payment.sale', 'sale')
+            ->select('SUM(sale_payment.amount) AS total')
+            ->where('sale_payment.paymentMethod = :paymentMethodBizumId')
+            ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
+            ->setParameter('paymentMethodBizumId', PaymentMethod::CASH_METHOD_ID)
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo)
             ->getQuery()
             ->getSingleScalarResult();
     }

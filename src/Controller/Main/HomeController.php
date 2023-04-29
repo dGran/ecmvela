@@ -2,16 +2,46 @@
 
 namespace App\Controller\Main;
 
+use App\Model\Instagram\Media;
+use App\Services\InstagramService;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    private const MAX_MEDIA_ITEMS = 8;
+
+    public function __construct(private readonly InstagramService $instagramService)
+    {
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-        return $this->render('main/index.html.twig', []);
+        $instagramPublications = $this->instagramService->getLastPublications(100);
+
+        $publicationImages = [];
+        $publicationVideos = [];
+
+        foreach ($instagramPublications->getPublications() as $publication) {
+            if ($publication->getMediaType() === Media::MEDIA_TYPE_IMAGE && \count($publicationImages) < self::MAX_MEDIA_ITEMS) {
+                $publicationImages[] = $publication->getMediaURL();
+            }
+
+            if ($publication->getMediaType() === Media::MEDIA_TYPE_VIDEO && \count($publicationVideos) < self::MAX_MEDIA_ITEMS) {
+                $publicationVideos[] = $publication->getMediaURL();
+            }
+        }
+
+        return $this->render('main/index.html.twig', [
+            'instagram_publication_images' => $publicationImages,
+            'instagram_publication_videos' => $publicationVideos,
+        ]);
     }
 
     #[Route('/reserva-de-citas', name: 'appointments')]
