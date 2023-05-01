@@ -1,4 +1,4 @@
-{% extends 'base-admin.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Mascotas | {% endblock %}
 
@@ -15,8 +15,8 @@
             </div>
             {% else %}
             <table class="min-w-full text-sm">
-                {% include 'admin/pet/index/_table-header.html.twig' %}
-                {% include 'admin/pet/index/_table-body-html.twig' %}
+                {% include 'admin/pet/index/_table_header.html.twig' %}
+                {% include 'admin/pet/index/_table_body.html.twig' %}
             </table>
             {% endif %}
         </div>

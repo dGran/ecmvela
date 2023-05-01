@@ -1,64 +1,10 @@
-{% extends 'base-main.html.twig' %}
+{% extends 'base_main.html.twig' %}
 
 {% block main %}
-{#    <section class="bg-white">{% include "main/ads/opening-promotion.html.twig" %}</section>#}
-    <section class="bg-neutral-50">{% include "main/home/services.html.twig" %}</section>
-
-    <section class="bg-white">
-        <div class="max-w-[85rem] mx-auto text-sm lg:text-base px-4">
-            <div class="text-center py-8 lg:py-12">
-                <h2 class="text-3xl lg:text-4xl font-bold">
-                    Últimos trabajos
-                </h2>
-                <div class="mx-auto mt-4 flex justify-center">
-                    <span class="inline-block h-1 w-40 rounded-full bg-fuchsia-900/70"></span>
-                    <span class="mx-1 inline-block h-1 w-3 rounded-full bg-fuchsia-900/70"></span>
-                    <span class="inline-block h-1 w-1 rounded-full bg-fuchsia-900/70"></span>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-center">
-                <figure class="w-60 h-60">
-                    <img id="randomImg" src="" alt="" class="w-full h-full rounded-full object-cover">
-                </figure>
-            </div>
-
-            <div class="py-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1">
-            {% for instagram_publication_video in instagram_publication_videos %}
-                <video autoplay muted controls loop class="h-auto max-w-full">
-                    <source src="{{ instagram_publication_video }}" type="video/mp4">
-                </video>
-            {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <script>
-        let instagram_publication_images = {{ instagram_publication_images|json_encode|raw }};
-        let totalImages = instagram_publication_images.length;
-
-        console.log(totalImages);
-
-        changeImage();
-
-        function changeImage() {
-            let randomNumber = Math.floor(Math.random() * totalImages);
-            console.log(randomNumber);
-            let img = document.getElementById("randomImg");
-
-            img.src = instagram_publication_images[randomNumber];
-        }
-
-        setInterval(changeImage, 5000);
-    </script>
-
-
-    <a href="https://g.page/r/CYGxRPxhObyKEBM/review" target="_blank">Déjanos tu reseña</a>
-
-{#    <div class="bg-white">#}
-{#        <section>{% include "main/home/top-services.html.twig" %}</section>#}
-{#    </div>#}
-
-    <section>{% include "main/home/own-team.html.twig" %}</section>
-
+{#    <section class="bg-white">{% include "main/ads/_opening_promotion.html.twig" %}</section>#}
+    <section class="bg-neutral-50">{% include "main/home/_services.html.twig" %}</section>
+    <section class="bg-white">{% include "main/home/_last_works.html.twig" %}</section>
+    <section class="bg-neutral-50">{% include "main/home/_our_facilities.html.twig" %}</section>
+    <section class="bg-white">{% include "main/home/_about_me.html.twig" %}</section>
+    <section class="bg-neutral-50">{% include "main/home/_reviews.html.twig" %}</section>
 {% endblock %}

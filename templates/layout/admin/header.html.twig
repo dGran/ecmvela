@@ -18,7 +18,7 @@
 
             <div class="flex-1 ml-3 flex items-center justify-end">
                 <ul class="hidden md:flex items-center space-x-4 text-xs">
-                    {% include 'layout/admin/_header-pinned-items.html.twig' with {'classes': 'uppercase font-semibold text-slate-300 hover:text-white focus:text-white focus:outline-none'} %}
+                    {% include 'layout/admin/_header_pinned_items.html.twig' with {'classes': 'uppercase font-semibold text-slate-300 hover:text-white focus:text-white focus:outline-none'} %}
                 </ul>
                 <div class="flex items-center space-x-3 md:border-l border-slate-500 md:ml-6 pl-3">
                     <button type="button" id="dropdownPinnedItemsButton" data-dropdown-toggle="dropdownPinnedItems" data-dropdown-offset-distance="8"
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-{% include 'layout/admin/_header-dropdowns.html.twig' %}
+{% include 'layout/admin/_header_dropdowns.html.twig' %}
 
 <!-- drawer component -->
 <div id="drawer-backdrop" class="fixed top-0 left-0 z-40 h-screen p-8 overflow-y-auto transition-transform -translate-x-full bg-slate-50 w-[19.5rem] text-sm leading-6" tabindex="-1" aria-labelledby="drawer-backdrop-label">
