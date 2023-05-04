@@ -55,12 +55,15 @@ class SaleRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findAllGroupedByDay(): array
+    public function findAllByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
     {
         return $this->createQueryBuilder('sale')
             ->select('SUM(sale.total) AS total', 'COUNT(sale.id) as tickets', 'DATE(sale.dateAdd) as day')
+            ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->orderBy('day', 'DESC')
             ->groupBy('day')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
             ->getQuery()
             ->getResult();
     }

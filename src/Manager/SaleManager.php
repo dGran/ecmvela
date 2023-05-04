@@ -96,9 +96,9 @@ class SaleManager
         return $this->repository->getTotalByDateRange($dateFrom, $dateTo);
     }
 
-    public function findAllGroupedByDay(): array
+    public function findAllByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
     {
-        return $this->repository->findAllGroupedByDay();
+        return $this->repository->findAllByRangeDateGroupedByDay($dateFrom, $dateTo);
     }
 
     public function findAllGroupedByWeek(): array

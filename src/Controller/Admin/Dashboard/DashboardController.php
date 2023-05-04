@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Dashboard;
 
+use App\Entity\PaymentMethod;
 use App\Manager\SaleManager;
 use App\Manager\SalePaymentManager;
 use App\View\DashboardViewManager;
@@ -55,8 +56,9 @@ class DashboardController extends AbstractController
 
         $dateFrom = new \DateTime('2023-04-01 0:00:00');
         $dateTo = new \DateTime('2023-06-30 23:59:59');
-        $totalBizum = $this->salePaymentManager->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
-        $totalCash = $this->salePaymentManager->getTotalCashPaymentMethodByRangeDates($dateFrom, $dateTo);
+        $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::BIZUM_METHOD_ID);
+        $totalCard = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::CARD_METHOD_ID);
+        $totalCash = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::CASH_METHOD_ID);
 
         $saleTotalWeeks = $view->getSaleTotalWeeks()->getWeeks();
         $saleTotalWeeksTotal = [];
@@ -102,6 +104,7 @@ class DashboardController extends AbstractController
         return $this->render('admin/dashboard.html.twig', [
             'view' => $view,
             'total_bizum' => $totalBizum,
+            'total_card' => $totalCard,
             'total_cash' => $totalCash,
             'chart' => $chart,
         ]);

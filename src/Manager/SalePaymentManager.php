@@ -84,17 +84,8 @@ class SalePaymentManager
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function getTotalBizumPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    public function getTotalByDateRangeAndPaymentMethod(\DateTime $dateFrom, \DateTime $dateTo, int $paymentMethodId): ?float
     {
-        return $this->repository->getTotalBizumPaymentMethodByRangeDates($dateFrom, $dateTo);
-    }
-
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
-    public function getTotalCashPaymentMethodByRangeDates(\DateTime $dateFrom, \DateTime $dateTo): ?float
-    {
-        return $this->repository->getTotalCashPaymentMethodByRangeDates($dateFrom, $dateTo);
+        return $this->repository->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, $paymentMethodId);
     }
 }

@@ -29,7 +29,9 @@ class DashboardViewManager
          * con ese array ya se podria generar cualquier modelo para la vista
          */
 
-        $salesGroupedByDay = $this->saleManager->findAllGroupedByDay();
+        $dateFrom = new \DateTime('2023-04-01 0:00:00');
+        $dateTo = new \DateTime('2023-06-30 23:59:59');
+        $salesGroupedByDay = $this->saleManager->findAllByRangeDateGroupedByDay($dateFrom, $dateTo);
 
         $saleTotalDays = [];
         $total = 0;

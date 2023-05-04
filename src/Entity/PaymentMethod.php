@@ -15,6 +15,7 @@ class PaymentMethod
 {
     public const CASH_METHOD_ID = 1;
     public const BIZUM_METHOD_ID = 2;
+    public const CARD_METHOD_ID = 3;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

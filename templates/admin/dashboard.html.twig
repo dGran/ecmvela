@@ -13,9 +13,11 @@
         </div>
     </div>
 
-    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">1T: Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
-    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">1T: Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span></h2>
-    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total caja acumulada: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span></h2>
+    <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span></h2>
+    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total facturación: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="w-full">
