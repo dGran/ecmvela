@@ -31,16 +31,8 @@ class DashboardController extends AbstractController
 
         $view = $this->dashboardViewManager->build($dateFrom, $dateTo);
 
-//        $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::BIZUM_METHOD_ID);
-//        $totalCard = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::CARD_METHOD_ID);
-//        $totalCash = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::CASH_METHOD_ID);
-
-
         return $this->render('admin/dashboard.html.twig', [
             'view' => $view,
-//            'total_bizum' => $totalBizum,
-//            'total_card' => $totalCard,
-//            'total_cash' => $totalCash,
         ]);
     }
 }

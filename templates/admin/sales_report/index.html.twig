@@ -1,0 +1,12 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Informe de ventas | {% endblock %}
+
+{% block main %}
+
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span></h2>
+<h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span></h2>
+
+{% endblock %}

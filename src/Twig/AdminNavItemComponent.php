@@ -13,7 +13,8 @@ class AdminNavItemComponent
     public string $message;
     public ?string $tag = null;
     public ?string $tagBgColor = null;
-    public ?bool $disable = false;
+    public bool $disable = false;
+    public ?string $routeFilter = null;
 
     public function __construct()
     {

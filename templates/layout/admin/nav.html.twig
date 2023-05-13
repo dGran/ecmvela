@@ -11,7 +11,7 @@
             <span>Agenda</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Reservas', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Reservas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -20,9 +20,9 @@
             <span>Ventas</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_sale', message: 'Tickets'}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Informe de ventas', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_sale', message: 'Tickets', routeFilter: 'admin_sale_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_sales_report', message: 'Informe de ventas', routeFilter: 'admin_sales_report_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -31,10 +31,10 @@
             <span>Compras / Gastos</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Proveedores', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Acreedores', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Informe de gastos', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Facturas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Proveedores', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Acreedores', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Informe de gastos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -43,8 +43,8 @@
             <span>Informes</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Balance', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Previsión impuestos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -53,10 +53,10 @@
             <span>Impuestos</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Declaración IVA', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Retenciones', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Beneficios', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'IRPF', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Declaración IVA', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Retenciones', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Beneficios', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'IRPF', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -65,11 +65,11 @@
             <span>Mantenimiento</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas'}) }}
-            {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes'}) }}
-            {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas', routeFilter: 'admin_pet_'}) }}
+            {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes', routeFilter: 'admin_customer_'}) }}
+            {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'pendiente', disable: true, routeFilter: 'admin_agenda_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -78,8 +78,8 @@
             <span>Contenidos</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Trabajos', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Blog', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Trabajos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Blog', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -88,8 +88,8 @@
             <span>Configuración</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Tareas Programadas', tag: 'pendiente', disable: true}) }}
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Comandos', tag: 'pendiente', disable: true}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Tareas Programadas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Comandos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
 </ul>
