@@ -143,7 +143,7 @@ class SaleReportChartService
 
         foreach ($weeklySalesCollection as $weeklySales) {
             $weekLabel = $weeklySales->getWeekFormatted();
-            $weeklySalesLabels[] = $weeklySales->getWeek() !== $currentWeek ? $weekLabel : $weekLabel.' (en curso)';
+            $weeklySalesLabels[] = $weeklySales->getWeek() !== $currentWeek ? $weekLabel : 'Semana actual';
             $weeklySalesData[] = $weeklySales->getTotal();
         }
 
