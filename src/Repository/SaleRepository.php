@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Customer;
+use App\Entity\Pet;
 use App\Entity\Sale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -55,10 +57,46 @@ class SaleRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findAllByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
+    /**
+     * @return Sale[]
+     */
+    public function findByDate(string $date): array
     {
         return $this->createQueryBuilder('sale')
-            ->select('SUM(sale.total) AS total', 'COUNT(sale.id) as tickets', 'DATE(sale.dateAdd) as day')
+            ->select('sale, pet, customer')
+            ->leftJoin('sale.pet', 'pet')
+            ->leftJoin('sale.customer', 'customer')
+            ->where('DATE(sale.dateAdd) = :date')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Sale[]
+     */
+    public function findByDateRange(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('sale, pet, customer')
+            ->leftJoin('sale.pet', 'pet')
+            ->leftJoin('sale.customer', 'customer')
+            ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return array<int, array{total: float, numberOfSales: float, day: string}>
+     */
+    public function findByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->select('SUM(sale.total) AS total', 'COUNT(sale.id) as numberOfSales', 'DATE(sale.dateAdd) as day')
             ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->orderBy('day', 'DESC')
             ->groupBy('day')
@@ -68,22 +106,34 @@ class SaleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllGroupedByWeek(): array
+    /**
+     * @return array<int, array{total: float, week: int, year: int}>
+     */
+    public function findByRangeDateGroupedByWeek(\DateTime $dateFrom, \DateTime $dateTo): array
     {
         return $this->createQueryBuilder('sale')
-            ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week')
+            ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week', 'YEAR(sale.dateAdd) as year')
+            ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->orderBy('week', 'DESC')
             ->groupBy('week')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllGroupedByMonth(): array
+    /**
+     * @return array<int, array{total: float, month: int, year: int}>
+     */
+    public function findByRangeDateGroupedByMonth(\DateTime $dateFrom, \DateTime $dateTo): array
     {
         return $this->createQueryBuilder('sale')
-            ->select('SUM(sale.total) AS total', 'MONTH(sale.dateAdd) as month')
+            ->select('SUM(sale.total) AS total', 'MONTH(sale.dateAdd) as month', 'YEAR(sale.dateAdd) as year')
+            ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->orderBy('month', 'DESC')
             ->groupBy('month')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
             ->getQuery()
             ->getResult();
     }

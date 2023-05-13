@@ -4,65 +4,130 @@
 
 {% block main %}
 
-    <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <div class="">
-            {{ render_chart(chart) }}
+            {{ render_chart(view.monthlySalesTotalChart) }}
         </div>
-        <div class="">
 
+        <div class="">
+            {{ render_chart(view.monthlySalesAverageChart) }}
         </div>
     </div>
 
-    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>
-    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
-    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span></h2>
-    <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span></h2>
-    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total facturación: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>
+{#    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>#}
+{#    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>#}
+{#    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span></h2>#}
+{#    <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span></h2>#}
+{#    <h2 class="mb-8 text-lg font-semibold text-gray-900 dark:text-white">Total facturación: <span class="font-bold">{{ view.saleTotalDays.total|format_currency('EUR') }}</span></h2>#}
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="w-full">
-            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por días</h2>
-            <ul class="text-sm border rounded text-gray-500">
-                {% for day in view.saleTotalDays.days %}
-                    <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-8">
-                        <p>{{ day.day|date('d/m/y') }} - {{ day.tickets }} {{ day.tickets == 1 ? 'ticket' : 'tickets' }}</p>
-                        <p class="font-medium">{{ day.total|format_currency('EUR') }}</p>
+    <div class="py-8 grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <section>
+            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Caja por días</h2>
+            <ul class="text-sm text-gray-500 border-b">
+                {% for key, day in view.dailySales %}
+                    <li id="accordion-collapse" data-accordion="collapse" class="group">
+                        <div id="accordion-collapse-day-heading-{{ key }}" class="group-even:bg-neutral-50/50 group-hover:bg-amber-50">
+                            <div class="flex items-center justify-between space-x-3 w-full p-2.5 text-left border border-b-0"
+                               data-accordion-target="#accordion-collapse-day-body-{{ key }}" aria-expanded="false" aria-controls="accordion-collapse-day-body-{{ key }}">
+                                <span class="flex-1 hidden md:block text-[13px]">{{ day.dateFormatted }}</span>
+                                <span class="flex-1 md:hidden">{{ day.date|date('d-m-Y') }}</span>
+                                <span class="w-20 bg-blue-100 border border-blue-200 text-xs px-2.5 py-0.5 rounded text-center">
+                                    {{ day.numberOfSales }} {{ day.numberOfSales == 1 ? 'ticket' : 'tickets' }}
+                                </span>
+                                <span class="w-16 text-right font-medium">{{ day.total|format_currency('EUR') }}</span>
+                                <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <div id="accordion-collapse-day-body-{{ key }}" class="hidden border-l border-r border-t" aria-labelledby="accordion-collapse-day-heading-{{ key }}">
+                            <ul class="text-xs">
+                                {% for sale in day.sales %}
+                                <li class="border-b p-2.5 last:border-b-0 flex items-center justify-between bg-gray-50/50 hover:bg-amber-50">
+                                    <div class="flex-1 flex items-center space-x-4">
+                                        <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_sale_show', {'sale': sale.id}) }}"
+                                                class="ajax_modal_button | uppercase text-[10px] border bg-gray-100 rounded py-1 px-3 hover:bg-gray-200 hover:border-gray-300 focus:bg-gray-200 focus:border-gray-300 focus:outline-none select-none">
+                                            <i class="fa-solid fa-magnifying-glass lg:hidden"></i>
+                                            <span class="hidden lg:block ml-1.5">Ver ticket</span>
+                                        </button>
+                                        <span>{{ sale.date|date('H:s') }}</span>
+                                        {% if sale.pet %}
+                                            <button type="button" data-modal-target="ajax-modal" data-modal-toggle="ajax-modal"
+                                                    data-url="{{ path('admin_pet_show', {'pet': sale.pet.id}) }}"
+                                                    class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                                                <span>{{ sale.pet.name }}</span>
+                                            </button>
+                                        {% else %}
+                                            <span>**Ticket de tienda**</span>
+                                        {% endif %}
+                                    </div>
+                                    <span class="mr-9">{{ sale.total|format_currency('EUR') }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
-        </div>
+        </section>
 
-        <div>
-            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por semanas</h2>
-            <ul class="text-sm border rounded text-gray-500">
-                {% for week in view.saleTotalWeeks.weeks %}
-                    <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-8">
-                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
-                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
-                    </li>
-                    <li class="hidden py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-0.5 text-red-600">
-                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>
-                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>
+        <section>
+            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Caja por semanas</h2>
+            <ul class="text-sm text-gray-500 border-b">
+                {% for key, week in view.weeklySales %}
+                    <li id="accordion-collapse" data-accordion="collapse" class="group">
+                        <div id="accordion-collapse-week-heading-{{ key }}" class="group-even:bg-neutral-50/50 group-hover:bg-amber-50">
+                            <div class="flex items-center justify-between space-x-3 w-full p-2.5 text-left border border-b-0"
+                               data-accordion-target="#accordion-collapse-week-body-{{ key }}" aria-expanded="false" aria-controls="accordion-collapse-week-body-{{ key }}">
+                                <div class="flex flex-col flex-1 text-[13px]">
+                                    <span>Semana</span>
+                                    <span>{{ week.weekFormatted }}</span>
+                                </div>
+
+                                <span class="w-18 bg-blue-100 border border-blue-200 text-xs px-2.5 py-0.5 rounded text-center">
+                                    {{ week.businessDays }} {{ week.businessDays == 1 ? 'día' : 'días' }}
+                                </span>
+                                <div class="flex flex-col items-end leading-5">
+                                    <span class="w-16 text-right font-medium">{{ week.total|format_currency('EUR') }}</span>
+                                    <span class="text-right w-20 text-[11px]">{{ week.dailyAverage|format_currency('EUR') }} / día</span>
+                                </div>
+                                <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </div>
+                        </div>
+                        <div id="accordion-collapse-week-body-{{ key }}" class="hidden border-l border-r border-t" aria-labelledby="accordion-collapse-week-heading-{{ key }}">
+                            <ul class="text-xs">
+                                {% for sale in week.sales %}
+                                    <li class="border-b p-2.5 last:border-b-0 flex items-center justify-between bg-gray-50/50 hover:bg-amber-50">
+                                        <div class="flex-1 flex items-center space-x-4">
+                                            <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_sale_show', {'sale': sale.id}) }}"
+                                                    class="ajax_modal_button | uppercase text-[10px] border bg-gray-100 rounded py-1 px-3 hover:bg-gray-200 hover:border-gray-300 focus:bg-gray-200 focus:border-gray-300 focus:outline-none select-none">
+                                                <i class="fa-solid fa-magnifying-glass lg:hidden"></i>
+                                                <span class="hidden lg:block ml-1.5">Ver ticket</span>
+                                            </button>
+                                            <span>{{ sale.date|date('d-m-y H:s') }}</span>
+                                            {% if sale.pet %}
+                                                <button type="button" data-modal-target="ajax-modal" data-modal-toggle="ajax-modal"
+                                                        data-url="{{ path('admin_pet_show', {'pet': sale.pet.id}) }}"
+                                                        class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                                                    <span>{{ sale.pet.name }}</span>
+                                                </button>
+                                            {% else %}
+                                                <span>Ticket de tienda</span>
+                                            {% endif %}
+                                        </div>
+                                        <span class="mr-9">{{ sale.total|format_currency('EUR') }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
-        </div>
-
-{#        <div>#}
-{#            <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Total por semanas</h2>#}
-{#            <ul class="text-sm border rounded text-gray-500">#}
-{#                {% for week in view.saleTotalWeeks.weeks %}#}
-{#                    <li class="py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-8">#}
-{#                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>#}
-{#                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>#}
-{#                    </li>#}
-{#                    <li class="hidden py-2.5 px-4 border-b flex items-center justify-between bg-white even:bg-neutral-50 hover:bg-amber-50 space-x-0.5 text-red-600">#}
-{#                        <p>Semana del {{ week.startDate|date('d/m/y') }} al {{ week.endDate|date('d/m/y') }}</p>#}
-{#                        <p class="font-medium">{{ week.total|format_currency('EUR') }}</p>#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
+        </section>
     </div>
+
+    {% include 'modal/admin/ajax-modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('build/app/js/admin/ajax-modal.js') }}"></script>
 {% endblock %}
 

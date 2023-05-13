@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\Entity\Customer;
+use App\Entity\Pet;
 use App\Entity\Sale;
 use App\Repository\SaleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,18 +98,43 @@ class SaleManager
         return $this->repository->getTotalByDateRange($dateFrom, $dateTo);
     }
 
-    public function findAllByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
+    /**
+     * @return Sale[]
+     */
+    public function findByDate(string $date): array
     {
-        return $this->repository->findAllByRangeDateGroupedByDay($dateFrom, $dateTo);
+        return $this->repository->findByDate($date);
     }
 
-    public function findAllGroupedByWeek(): array
+    /**
+     * @return Sale[]
+     */
+    public function findByDateRange(\DateTime $dateFrom, \DateTime $dateTo): array
     {
-        return $this->repository->findAllGroupedByWeek();
+        return $this->repository->findByDateRange($dateFrom, $dateTo);
     }
 
-    public function findAllGroupedByMonth(): array
+    /**
+     * @return array<int, array{total: float, numberOfSales: float, day: string}>
+     */
+    public function findByRangeDateGroupedByDay(\DateTime $dateFrom, \DateTime $dateTo): array
     {
-        return $this->repository->findAllGroupedByMonth();
+        return $this->repository->findByRangeDateGroupedByDay($dateFrom, $dateTo);
+    }
+
+    /**
+     * @return array<int, array{total: float, week: int, year: int}>
+     */
+    public function findByRangeDateGroupedByWeek(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->repository->findByRangeDateGroupedByWeek($dateFrom, $dateTo);
+    }
+
+    /**
+     * @return array<int, array{total: float, month: int, year: int}>
+     */
+    public function findByRangeDateGroupedByMonth(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->repository->findByRangeDateGroupedByMonth($dateFrom, $dateTo);
     }
 }
