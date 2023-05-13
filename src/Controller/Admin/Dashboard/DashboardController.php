@@ -7,7 +7,6 @@ namespace App\Controller\Admin\Dashboard;
 use App\View\DashboardViewManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +27,7 @@ class DashboardController extends AbstractController
     public function __invoke(Request $request): Response
     {
         $dateFrom = new \DateTime('2023-01-01 0:00:00');
-        $dateTo = new \DateTime('2023-06-30 23:59:59');
+        $dateTo = new \DateTime('2023-12-31 23:59:59');
 
         $view = $this->dashboardViewManager->build($dateFrom, $dateTo);
 

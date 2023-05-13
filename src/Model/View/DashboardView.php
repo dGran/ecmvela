@@ -28,7 +28,11 @@ class DashboardView
 
     private ?Chart $monthlySalesTotalChart = null;
 
-    private ?Chart $monthlySalesAverageChart = null;
+    private ?Chart $weeklySalesTotalChart = null;
+
+    private ?Chart $monthlySalesWeeklyAverageChart = null;
+
+    private ?Chart $monthlySalesDailyAverageChart = null;
 
     /**
      * @return DailySales[]
@@ -96,14 +100,38 @@ class DashboardView
         return $this;
     }
 
-    public function getMonthlySalesAverageChart(): ?Chart
+    public function getWeeklySalesTotalChart(): ?Chart
     {
-        return $this->monthlySalesAverageChart;
+        return $this->weeklySalesTotalChart;
     }
 
-    public function setMonthlySalesAverageChart(?Chart $monthlySalesAverageChart): DashboardView
+    public function setWeeklySalesTotalChart(?Chart $weeklySalesTotalChart): DashboardView
     {
-        $this->monthlySalesAverageChart = $monthlySalesAverageChart;
+        $this->weeklySalesTotalChart = $weeklySalesTotalChart;
+
+        return $this;
+    }
+
+    public function getMonthlySalesWeeklyAverageChart(): ?Chart
+    {
+        return $this->monthlySalesWeeklyAverageChart;
+    }
+
+    public function setMonthlySalesWeeklyAverageChart(?Chart $monthlySalesWeeklyAverageChart): DashboardView
+    {
+        $this->monthlySalesWeeklyAverageChart = $monthlySalesWeeklyAverageChart;
+
+        return $this;
+    }
+
+    public function getMonthlySalesDailyAverageChart(): ?Chart
+    {
+        return $this->monthlySalesDailyAverageChart;
+    }
+
+    public function setMonthlySalesDailyAverageChart(?Chart $monthlySalesDailyAverageChart): DashboardView
+    {
+        $this->monthlySalesDailyAverageChart = $monthlySalesDailyAverageChart;
 
         return $this;
     }

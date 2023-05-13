@@ -25,7 +25,7 @@ class SaleReportService
         $dailySalesCollection = [];
 
         foreach ($salesGroupedByDay as $salesByDay) {
-            $dateFormat = new \IntlDateFormatter('es', \IntlDateFormatter::FULL, \IntlDateFormatter::NONE);
+            $dateFormat = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::FULL, \IntlDateFormatter::NONE);
             $date = \DateTime::createFromFormat('Y-m-d', $salesByDay['day'])->setTime(0, 0);
             $dateFormatted = $dateFormat->format($date);
 
@@ -70,7 +70,7 @@ class SaleReportService
             ($weekDateFrom)->setISODate($year, $week)->setTime(0, 0);
             $weekDateTo = new \DateTime();
             ($weekDateTo)->setISODate($year, $week, 7)->setTime(23, 59, 59);
-            $weekFormatted = $weekDateFrom->format('d-m-y').' al '.$weekDateTo->format('d-m-y');
+            $weekFormatted = $weekDateFrom->format('d-m-y').' / '.$weekDateTo->format('d-m-y');
 
             $weeklySales = new WeeklySales();
             $weeklySales->setTotal($salesByWeek['total']);

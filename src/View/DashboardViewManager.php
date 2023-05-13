@@ -32,9 +32,12 @@ class DashboardViewManager
         $view->setMonthlySales($monthlySales);
 
         $monthlySalesCharts = $this->saleReportChartService->getMonthlySalesCharts($monthlySales);
+        $weeklySalesTotalChart = $this->saleReportChartService->getWeeklySalesTotalChart($weeklySales);
 
         $view->setMonthlySalesTotalChart($monthlySalesCharts['monthlySalesTotalChart']);
-        $view->setMonthlySalesAverageChart($monthlySalesCharts['monthlySalesAverageChart']);
+        $view->setWeeklySalesTotalChart($weeklySalesTotalChart);
+        $view->setMonthlySalesWeeklyAverageChart($monthlySalesCharts['monthlySalesWeeklyAverageChart']);
+        $view->setMonthlySalesDailyAverageChart($monthlySalesCharts['monthlySalesDailyAverageChart']);
 
         return $view;
     }
