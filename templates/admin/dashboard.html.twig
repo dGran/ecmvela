@@ -24,7 +24,7 @@
             <div class="">
                 {{ render_chart(view.monthlySalesDailyAverageChart) }}
             </div>
-            <h2 class="mt-8 mb-2 text-base font-semibold text-gray-900 dark:text-white">Caja por días</h2>
+            <h2 class="mt-8 mb-2 text-base font-semibold text-gray-900 dark:text-white">Ventas por días</h2>
             <ul class="text-sm text-gray-500 border-b">
                 {% for key, day in view.dailySales %}
                     <li id="accordion-collapse" data-accordion="collapse" class="group">
@@ -75,7 +75,7 @@
             <div class="">
                 {{ render_chart(view.monthlySalesWeeklyAverageChart) }}
             </div>
-            <h2 class="mt-8 mb-2 text-base font-semibold text-gray-900 dark:text-white">Caja por semanas</h2>
+            <h2 class="mt-8 mb-2 text-base font-semibold text-gray-900 dark:text-white">Ventas por semanas</h2>
             <ul class="text-sm text-gray-500 border-b">
                 {% for key, week in view.weeklySales %}
                     <li id="accordion-collapse" data-accordion="collapse" class="group">
