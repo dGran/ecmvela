@@ -85,12 +85,16 @@ class Pet
     #[ORM\OneToMany(mappedBy: 'pet', targetEntity: SaleLine::class)]
     private Collection $saleLines;
 
+    #[ORM\OneToMany(mappedBy: 'pet', targetEntity: Booking::class)]
+    private Collection $bookings;
+
     public function __construct()
     {
         $this->dateAdd = new \DateTime();
         $this->active = true;
         $this->sales = new ArrayCollection();
         $this->saleLines = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     public function getId(): int
@@ -445,6 +449,36 @@ class Pet
             // set the owning side to null (unless already changed)
             if ($saleLine->getPet() === $this) {
                 $saleLine->setPet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setPet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getPet() === $this) {
+                $booking->setPet(null);
             }
         }
 
