@@ -12,7 +12,7 @@
 
     {{ form_row(form.notes) }}
     <input type="hidden" name="pathIndex" value="{{ path_index }}">
-    <input type="hidden" id="deleteImage" name="deleteImage" value="false">
+    <input type="hidden" id="deleteImage" name="deleteImage" value="">
 
     <label class="relative inline-flex items-center cursor-pointer">
         <input type="checkbox" class="sr-only peer" id="active" name="active" {% if pet.active %}checked{% endif %}>

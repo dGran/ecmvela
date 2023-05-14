@@ -9,7 +9,6 @@ use App\Form\PetType;
 use App\Helper\Slugify;
 use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,6 +29,12 @@ class UpdateController extends AbstractController
             $uploadedFile = $form['imageFile']->getData();
 
             if ((bool)$request->get('deleteImage')) {
+                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+
+                if (\file_exists($currentImg)) {
+                    unlink($currentImg);
+                }
+
                 $pet->setProfileImg(null);
             }
 
@@ -66,22 +71,22 @@ class UpdateController extends AbstractController
         ]);
     }
 
-    private function handleUploadedFile(UploadedFile $uploadedFile, Pet $pet): void
-    {
-        $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
-        $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-        $uploadedFile->move($destination, $filename);
-
-        if ($pet->getProfileImg()) {
-            $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-            if (\file_exists($currentImg)) {
-                unlink($currentImg);
-            }
-        }
-
-        $pet->setProfileImg($filename);
-    }
+//    private function handleUploadedFile(UploadedFile $uploadedFile, Pet $pet): void
+//    {
+//        $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
+//        $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+//        $uploadedFile->move($destination, $filename);
+//
+//        if ($pet->getProfileImg()) {
+//            $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+//
+//            if (\file_exists($currentImg)) {
+//                unlink($currentImg);
+//            }
+//        }
+//
+//        $pet->setProfileImg($filename);
+//    }
 
     private function getErrorsFromForm($form): array
     {

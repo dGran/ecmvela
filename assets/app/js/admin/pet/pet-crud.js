@@ -103,10 +103,9 @@ $( document ).ready(function() {
 
     $(document).on('click', '#delete-image-button', function(){
         let deleteImage = $('#deleteImage');
-        if (deleteImage.val() === "false") {
-            deleteImage.val("true");
-        } else {
-            deleteImage.val("false");
+
+        if (!deleteImage.val()) {
+            deleteImage.val(true);
         }
 
         console.log(deleteImage.val());
