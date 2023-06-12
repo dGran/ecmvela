@@ -17,8 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/pet/create', name: 'admin_pet_create', methods: ['GET', 'POST'])]
 class CreateController extends AbstractController
 {
-    public function __construct(private readonly PetManager $petManager, private readonly Slugify $slugger)
-    {}
+    private PetManager $petManager;
+    private Slugify $slugger;
+
+    public function __construct(PetManager $petManager, Slugify $slugger)
+    {
+        $this->petManager = $petManager;
+        $this->slugger = $slugger;
+    }
 
     public function __invoke(Request $request): Response
     {

@@ -14,8 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/pet/delete/{id}', name: 'admin_pet_delete', methods: ['POST'])]
 class DeleteController extends AbstractController
 {
-    public function __construct(private readonly PetManager $petManager)
-    {}
+    private PetManager $petManager;
+
+    public function __construct(PetManager $petManager)
+    {
+        $this->petManager = $petManager;
+    }
 
     public function __invoke(Request $request, pet $pet): Response
     {

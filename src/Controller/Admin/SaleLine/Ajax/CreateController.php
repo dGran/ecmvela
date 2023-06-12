@@ -16,10 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreateController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleLineManager $saleLineManager,
-        private readonly TaxTypeManager $taxTypeManager
-    ) {}
+    private SaleLineManager $saleLineManager;
+    private TaxTypeManager $taxTypeManager;
+
+    public function __construct(SaleLineManager $saleLineManager, TaxTypeManager $taxTypeManager) {
+        $this->saleLineManager = $saleLineManager;
+        $this->taxTypeManager = $taxTypeManager;
+    }
 
     #[Route('/admin/sale/{sale}/edit/add-line', name: 'admin_sale_edit_add_line', methods: ['GET'])]
     public function __invoke(Sale $sale): Response

@@ -16,11 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sale/delete/{id}', name: 'admin_sale_delete', methods: ['POST'])]
 class DeleteController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleManager $saleManager,
-        private readonly SaleLineManager $saleLineManager,
-        private readonly SalePaymentManager $salePaymentManager
-    ) {}
+    private SaleManager $saleManager;
+    private SaleLineManager $saleLineManager;
+    private SalePaymentManager $salePaymentManager;
+
+    public function __construct(SaleManager $saleManager, SaleLineManager $saleLineManager, SalePaymentManager $salePaymentManager) {
+        $this->saleManager = $saleManager;
+        $this->saleLineManager = $saleLineManager;
+        $this->salePaymentManager = $salePaymentManager;
+    }
 
     public function __invoke(Request $request, Sale $sale): Response
     {

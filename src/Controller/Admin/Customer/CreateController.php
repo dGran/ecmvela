@@ -15,8 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/customer/create', name: 'admin_customer_create', methods: ['GET', 'POST'])]
 class CreateController extends AbstractController
 {
-    public function __construct(private readonly CustomerManager $customerManager)
-    {}
+    private CustomerManager $customerManager;
+
+    public function __construct(CustomerManager $customerManager)
+    {
+        $this->customerManager = $customerManager;
+    }
 
     public function __invoke(Request $request): Response
     {

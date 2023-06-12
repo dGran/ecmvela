@@ -14,9 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateDateController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleManager $saleManager,
-    ) {}
+    private SaleManager $saleManager;
+
+    public function __construct(SaleManager $saleManager)
+    {
+        $this->saleManager = $saleManager;
+    }
 
     #[Route('/admin/sale/{sale}/update-date', name: 'admin_sale_update_date', methods: ['POST'])]
     public function __invoke(Request $request, Sale $sale): JsonResponse

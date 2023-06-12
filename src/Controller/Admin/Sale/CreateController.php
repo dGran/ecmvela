@@ -18,11 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sale/create', name: 'admin_sale_create', methods: ['GET', 'POST'])]
 class CreateController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleManager $saleManager,
-        private readonly SaleLineManager $saleLineManager,
-        private readonly TaxTypeManager $taxTypeManager
-    ) {
+    private SaleManager $saleManager;
+    private SaleLineManager $saleLineManager;
+    private TaxTypeManager $taxTypeManager;
+
+    public function __construct(SaleManager $saleManager, SaleLineManager $saleLineManager, TaxTypeManager $taxTypeManager)
+    {
+        $this->saleManager = $saleManager;
+        $this->saleLineManager = $saleLineManager;
+        $this->taxTypeManager = $taxTypeManager;
     }
 
     public function __invoke(Request $request): Response

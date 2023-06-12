@@ -14,8 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sale/{id}/edit', name: 'admin_sale_edit', methods: ['GET', 'POST'])]
 class EditController extends AbstractController
 {
-    public function __construct(private readonly SaleEditViewManager $saleEditViewManager)
-    {}
+    private SaleEditViewManager $saleEditViewManager;
+
+    public function __construct(SaleEditViewManager $saleEditViewManager)
+    {
+        $this->saleEditViewManager = $saleEditViewManager;
+    }
 
     public function __invoke(Request $request, Sale $sale): Response
     {

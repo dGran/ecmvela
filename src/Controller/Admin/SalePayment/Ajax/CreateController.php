@@ -16,10 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreateController extends AbstractController
 {
-    public function __construct(
-        private readonly SalePaymentManager $salePaymentManager,
-        private readonly PaymentMethodManager $paymentMethodManager
-    ) {}
+    private SalePaymentManager $salePaymentManager;
+    private PaymentMethodManager $paymentMethodManager;
+
+    public function __construct(SalePaymentManager $salePaymentManager, PaymentMethodManager $paymentMethodManager)
+    {
+        $this->salePaymentManager = $salePaymentManager;
+        $this->paymentMethodManager = $paymentMethodManager;
+    }
 
     #[Route('/admin/sale/{sale}/edit/add-payment', name: 'admin_sale_edit_add_payment', methods: ['POST'])]
     public function __invoke(Request $request, Sale $sale): JsonResponse

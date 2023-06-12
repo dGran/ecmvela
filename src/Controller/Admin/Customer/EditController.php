@@ -19,8 +19,12 @@ class EditController extends AbstractController
     protected const FROM_SHOW = 'show';
     protected const SHOW_URL = '/admin/customer/show';
 
-    public function __construct(private readonly CustomerManager $customerManager)
-    {}
+    private CustomerManager $customerManager;
+
+    public function __construct(CustomerManager $customerManager)
+    {
+        $this->customerManager = $customerManager;
+    }
 
     public function __invoke(Request $request, Customer $customer): Response
     {

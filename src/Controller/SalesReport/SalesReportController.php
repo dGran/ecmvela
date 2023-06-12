@@ -16,8 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/sales-report', name: 'admin_sales_report', methods: 'GET')]
 class SalesReportController extends AbstractController
 {
-    public function __construct(private readonly SalePaymentManager $salePaymentManager)
+    private SalePaymentManager $salePaymentManager;
+
+    public function __construct(SalePaymentManager $salePaymentManager)
     {
+        $this->salePaymentManager = $salePaymentManager;
     }
 
     /**
@@ -27,7 +30,7 @@ class SalesReportController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $dateFrom = new \DateTime('2023-04-01 0:00:00');
+        $dateFrom = new \DateTime('2023-06-01 0:00:00');
         $dateTo = new \DateTime('2023-06-30 23:59:59');
 
         $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, PaymentMethod::BIZUM_METHOD_ID);

@@ -17,11 +17,15 @@ class IndexController extends AbstractController
 {
     private const DEFAULT_PER_PAGE = 15;
 
-    public function __construct(
-        private readonly SaleManager $saleManager,
-        private readonly PaginatorInterface $paginator,
-        private readonly SalesIndexViewManager $salesIndexViewManager
-    ) {
+    private SaleManager $saleManager;
+    private PaginatorInterface $paginator;
+    private SalesIndexViewManager $salesIndexViewManager;
+
+    public function __construct(SaleManager $saleManager, PaginatorInterface $paginator, SalesIndexViewManager $salesIndexViewManager)
+    {
+        $this->saleManager = $saleManager;
+        $this->paginator = $paginator;
+        $this->salesIndexViewManager = $salesIndexViewManager;
     }
 
     public function __invoke(Request $request): Response

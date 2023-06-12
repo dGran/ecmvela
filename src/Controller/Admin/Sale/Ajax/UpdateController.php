@@ -16,11 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleManager $saleManager,
-        private readonly CustomerManager $customerManager,
-        private readonly PetManager $petManager
-    ) {}
+    private SaleManager $saleManager;
+    private CustomerManager $customerManager;
+    private PetManager $petManager;
+
+    public function __construct(SaleManager $saleManager, CustomerManager $customerManager, PetManager $petManager)
+    {
+        $this->saleManager = $saleManager;
+        $this->customerManager = $customerManager;
+        $this->petManager = $petManager;
+    }
 
     #[Route('/admin/sale/{sale}/update', name: 'admin_sale_update', methods: ['POST'])]
     public function __invoke(Request $request, Sale $sale): JsonResponse

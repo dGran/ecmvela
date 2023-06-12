@@ -15,8 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin', name: 'admin_dashboard', methods: 'GET')]
 class DashboardController extends AbstractController
 {
-    public function __construct(private readonly DashboardViewManager $dashboardViewManager)
+    private DashboardViewManager $dashboardViewManager;
+
+    public function __construct(DashboardViewManager $dashboardViewManager)
     {
+        $this->dashboardViewManager = $dashboardViewManager;
     }
 
     /**

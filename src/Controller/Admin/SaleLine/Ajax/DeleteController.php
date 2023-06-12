@@ -15,10 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DeleteController extends AbstractController
 {
-    public function __construct(
-        private readonly SaleLineManager $saleLineManager,
-        private readonly SaleService $saleService
-    ) {}
+    private SaleLineManager $saleLineManager;
+    private SaleService $saleService;
+
+    public function __construct(SaleLineManager $saleLineManager, SaleService $saleService) {
+        $this->saleLineManager = $saleLineManager;
+        $this->saleService = $saleService;
+    }
 
     #[Route('/admin/sale/{sale}/edit/{saleLine}/delete-line', name: 'admin_sale_edit_delete_line', methods: ['GET'])]
     public function __invoke(Sale $sale, SaleLine $saleLine): JsonResponse

@@ -14,8 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/pet', name: 'admin_pet', methods: ['GET', 'POST'])]
 class IndexController extends AbstractController
 {
-    public function __construct(private readonly PetManager $petManager, private readonly PaginatorInterface $paginator)
-    {}
+    private PetManager $petManager;
+    private PaginatorInterface $paginator;
+
+    public function __construct(PetManager $petManager, PaginatorInterface $paginator)
+    {
+        $this->petManager = $petManager;
+        $this->paginator = $paginator;
+    }
 
     public function __invoke(Request $request): Response
     {

@@ -14,9 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DeleteController extends AbstractController
 {
-    public function __construct(
-        private readonly SalePaymentManager $salePaymentManager,
-    ) {}
+    private SalePaymentManager $salePaymentManager;
+
+    public function __construct(SalePaymentManager $salePaymentManager)
+    {
+        $this->salePaymentManager = $salePaymentManager;
+    }
 
     #[Route('/admin/sale/{sale}/edit/{salePayment}/delete-payment', name: 'admin_sale_edit_delete_payment', methods: ['GET'])]
     public function __invoke(Sale $sale, SalePayment $salePayment): JsonResponse

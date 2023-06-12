@@ -14,8 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/customer', name: 'admin_customer', methods: ['GET', 'POST'])]
 class IndexController extends AbstractController
 {
-    public function __construct(private readonly CustomerManager $customerManager, private readonly PaginatorInterface $paginator)
-    {}
+    private CustomerManager $customerManager;
+    private PaginatorInterface $paginator;
+
+    public function __construct(CustomerManager $customerManager, PaginatorInterface $paginator)
+    {
+        $this->customerManager = $customerManager;
+        $this->paginator = $paginator;
+    }
 
     public function __invoke(Request $request): Response
     {
