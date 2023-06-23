@@ -41,8 +41,10 @@ class MediaService extends BaseService
             }
 
             $this->logger->critical('Invalid status code from instagram API, status code: '.$statusCode);
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->critical('Could not connect with instagram API: '.$exception->getMessage(), ['exception' => $exception]);
+
+//            TODO: Lanzar excepción, verificar respuestas de la api
         }
 
         return new Publications();

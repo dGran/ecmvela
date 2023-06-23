@@ -53,9 +53,13 @@
                 </div>
             </div>
 
-{#            <img src="{{ asset('build/app/img/logo.png') }}" alt="logo" class="w-60 lg:w-72 m-auto hidden md:block">#}
-            <img id="randomImg" src="{{ instagram_publication_images[0].media_url }}" alt=""
-                 class="w-60 h:60 lg:w-72 lg:h-72 m-auto hidden md:block rounded-full object-cover shadow-lg p-1.5 bg-white">
+            {% set instagram_publication_images = view.instagramPublicationImages %}
+            {% if instagram_publication_images is not empty %}
+                <img id="randomImg" src="{{ instagram_publication_images[0].media_url }}" alt=""
+                     class="w-60 h:60 lg:w-72 lg:h-72 m-auto hidden md:block rounded-full object-cover shadow-lg p-1.5 bg-white">
+            {% else %}
+                <img src="{{ asset('build/app/img/logo.png') }}" alt="logo" class="w-60 lg:w-72 m-auto hidden md:block">
+            {% endif %}
 
             <div class="flex flex-col space-y-6">
                 <div class="flex flex-col items-center md:items-start">
