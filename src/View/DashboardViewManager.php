@@ -31,8 +31,8 @@ class DashboardViewManager
         $view->setWeeklySales($weeklySales);
         $view->setMonthlySales($monthlySales);
 
-        $monthlySalesCharts = $this->saleReportChartService->getMonthlySalesCharts($monthlySales);
-        $weeklySalesTotalChart = $this->saleReportChartService->getWeeklySalesTotalChart($weeklySales);
+        $monthlySalesCharts = $this->saleReportChartService->getMonthlySalesCharts(\array_reverse($monthlySales));
+        $weeklySalesTotalChart = $this->saleReportChartService->getWeeklySalesTotalChart(\array_reverse($weeklySales));
 
         $view->setMonthlySalesTotalChart($monthlySalesCharts['monthlySalesTotalChart']);
         $view->setWeeklySalesTotalChart($weeklySalesTotalChart);
