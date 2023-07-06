@@ -7,8 +7,8 @@
 <!-- Modal body -->
 <div class="p-6">
     <p>{{ sale.dateAdd|date('d/m/Y H:i') }}</p>
-    <p>{{ sale.customer.name }}</p>
-    <p>{{ sale.pet.name }}</p>
+    <p>{{ sale.customer ? sale.customer.name : '' }}</p>
+    <p>{{ sale.pet ? sale.pet.name : '' }}</p>
 
     {% for saleLine in sale.getSaleLines %}
         {{ saleLine.title }}

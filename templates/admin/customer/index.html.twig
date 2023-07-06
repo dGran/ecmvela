@@ -65,7 +65,7 @@
                                     {{ customer.id }}
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
-                                    <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
+                                    <form method="post" action="{{ path('admin_customer_show', {'customer': customer.id}) }}">
                                         <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
                                         <button type="submit" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
                                             {{ customer.name }}
@@ -75,7 +75,7 @@
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     {% for index, pet in customer.getPets() %}
                                         <span>{% if index > 0 %}, {% endif %}
-                                            <a href="{{ path('admin_pet_show', {'id': pet.id}) }}" target="_blank" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
+                                            <a href="{{ path('admin_pet_show', {'pet': pet.id}) }}" target="_blank" class="text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
                                                 {{ pet.name }}
                                             </a>
                                         </span>
@@ -92,7 +92,7 @@
                                 </td>
                                 <td class="py-1.5 px-3 whitespace-nowrap">
                                     <div class="flex items-center space-x-2.5">
-                                        <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
+                                        <form method="post" action="{{ path('admin_customer_show', {'customer': customer.id}) }}">
                                             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
                                             <button type="submit" class="text-slate-500 hover:text-slate-600 focus:text-slate-600 active:text-slate-700 focus:outline-none transition duration-150 ease-in-out">
                                                 <i class="fa-solid fa-eye text-base"></i>
