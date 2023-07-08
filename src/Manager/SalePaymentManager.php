@@ -88,4 +88,21 @@ class SalePaymentManager
     {
         return $this->repository->getTotalByDateRangeAndPaymentMethod($dateFrom, $dateTo, $paymentMethodId);
     }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalByDateRangeAndPaymentMethodNotCash(\DateTime $dateFrom, \DateTime $dateTo): ?float
+    {
+        return $this->repository->getTotalByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
+    }
+
+    /**
+     * @return Sale[]
+     */
+    public function getSaleByDateRangeAndPaymentMethodNotCash(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->repository->getSaleByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
+    }
 }
