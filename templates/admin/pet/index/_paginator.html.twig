@@ -1,7 +1,13 @@
 {% if pets.pageCount > 1 %}
-    <div class="border-l border-r border-b border-slate-300 rounded-b-md p-4 flex items-center justify-between">
+    <div class="border-l border-r border-b border-slate-300 rounded-b-md p-4 flex items-center justify-between space-x-4">
         <div class="text-xs md:text-sm">
-            <span>Mostrando <strong>{{ pets.currentPageNumber * pets.itemNumberPerPage - pets.itemNumberPerPage + 1 }}-{% if pets.currentPageNumber != pets.pageCount %}{{ pets.currentPageNumber * pets.itemNumberPerPage }}{% else %}{{ pets.getTotalItemCount }}{% endif %}</strong> de <strong>{{ pets.getTotalItemCount }}</strong></span>
+            <p class="flex items-center space-x-1">
+                <span class="hidden sm:block">Mostrando</span>
+                <strong>{{ pets.currentPageNumber * pets.itemNumberPerPage - pets.itemNumberPerPage + 1 }}-{% if pets.currentPageNumber != pets.pageCount %}{{ pets.currentPageNumber * pets.itemNumberPerPage }}{% else %}{{ pets.getTotalItemCount }}{% endif %}</strong>
+                <span class="hidden sm:block">de</span>
+                <span class="sm:hidden">/</span>
+                <strong>{{ pets.getTotalItemCount }}</strong>
+            </p>
         </div>
         {{ knp_pagination_render(pets) }}
     </div>

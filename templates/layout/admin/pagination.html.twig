@@ -17,13 +17,18 @@
                     </a>
                 </li>
                 {% for page in pagesInRange %}
-                    <li class="hidden md:block">
+                    <li class="hidden sm:block">
                         <a href="{% if page != current %}{{ path(route, query|merge({(pageParameterName): page})) }}{% endif %}"
                            class="relative block py-1.5 px-3 outline-none transition-all duration-300 text-slate-700 border-r border-slate-300 hover:bg-slate-100 focus:bg-slate-300{% if page == current %}pointer-events-none bg-blue-100{% else %}bg-white{% endif %}">
                             {{ page }}
                         </a>
                     </li>
                 {% endfor %}
+                <li class="sm:hidden">
+                    <span class="relative block py-1.5 px-3 outline-none text-slate-700 border-r border-slate-300 pointer-events-none bg-blue-100">
+                        {{ current }}
+                    </span>
+                </li>
                 <li>
                     <a href="{% if next is defined %}{{ path(route, query|merge({(pageParameterName): next})) }}{% endif %}"
                        class="relative block py-1.5 px-4 border-0 rounded-r-md outline-none transition-all duration-300 focus:shadow-none {% if next is defined %}text-slate-700 hover:bg-slate-100{% else %}text-slate-400 pointer-events-none{% endif %}">

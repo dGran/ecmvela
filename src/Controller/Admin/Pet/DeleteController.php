@@ -6,6 +6,7 @@ namespace App\Controller\Admin\Pet;
 
 use App\Entity\pet;
 use App\Manager\PetManager;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,8 +35,12 @@ class DeleteController extends AbstractController
                 }
             }
 
-            $this->petManager->delete($pet);
-            $this->addFlash('success','La mascota se ha eliminado correctamente');
+            try {
+                $this->petManager->delete($pet);
+                $this->addFlash('success','La mascota se ha eliminado correctamente');
+            } catch (ForeignKeyConstraintViolationException $exception) {
+                $this->addFlash('error','No se puede eliminar..., existen tickets para la mascota, en su lugar puedes desactivar');
+            }
         }
 
         return $this->redirect($request->get('pathIndex'));

@@ -38,7 +38,9 @@
                         <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
                             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                            <button type="submit" title="Eliminar" data-pet-id="{{ pet.id }}"
+                            <button type="submit" title="Eliminar"
+                                    data-name="{{ pet.name }}"
+                                    data-img="{{ asset(pet.getProfileImgPath) }}"
                                     class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
                                 <i class="fa-solid fa-trash"></i>
                                 <span class="ml-1.5">Eliminar</span>
@@ -108,7 +110,9 @@
                 <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
                     <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-                    <button type="submit" title="Eliminar" data-pet-id="{{ pet.id }}"
+                    <button type="submit" title="Eliminar"
+                            data-name="{{ pet.name }}"
+                            data-img="{{ asset(pet.getProfileImgPath) }}"
                             class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
                         <i class="fa-solid fa-trash"></i>
                     </button>
