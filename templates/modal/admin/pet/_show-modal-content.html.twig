@@ -44,7 +44,7 @@
                     <p class="text-left w-full">{{ pet.breed.name }}</p>
                     {% if pet.breed.img %}
                     <figure class="pt-1.5">
-                        <img src="{{ asset(pet.breed.img) }}" class="h-20 w-auto border rounded-md p-1 bg-white">
+                        <img src="{{ asset(pet.breed.img) }}" class="h-20 w-auto border rounded-md p-1 bg-white" alt="Imágen de la mascota">
                     </figure>
                     {% endif %}
                 {% else %}

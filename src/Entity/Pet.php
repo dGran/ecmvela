@@ -69,7 +69,7 @@ class Pet
     private bool $active = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateAdd = null;
+    private ?\DateTimeInterface $dateAdd;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateUpd = null;
@@ -92,7 +92,6 @@ class Pet
     public function __construct()
     {
         $this->dateAdd = new \DateTime();
-        $this->active = true;
         $this->sales = new ArrayCollection();
         $this->saleLines = new ArrayCollection();
         $this->bookings = new ArrayCollection();
@@ -290,23 +289,18 @@ class Pet
             return '';
         }
 
-        switch ($this->getCategory()->getId()) {
-            case PetCategory::TYPE_DOG_ID:
-                return self::PROFILE_TYPE_DOG_IMG_PATH;
-            case PetCategory::TYPE_CAT_ID:
-                return self::PROFILE_TYPE_CAT_IMG_PATH;
-            case PetCategory::TYPE_RABBIT_ID:
-                return self::PROFILE_TYPE_RABBIT_IMG_PATH;
-            default:
-                return self::PROFILE_TYPE_DOG_IMG_PATH;
-        }
+        return match ($this->getCategory()->getId()) {
+            PetCategory::TYPE_CAT_ID => self::PROFILE_TYPE_CAT_IMG_PATH,
+            PetCategory::TYPE_RABBIT_ID => self::PROFILE_TYPE_RABBIT_IMG_PATH,
+            default => self::PROFILE_TYPE_DOG_IMG_PATH,
+        };
     }
 
     public function getPetFullAge(): ?string
     {
         if (!$this->active) {
             if ($this->birthDate !== null) {
-                return date_format($this->birthDate, "d/m/Y");;
+                return date_format($this->birthDate, "d/m/Y");
             }
 
             return null;
@@ -341,7 +335,7 @@ class Pet
     {
         if (!$this->active) {
             if ($this->birthDate !== null) {
-                return date_format($this->birthDate, "d/m/Y");;
+                return date_format($this->birthDate, "d/m/Y");
             }
 
             return null;
@@ -398,11 +392,9 @@ class Pet
 
     public function removeSale(Sale $sale): self
     {
-        if ($this->sales->removeElement($sale)) {
-            // set the owning side to null (unless already changed)
-            if ($sale->getPet() === $this) {
-                $sale->setPet(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->sales->removeElement($sale) && $sale->getPet() === $this) {
+            $sale->setPet(null);
         }
 
         return $this;
@@ -452,11 +444,9 @@ class Pet
 
     public function removeSaleLine(SaleLine $saleLine): self
     {
-        if ($this->saleLines->removeElement($saleLine)) {
-            // set the owning side to null (unless already changed)
-            if ($saleLine->getPet() === $this) {
-                $saleLine->setPet(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->saleLines->removeElement($saleLine) && $saleLine->getPet() === $this) {
+            $saleLine->setPet(null);
         }
 
         return $this;
@@ -482,11 +472,9 @@ class Pet
 
     public function removeBooking(Booking $booking): self
     {
-        if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getPet() === $this) {
-                $booking->setPet(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->bookings->removeElement($booking) && $booking->getPet() === $this) {
+            $booking->setPet(null);
         }
 
         return $this;
