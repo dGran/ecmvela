@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Helper\Common;
 use App\Repository\PetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -253,22 +254,28 @@ class Pet
             return '';
         }
 
+        $image = $this->profileImg;
+
+        if ($image && !\file_exists($image)) {
+            return Common::BROKEN_IMAGE_PATH;
+        }
+
         switch ($this->getCategory()->getId()) {
             case PetCategory::TYPE_DOG_ID:
-                if ($this->profileImg) {
+                if ($image) {
                     return self::PROFILE_TYPE_DOG_IMG_PATH.$this->profileImg;
                 }
 
                 return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
             case PetCategory::TYPE_CAT_ID:
-                if ($this->profileImg) {
-                    return self::PROFILE_TYPE_CAT_IMG_PATH.$this->profileImg;
+                if ($image) {
+                    return self::PROFILE_TYPE_CAT_IMG_PATH.$image;
                 }
 
                 return self::DEFAULT_PROFILE_TYPE_CAT_IMG_PATH;
             case PetCategory::TYPE_RABBIT_ID:
-                if ($this->profileImg) {
-                    return self::PROFILE_TYPE_RABBIT_IMG_PATH.$this->profileImg;
+                if ($image) {
+                    return self::PROFILE_TYPE_RABBIT_IMG_PATH.$image;
                 }
 
                 return self::DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH;

@@ -9,6 +9,9 @@
 
             <div id="dropdownActions{{ pet.id }}" class="hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
                 <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">
+                    <li class="px-1.5 py-2 border-b">
+                        <span class="px-4 py-2 font-bold">{{ pet.name }}</span>
+                    </li>
                     <li class="px-1.5">
                         <button type="button" title="Ver"
                                 data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}"
@@ -58,15 +61,15 @@
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
-                    type="button" class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
-                {{ pet.name }}
+                    type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.name }}</span>
             </button>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             {% if pet.customer %}
                 <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': pet.customer.id}) }}" title="Ver"
-                        type="button" class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
-                    {{ pet.customer.name }}
+                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                    <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.customer.name }}</span>
                 </button>
             {% else %}
                 -
