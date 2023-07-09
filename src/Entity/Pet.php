@@ -314,17 +314,17 @@ class Pet
 
             if ($difference->y) {
                 $age .= $difference->format("%y");
-                $age .= $difference->y === 1 ? ' año ' : ' años ';
+                $age .= $difference->y === 1 ? ' año' : ' años';
             }
 
             if ($difference->m) {
                 $age .= $difference->format("%m");
-                $age .= $difference->m === 1 ? ' mes ' : ' meses ';
+                $age .= $difference->m === 1 ? ' mes' : ' meses';
             }
 
             if ($difference->d) {
                 $age .= $difference->format("%d");
-                $age .= $difference->d === 1 ? ' día ' : ' días ';
+                $age .= $difference->d === 1 ? ' día' : ' días';
             }
         }
 
@@ -349,21 +349,21 @@ class Pet
 
             if ($difference->y) {
                 $age .= $difference->format("%y");
-                $age .= $difference->y === 1 ? ' año ' : ' años ';
+                $age .= $difference->y === 1 ? ' año' : ' años';
 
                 return $age;
             }
 
             if ($difference->m) {
                 $age .= $difference->format("%m");
-                $age .= $difference->m === 1 ? ' mes ' : ' meses ';
+                $age .= $difference->m === 1 ? ' mes' : ' meses';
 
                 return $age;
             }
 
             if ($difference->d) {
                 $age .= $difference->format("%d");
-                $age .= $difference->d === 1 ? ' día ' : ' días ';
+                $age .= $difference->d === 1 ? ' día' : ' días';
 
                 return $age;
             }

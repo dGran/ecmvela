@@ -57,13 +57,13 @@
             {{ pet.id }}
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
-            <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
-        </td>
-        <td class="py-1.5 px-3 whitespace-nowrap">
-            <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
-                    type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
-                <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.name }}</span>
-            </button>
+            <div class="flex items-center space-x-3">
+                <img src="{{ asset(pet.getProfileImgPath()) }}" alt="{{ pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover" style="min-width: 2.25rem; min-height: 2.25rem;">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                    <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.name }}</span>
+                </button>
+            </div>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             {% if pet.customer %}
@@ -76,17 +76,17 @@
             {% endif %}
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
-            {{ pet.category.name ?? '-' }}
-        </td>
-        <td class="py-1.5 px-3 whitespace-nowrap">
-            {{ pet.breed.name ?? '-' }}
-        </td>
-        <td class="py-1.5 px-3 whitespace-nowrap">
-            {{ pet.getPetShortAge ?? '-' }}
+            <div class="flex items-center space-x-3">
+                <span class="rounded text-[10px] uppercase bg-slate-100 border border-slate-200 px-2 py-0.5">{{ pet.category.name ?? 'N/D' }}</span>
+                <span>{{ pet.breed.name ?? 'N/D' }}</span>
+            </div>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             {% if pet.birthDate is not null %}
-                {{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}
+                <div class="flex items-center space-x-3">
+                    <span>{{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}</span>
+                    <span class="text-[12px] text-slate-500">({{ pet.getPetShortAge}})</span>
+                </div>
             {% else %}
                 -
             {% endif %}
