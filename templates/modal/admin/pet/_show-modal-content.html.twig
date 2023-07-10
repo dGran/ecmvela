@@ -83,7 +83,9 @@
             {% if pet.notes %}
             <li class="px-4 py-2.5 hover:bg-amber-50 rounded-b-md">
                 <p class="text-center font-medium w-full mb-1">Observaciones</p>
-                <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="4">{{ pet.notes }}</textarea>
+                <label>
+                    <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="4">{{ pet.notes }}</textarea>
+                </label>
             </li>
             {% else %}
             <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50 rounded-b-md">
