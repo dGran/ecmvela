@@ -250,7 +250,7 @@ class Pet
     public function getProfileImgPath(): ?string
     {
         if (!$this->getCategory()) {
-            return '';
+            return null;
         }
 
         $image = $this->profileImg;
@@ -281,6 +281,19 @@ class Pet
             default:
                 return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
         }
+    }
+
+    public function getDefaultImgPath(): ?string
+    {
+        if (!$this->getCategory()) {
+            return null;
+        }
+
+        return match ($this->getCategory()->getId()) {
+            PetCategory::TYPE_CAT_ID => self::DEFAULT_PROFILE_TYPE_CAT_IMG_PATH,
+            PetCategory::TYPE_RABBIT_ID => self::DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH,
+            default => self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH,
+        };
     }
 
     public function getProfileImgDir(): ?string

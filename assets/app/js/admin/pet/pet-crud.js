@@ -83,32 +83,39 @@ $( document ).ready(function() {
         return !(!$('#pet_name').val() || !$('#pet_category').val());
     }
 
-    $(document).on('change', '#pet_imageFile', function (e){
-        previewImage(event, '#preview')
+    $(document).on('change', '#pet_imageFile', function(){
+        let input = this;
+
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+            $('#delete-image-button').removeClass('hidden');
+        }
     });
-
-    function previewImage(event, querySelector){
-        const input = event.target;
-        imgPreview = document.querySelector(querySelector);
-
-        if (!input.files.length) return
-
-        objectURL = URL.createObjectURL(input.files[0]);
-        imgPreview.src = objectURL;
-    }
 
     $(document).on('click', '#load-image-button', function(){
         $('#pet_imageFile').trigger('click');
     });
 
     $(document).on('click', '#delete-image-button', function(){
+        let originalImage = $('#preview').data('original-image');
+        let defaultImage = $('#preview').data('default-image');
+        let previewImageElement = $('#preview');
         let deleteImage = $('#deleteImage');
+
+        if (originalImage == defaultImage) {
+            $('#preview').attr('src', defaultImage);
+            $('#delete-image-button').addClass('hidden');
+        } else {
+            $('#preview').attr('src', defaultImage);
+        }
 
         if (!deleteImage.val()) {
             deleteImage.val(true);
         }
-
-        console.log(deleteImage.val());
     });
-
 });
