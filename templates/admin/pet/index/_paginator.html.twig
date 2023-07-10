@@ -1,14 +1,8 @@
 {% if pets.pageCount > 1 %}
-    <div class="border-l border-r border-b border-slate-300 rounded-b-md p-4 flex items-center justify-between space-x-4">
-        <div class="text-xs md:text-sm">
-            <p class="flex items-center space-x-1">
-                <span class="hidden sm:block">Mostrando</span>
-                <strong>{{ pets.currentPageNumber * pets.itemNumberPerPage - pets.itemNumberPerPage + 1 }}-{% if pets.currentPageNumber != pets.pageCount %}{{ pets.currentPageNumber * pets.itemNumberPerPage }}{% else %}{{ pets.getTotalItemCount }}{% endif %}</strong>
-                <span class="hidden sm:block">de</span>
-                <span class="sm:hidden">/</span>
-                <strong>{{ pets.getTotalItemCount }}</strong>
-            </p>
-        </div>
+    <div class="py-4 flex flex-col md:flex-row items-center justify-center md:justify-end space-x-4">
+        <p class="order-last md:order-first text-xs md:text-sm mt-2.5 md:mt-0">
+            Mostrando <strong>{{ pets.currentPageNumber * pets.itemNumberPerPage - pets.itemNumberPerPage + 1 }}-{% if pets.currentPageNumber != pets.pageCount %}{{ pets.currentPageNumber * pets.itemNumberPerPage }}{% else %}{{ pets.getTotalItemCount }}{% endif %}</strong> de <strong>{{ pets.getTotalItemCount }}</strong>
+        </p>
         {{ knp_pagination_render(pets) }}
     </div>
 {% endif %}
