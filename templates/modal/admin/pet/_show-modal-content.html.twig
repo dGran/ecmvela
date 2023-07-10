@@ -1,8 +1,8 @@
 <!-- Modal header -->
-<div class="flex items-start justify-between p-4 border-b rounded-t">
-    <div>
-        <p class="text-xs md:text-sm font-semibold text-blue-500">Mascota</p>
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ pet.name }}</h3>
+<div class="flex items-start justify-between border-b rounded-t bg-slate-50 p-3">
+    <div class="flex items-center space-x-3">
+        <p class="text-[11px] md:text-xs font-semibold border-r text-slate-500 rounded px-4 py-1.5 uppercase">Mascota</p>
+        <h3 class="md:text-lg font-semibold text-gray-900 dark:text-white">{{ pet.name }}</h3>
     </div>
 </div>
 <!-- Modal body -->
@@ -10,19 +10,19 @@
     <div class="w-full flex flex-col">
         <img src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen del cliente" class="mb-6 mx-auto h-40 w-40 rounded-full object-cover shadow-lg bg-white p-0.5">
         <ul class="border rounded-md">
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50 rounded-t-md">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50 rounded-t-md">
                 <p class="flex-1 font-medium text-right w-full">Id</p>
                 <p class="flex-1 text-left w-full">{{ pet.id }}</p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Categoría</p>
                 <p class="flex-1 text-left w-full">{{ pet.category.name }}</p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Nombre</p>
                 <p class="flex-1 text-left w-full">{{ pet.name }}</p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Dueñ@</p>
                 <p class="flex-1 text-left w-full">
                 {% if pet.customer %}
@@ -37,14 +37,14 @@
                 {% endif %}
                 </p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Raza</p>
                 <div class="flex-1 flex flex-col">
                 {% if pet.breed %}
                     <p class="text-left w-full">{{ pet.breed.name }}</p>
                     {% if pet.breed.img %}
                     <figure class="pt-1.5">
-                        <img src="{{ asset(pet.breed.img) }}" class="h-20 w-auto border rounded-md p-1 bg-white" alt="Imágen de la mascota">
+                        <img src="{{ asset(pet.breed.img) }}" class="h-20 w-auto border rounded-md p-1 bg-white" alt="Imágen de la raza">
                     </figure>
                     {% endif %}
                 {% else %}
@@ -52,11 +52,11 @@
                 {% endif %}
                 </div>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Color</p>
                 <p class="flex-1 text-left w-full">{{ pet.color ?? '-' }}</p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Fecha nacimiento</p>
                 <div class="flex-1 flex flex-col space-y-1">
                 {% if pet.birthDate %}
@@ -68,25 +68,25 @@
                 </div>
 
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Activo</p>
                 <p class="flex-1 text-left w-full"><i class="{% if pet.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i></p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Fecha alta</p>
                 <p class="flex-1 text-left w-full">{{ pet.dateAdd|date('d/m/Y, h:i') }}</p>
             </li>
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
                 <p class="flex-1 font-medium text-right w-full">Fecha última modificación</p>
                 <p class="flex-1 text-left w-full">{{ pet.dateUpd|date('d/m/Y, h:i') }}</p>
             </li>
             {% if pet.notes %}
-            <li class="px-4 py-2.5 even:bg-neutral-50 hover:bg-amber-50 rounded-b-md">
+            <li class="px-4 py-2.5 hover:bg-amber-50 rounded-b-md">
                 <p class="text-center font-medium w-full mb-1">Observaciones</p>
                 <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="4">{{ pet.notes }}</textarea>
             </li>
             {% else %}
-            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50 rounded-b-md">
+            <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50 rounded-b-md">
                 <p class="flex-1 font-medium text-right w-full">Observaciones</p>
                 <p class="flex-1 text-left w-full">-</p>
             </li>

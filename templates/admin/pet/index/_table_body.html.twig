@@ -71,14 +71,12 @@
                         type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
                     <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.customer.name }}</span>
                 </button>
-            {% else %}
-                -
             {% endif %}
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             <div class="flex items-center space-x-3">
                 <span class="rounded text-[10px] uppercase bg-slate-100 border border-slate-200 px-2 py-0.5">{{ pet.category.name ?? 'N/D' }}</span>
-                <span>{{ pet.breed.name ?? 'N/D' }}</span>
+                <span>{{ pet.breed.name ?? '' }}</span>
             </div>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
@@ -87,8 +85,6 @@
                     <span>{{ pet.birthDate|date('d')}}-{{ pet.birthDate|format_date(pattern='MMM', locale='es')|capitalize }}</span>
                     <span class="text-[12px] text-slate-500">({{ pet.getPetShortAge}})</span>
                 </div>
-            {% else %}
-                -
             {% endif %}
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">

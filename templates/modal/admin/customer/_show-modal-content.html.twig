@@ -1,66 +1,69 @@
 <!-- Modal header -->
-<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-    <div>
-        <p class="text-xs md:text-sm font-semibold text-blue-500">Cliente</p>
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ customer.name }}</h3>
+<div class="flex items-start justify-between border-b rounded-t bg-slate-50 p-3">
+    <div class="flex items-center space-x-3">
+        <p class="text-[11px] md:text-xs font-semibold border-r text-slate-500 rounded px-4 py-1.5 uppercase">Cliente</p>
+        <h3 class="md:text-lg font-semibold text-gray-900 dark:text-white">{{ customer.name }}</h3>
     </div>
 </div>
 <!-- Modal body -->
 <div class="p-6 text-sm">
     <ul class="border rounded-md">
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Id</p>
             <p class="flex-1 text-left w-full">{{ customer.id }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Nombre</p>
             <p class="flex-1 text-left w-full">{{ customer.name }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">DNI / NIE</p>
             <p class="flex-1 text-left w-full">{{ customer.identification ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Dirección</p>
             <p class="flex-1 text-left w-full">{{ customer.address ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Código Postal</p>
             <p class="flex-1 text-left w-full">{{ customer.postalCode ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Localidad</p>
             <p class="flex-1 text-left w-full">{{ customer.location ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Provincia</p>
             <p class="flex-1 text-left w-full">{{ customer.province ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Teléfono</p>
             <p class="flex-1 text-left w-full">{{ customer.phone ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Teléfono 2</p>
             <p class="flex-1 text-left w-full">{{ customer.phone2 ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">Teléfono 3</p>
             <p class="flex-1 text-left w-full">{{ customer.phone3 ?? '-' }}</p>
         </li>
-        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 even:bg-neutral-50 hover:bg-amber-50">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
             <p class="flex-1 font-medium text-right w-full">E-Mail</p>
             <p class="flex-1 text-left w-full text-ellipsis overflow-hidden">{{ customer.email ?? '-' }}</p>
         </li>
-        <li class="flex items-start justify-between px-1.5 py-2.5 space-x-4 even:bg-neutral-50 hover:bg-amber-50">
-            <p class="flex-1 font-medium text-right w-full">Observaciones</p>
-            <p class="flex-1 text-left w-full">
-                {% if customer.notes %}
-                    <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="3">{{ customer.notes }}</textarea>
-                {% else %}
-                    -
-                {% endif %}
-            </p>
-        </li>
+        {% if customer.notes %}
+            <li class="px-4 py-2.5 hover:bg-amber-50">
+                <p class="text-center font-medium w-full mb-1">Observaciones</p>
+                <label>
+                    <textarea readonly class="p-2.5 w-full text-sm rounded-md border border-gray-200 focus:outline-none" rows="4">{{ customer.notes }}</textarea>
+                </label>
+            </li>
+        {% else %}
+            <li class="flex items-start justify-between px-1.5 py-2.5 space-x-4 hover:bg-amber-50">
+                <p class="flex-1 font-medium text-right w-full">Observaciones</p>
+                <p class="flex-1 text-left w-full">-</p>
+            </li>
+        {% endif %}
     </ul>
 </div>
