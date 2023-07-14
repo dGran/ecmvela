@@ -41,7 +41,7 @@ class IndexController extends AbstractController
 
         return $this->render('admin/pet/index.html.twig', [
             'pets' => $pets,
-            'search' => $queryParams['search'],
+            'filter_search' => $queryParams['search'],
         ]);
     }
 }

@@ -18,7 +18,7 @@ class CreateController extends AbstractController
     {
         $pet = new Pet();
         $form = $this->createForm(PetType::class, $pet, [
-            'action' => $this->generateUrl('admin_pet_save'),
+            'action' => $this->generateUrl('admin_pet_store'),
             'method' => 'POST',
         ]);
 

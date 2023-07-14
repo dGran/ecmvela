@@ -1,0 +1,98 @@
+<tbody>
+{% for customer in customers %}
+    <tr class="h-12 border-b last:border-b-0 border-slate-200 {% if customer.active == 0 %}bg-red-50 hover:bg-red-100{% else %}even:bg-neutral-50 hover:bg-amber-50{% endif %}">
+        <td class="md:hidden py-1.5 pl-4 pr-1 whitespace-nowrap">
+            <button type="button" id="dropdownActionsButton" data-dropdown-toggle="dropdownActions{{ customer.id }}" data-dropdown-offset-distance="5" data-dropdown-placement="right-start"
+                    class="w-9 px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent active:bg-blue-600 focus:outline-none">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div id="dropdownActions{{ customer.id }}" class="hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
+                <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">
+                    <li class="px-1.5">
+                        <button type="button" title="Ver"
+                                data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': customer.id}) }}"
+                                class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-eye"></i>
+                            <span class="ml-1.5">Ver</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <button type="button" title="Editar"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                                data-url="{{ path('admin_customer_edit', {'customer': customer.id}) }}"
+                                data-path-index="{{ app.request.requesturi }}"
+                                class="edit_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span class="ml-1.5">Editar</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <form method="post" action="{{ path('admin_customer_delete', {'customer': customer.id}) }}">
+                            <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
+                            <button type="submit" title="Eliminar"
+                                    data-name="{{ customer.name }}"
+                                    class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="ml-1.5">Eliminar</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </td>
+
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ customer.id }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <div class="flex items-center space-x-3">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': customer.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                    <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ customer.name }}</span>
+                </button>
+            </div>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+{#        TODO: Show customer pets#}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <span>{{ customer.phone }}</span>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <span>{{ customer.phone2 }}</span>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <span>{{ customer.phone3 }}</span>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <span>{{ customer.location }}</span>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ customer.dateAdd|date('d/m/Y') }}
+        </td>
+        <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
+            <div class="flex items-center justify-end space-x-1">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': customer.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button type="button" title="Editar"
+                        data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                        data-url="{{ path('admin_customer_edit', {'customer': customer.id}) }}"
+                        class="edit_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <form method="post" action="{{ path('admin_customer_delete', {'customer': customer.id}) }}">
+                    <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
+                    <button type="submit" title="Eliminar"
+                            data-name="{{ customer.name }}"
+                            class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

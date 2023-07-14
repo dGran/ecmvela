@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/pet/save', name: 'admin_pet_save', methods: ['POST'])]
+#[Route('/admin/pet/save', name: 'admin_pet_store', methods: ['POST'])]
 class StoreController extends AbstractController
 {
     private PetManager $petManager;

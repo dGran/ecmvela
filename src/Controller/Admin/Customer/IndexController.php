@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/customer', name: 'admin_customer', methods: ['GET', 'POST'])]
+#[Route('/admin/customer', name: 'admin_customer', methods: ['GET'])]
 class IndexController extends AbstractController
 {
     private CustomerManager $customerManager;
@@ -25,18 +25,23 @@ class IndexController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $data = $this->customerManager->findBy([], ['dateAdd' => 'DESC']);
-        $search = $request->get('search');
+        $queryParams = [
+            'search' => $request->query->get('search'),
+            'sort' => $request->query->get('sort') ?? 'id',
+            'direction' => $request->query->get('direction') ?? 'DESC',
+        ];
 
-        if (!empty($search)) {
-            $data = $this->customerManager->findByIndexSearchFields($search);
+        $data = $this->customerManager->findBy([], [$queryParams['sort'] => $queryParams['direction']]);
+
+        if (!empty($queryParams['search'])) {
+            $data = $this->customerManager->findByIndexSearchFields($queryParams['search'], $queryParams['sort'], $queryParams['direction']);
         }
 
         $customers = $this->paginator->paginate($data, $request->query->getInt('page', 1), 10);
 
         return $this->render('admin/customer/index.html.twig', [
             'customers' => $customers,
-            'search' => $search,
+            'filter_search' => $queryParams['search'],
         ]);
     }
 }

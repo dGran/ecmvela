@@ -6,43 +6,25 @@ namespace App\Controller\Admin\Customer;
 
 use App\Entity\Customer;
 use App\Form\CustomerType;
-use App\Manager\CustomerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/customer/create', name: 'admin_customer_create', methods: ['GET', 'POST'])]
+#[Route('/admin/customer/create', name: 'admin_customer_create', methods: ['POST'])]
 class CreateController extends AbstractController
 {
-    private CustomerManager $customerManager;
-
-    public function __construct(CustomerManager $customerManager)
-    {
-        $this->customerManager = $customerManager;
-    }
-
     public function __invoke(Request $request): Response
     {
-        $pathIndex = $request->get('pathIndex');
-
         $customer = new Customer();
-        $form = $this->createForm(CustomerType::class, $customer);
-        $form->handleRequest($request);
+        $form = $this->createForm(CustomerType::class, $customer, [
+            'action' => $this->generateUrl('admin_customer_store'),
+            'method' => 'POST',
+        ]);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('create', $request->request->get('_token'))) {
-            $customer = $form->getData();
-            $this->customerManager->save($customer);
-
-            $this->addFlash('success','Se ha creado el nuevo cliente correctamente');
-
-            return $this->redirect($pathIndex);
-        }
-
-        return $this->render('admin/customer/create.html.twig', [
+        return $this->render('modal/admin/customer/_create-modal-content.html.twig', [
             'customer' => $customer,
-            'form' => $form,
-            'path_index' => $pathIndex,
+            'form' => $form->createView(),
         ]);
     }
 }

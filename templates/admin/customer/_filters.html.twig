@@ -1,12 +1,12 @@
 <div class="flex items-center justify-between space-x-4">
     <button type="button" title="Nuevo"
             data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
-            data-url="{{ path('admin_pet_create') }}"
+            data-url="{{ path('admin_customer_create') }}"
             class="create_button | flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
         Nuevo
     </button>
 
-    <form method="get" action="{{ path('admin_pet') }}" class="flex-1 flex items-center">
+    <form method="get" action="{{ path('admin_customer') }}" class="flex-1 flex items-center">
         <label for="filter_search" class="sr-only">Buscar</label>
         <div class="relative w-full">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

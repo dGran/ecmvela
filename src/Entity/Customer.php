@@ -64,6 +64,9 @@ class Customer
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
+    #[ORM\Column]
+    private bool $active = true;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAdd = null;
 
@@ -219,6 +222,18 @@ class Customer
     public function setNotes(?string $notes): Customer
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): Customer
+    {
+        $this->active = $active;
 
         return $this;
     }

@@ -1,0 +1,30 @@
+<thead class="h-10 px-3 bg-neutral-100 border-b border-slate-300">
+<tr>
+    <th class="md:hidden py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs"></th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Id', 'id') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Nombre', 'name') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        Mascotas
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Teléfono', 'phone') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Teléfono 2', 'phone2') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Teléfono 3', 'phone3') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Población', 'location') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(customers, 'Fecha alta', 'dateAdd') }}
+    </th>
+    <th class="hidden md:block w-auto py-1.5 px-3 whitespace-nowrap uppercase text-xs"></th>
+</tr>
+</thead>

@@ -23,7 +23,7 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
-    public function findByIndexSearchFields(string $search): array
+    public function findByIndexSearchFields(string $search, string $sort, string $direction): array
     {
         return $this->createQueryBuilder('customer')
             ->leftJoin('customer.pets', 'pets')
@@ -32,7 +32,7 @@ class CustomerRepository extends ServiceEntityRepository
             ->orWhere('customer.location LIKE :search')
             ->orWhere('pets.name LIKE :search')
             ->setParameter('search', '%'.$search.'%')
-            ->orderBy('customer.id', 'DESC')
+            ->orderBy('customer.'.$sort, $direction)
             ->getQuery()
             ->getResult();
     }

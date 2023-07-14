@@ -1,55 +1,42 @@
 {{ form_start(form) }}
+<div class="p-6 text-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.name) }}
+        {{ form_row(form.identification) }}
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-2">
+            {{ form_row(form.phone) }}
+            {{ form_row(form.phone2) }}
+            {{ form_row(form.phone3) }}
+        </div>
+        {{ form_row(form.email) }}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2">
+            {{ form_row(form.address) }}
+            {{ form_row(form.postalCode) }}
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2">
+            {{ form_row(form.location) }}
+            {{ form_row(form.province) }}
+        </div>
+    </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-    {{ form_row(form.name) }}
-    {{ form_row(form.identification) }}
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-8">
-        {{ form_row(form.phone) }}
-        {{ form_row(form.phone2) }}
-        {{ form_row(form.phone3) }}
-    </div>
-    {{ form_row(form.email) }}
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-        {{ form_row(form.address) }}
-        {{ form_row(form.postalCode) }}
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-        {{ form_row(form.location) }}
-        {{ form_row(form.province) }}
-    </div>
     {{ form_row(form.notes) }}
+    <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" class="sr-only peer" id="active" name="active" {% if mode == 'add' or (mode == 'edit' and customer.active) %}checked{% endif %}>
+        <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+        <span class="ml-2 text-[12px] font-medium text-slate-600 uppercase tracking-wide">activo</span>
+    </label>
 </div>
 
-<div class="mt-8 md:mt-12 flex flex-row-reverse items-center justify-end">
-    <button type="submit" class="px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+<div class="p-6 flex items-center justify-end border-t rounded-b-md bg-slate-50 relative">
+    <button type="button" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            onclick="$('.close-modal').trigger('click');">
+        Cancelar
+    </button>
+    <button type="submit" id="send-form-button" {% if mode == 'add' %}disabled{% endif %}
+            class="px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out
+                  {% if mode == 'add' %}bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none{% else %}bg-blue-500 hover:bg-blue-600 focus:bg-blue-600{% endif %}
+                  ">
         {{ button_label|default('Guardar cliente') }}
     </button>
-
-<input type="hidden" name="pathIndex" value="{{ path_index }}">
-    {% if mode == 'edit' %}
-        <input type="hidden" name="pathFrom" value="{{ path_from }}">
-        <input type="hidden" name="_token" value="{{ csrf_token('edit-' ~ customer.id) }}">
-    {% else %}
-        <input type="hidden" name="_token" value="{{ csrf_token('create') }}">
-    {% endif %}
-{{ form_end(form) }}
-
-    {% if mode == 'edit' %}
-        {% if path_index == back_path %}
-            <a href="{{ back_path }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-                Cancelar
-            </a>
-        {% else %}
-            <form method="post" action="{{ path('admin_customer_show', {'id': customer.id}) }}">
-                <input type="hidden" name="pathIndex" value="{{ path_index }}">
-                <button type="submit" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-                    Cancelar
-                </button>
-            </form>
-        {% endif %}
-    {% else %}
-        <a href="{{ path_index }}" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-            Cancelar
-        </a>
-    {% endif %}
 </div>
+{{ form_end(form) }}

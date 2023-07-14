@@ -1,0 +1,8 @@
+{% if customers.pageCount > 1 %}
+    <div class="py-4 flex flex-col md:flex-row items-center justify-center md:justify-end space-x-4">
+        <p class="order-last md:order-first text-xs md:text-sm mt-2.5 md:mt-0">
+            Mostrando {{ customers.currentPageNumber * customers.itemNumberPerPage - customers.itemNumberPerPage + 1 }}-{% if customers.currentPageNumber != customers.pageCount %}{{ customers.currentPageNumber * customers.itemNumberPerPage }}{% else %}{{ customers.getTotalItemCount }}{% endif %} de {{ customers.getTotalItemCount }}
+        </p>
+        {{ knp_pagination_render(customers) }}
+    </div>
+{% endif %}
