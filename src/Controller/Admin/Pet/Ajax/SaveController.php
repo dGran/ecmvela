@@ -8,6 +8,7 @@ use App\Entity\Pet;
 use App\Form\PetType;
 use App\Helper\Slugify;
 use App\Manager\PetManager;
+use Doctrine\DBAL\Driver\PgSQL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,44 +34,19 @@ class SaveController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pet = $form->getData();
             $uploadedFile = $form['imageFile']->getData();
-            $deleteCurrentImage = (bool) $request->get('deleteCurrentImage');
-
-            if (!$pet->getProfileImg()) {
-                $deleteCurrentImage = false;
-            }
 
             if ($uploadedFile !== null) {
                 $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
                 $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid('', true).'.'.$uploadedFile->guessExtension();
                 $uploadedFile->move($destination, $filename);
 
-                if ($pet->getProfileImg()) {
-                    $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-                    if (\file_exists($currentImg)) {
-                        unlink($currentImg);
-                    }
-                }
-
                 $pet->setProfileImg($filename);
             }
 
-            if ($deleteCurrentImage) {
-                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-                if (!\strpos($currentImg, 'broken_image')) {
-                    if (\file_exists($currentImg)) {
-                        unlink($currentImg);
-                    }
-                }
-
-                $pet->setProfileImg(null);
-            }
-
             $pet->setActive($request->get('active') === "on");
-            $this->petManager->update($pet);
+            $this->petManager->save($pet);
 
-            $this->addFlash('success','La mascota se ha actualizado correctamente');
+            $this->addFlash('success','La mascota se ha creado correctamente');
 
             return new JsonResponse(['status' => 'success',]);
         }

@@ -8,9 +8,9 @@
                  data-default-image="{{ asset(pet.getDefaultImgPath) }}"
             >
         {% else %}
-            <img id="preview" src="" alt="Imagen de la mascota"
+            <img id="preview" src="{{ asset(constant('App\\Entity\\Pet::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH')) }}" alt="Imagen de la mascota"
                  class="-mt-4 h-40 w-40 rounded-full object-cover bg-white border p-0.5"
-                 data-default-image=""
+                 data-default-image="{{ asset(constant('App\\Entity\\Pet::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH')) }}"
             >
         {% endif %}
         <div class="mt-2.5 flex items-center space-x-2.5">
@@ -35,7 +35,7 @@
     <input type="hidden" id="delete-current-image" name="deleteCurrentImage" value="0">
 
     <label class="relative inline-flex items-center cursor-pointer">
-        <input type="checkbox" class="sr-only peer" id="active" name="active" {% if pet.active %}checked{% endif %}>
+        <input type="checkbox" class="sr-only peer" id="active" name="active" {% if mode == 'add' or (mode == 'edit' and pet.active) %}checked{% endif %}>
         <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
         <span class="ml-2 text-[12px] font-medium text-slate-600 uppercase tracking-wide">activo</span>
     </label>
@@ -46,7 +46,10 @@
             onclick="$('.close-modal').trigger('click');">
         Cancelar
     </button>
-    <button type="submit" id="{{ button_id }}" class="px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+    <button type="submit" id="send-form-button" {% if mode == 'add' %}disabled{% endif %}
+            class="px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out
+                  {% if mode == 'add' %}bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none{% else %}bg-blue-500 hover:bg-blue-600 focus:bg-blue-600{% endif %}
+                  ">
         {{ button_label|default('Guardar mascota') }}
     </button>
 </div>

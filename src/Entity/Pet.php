@@ -15,14 +15,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PetRepository::class)]
 class Pet
 {
-    protected const PROFILE_TYPE_DOG_IMG_PATH = 'img/pets/dogs/';
-    protected const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dog-no-image.png';
+    public const PROFILE_TYPE_DOG_IMG_PATH = 'img/pets/dogs/';
+    public const DEFAULT_PROFILE_TYPE_DOG_IMG_PATH = 'build/app/img/pets/dog-no-image.png';
 
-    protected const PROFILE_TYPE_CAT_IMG_PATH = 'img/pets/cats/';
-    protected const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cat-no-image.png';
+    public const PROFILE_TYPE_CAT_IMG_PATH = 'img/pets/cats/';
+    public const DEFAULT_PROFILE_TYPE_CAT_IMG_PATH = 'build/app/img/pets/cat-no-image.png';
 
-    protected const PROFILE_TYPE_RABBIT_IMG_PATH = 'img/pets/rabbits/';
-    protected const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbit-no-image.png';
+    public const PROFILE_TYPE_RABBIT_IMG_PATH = 'img/pets/rabbits/';
+    public const DEFAULT_PROFILE_TYPE_RABBIT_IMG_PATH = 'build/app/img/pets/rabbit-no-image.png';
 
     #[ORM\Id]
     #[ORM\GeneratedValue('AUTO')]
