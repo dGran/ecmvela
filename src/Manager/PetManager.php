@@ -76,8 +76,8 @@ class PetManager
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    public function findByIndexSearchFields(string $search): array
+    public function findByIndexSearchFields(string $search, string $sort, string $direction): array
     {
-        return $this->repository->findByIndexSearchFields($search);
+        return $this->repository->findByIndexSearchFields($search, $sort, $direction);
     }
 }

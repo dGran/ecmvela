@@ -28,16 +28,8 @@
                         </button>
                     </li>
                     <li class="px-1.5">
-                        <button title="Imprimir"
-                                type="button" class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
-                            <i class="fa-solid fa-print"></i>
-                            <span class="ml-1.5">Imprimir</span>
-                        </button>
-                    </li>
-                    <li class="px-1.5">
-                        <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
-                            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                        <form method="post" action="{{ path('admin_pet_delete', {'pet': pet.id}) }}">
+                            <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
                             <button type="submit" title="Eliminar"
                                     data-name="{{ pet.name }}"
                                     data-img="{{ asset(pet.getProfileImgPath) }}"
@@ -102,9 +94,8 @@
                         class="edit_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <form method="post" action="{{ path('admin_pet_delete', {'id': pet.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete-' ~ pet.id) }}">
-                    <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
+                <form method="post" action="{{ path('admin_pet_delete', {'pet': pet.id}) }}">
+                    <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
                     <button type="submit" title="Eliminar"
                             data-name="{{ pet.name }}"
                             data-img="{{ asset(pet.getProfileImgPath) }}"

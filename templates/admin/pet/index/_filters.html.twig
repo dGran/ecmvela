@@ -6,7 +6,7 @@
         Nuevo
     </button>
 
-    <form method="post" action="{{ path('admin_pet') }}" class="flex-1 flex items-center">
+    <form method="get" action="{{ path('admin_pet') }}" class="flex-1 flex items-center">
         <label for="search" class="sr-only">Buscar</label>
         <div class="relative w-full">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -14,14 +14,12 @@
                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                 </svg>
             </div>
-            <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
             <input type="search" id="search" name="search" class="block w-full p-2 pl-10 text-sm border border-slate-300 rounded-md bg-white focus:border-blue-500 focus:outline-none"
                    placeholder="Buscar" autofocus autocomplete="off" value="{{ search }}">
         </div>
     </form>
 
     <form method="post" action="{{ path('admin_pet_create') }}">
-        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
         <button type="submit" class="flex-initial px-4 py-2.5 bg-transparent font-medium text-sm leading-tight uppercase rounded hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg hover:text-white focus:text-white focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
             <i class="fa-solid fa-filter"></i>
         </button>

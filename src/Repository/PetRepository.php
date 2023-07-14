@@ -23,7 +23,7 @@ class PetRepository extends ServiceEntityRepository
         parent::__construct($registry, Pet::class);
     }
 
-    public function findByIndexSearchFields(string $search): array
+    public function findByIndexSearchFields(string $search, string $sort, string $direction): array
     {
         return $this->createQueryBuilder('pet')
             ->leftJoin('pet.customer', 'customer')
@@ -32,7 +32,7 @@ class PetRepository extends ServiceEntityRepository
             ->orWhere('customer.name LIKE :search')
             ->orWhere('breed.name LIKE :search')
             ->setParameter('search', '%'.$search.'%')
-            ->orderBy('pet.id', 'DESC')
+            ->orderBy('pet.'.$sort, $direction)
             ->getQuery()
             ->getResult();
     }

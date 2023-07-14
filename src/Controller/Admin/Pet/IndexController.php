@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/pet', name: 'admin_pet', methods: ['GET', 'POST'])]
+#[Route('/admin/pet', name: 'admin_pet', methods: ['GET'])]
 class IndexController extends AbstractController
 {
     private PetManager $petManager;
@@ -25,18 +25,23 @@ class IndexController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $data = $this->petManager->findBy([], ['id' => 'DESC']);
-        $search = $request->get('search');
+        $queryParams = [
+            'search' => $request->query->get('search'),
+            'sort' => $request->query->get('sort') ?? 'id',
+            'direction' => $request->query->get('direction') ?? 'DESC',
+        ];
 
-        if (!empty($search)) {
-            $data = $this->petManager->findByIndexSearchFields($search);
+        $data = $this->petManager->findBy([], [$queryParams['sort'] => $queryParams['direction']]);
+
+        if (!empty($queryParams['search'])) {
+            $data = $this->petManager->findByIndexSearchFields($queryParams['search'], $queryParams['sort'], $queryParams['direction']);
         }
 
         $pets = $this->paginator->paginate($data, $request->query->getInt('page', 1), 10);
 
         return $this->render('admin/pet/index.html.twig', [
             'pets' => $pets,
-            'search' => $search,
+            'search' => $queryParams['search'],
         ]);
     }
 }
