@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/pet/save', name: 'admin_pet_save', methods: ['POST'])]
-class SaveController extends AbstractController
+class StoreController extends AbstractController
 {
     private PetManager $petManager;
     private Slugify $slugger;

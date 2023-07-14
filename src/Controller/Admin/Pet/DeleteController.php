@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin/pet/delete/{pet}', name: 'admin_pet_delete', methods: ['POST'])]
 class DeleteController extends AbstractController
 {
     private PetManager $petManager;
@@ -21,8 +22,7 @@ class DeleteController extends AbstractController
         $this->petManager = $petManager;
     }
 
-    #[Route('/admin/pet/delete/{pet}', name: 'admin_pet_delete', methods: ['POST'])]
-    public function delete(Request $request, Pet $pet): Response
+    public function __invoke(Request $request, Pet $pet): Response
     {
         if ($pet->getProfileImg()) {
             $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();

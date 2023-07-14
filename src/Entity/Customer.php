@@ -61,8 +61,7 @@ class Customer
     #[Assert\Length(max: 30)]
     private ?string $identification = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(max: 255)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
