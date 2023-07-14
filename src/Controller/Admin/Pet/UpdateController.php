@@ -33,7 +33,7 @@ class UpdateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pet = $form->getData();
             $uploadedFile = $form['imageFile']->getData();
-            $deleteCurrentImage = (bool)$request->get('deleteCurrentImage');
+            $deleteCurrentImage = (bool) $request->get('deleteCurrentImage');
 
             if (!$pet->getProfileImg()) {
                 $deleteCurrentImage = false;
@@ -58,8 +58,10 @@ class UpdateController extends AbstractController
             if ($deleteCurrentImage) {
                 $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
 
-                if (\file_exists($currentImg)) {
-                    unlink($currentImg);
+                if (!\strpos($currentImg, 'broken_image')) {
+                    if (\file_exists($currentImg)) {
+                        unlink($currentImg);
+                    }
                 }
 
                 $pet->setProfileImg(null);
@@ -82,6 +84,7 @@ class UpdateController extends AbstractController
     private function getErrorsFromForm($form): array
     {
         $errors = [];
+
         foreach ($form->getErrors(true) as $error) {
             $errors[] = $error->getMessage();
         }
