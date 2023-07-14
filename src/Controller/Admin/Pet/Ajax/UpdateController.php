@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Pet;
+namespace App\Controller\Admin\Pet\Ajax;
 
 use App\Entity\Pet;
 use App\Form\PetType;
