@@ -85,7 +85,7 @@ $( document ).ready(function() {
         });
     });
 
-    $(document).on('input', '#pet_name', function (e){
+    $(document).on('input', '#pet_name', function (){
         if (!$(this).val()) {
             markErrorElement($(this))
         } else {
@@ -93,31 +93,32 @@ $( document ).ready(function() {
         }
     });
 
-    $(document).on('change', '#pet_category', function (e){
+    $(document).on('change', '#pet_category', function (){
         let TYPE_CAT_ID = 2;
         let TYPE_RABBIT_ID = 3;
         let TYPE_DOG_NO_IMAGE_PATH = '/build/app/img/pets/dog-no-image.png';
         let TYPE_CAT_NO_IMAGE_PATH = '/build/app/img/pets/cat-no-image.png';
         let TYPE_RABBIT_NO_IMAGE_PATH = '/build/app/img/pets/rabbit-no-image.png';
+        let preview = $('#preview');
 
         if ($(this).val() == TYPE_CAT_ID) {
             if ($('#delete-image-button').is(':hidden')) {
                 $('#preview').attr('src', TYPE_CAT_NO_IMAGE_PATH);
             }
 
-            $('#preview').data('defaultImage', TYPE_CAT_NO_IMAGE_PATH);
+            preview.data('defaultImage', TYPE_CAT_NO_IMAGE_PATH);
         } else if ($(this).val() == TYPE_RABBIT_ID) {
             if ($('#delete-image-button').is(':hidden')) {
-                $('#preview').attr('src', TYPE_RABBIT_NO_IMAGE_PATH);
+                preview.attr('src', TYPE_RABBIT_NO_IMAGE_PATH);
             }
 
-            $('#preview').data('defaultImage', TYPE_RABBIT_NO_IMAGE_PATH);
+            preview.data('defaultImage', TYPE_RABBIT_NO_IMAGE_PATH);
         } else {
             if ($('#delete-image-button').is(':hidden')) {
-                $('#preview').attr('src', TYPE_DOG_NO_IMAGE_PATH);
+                preview.attr('src', TYPE_DOG_NO_IMAGE_PATH);
             }
 
-            $('#preview').data('defaultImage', TYPE_DOG_NO_IMAGE_PATH);
+            preview.data('defaultImage', TYPE_DOG_NO_IMAGE_PATH);
         }
 
         if (!$(this).val()) {
@@ -173,10 +174,11 @@ $( document ).ready(function() {
     });
 
     $(document).on('click', '#delete-image-button', function(){
-        let defaultImage = $('#preview').data('default-image');
+        let preview = $('#preview');
+        let defaultImage = preview.data('default-image');
 
         $('#pet_imageFile').val('');
-        $('#preview').attr('src', defaultImage);
+        preview.attr('src', defaultImage);
         $('#delete-image-button').addClass('hidden');
         $('#delete-current-image').val(1);
     });
