@@ -37,7 +37,7 @@ $( document ).ready(function() {
             showLoaderOnConfirm: true,
         })
             .then(result => {
-                if (result.value) {
+                if (result.isConfirmed) {
                     form.submit();
                 }
             });
@@ -54,6 +54,7 @@ $( document ).ready(function() {
             url: url,
             success: function(data) {
                 container.html(data);
+                $('#pet_name').focus();
             },
             error: function() {
                 Toast.fire({
@@ -74,6 +75,7 @@ $( document ).ready(function() {
             url: url,
             success: function(data) {
                 container.html(data);
+                $('#pet_name').focus();
             },
             error: function() {
                 Toast.fire({

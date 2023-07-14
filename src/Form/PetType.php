@@ -66,7 +66,6 @@ class PetType extends AbstractType
                 'label' => '*Nombre',
                 'attr' => [
                     'placeholder' => 'Nombre',
-                    'autofocus' => true,
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),

@@ -8,7 +8,6 @@ use App\Entity\Pet;
 use App\Form\PetType;
 use App\Helper\Slugify;
 use App\Manager\PetManager;
-use Doctrine\DBAL\Driver\PgSQL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Pet;
 
-use App\Entity\pet;
+use App\Entity\Pet;
 use App\Manager\PetManager;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/pet/delete/{id}', name: 'admin_pet_delete', methods: ['POST'])]
 class DeleteController extends AbstractController
 {
     private PetManager $petManager;
@@ -22,27 +22,26 @@ class DeleteController extends AbstractController
         $this->petManager = $petManager;
     }
 
-    public function __invoke(Request $request, pet $pet): Response
+    #[Route('/admin/pet/delete/{pet}', name: 'admin_pet_delete', methods: ['POST'])]
+    public function delete(Request $request, Pet $pet): Response
     {
-        if ($this->isCsrfTokenValid('delete-'.$pet->getId(), $request->request->get('_token'))) {
-            //        TODO: comprobar si las mascota tiene relaciones
+        if ($pet->getProfileImg()) {
+            $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
 
-            if ($pet->getProfileImg()) {
-                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-                if (\file_exists($currentImg)) {
-                    unlink($currentImg);
-                }
-            }
-
-            try {
-                $this->petManager->delete($pet);
-                $this->addFlash('success','La mascota se ha eliminado correctamente');
-            } catch (ForeignKeyConstraintViolationException $exception) {
-                $this->addFlash('error','No se puede eliminar..., existen tickets para la mascota, en su lugar puedes desactivar');
+            if (\file_exists($currentImg)) {
+                unlink($currentImg);
             }
         }
 
-        return $this->redirect($request->get('pathIndex'));
+        try {
+            $this->petManager->delete($pet);
+            $this->addFlash('success', 'La mascota se ha eliminado correctamente');
+        } catch (ForeignKeyConstraintViolationException $exception) {
+            $this->addFlash('error','No es posible eliminar mascotas con tickets, elimina los tickets primero o desactiva la mascota');
+        } catch (\Throwable $exception) {
+            $this->addFlash('error','Internal server error');
+        }
+
+        return $this->redirect($request->get('redirect'));
     }
 }
