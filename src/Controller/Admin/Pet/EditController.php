@@ -21,12 +21,9 @@ class EditController extends AbstractController
             'method' => 'POST',
         ]);
 
-        $pathIndex = $request->get('pathIndex');
-
         return $this->render('modal/admin/pet/_edit-modal-content.html.twig', [
             'pet' => $pet,
             'form' => $form->createView(),
-            'path_index' => $pathIndex,
         ]);
     }
 }

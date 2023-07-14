@@ -1,10 +1,10 @@
 <div class="flex items-center justify-between space-x-4">
-    <form method="post" action="{{ path('admin_pet_create') }}">
-        <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
-        <button type="submit" class="flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
-            Nuevo
-        </button>
-    </form>
+    <button type="button" title="Nuevo"
+            data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+            data-url="{{ path('admin_pet_create') }}"
+            class="create_button | flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+        Nuevo
+    </button>
 
     <form method="post" action="{{ path('admin_pet') }}" class="flex-1 flex items-center">
         <label for="search" class="sr-only">Buscar</label>

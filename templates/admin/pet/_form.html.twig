@@ -2,10 +2,17 @@
 <div class="p-6 text-sm">
     <div class="flex flex-col items-center border-b pb-6 mb-6">
         {{ form_row(form.imageFile, {'attr': {'class': 'hidden'}} ) }}
-        <img id="preview" src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen de la mascota"
-             class="-mt-4 h-40 w-40 rounded-full object-cover bg-white border p-0.5"
-             data-default-image="{{ asset(pet.getDefaultImgPath) }}"
-        >
+        {% if mode == 'edit' %}
+            <img id="preview" src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen de la mascota"
+                 class="-mt-4 h-40 w-40 rounded-full object-cover bg-white border p-0.5"
+                 data-default-image="{{ asset(pet.getDefaultImgPath) }}"
+            >
+        {% else %}
+            <img id="preview" src="" alt="Imagen de la mascota"
+                 class="-mt-4 h-40 w-40 rounded-full object-cover bg-white border p-0.5"
+                 data-default-image=""
+            >
+        {% endif %}
         <div class="mt-2.5 flex items-center space-x-2.5">
             <button type="button" id="delete-image-button" class="{% if pet.profileImg is not null %}block{% else %}hidden{% endif %} w-auto px-2.5 py-1.5 bg-red-50 text-red-600 font-medium text-[11px] border border-red-200 leading-tight uppercase rounded-md hover:bg-red-100 focus:bg-red-100 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
                 <i class="fa-solid fa-trash mr-1.5"></i>Eliminar
@@ -25,7 +32,6 @@
     </div>
 
     {{ form_row(form.notes) }}
-    <input type="hidden" name="pathIndex" value="{{ path_index }}">
     <input type="hidden" id="delete-current-image" name="deleteCurrentImage" value="0">
 
     <label class="relative inline-flex items-center cursor-pointer">

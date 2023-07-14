@@ -6,61 +6,25 @@ namespace App\Controller\Admin\Pet;
 
 use App\Entity\Pet;
 use App\Form\PetType;
-use App\Helper\Slugify;
-use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/pet/create', name: 'admin_pet_create', methods: ['GET', 'POST'])]
+#[Route('/admin/pet/create', name: 'admin_pet_create', methods: ['POST'])]
 class CreateController extends AbstractController
 {
-    private PetManager $petManager;
-    private Slugify $slugger;
-
-    public function __construct(PetManager $petManager, Slugify $slugger)
-    {
-        $this->petManager = $petManager;
-        $this->slugger = $slugger;
-    }
-
     public function __invoke(Request $request): Response
     {
-        $pathIndex = $request->get('pathIndex');
-
         $pet = new Pet();
-        $form = $this->createForm(PetType::class, $pet);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid('create', $request->request->get('_token'))) {
-            $pet = $form->getData();
-            $this->handleUploadedFile($form, $pet);
-            $this->petManager->save($pet);
-            
-            $this->addFlash('success','Se ha creado la nueva mascota correctamente');
-
-            return $this->redirect($pathIndex);
-        }
-
-        return $this->render('admin/pet/create.html.twig', [
-            'pet' => $pet,
-            'form' => $form,
-            'path_index' => $pathIndex,
+        $form = $this->createForm(PetType::class, $pet, [
+            'action' => $this->generateUrl('admin_pet_save'),
+            'method' => 'POST',
         ]);
-    }
 
-    private function handleUploadedFile(FormInterface $form, Pet $pet): void
-    {
-        $uploadedFile = $form['imageFile']->getData();
-
-        if ($uploadedFile) {
-            $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
-            $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-            $uploadedFile->move($destination, $filename);
-
-            $pet->setProfileImg($filename);
-        }
+        return $this->render('modal/admin/pet/_create-modal-content.html.twig', [
+            'pet' => $pet,
+            'form' => $form->createView(),
+        ]);
     }
 }
