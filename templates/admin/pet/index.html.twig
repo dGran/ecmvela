@@ -3,24 +3,18 @@
 {% block title %}Mascotas | {% endblock %}
 
 {% block main %}
-    {% include 'admin/pet/index/_header.html.twig' %}
-    {% include 'admin/pet/index/_filters.html.twig' %}
+    {{ component(
+        'crudHeaderComponent',
+        {
+            section: 'Mantenimiento',
+            title: 'Mascotas',
+            description: 'Mantenimiento de fichas de mascotas.'
+        }
+    ) }}
+    {% include 'admin/pet/_filters.html.twig' %}
 
     <div class="my-6">
-        <div class="border border-slate-300 rounded-t-md {% if pets.pageCount == 1 %}rounded-b-md{% endif%} overflow-x-auto">
-            {% if pets is empty %}
-            <div class="py-6 px-3 flex flex-col items-center space-y-1.5 bg-slate-50">
-                <span class="text-2xl animate__animated animate__tada animate__infinite">😖</span>
-                <span>No se han encontrado mascotas</span>
-            </div>
-            {% else %}
-            <table class="min-w-full text-sm">
-                {% include 'admin/pet/index/_table_header.html.twig' %}
-                {% include 'admin/pet/index/_table_body.html.twig' %}
-            </table>
-            {% endif %}
-        </div>
-        {% include 'admin/pet/index/_paginator.html.twig' %}
+        {% include 'admin/pet/_datatable.html.twig' %}
     </div>
 
     {% include 'modal/admin/ajax-modal.html.twig' %}

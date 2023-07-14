@@ -9,7 +9,6 @@ use App\Manager\PetManager;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,8 +27,8 @@ class DeleteController extends AbstractController
         if ($pet->getProfileImg()) {
             $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
 
-            if (\file_exists($currentImg)) {
-                unlink($currentImg);
+            if (\strpos($currentImg, 'broken_image')) {
+                unset($currentImg);
             }
         }
 
@@ -39,7 +38,11 @@ class DeleteController extends AbstractController
         } catch (ForeignKeyConstraintViolationException $exception) {
             $this->addFlash('error','No es posible eliminar mascotas con tickets, elimina los tickets primero o desactiva la mascota');
         } catch (\Throwable $exception) {
-            $this->addFlash('error','Internal server error');
+            $this->addFlash('error','Error interno del servidor'.$exception->getMessage());
+        }
+
+        if (!empty($currentImg) && \file_exists($currentImg)) {
+            unlink($currentImg);
         }
 
         return $this->redirect($request->get('redirect'));
