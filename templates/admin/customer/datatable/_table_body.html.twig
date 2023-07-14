@@ -54,7 +54,14 @@
             </div>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
-{#        TODO: Show customer pets#}
+            <div class="flex items-center space-x-1.5">
+                {% for pet in customer.getPets() %}
+                    <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
+                            type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                        <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.name }}</span>
+                    </button>
+                {% endfor %}
+            </div>
         </td>
         <td class="py-1.5 px-3 whitespace-nowrap">
             <span>{{ customer.phone }}</span>
