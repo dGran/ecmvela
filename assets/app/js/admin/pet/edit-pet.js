@@ -22,7 +22,7 @@ $( document ).ready(function() {
         });
     });
 
-    $(document).on('change', '#pet_name', function (e){
+    $(document).on('input', '#pet_name', function (e){
         if (!$(this).val()) {
             markErrorElement($(this))
         } else {
@@ -39,12 +39,18 @@ $( document ).ready(function() {
     });
 
     function markErrorElement(element) {
-        element.removeClass('border-slate-300').addClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').focus();
+        let label = $("label[for='" + element.attr('id') + "']");
+
+        label.removeClass('text-slate-600').addClass('text-red-600');
+        element.removeClass('border-slate-300 placeholder-slate-400').addClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500 placeholder-red-400').focus();
         $('#update-button').prop('disabled', true).removeClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').addClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
     }
 
     function unmarkErrorElement(element) {
-        element.addClass('border-slate-300').removeClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').focus();
+        let label = $("label[for='" + element.attr('id') + "']");
+
+        label.removeClass('text-red-600').addClass('text-slate-600');
+        element.removeClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500 placeholder-red-400').addClass('border-slate-300 placeholder-slate-400');
         $('#update-button').prop('disabled', false).addClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').removeClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
     }
 
