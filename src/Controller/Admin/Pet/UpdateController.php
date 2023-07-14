@@ -33,24 +33,16 @@ class UpdateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pet = $form->getData();
             $uploadedFile = $form['imageFile']->getData();
+            $deleteCurrentImage = (bool)$request->get('deleteCurrentImage');
 
-            if ((bool)$request->get('deleteImage')) {
-                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-
-                if (\file_exists($currentImg)) {
-                    unlink($currentImg);
-                }
-
-                $pet->setProfileImg(null);
+            if (!$pet->getProfileImg()) {
+                $deleteCurrentImage = false;
             }
 
-            if ($uploadedFile) {
-//                $this->handleUploadedFile($uploadedFile, $pet);
-
+            if ($uploadedFile !== null) {
                 $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
                 $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid('', true).'.'.$uploadedFile->guessExtension();
                 $uploadedFile->move($destination, $filename);
-
 
                 if ($pet->getProfileImg()) {
                     $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
@@ -61,6 +53,16 @@ class UpdateController extends AbstractController
                 }
 
                 $pet->setProfileImg($filename);
+            }
+
+            if ($deleteCurrentImage) {
+                $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
+
+                if (\file_exists($currentImg)) {
+                    unlink($currentImg);
+                }
+
+                $pet->setProfileImg(null);
             }
 
             $pet->setActive($request->get('active') === "on");
@@ -76,23 +78,6 @@ class UpdateController extends AbstractController
             'errors' => $this->getErrorsFromForm($form),
         ]);
     }
-
-//    private function handleUploadedFile(UploadedFile $uploadedFile, Pet $pet): void
-//    {
-//        $destination = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgDir();
-//        $filename = $this->slugger->slugify($pet->getName()).'-'.uniqid().'.'.$uploadedFile->guessExtension();
-//        $uploadedFile->move($destination, $filename);
-//
-//        if ($pet->getProfileImg()) {
-//            $currentImg = $this->getParameter('kernel.project_dir').'/public/'.$pet->getProfileImgPath();
-//
-//            if (\file_exists($currentImg)) {
-//                unlink($currentImg);
-//            }
-//        }
-//
-//        $pet->setProfileImg($filename);
-//    }
 
     private function getErrorsFromForm($form): array
     {

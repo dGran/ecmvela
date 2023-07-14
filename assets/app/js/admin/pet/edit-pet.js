@@ -22,37 +22,6 @@ $( document ).ready(function() {
         });
     });
 
-    $(document).on('click', '#update-button', function (e){
-        e.preventDefault();
-
-        if (formIsValid()) {
-            // let form = $(this).parents('form');
-            // let formData = form.serialize();
-
-            let form = $(this).parents('form');
-            let formData = new FormData(form[0]);
-
-            $.ajax({
-                type: 'POST',
-                url: form.attr('action'),
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        window.location.reload();
-                    } else {
-                        $('.ajax-form').replaceWith(response);
-                    }
-                },
-            });
-        } else {
-            Toast.fire({
-                icon: 'error', title: 'Comprueba los errores del formulario'
-            });
-        }
-    });
-
     $(document).on('change', '#pet_name', function (e){
         if (!$(this).val()) {
             markErrorElement($(this))
@@ -93,7 +62,9 @@ $( document ).ready(function() {
                 $('#preview').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
+
             $('#delete-image-button').removeClass('hidden');
+            $('#delete-current-image').val(0);
         }
     });
 
@@ -102,20 +73,42 @@ $( document ).ready(function() {
     });
 
     $(document).on('click', '#delete-image-button', function(){
-        let originalImage = $('#preview').data('original-image');
         let defaultImage = $('#preview').data('default-image');
-        let previewImageElement = $('#preview');
-        let deleteImage = $('#deleteImage');
 
-        if (originalImage == defaultImage) {
-            $('#preview').attr('src', defaultImage);
-            $('#delete-image-button').addClass('hidden');
+        $('#pet_imageFile').val('');
+        $('#preview').attr('src', defaultImage);
+        $('#delete-image-button').addClass('hidden');
+        $('#delete-current-image').val(1);
+    });
+
+    $(document).on('click', '#update-button', function (e){
+        e.preventDefault();
+
+        if (formIsValid()) {
+            // let form = $(this).parents('form');
+            // let formData = form.serialize();
+
+            let form = $(this).parents('form');
+            let formData = new FormData(form[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        window.location.reload();
+                    } else {
+                        $('.ajax-form').replaceWith(response);
+                    }
+                },
+            });
         } else {
-            $('#preview').attr('src', defaultImage);
-        }
-
-        if (!deleteImage.val()) {
-            deleteImage.val(true);
+            Toast.fire({
+                icon: 'error', title: 'Comprueba los errores del formulario'
+            });
         }
     });
 });

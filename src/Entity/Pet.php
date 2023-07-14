@@ -255,14 +255,14 @@ class Pet
 
         $image = $this->profileImg;
 
-        if ($image && !\file_exists($image)) {
+        if ($image && !\file_exists(self::PROFILE_TYPE_DOG_IMG_PATH.$image)) {
             return Common::BROKEN_IMAGE_PATH;
         }
 
         switch ($this->getCategory()->getId()) {
             case PetCategory::TYPE_DOG_ID:
                 if ($image) {
-                    return self::PROFILE_TYPE_DOG_IMG_PATH.$this->profileImg;
+                    return self::PROFILE_TYPE_DOG_IMG_PATH.$image;
                 }
 
                 return self::DEFAULT_PROFILE_TYPE_DOG_IMG_PATH;
