@@ -54,14 +54,25 @@
             {{ sale.dateAdd|date('d/m/Y H:i') }}
         </td>
         <td class="py-1.5 px-4 whitespace-nowrap">
-            {{ sale.pet ? sale.pet : '-' }}
+            {% if sale.pet %}
+                <div class="flex items-center space-x-3">
+                    <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': sale.pet.id}) }}" title="Ver"
+                            type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                        <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ sale.pet.name }}</span>
+                    </button>
+                </div>
+            {% else %}
+            -
+            {% endif %}
         </td>
         <td class="py-1.5 px-4 whitespace-nowrap">
             {% if sale.customer %}
-                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': sale.customer.id}) }}" title="Ver"
-                        type="button" class="ajax_modal_button | text-blue-500 hover:underline hover:text-blue-600 focus:underline focus:text-blue-600 focus:outline-none">
-                    {{ sale.customer }}
-                </button>
+                <div class="flex items-center space-x-3">
+                    <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': sale.customer.id}) }}" title="Ver"
+                            type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                        <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ sale.customer.name }}</span>
+                    </button>
+                </div>
             {% else %}
                 -
             {% endif %}
