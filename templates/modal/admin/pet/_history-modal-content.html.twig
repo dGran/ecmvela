@@ -1,0 +1,82 @@
+<!-- Modal header -->
+{#<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">#}
+{#    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">#}
+{#        Historial de servicios de "{{ pet.name }}"#}
+{#    </h3>#}
+{#</div>#}
+
+<div class="flex items-start justify-between border-b rounded-t bg-slate-50 p-3">
+    <div class="flex items-center space-x-4">
+        <p class="text-[11px] md:text-xs font-semibold border-r text-slate-500 rounded px-4 py-1.5 uppercase">Mascota</p>
+        <h3 class="md:text-lg font-semibold text-gray-900">{{ pet.name }}</h3>
+    </div>
+</div>
+<!-- Modal body -->
+<div class="p-6">
+    <p class="font-semibold text-gray-600 text-center sm:text-left text-lg mb-6">Historial de servicios</p>
+
+    <div class="flex flex-col sm:flex-row items-center space-y-6 sm:space-x-4 sm:space-y-0 mb-6 text-sm">
+        <img src="{{ asset(pet.getProfileImgPath) }}" alt="Imagen de la mascota" class="h-28 w-28 rounded-full object-cover shadow-lg bg-white p-0.5">
+        <div class="w-full flex flex-col items-start space-y-1.5 sm:border-l sm:pl-4">
+            <p>Total servicios: <strong>{{ sale_history|length }}</strong></p>
+
+            {% if last_service is not null %}
+                <p>Último servicio: <strong>hace {{ last_service }}</strong></p>
+            {% endif %}
+
+            {% if periodicity is not null %}
+                <p>Periocidad: <strong>cada {{ periodicity }} días</strong></p>
+                <p>Próximo servicio estimado: <span class="font-bold {% if next_service_according_periodicity < date('now') %}text-red-500{% endif %}">{{ next_service_according_periodicity|date('d-m-Y') }}</span></p>
+            {% endif %}
+
+            <p>Próximo servicio agendado: <strong></strong></p>
+
+            {% if sale_average is not null %}
+                <p>Ticket medio: <strong>{{ sale_average|format_currency('EUR', {fraction_digit: 2}) }}</strong></p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="flex items-center space-x-1.5">
+        <a href="#" title="Reservar cita"
+           class="flex-initial px-3 py-2 sm:px-4 sm:py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+            <i class="fa-solid fa-calendar-days mr-2.5"></i>Reservar cita
+        </a>
+        <a href="{{ path('admin_sale_create', {'pet': pet.id}) }}" title="Generar ticket"
+           class="flex-initial px-3 py-2 sm:px-4 sm:py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+            <i class="fa-solid fa-cash-register mr-2.5"></i>Nuevo ticket
+        </a>
+    </div>
+</div>
+
+<div class="border-t p-6">
+    {% if sale_history|length > 0 %}
+        <div class="border rounded overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm">
+                {% for index, sale in sale_history %}
+                    <tr class="border-b last:border-b-0">
+                        <td class="px-2.5 py-2 align-top w-10 whitespace-nowrap">{{ sale.dateAdd|date('d/m/Y') }}</td>
+                        <td class="px-2.5 py-2 align-top w-3 whitespace-nowrap">
+                            <a href="{{ path('admin_sale_edit', {'id': sale.id}) }}" target="_blank"
+                               class="py-0.5 px-2 rounded-md border bg-slate-100 hover:bg-slate-200 focus:bg-slate-200 focus:outline-none">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </a>
+                        </td>
+                        <td class="px-2.5 py-2 align-top whitespace-nowrap">
+                            {% for sale_line in sale.salelines  %}
+                                <div class="flex items-center space-x-6">
+                                    <span class="flex-1 uppercase">{{ sale_line.title }}</span>
+                                    <span class="text-right">{{ sale_line.total|format_currency('EUR', {fraction_digit: 2}) }}</span>
+                                </div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p class="font-medium flex flex-col items-center space-y-1.5">
+            <span class="text-3xl">😢</span>
+            <span>No se han encontrado servicios para {{ pet.name }}</span>
+        </p>
+    {% endif %}
+</div>

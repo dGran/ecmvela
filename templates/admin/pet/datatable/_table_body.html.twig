@@ -7,7 +7,7 @@
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
 
-            <div id="dropdownActions{{ pet.id }}" class="hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
+            <div id="dropdownActions{{ pet.id }}" class="dropdown hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
                 <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">
                     <li class="px-1.5">
                         <button type="button" title="Ver"
@@ -15,6 +15,14 @@
                                 class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
                             <i class="fa-solid fa-eye"></i>
                             <span class="ml-1.5">Ver</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <button type="button" title="Ver"
+                                data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_sale_history', {'pet': pet.id}) }}"
+                                class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span class="ml-1.5">Historial de servicios</span>
                         </button>
                     </li>
                     <li class="px-1.5">
@@ -82,11 +90,22 @@
         <td class="py-1.5 px-3 whitespace-nowrap">
             {{ pet.dateAdd|date('d/m/Y') }}
         </td>
+        <td class="py-1.5 px-3 whitespace-nowrap text-center">
+            <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_sale_history', {'pet': pet.id}) }}" title="Historial de servicios"
+                    type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.getSales()|length }}</span>
+            </button>
+
+        </td>
         <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
             <div class="flex items-center justify-end space-x-1">
                 <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': pet.id}) }}" title="Ver"
                         type="button" class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
                     <i class="fa-solid fa-eye"></i>
+                </button>
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_sale_history', {'pet': pet.id}) }}" title="Historial de servicios"
+                        type="button" class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
                 </button>
                 <button type="button" title="Editar"
                         data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"

@@ -6,19 +6,15 @@ $( document ).ready(function() {
         let form = $(this).parents('form');
         let name = clickedElement.data('name');
 
-        deleteConfirmation(form, name)
+        $('.dropdown').removeClass('block').addClass('hidden');
+
+        deleteConfirmation(form, name);
     });
 
     function deleteConfirmation(form, name)
     {
         Swal.fire({
-            title: 'Eliminar cliente',
-            html: '<div class="border-b">' +
-                '<p>¿Seguro que quieres eliminar el cliente?</p>' +
-                '<div class="py-3 flex flex-col items-center">' +
-                '<p class="pt-1.5 font-medium text-lg">'+name+'</p>' +
-                '</div>' +
-                '</div>',
+            html: '<div class="py-1.5">¿Seguro que quieres eliminar el cliente <strong>'+name+'</strong>?</div>',
             showCloseButton: true,
             showCancelButton: true,
             cancelButtonText: "Cancelar",
@@ -34,11 +30,11 @@ $( document ).ready(function() {
             reverseButtons: true,
             showLoaderOnConfirm: true,
         })
-            .then(result => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
+        .then(result => {
+            if (result.value) {
+                form.submit();
+            }
+        });
     }
 
     $(document).on('click', '.create_button', function () {
@@ -63,6 +59,8 @@ $( document ).ready(function() {
     });
 
     $(document).on('click', '.edit_button', function () {
+        $('.dropdown').removeClass('block').addClass('hidden');
+
         let url = $(this).data('url');
         let container = $("#modal-static-content");
 

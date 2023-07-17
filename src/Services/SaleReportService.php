@@ -106,7 +106,12 @@ class SaleReportService
             $weeklySales->setSales($salesOfWeekCollection);
             $weeklySales->setNumberOfSales(\count($salesOfWeek));
             $weeklySales->setBusinessDays($businessDays);
-            $weeklySales->setDailyAverage($salesByWeek['total'] / $businessDays);
+
+            try {
+                $weeklySales->setDailyAverage($salesByWeek['total'] / $businessDays);
+            } catch (\Throwable $exception) {
+                $weeklySales->setDailyAverage(0.0);
+            }
 
             $weeklySalesCollection[] = $weeklySales;
         }

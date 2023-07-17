@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Sale;
 
+use App\Entity\Pet;
 use App\Entity\Sale;
 use App\Entity\SaleLine;
 use App\Entity\TaxType;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/sale/create', name: 'admin_sale_create', methods: ['GET', 'POST'])]
+#[Route('/admin/sale/create/{pet?}', name: 'admin_sale_create', methods: ['GET', 'POST'])]
 class CreateController extends AbstractController
 {
     private SaleManager $saleManager;
@@ -29,11 +30,17 @@ class CreateController extends AbstractController
         $this->taxTypeManager = $taxTypeManager;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, ?Pet $pet = null): Response
     {
         $pathIndex = $request->get('pathIndex');
 
         $sale = new Sale();
+
+        if ($pet !== null) {
+            $sale->setPet($pet);
+            $sale->setCustomer($pet->getCustomer());
+        }
+
         $sale->setTotalDiscounts(0.0);
         $sale->setTotalWithoutTaxes(0.0);
         $sale->setTotalTaxes(0.0);
@@ -53,7 +60,7 @@ class CreateController extends AbstractController
 
         return $this->redirectToRoute('admin_sale_edit', [
             'id' => $sale->getId(),
-            'pathIndex' => $pathIndex,
+            'pathIndex' => $pathIndex ?? $this->generateUrl('admin_sale'),
         ]);
     }
 }

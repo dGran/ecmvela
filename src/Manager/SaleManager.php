@@ -137,4 +137,12 @@ class SaleManager
     {
         return $this->repository->findByRangeDateGroupedByMonth($dateFrom, $dateTo);
     }
+
+    /**
+     * @return Sale[]
+     */
+    public function findByPetId(int $petId): array
+    {
+        return $this->repository->findByPetId($petId);
+    }
 }

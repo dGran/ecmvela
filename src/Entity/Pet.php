@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Helper\Common;
+use App\Helper\Helper;
 use App\Repository\PetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -255,7 +255,7 @@ class Pet
         $image = $this->profileImg;
 
         if ($image && !\file_exists(self::PROFILE_TYPE_DOG_IMG_PATH.$image)) {
-            return Common::BROKEN_IMAGE_PATH;
+            return Helper::BROKEN_IMAGE_PATH;
         }
 
         switch ($this->getCategory()->getId()) {
@@ -318,29 +318,17 @@ class Pet
             return null;
         }
 
-        $age = null;
-
         if ($this->birthDate !== null) {
-            $currentDate = new \DateTime();
-            $difference = $currentDate->diff($this->birthDate);
+            try {
+                $helper = new Helper();
+                $age = $helper->getDifferenceBetweenDates(\DateTime::createFromInterface($this->birthDate), new \DateTime());
 
-            if ($difference->y) {
-                $age .= $difference->format(" %y");
-                $age .= $difference->y === 1 ? ' año' : ' años';
-            }
-
-            if ($difference->m) {
-                $age .= $difference->format(" %m");
-                $age .= $difference->m === 1 ? ' mes' : ' meses';
-            }
-
-            if ($difference->d) {
-                $age .= $difference->format(" %d");
-                $age .= $difference->d === 1 ? ' día' : ' días';
+            } catch (\Throwable $exception) {
+                dump($exception->getMessage());die;
             }
         }
 
-        return $age;
+        return $age ?? null;
     }
 
     public function getPetShortAge(): ?string

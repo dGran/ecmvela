@@ -3,39 +3,42 @@
 {% block title %}TPV: editar | {% endblock %}
 
 {% block main %}
-{% set sale = view.sale %}
-<header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
-    <div class="flex-auto max-w-4xl">
-        <div class="flex items-center">
-            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Ventas</p>
-            <p class="mb-2 md:mb-4 px-1.5 text-xs md:text-sm font-semibold">/</p>
-            <a href="{{ path('admin_sale') }}" class="mb-2 md:mb-4 text-xs md:text-sm font-semibold hover:text-blue-500 focus:text-blue-500 focus:outline-none">Tickets</a>
+    {% set sale = view.sale %}
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            <div class="flex items-center">
+                <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Ventas</p>
+                <p class="mb-2 md:mb-4 px-1.5 text-xs md:text-sm font-semibold">/</p>
+                <a href="{{ path('admin_sale') }}" class="mb-2 md:mb-4 text-xs md:text-sm font-semibold hover:text-blue-500 focus:text-blue-500 focus:outline-none">Tickets</a>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Ticket #{{ sale.id }} - Editar</h1>
         </div>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Ticket #{{ sale.id }} - Editar</h1>
-    </div>
-</header>
+    </header>
 
-<div class="rounded my-8">
-    <div class="flex flex-col space-y-3">
-        {% include 'admin/sale/edit/_actions.html.twig' %}
-        <div id="sale-header" data-sale-id="{{ sale.id }}">
-            {% include 'admin/sale/edit/_sale.html.twig' %}
-        </div>
-        <div id="sale-detail">
-            {% include 'admin/sale/edit/_sale_detail.html.twig' %}
-        </div>
-        <div class="flex flex-col-reverse lg:flex-row lg:space-x-6">
-            <div id="sale-payments" class="flex-1">
-                {% include 'admin/sale/edit/_payments.html.twig' %}
+    <div class="rounded my-8">
+        <div class="flex flex-col space-y-3">
+            {% include 'admin/sale/edit/_actions.html.twig' %}
+            <div id="sale-header" data-sale-id="{{ sale.id }}">
+                {% include 'admin/sale/edit/_sale.html.twig' %}
             </div>
-            <div id="summary" class="flex-1">
-                {% include 'admin/sale/edit/_summary.html.twig' %}
+            <div id="sale-detail">
+                {% include 'admin/sale/edit/_sale_detail.html.twig' %}
+            </div>
+            <div class="flex flex-col-reverse lg:flex-row lg:space-x-6">
+                <div id="sale-payments" class="flex-1">
+                    {% include 'admin/sale/edit/_payments.html.twig' %}
+                </div>
+                <div id="summary" class="flex-1">
+                    {% include 'admin/sale/edit/_summary.html.twig' %}
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    {% include 'modal/admin/ajax-modal.html.twig' %}
 {% endblock %}
 
 {% block js %}
     <script src="{{ asset('build/app/js/admin/sale/edit-sale.js') }}"></script>
+    <script src="{{ asset('build/app/js/admin/sale/ajax-modal.js') }}"></script>
 {% endblock %}

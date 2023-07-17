@@ -137,4 +137,17 @@ class SaleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return Sale[]
+     */
+    public function findByPetId(int $petId): array
+    {
+        return $this->createQueryBuilder('sale')
+            ->where('sale.pet = :pet_id')
+            ->orderBy('sale.dateAdd', 'DESC')
+            ->setParameter('pet_id', $petId)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -7,7 +7,9 @@ $( document ).ready(function() {
         let name = clickedElement.data('name');
         let img = clickedElement.data('img');
 
-        deleteConfirmation(form, name, img)
+        $('.dropdown').removeClass('block').addClass('hidden');
+
+        deleteConfirmation(form, name, img);
     });
 
     function deleteConfirmation(form, name, img)
@@ -65,6 +67,8 @@ $( document ).ready(function() {
     });
 
     $(document).on('click', '.edit_button', function () {
+        $('.dropdown').removeClass('block').addClass('hidden');
+
         let url = $(this).data('url');
         let container = $("#modal-static-content");
 

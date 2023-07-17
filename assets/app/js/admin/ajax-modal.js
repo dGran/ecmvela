@@ -6,6 +6,7 @@ $( document ).ready(function() {
     });
 
     function show(url) {
+        $('.dropdown').removeClass('block').addClass('hidden');
         $("#modal-content").html('');
 
         $.ajax({
@@ -29,6 +30,7 @@ $( document ).ready(function() {
     });
 
     function showStatic(url) {
+        $('.dropdown').removeClass('block').addClass('hidden');
         $("#modal-static-content").html('');
 
         $.ajax({
