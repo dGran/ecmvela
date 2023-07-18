@@ -30,8 +30,8 @@ class SalesReportController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $dateFrom = new \DateTime('2023-04-01 0:00:00');
-        $dateTo = new \DateTime('2023-06-30 23:59:59');
+        $dateFrom = new \DateTime('2023-07-01 0:00:00');
+        $dateTo = new \DateTime('2023-09-30 23:59:59');
 
         $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod(
             $dateFrom,

@@ -4,94 +4,97 @@
 
 {% block main %}
 
-<header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
-    <div class="flex-auto max-w-4xl">
-        <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Ventas</p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Informe de ventas</h1>
-    </div>
-</header>
-
-    <div date-rangepicker class="flex items-center">
-    <div class="relative">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+    <header id="header" class="mb-6 md:mb-10 md:flex md:items-start">
+        <div class="flex-auto max-w-4xl">
+            <p class="mb-2 md:mb-4 text-xs md:text-sm font-semibold text-blue-500">Ventas</p>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Informe de ventas</h1>
         </div>
-        <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
-    </div>
-    <span class="mx-4 text-gray-500">to</span>
-    <div class="relative">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+    </header>
+
+        <div date-rangepicker class="flex items-center">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
         </div>
-        <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+        <span class="mx-4 text-gray-500">to</span>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+        </div>
     </div>
-</div>
 
 
-<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-        <li class="mr-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Diario</button>
-        </li>
-        <li class="mr-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Semanal</button>
-        </li>
-        <li class="mr-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Mensual</button>
-        </li>
-        <li role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Anual</button>
-        </li>
-    </ul>
-</div>
-<div id="myTabContent">
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Profile tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Diario</button>
+            </li>
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Semanal</button>
+            </li>
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Mensual</button>
+            </li>
+            <li role="presentation">
+                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Anual</button>
+            </li>
+        </ul>
     </div>
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+    <div id="myTabContent">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Profile tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
     </div>
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+
+    {% set total_sales = total_bizum + total_card + total_cash %}
+    {% set cash_percent = (total_cash / total_sales) * 100 %}
+    {% set card_percent = (total_card / total_sales) * 100 %}
+    {% set bizum_percent = (total_bizum / total_sales) * 100 %}
+    {% set to_declate_percent = ((total_card + total_bizum) / total_sales) * 100 %}
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Ventas: <span class="font-bold">{{ total_sales|format_currency('EUR') }}</span></h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-sm text-gray-500">{{ bizum_percent|number_format(2, '.', '') }}%</span></h2>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-sm text-gray-500">{{ card_percent|number_format(2, '.', '') }}%</span></h2>
+    <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_number }}</span><span class="ml-3 text-sm text-gray-500">{{ cash_percent|number_format(2, '.', '') }}%</span></h2>
+    <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total a declarar: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span><span class="ml-3 text-sm text-gray-500">{{ to_declate_percent|number_format(2, '.', '') }}%</span></h2>
+
+    <div class="my-8">
+        <table class="text-sm">
+            <thead>
+                <tr>
+                    <th class="px-4 py-1 text-right">Id</th>
+                    <th class="px-4 py-1 text-right">N/Factura</th>
+                    <th class="px-4 py-1 text-right">Fecha</th>
+                    <th class="px-4 py-1 text-right">Base Imponible</th>
+                    <th class="px-4 py-1 text-right">Total IVA (21%)</th>
+                    <th class="px-4 py-1 text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for sale in export_sales %}
+                <tr>
+                    <td class="px-4 py-1 text-right">{{ sale['id'] }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['invoice'] }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['date']|date('d/m/Y') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total_without_taxes']|number_format(2, '.', '') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total_taxes']|number_format(2, '.', '') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total']|number_format(2, '.', '') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-    </div>
-</div>
-
-
-<h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trimestre actual</h2>
-<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span></h2>
-<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span></h2>
-<h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_number }}</span></h2>
-<h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Total a declarar: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span></h2>
-
-<div class="my-8">
-    <table class="text-sm">
-        <thead>
-            <tr>
-                <th class="px-4 py-1 text-right">Id</th>
-                <th class="px-4 py-1 text-right">N/Factura</th>
-                <th class="px-4 py-1 text-right">Fecha</th>
-                <th class="px-4 py-1 text-right">Base Imponible</th>
-                <th class="px-4 py-1 text-right">Total IVA (21%)</th>
-                <th class="px-4 py-1 text-right">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sale in export_sales %}
-            <tr>
-                <td class="px-4 py-1 text-right">{{ sale['id'] }}</td>
-                <td class="px-4 py-1 text-right">{{ sale['invoice'] }}</td>
-                <td class="px-4 py-1 text-right">{{ sale['date']|date('d/m/Y') }}</td>
-                <td class="px-4 py-1 text-right">{{ sale['total_without_taxes']|format_number }}</td>
-                <td class="px-4 py-1 text-right">{{ sale['total_taxes']|format_number }}</td>
-                <td class="px-4 py-1 text-right">{{ sale['total']|format_number }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-
 {% endblock %}
