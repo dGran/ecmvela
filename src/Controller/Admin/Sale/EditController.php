@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/sale/{id}/edit', name: 'admin_sale_edit', methods: ['GET', 'POST'])]
+#[Route('/admin/sale/{sale}/edit', name: 'admin_sale_edit', methods: ['GET', 'POST'])]
 class EditController extends AbstractController
 {
     private SaleEditViewManager $saleEditViewManager;
@@ -30,12 +30,11 @@ class EditController extends AbstractController
         }
 
         $pathIndex = $request->get('pathIndex');
-
         $view = $this->saleEditViewManager->build($sale);
 
         return $this->render('admin/sale/edit.html.twig', [
             'view' => $view,
-            'path_index' => $pathIndex,
+            'path_index' => $pathIndex ?? $this->generateUrl('admin_sale'),
         ]);
     }
 }

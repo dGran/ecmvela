@@ -18,7 +18,7 @@
                         </button>
                     </li>
                     <li class="px-1.5">
-                        <form method="post" action="{{ path('admin_sale_edit', {'id': sale.id}) }}">
+                        <form method="post" action="{{ path('admin_sale_edit', {'sale': sale.id}) }}">
                             <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
                             <button type="submit" class="text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none" title="Editar" >
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -113,7 +113,7 @@
                     <i class="fa-solid fa-file-pdf"></i>
                 </button>
                 {% if not sale.locked %}
-                <form method="post" action="{{ path('admin_sale_edit', {'id': sale.id}) }}">
+                <form method="post" action="{{ path('admin_sale_edit', {'sale': sale.id}) }}">
                     <input type="hidden" name="pathIndex" value="{{ app.request.requesturi }}">
                     <button type="submit" class=" px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none" title="Editar" >
                         <i class="fa-solid fa-pen-to-square"></i>

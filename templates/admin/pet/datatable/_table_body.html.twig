@@ -90,12 +90,11 @@
         <td class="py-1.5 px-3 whitespace-nowrap">
             {{ pet.dateAdd|date('d/m/Y') }}
         </td>
-        <td class="py-1.5 px-3 whitespace-nowrap text-center">
+        <td class="py-1.5 px-3 whitespace-nowrap">
             <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_sale_history', {'pet': pet.id}) }}" title="Historial de servicios"
                     type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
                 <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ pet.getSales()|length }}</span>
             </button>
-
         </td>
         <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
             <div class="flex items-center justify-end space-x-1">

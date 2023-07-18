@@ -1,10 +1,4 @@
 <!-- Modal header -->
-{#<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">#}
-{#    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">#}
-{#        Historial de servicios de "{{ pet.name }}"#}
-{#    </h3>#}
-{#</div>#}
-
 <div class="flex items-start justify-between border-b rounded-t bg-slate-50 p-3">
     <div class="flex items-center space-x-4">
         <p class="text-[11px] md:text-xs font-semibold border-r text-slate-500 rounded px-4 py-1.5 uppercase">Mascota</p>
@@ -41,7 +35,7 @@
            class="flex-initial px-3 py-2 sm:px-4 sm:py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
             <i class="fa-solid fa-calendar-days mr-2.5"></i>Reservar cita
         </a>
-        <a href="{{ path('admin_sale_create', {'pet': pet.id}) }}" title="Generar ticket"
+        <a href="{{ path('admin_sale_create', {'pet': pet.id}) }}" target="_blank" title="Generar ticket"
            class="flex-initial px-3 py-2 sm:px-4 sm:py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
             <i class="fa-solid fa-cash-register mr-2.5"></i>Nuevo ticket
         </a>
@@ -56,7 +50,7 @@
                     <tr class="border-b last:border-b-0">
                         <td class="px-2.5 py-2 align-top w-10 whitespace-nowrap">{{ sale.dateAdd|date('d/m/Y') }}</td>
                         <td class="px-2.5 py-2 align-top w-3 whitespace-nowrap">
-                            <a href="{{ path('admin_sale_edit', {'id': sale.id}) }}" target="_blank"
+                            <a href="{{ path('admin_sale_edit', {'sale': sale.id}) }}" target="_blank"
                                class="py-0.5 px-2 rounded-md border bg-slate-100 hover:bg-slate-200 focus:bg-slate-200 focus:outline-none">
                                 <i class="fa-solid fa-magnifying-glass-plus"></i>
                             </a>

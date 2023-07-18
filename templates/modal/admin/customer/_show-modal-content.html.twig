@@ -52,6 +52,18 @@
             <p class="flex-1 font-medium text-right w-full">E-Mail</p>
             <p class="flex-1 text-left w-full text-ellipsis overflow-hidden">{{ customer.email ?? '-' }}</p>
         </li>
+        <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Activo</p>
+            <p class="flex-1 text-left w-full"><i class="{% if customer.active %}fa-solid fa-check text-emerald-500{% else %}fa-solid fa-xmark text-rose-500{% endif %}"></i></p>
+        </li>
+        <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Fecha alta</p>
+            <p class="flex-1 text-left w-full">{{ customer.dateAdd|date('d/m/Y, h:i') }}</p>
+        </li>
+        <li class="flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Fecha última modificación</p>
+            <p class="flex-1 text-left w-full">{{ customer.dateUpd|date('d/m/Y, h:i') }}</p>
+        </li>
         {% if customer.notes %}
             <li class="px-4 py-2.5 hover:bg-amber-50">
                 <p class="text-center font-medium w-full mb-1">Observaciones</p>

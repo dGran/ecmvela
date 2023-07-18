@@ -59,7 +59,7 @@ class CreateController extends AbstractController
         $this->saleLineManager->save($saleLine);
 
         return $this->redirectToRoute('admin_sale_edit', [
-            'id' => $sale->getId(),
+            'sale' => $sale->getId(),
             'pathIndex' => $pathIndex ?? $this->generateUrl('admin_sale'),
         ]);
     }
