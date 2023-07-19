@@ -9,16 +9,16 @@
             <span class="inline-block h-1 w-1 rounded-full bg-fuchsia-900/70"></span>
         </div>
 
-        <div id="custom-controls-gallery" class="relative w-full" data-carousel="slide">
+        <div id="custom-controls-gallery" class="relative w-full mt-10" data-carousel="slide">
             <!-- Carousel wrapper -->
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <div class="relative h-[26rem] overflow-hidden rounded-lg md:h-96">
                 {% set reviews = view.googleReviews %}
                 {% for review in reviews %}
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <figure class="max-w-screen-md mx-auto text-center">
                         <svg aria-hidden="true" class="w-12 h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/></svg>
                         <blockquote>
-                            <p class="text-2xl italic font-medium text-gray-900 dark:text-white">"{{ review['post'] }}"</p>
+                            <p class="text-lg md:text-xl lg:text-2xl italic font-medium text-gray-900 dark:text-white">"{{ review['post'] }}"</p>
                         </blockquote>
                         <figcaption class="flex items-center justify-center mt-6 space-x-3">
                             <img class="w-6 h-6 rounded-full" src="{{ review['userImg'] }}" alt="profile picture">
@@ -55,11 +55,12 @@
             </div>
         </div>
 
-
-
-        <p class="pb-8 text-neutral-500 text-base lg:text-lg">
-            Si te ha gustado nuestro trabajo <a href="https://g.page/r/CYGxRPxhObyKEBM/review" target="_blank" class="text-teal-500 hover:underline focus:underline">déjanos tu reseña</a>, nos ayuda mucho!, muchas gracias!
+        <p class="pt-12 pb-8 text-neutral-500 text-base lg:text-lg">
+            Nos gustaría mucho recibir tu opinión sobre nuestro trabajo 🐶. Si tienes un momento, te invitamos a dejarnos tu valoración🐾<br>Muchas gracias!
         </p>
         <a href="https://g.page/r/CYGxRPxhObyKEBM/review" target="_blank" class="px-6 py-4 uppercase text-sm lg:text-base text-uppercase mx-auto bg-fuchsia-900/50 text-white hover:bg-fuchsia-900/70 focus:bg-fuchsia-900/70 focus:outline-none">Escribe tu reseña</a>
+        <p class="pt-8 text-neutral-500 text-base lg:text-lg">
+            Muchas gracias!
+        </p>
     </div>
 </div>

@@ -26,26 +26,20 @@ class MediaService extends BaseService
      */
     public function getLastPublications(int $limit): Publications
     {
-        try {
-            $client = new Client();
-            $response = $client->request(
-                'GET',
-                self::BASE_URI.self::MEDIA_ENDPOINT.'?fields='.self::MEDIA_FIELDS.'&access_token='.$this->accessToken.'&limit='.$limit
-            );
-            $statusCode = $response->getStatusCode();
+        $client = new Client();
+        $response = $client->request(
+            'GET',
+            self::BASE_URI.self::MEDIA_ENDPOINT.'?fields='.self::MEDIA_FIELDS.'&access_token='.$this->accessToken.'&limit='.$limit
+        );
+        $statusCode = $response->getStatusCode();
 
-            if ($statusCode === 200) {
-                $responseBodyContents = $response->getBody()->getContents();
+        if ($statusCode === 200) {
+            $responseBodyContents = $response->getBody()->getContents();
 
-                return Serializer::deserialize($responseBodyContents, Publications::class, Serializer::FORMAT_JSON);
-            }
-
-            $this->logger->critical('Invalid status code from instagram API, status code: '.$statusCode);
-        } catch (\Throwable $exception) {
-            $this->logger->critical('Could not connect with instagram API: '.$exception->getMessage(), ['exception' => $exception]);
-
-//            TODO: Lanzar excepción, verificar respuestas de la api
+            return Serializer::deserialize($responseBodyContents, Publications::class, Serializer::FORMAT_JSON);
         }
+
+        $this->logger->critical('Invalid status code from instagram API, status code: '.$statusCode);
 
         return new Publications();
     }

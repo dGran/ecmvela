@@ -43,11 +43,19 @@ class InstagramService
         $publicationImages = [];
         $publicationVideos = [];
 
-        $publications = $this->mediaService->getLastPublications(self::NUMBER_OF_LAST_PUBLICATIONS);
+        try {
+            $publications = $this->mediaService->getLastPublications(self::NUMBER_OF_LAST_PUBLICATIONS);
+        } catch (\Throwable $exception) {
+            return [
+                'publication_images' => $publicationImages,
+                'publication_videos' => $publicationVideos,
+            ];
+        }
+
 
         if ($publications->getPublications() !== null) {
             foreach ($publications->getPublications() as $publication) {
-                if (\stripos($publication->getCaption(), self::FILTER_VALID_IMAGE) !== false) {
+                if ($publication->getCaption() && \stripos($publication->getCaption(), self::FILTER_VALID_IMAGE) !== false) {
                     if (($publication->getMediaType() === Media::MEDIA_TYPE_IMAGE || $publication->getMediaType() === Media::MEDIA_TYPE_CAROUSEL_ALBUM)
                         && \count($publicationImages) < self::MAX_MEDIA_IMAGES) {
                         $publicationImages[] = [
@@ -63,7 +71,7 @@ class InstagramService
                             'permalink' => $publication->getPermalink(),
                             'date' => $publication->getTimestamp(),
                         ];
-                    }
+                    };
                 }
             }
         }
