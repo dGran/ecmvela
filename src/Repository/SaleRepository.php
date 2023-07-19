@@ -115,7 +115,7 @@ class SaleRepository extends ServiceEntityRepository
             ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week', 'YEAR(sale.dateAdd) as year')
             ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->orderBy('week', 'DESC')
-            ->groupBy('week', 'year')
+            ->groupBy('week')
             ->setParameter('date_from', $dateFrom)
             ->setParameter('date_to', $dateTo)
             ->getQuery()
