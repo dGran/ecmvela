@@ -19,7 +19,7 @@
                 <div class="px-4 flex items-center justify-between">
                     <p class="text-base font-bold text-gray-800">{{ calendar_month_data.month_name|trans }} {{ calendar_month_data.year }}</p>
                     <div class="flex items-center space-x-3">
-                        <a href="{{ path('admin_agenda', {'day': 'now'}) }}">Ir a hoy</a>
+                        <a href="{{ path('admin_agenda', {'day': 'now'}) }}">hoy</a>
                         <a href="{{ path('admin_agenda', {'day': day|date_modify('-1 month')|date('Y-m-01')}) }}"
                            class="focus:text-gray-400 hover:text-gray-400 text-gray-800 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -36,7 +36,7 @@
                         </a>
                     </div>
                 </div>
-                <p class="px-4 text-xs text-gray-500">Días laboralaes: {{ calendar_month_data.business_days }}</p>
+                <p class="px-4 pt-0.5 text-xs text-gray-500">{{ calendar_month_data.business_days }} días laboralaes</p>
 
                 <div class="flex items-center justify-between pt-6 overflow-x-auto">
                     <table class="w-full">
@@ -73,7 +73,11 @@
                                                         {% if day_of_the_month == day_counter %}focus:ring-{{ color_current_day }}-500 focus:bg-{{ color_current_day }}-500 hover:bg-{{ color_current_day }}-500 text-white bg-{{ color_current_day }}-500 pointer-events-none
                                                         {% else %}focus:ring-{{ color_day }}-200 focus:bg-{{ color_day }}-100 hover:bg-{{ color_day }}-100 bg-transparent text-{{ color_day }}-500{% endif %}"
                                                     >
-                                                        {{ day_counter }}
+                                                        {% if day_counter not in calendar_month_data.public_holidays %}
+                                                            <span class="line-through text-gray-400">{{ day_counter }}</span>
+                                                        {% else %}
+                                                            {{ day_counter }}
+                                                        {% endif %}
                                                     </a>
                                                 </div>
                                             {% endif %}
@@ -106,6 +110,14 @@
         </div>
 
         <div class="flex-1">
+            <p>Citas</p>
+            .... boton cancelar cita (eliminar) cambiar de fecha, generar ticket
+            <p>Huecos disponibles</p>
+            .... en cada hueco boton "Reservar"
+            <p>y me cargo los slots</p>
+            <p>en la tabla booking añadir un flag de recordatorio enviado por si se quiere forzar el reenvio de recodatorios o si se programa a 2 horas diferentes o si se pone un boton enviar redordatorios</p>
+            <p>texto del recodatorio configurable en "configuracion"</p>
+
             {% for slot in slots %}
                 <div class="border-b flex items-center space-x-3 bg-green-50 even:bg-transparent">
                     <p class="py-2 px-3 border-r text-sm">{{ slot|date('H:i') }}</p>
