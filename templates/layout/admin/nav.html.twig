@@ -11,7 +11,8 @@
             <span>Agenda</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Reservas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_agenda', message: 'Reservas', tag: 'in progress', routeFilter: 'admin_agenda_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Configuración', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>
     </li>
     <li class="mt-6">

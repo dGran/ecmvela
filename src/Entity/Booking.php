@@ -24,7 +24,7 @@ class Booking
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $duration = null;
+    private ?int $estimatedDuration = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
@@ -70,14 +70,14 @@ class Booking
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getEstimatedDuration(): ?int
     {
-        return $this->duration;
+        return $this->estimatedDuration;
     }
 
-    public function setDuration(?int $duration): self
+    public function setEstimatedDuration(?int $estimatedDuration): self
     {
-        $this->duration = $duration;
+        $this->estimatedDuration = $estimatedDuration;
 
         return $this;
     }

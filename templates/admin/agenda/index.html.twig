@@ -12,270 +12,152 @@
         }
     ) }}
 
-    <ul>
-        <li>vista mensual</li>
-        <li>vista semanal</li>
-        <li>vista dia</li>
-        <li>flechas para pasar al siguiente y anterior según la vista actual (día / semana / mes)</li>
-    </ul>
+    <div class="flex items-start justify-between space-x-8 py-8 px-4">
 
-
-    <div class="flex items-center justify-center py-8 px-4">
         <div class="max-w-sm w-full shadow-lg">
             <div class="md:p-8 p-5 dark:bg-gray-800 bg-white rounded-t">
                 <div class="px-4 flex items-center justify-between">
-                    <span  tabindex="0" class="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800">October 2020</span>
-                    <div class="flex items-center">
-                        <button aria-label="calendar backward" class="focus:text-gray-400 hover:text-gray-400 text-gray-800 dark:text-gray-100">
+                    <p class="text-base font-bold text-gray-800">{{ calendar_month_data.month_name|trans }} {{ calendar_month_data.year }}</p>
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ path('admin_agenda', {'day': 'now'}) }}">Ir a hoy</a>
+                        <a href="{{ path('admin_agenda', {'day': day|date_modify('-1 month')|date('Y-m-01')}) }}"
+                           class="focus:text-gray-400 hover:text-gray-400 text-gray-800 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <polyline points="15 6 9 12 15 18" />
                             </svg>
-                        </button>
-                        <button aria-label="calendar forward" class="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 dark:text-gray-100">
+                        </a>
+                        <a href="{{ path('admin_agenda', {'day': day|date_modify('+1 month')|date('Y-m-01')}) }}"
+                           class="focus:text-gray-400 hover:text-gray-400 text-gray-800 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler  icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <polyline points="9 6 15 12 9 18" />
                             </svg>
-                        </button>
-
+                        </a>
                     </div>
                 </div>
-                <div class="flex items-center justify-between pt-12 overflow-x-auto">
+                {% set business_days = calendar_month_data.number_of_days - calendar_month_data.public_holidays|length %}
+                <p class="px-4 text-xs text-gray-500">Días laboralaes: {{ business_days }}</p>
+
+                <div class="flex items-center justify-between pt-6 overflow-x-auto">
                     <table class="w-full">
                         <thead>
                         <tr>
+                            {% for day_of_the_week in days_of_the_week %}
                             <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Mo</p>
-                                </div>
+                                <span class="text-base font-medium text-center text-gray-800 dark:text-gray-100">{{ day_of_the_week['short_name']|trans }}</span>
                             </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Tu</p>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">We</p>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Th</p>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Fr</p>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Sa</p>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="w-full flex justify-center">
-                                    <p class="text-base font-medium text-center text-gray-800 dark:text-gray-100">Su</p>
-                                </div>
-                            </th>
+                            {% endfor %}
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                            </td>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                            </td>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">1</p>
-                                </div>
-                            </td>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">2</p>
-                                </div>
-                            </td>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">3</p>
-                                </div>
-                            </td>
-                            <td class="pt-6">
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">4</p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">5</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">6</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">7</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="w-full h-full">
-                                    <div class="flex items-center justify-center w-full rounded-full cursor-pointer">
-                                        <a  role="link" tabindex="0" class="focus:outline-none  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-500 hover:bg-indigo-500 text-base w-8 h-8 flex items-center justify-center font-medium text-white bg-indigo-700 rounded-full">8</a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">9</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">10</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">11</p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">12</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">13</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">14</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">15</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">16</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">17</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">18</p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">19</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">20</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">21</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">22</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">23</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">24</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100">25</p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">26</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">27</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">28</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">29</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="px-2 py-2 cursor-pointer flex w-full justify-center">
-                                    <p class="text-base text-gray-500 dark:text-gray-100 font-medium">30</p>
-                                </div>
-                            </td>
-                        </tr>
+                        {% set firstDay = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-01') %}
+                        {% set day_counter = 1 %}
+                        {% for week in range(1, 6) %}
+                            <tr>
+                                {% for day in range(1, 7) %}
+                                    {% if (week == 1 and day >= firstDay.format('N')) or (week > 1 and day_counter <= calendar_month_data.number_of_days) %}
+                                        <td>
+                                            {% if day_counter <= calendar_month_data.number_of_days %}
+                                                <div class="px-0 py-0.5 flex w-full justify-center">
+                                                    {% set string_select_day = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-' ~ day_counter) %}
+                                                    {% set select_day = string_select_day|date('Y-m-d') %}
+                                                    {% if day_counter in calendar_month_data.public_holidays %}
+                                                        {% set color_day = 'red' %}
+                                                        {% set color_current_day = 'red' %}
+                                                    {% else %}
+                                                        {% set color_day = 'gray' %}
+                                                        {% set color_current_day = 'blue' %}
+                                                    {% endif %}
+                                                    <a href="{{ path('admin_agenda', {'day': select_day}) }}"
+                                                       class="text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full
+                                                        {% if day_of_the_month == day_counter %}focus:ring-{{ color_current_day }}-500 focus:bg-{{ color_current_day }}-500 hover:bg-{{ color_current_day }}-500 text-white bg-{{ color_current_day }}-500 pointer-events-none
+                                                        {% else %}focus:ring-{{ color_day }}-200 focus:bg-{{ color_day }}-100 hover:bg-{{ color_day }}-100 bg-transparent text-{{ color_day }}-500{% endif %}"
+                                                    >
+                                                        {{ day_counter }}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        {% set day_counter = day_counter + 1 %}
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="md:py-8 py-5 md:px-16 px-5 dark:bg-gray-700 bg-gray-50 rounded-b">
-                <div class="px-4">
+                <div class="px-4 flex flex-col space-y-3">
                     <div class="border-b pb-4 border-gray-400 border-dashed">
-                        <p class="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">9:00 AM</p>
-                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2">Zoom call with design team</a>
-                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">Discussion on UX sprint and Wireframe review</p>
+                        <p class="text-xs font-light leading-4 text-gray-500">9:30 - 10:30</p>
+                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 mt-2">Coco - Laura</a>
+                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">Baño y corte</p>
                     </div>
-                    <div class="border-b pb-4 border-gray-400 border-dashed pt-5">
-                        <p class="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">10:00 AM</p>
-                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2">Orientation session with new hires</a>
-                    </div>
-                    <div class="border-b pb-4 border-gray-400 border-dashed pt-5">
-                        <p class="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">9:00 AM</p>
-                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 dark:text-gray-100 mt-2">Zoom call with design team</a>
-                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">Discussion on UX sprint and Wireframe review</p>
+                    <div class="border-b pb-4 border-gray-400 border-dashed">
+                        <p class="text-xs font-light leading-4 text-gray-500">10:30 - 12:00</p>
+                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 mt-2">Vitolo - Merce</a>
+                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">ver historial</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="flex-1">
+            {% for slot in slots %}
+                <div class="border-b flex items-center space-x-3 bg-green-50 even:bg-transparent">
+                    <p class="py-2 px-3 border-r text-sm">{{ slot|date('H:i') }}</p>
+                    <p class="py-2 px-3 w-full text-sm text-center">LIBRE</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+
+
+
+    <section class="bg-white dark:bg-gray-900 antialiased">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
+                    Schedule
+                </h2>
+
+                {% for slot in slots %}
+                    {% include 'admin/agenda/slots/_slot.html.twig' %}
+                {% endfor %}
+
+                <div class="mt-4">
+                    <a href="#" title=""
+                       class="inline-flex items-center text-lg font-medium text-primary-600 hover:underline dark:text-primary-500">
+                        Learn more about our agenda
+                        <svg aria-hidden="true" class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                  clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-16">
+                <div class="-my-4 divide-y divide-gray-200 dark:divide-gray-700">
+                    <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
+                        <p class="w-32 text-lg font-normal text-gray-500 sm:text-right dark:text-gray-400 shrink-0">
+                            09:00 - 09:00
+                        </p>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            <a href="#" class="hover:underline">Opening remarks</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
