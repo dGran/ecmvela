@@ -106,6 +106,7 @@ class AgendaService
             'month_name' => $monthName,
             'number_of_days' => $numberOfDays,
             'public_holidays' => $publicHolidays,
+            'business_days' => $numberOfDays - \count($publicHolidays),
         ];
     }
 

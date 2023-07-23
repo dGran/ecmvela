@@ -36,8 +36,7 @@
                         </a>
                     </div>
                 </div>
-                {% set business_days = calendar_month_data.number_of_days - calendar_month_data.public_holidays|length %}
-                <p class="px-4 text-xs text-gray-500">Días laboralaes: {{ business_days }}</p>
+                <p class="px-4 text-xs text-gray-500">Días laboralaes: {{ calendar_month_data.business_days }}</p>
 
                 <div class="flex items-center justify-between pt-6 overflow-x-auto">
                     <table class="w-full">
