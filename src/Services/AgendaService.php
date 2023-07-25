@@ -45,6 +45,7 @@ class AgendaService
         ],
     ];
 
+    // TODO remove const and get data from PublicHoliday entity
     private const PUBLIC_HOLIDAYS = [
         2023 => [
             8 => [14, 15, 16, 17, 18,],
@@ -99,7 +100,6 @@ class AgendaService
 
         $publicHolidays = $this->getPublicHolidaysByMonthAndYear($month, $year);
 
-        // Return the calendar data
         return [
             'year' => $year,
             'month' => $month,
