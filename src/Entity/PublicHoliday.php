@@ -24,6 +24,8 @@ class PublicHoliday
     #[ORM\Column]
     private int $day;
 
+    private ?string $name = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -61,6 +63,18 @@ class PublicHoliday
     public function setDay(int $day): PublicHoliday
     {
         $this->day = $day;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): PublicHoliday
+    {
+        $this->name = $name;
 
         return $this;
     }
