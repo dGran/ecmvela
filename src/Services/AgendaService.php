@@ -85,7 +85,6 @@ class AgendaService
             $startDate->modify('+'.self::DEFAULT_ESTIMATED_DURATION.' minutes');
         }
 
-
         return $slots;
     }
 
