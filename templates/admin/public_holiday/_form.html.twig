@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="p-6 text-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        {{ form_row(form.name) }}
+        {{ form_row(form.date) }}
+    </div>
+</div>
+
+<div class="p-6 flex items-center justify-end border-t rounded-b-md bg-slate-50 relative">
+    <button type="button" class="px-6 py-2.5 mr-3 bg-transparent font-medium text-xs leading-tight uppercase hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            onclick="$('.close-modal').trigger('click');">
+        Cancelar
+    </button>
+    <button type="submit" id="send-form-button" {% if mode == 'add' %}disabled{% endif %}
+            class="px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out
+                  {% if mode == 'add' %}bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none{% else %}bg-blue-500 hover:bg-blue-600 focus:bg-blue-600{% endif %}
+                  ">
+        {{ button_label|default('Guardar festivo') }}
+    </button>
+</div>
+{{ form_end(form) }}

@@ -6,8 +6,8 @@
     {{ component(
         'crudHeaderComponent',
         {
-            section: 'Administración',
-            title: 'Agenda',
+            section: 'Agenda',
+            title: 'Citas',
             description: 'Gestión de citas, organización de agenda.'
         }
     ) }}
@@ -117,6 +117,8 @@
             <p>y me cargo los slots</p>
             <p>en la tabla booking añadir un flag de recordatorio enviado por si se quiere forzar el reenvio de recodatorios o si se programa a 2 horas diferentes o si se pone un boton enviar redordatorios</p>
             <p>texto del recodatorio configurable en "configuracion"</p>
+            <p>almacenar fecha y horas disponibles del cliente</p>
+            <p>podremos buscar fechas disponibles según la disponibilidad del cliente</p>
 
             {% for slot in slots %}
                 <div class="border-b flex items-center space-x-3 bg-green-50 even:bg-transparent">

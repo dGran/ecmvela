@@ -1,0 +1,15 @@
+<thead class="h-10 px-3 bg-neutral-100 border-b border-slate-300">
+<tr>
+    <th class="md:hidden py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs"></th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(public_holidays, 'Id', 'id') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(public_holidays, 'Fecha', 'date') }}
+    </th>
+    <th class="py-1.5 px-3 text-left font-semibold whitespace-nowrap uppercase text-xs">
+        {{ knp_pagination_sortable(public_holidays, 'Nombre', 'name') }}
+    </th>
+    <th class="hidden md:block w-auto py-1.5 px-3 whitespace-nowrap uppercase text-xs"></th>
+</tr>
+</thead>

@@ -65,4 +65,9 @@ class PublicHolidayManager
     {
         return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    public function findByIndexSearchFields(string $search, string $sort, string $direction): array
+    {
+        return $this->repository->findByIndexSearchFields($search, $sort, $direction);
+    }
 }

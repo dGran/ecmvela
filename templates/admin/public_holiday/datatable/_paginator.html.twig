@@ -1,0 +1,8 @@
+{% if public_holidays.pageCount > 1 %}
+    <div class="py-4 flex flex-col md:flex-row items-center justify-center md:justify-end space-x-4">
+        <p class="order-last md:order-first text-xs md:text-sm mt-2.5 md:mt-0">
+            Mostrando {{ public_holidays.currentPageNumber * public_holidays.itemNumberPerPage - public_holidays.itemNumberPerPage + 1 }}-{% if public_holidays.currentPageNumber != public_holidays.pageCount %}{{ public_holidays.currentPageNumber * public_holidays.itemNumberPerPage }}{% else %}{{ public_holidays.getTotalItemCount }}{% endif %} de {{ public_holidays.getTotalItemCount }}
+        </p>
+        {{ knp_pagination_render(public_holidays) }}
+    </div>
+{% endif %}

@@ -40,4 +40,15 @@ class PublicHolidayRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findByIndexSearchFields(string $search, string $sort, string $direction): array
+    {
+        return $this->createQueryBuilder('public_holiday')
+            ->where('public_holiday.name LIKE :search')
+            ->orWhere('public_holiday.date LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->orderBy('public_holiday.'.$sort, $direction)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -15,15 +15,10 @@ class PublicHoliday
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column]
-    private int $year;
+    #[ORM\Column(unique: true)]
+    private \DateTime $date;
 
     #[ORM\Column]
-    private int $month;
-
-    #[ORM\Column]
-    private int $day;
-
     private ?string $name = null;
 
     public function getId(): int
@@ -31,38 +26,14 @@ class PublicHoliday
         return $this->id;
     }
 
-    public function getYear(): int
+    public function getDate(): \DateTime
     {
-        return $this->year;
+        return $this->date;
     }
 
-    public function setYear(int $year): PublicHoliday
+    public function setDate(\DateTime $date): PublicHoliday
     {
-        $this->year = $year;
-
-        return $this;
-    }
-
-    public function getMonth(): int
-    {
-        return $this->month;
-    }
-
-    public function setMonth(int $month): PublicHoliday
-    {
-        $this->month = $month;
-
-        return $this;
-    }
-
-    public function getDay(): int
-    {
-        return $this->day;
-    }
-
-    public function setDay(int $day): PublicHoliday
-    {
-        $this->day = $day;
+        $this->date = $date;
 
         return $this;
     }
