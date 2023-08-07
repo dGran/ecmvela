@@ -70,4 +70,12 @@ class PublicHolidayManager
     {
         return $this->repository->findByIndexSearchFields($search, $sort, $direction);
     }
+
+    /**
+     * @return PublicHoliday[]
+     */
+    public function findByMonthAndYear(int $month, int $year): array
+    {
+        return $this->repository->findByMonthAndYear($month, $year);
+    }
 }

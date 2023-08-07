@@ -4,8 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Manager\PublicHolidayManager;
+
 class AgendaService
 {
+    private PublicHolidayManager $publicHolidayManager;
+
+    public function __construct(PublicHolidayManager $publicHolidayManager)
+    {
+        $this->publicHolidayManager = $publicHolidayManager;
+    }
+
     public const AVAILABLE_DAYS = [
         1 => 'Lunes',
         2 => 'Martes',
@@ -45,24 +54,6 @@ class AgendaService
         ],
     ];
 
-    // TODO remove const and get data from PublicHoliday entity
-    private const PUBLIC_HOLIDAYS = [
-        2023 => [
-            8 => [14, 15, 16, 17, 18,],
-            9 => [8,],
-            10 => [9, 12,],
-            11 => [1,],
-            12 => [6, 8, 25,],
-        ],
-        2024 => [
-            1 => [1, 6,],
-            3 => [19,],
-            8 => [15,],
-            9 => [8,],
-            10 => [6, 8,],
-        ]
-    ];
-
     public const HOUR_START = '09:30';
     public const HOUR_END = '19:00';
     public const DEFAULT_ESTIMATED_DURATION = 30;
@@ -97,7 +88,7 @@ class AgendaService
         $numberOfDays = $firstDay->format('t');
         $monthName = $firstDay->format('F');
 
-        $publicHolidays = $this->getPublicHolidaysByMonthAndYear($month, $year);
+        $publicHolidays = $this->getPublicHolidays($month, $year);
 
         return [
             'year' => $year,
@@ -109,17 +100,21 @@ class AgendaService
         ];
     }
 
-    private function getPublicHolidaysByMonthAndYear(int $month, int $year): array
+    private function getPublicHolidays(int $month, int $year): array
     {
         $weekendDaysOfMonth = $this->getWeekendDaysOfMonth($month, $year);
+        $publicHolidays = $this->publicHolidayManager->findByMonthAndYear($month, $year);
 
-        if (isset(self::PUBLIC_HOLIDAYS[$year][$month])) {
-            $yearPublicHolidays = self::PUBLIC_HOLIDAYS[$year][$month];
+        $publicHolidaysOfMonth = [];
 
-            return array_unique(array_merge($yearPublicHolidays, $weekendDaysOfMonth));
+        foreach ($publicHolidays as $publicHoliday) {
+            $publicHolidaysOfMonth[] = (int)$publicHoliday->getDate()->format('d');
         }
 
-        return $weekendDaysOfMonth;
+        $publicHolidaysAndWeekendDays = \array_unique(\array_merge($publicHolidaysOfMonth, $weekendDaysOfMonth));
+        \sort($publicHolidaysAndWeekendDays);
+
+        return $publicHolidaysAndWeekendDays;
     }
 
     private function getWeekendDaysOfMonth(int $month, int $year): array

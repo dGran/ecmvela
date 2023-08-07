@@ -51,4 +51,21 @@ class PublicHolidayRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return PublicHoliday[]
+     */
+    public function findByMonthAndYear(int $month, int $year): array
+    {
+        $dateFrom = new \DateTime("$year-$month-01");
+        $dateTo = new \DateTime("last day of $year-$month");
+
+        return $this->createQueryBuilder('public_holiday')
+            ->where('public_holiday.date BETWEEN :date_from AND :date_to')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
+            ->orderBy('public_holiday.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
