@@ -40,7 +40,7 @@
                             <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
                             <button type="submit" title="Eliminar"
                                     data-name="{{ public_holiday.name }}"
-                                    data-date="{{ public_holiday.date }}"
+                                    data-date="{{ public_holiday.date|date('d-m-Y') }}"
                                     class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
                                 <i class="fa-solid fa-trash"></i>
                                 <span class="ml-1.5">Eliminar</span>
@@ -85,7 +85,7 @@
                     <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
                     <button type="submit" title="Eliminar"
                             data-name="{{ public_holiday.name }}"
-                            data-date="{{ public_holiday.date }}"
+                            data-date="{{ public_holiday.date|date('d-m-Y') }}"
                             class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
                         <i class="fa-solid fa-trash"></i>
                     </button>
