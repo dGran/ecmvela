@@ -7,8 +7,6 @@ $( document ).ready(function() {
         let name = clickedElement.data('name');
         let date = clickedElement.data('date');
 
-        alert(date);
-
         $('.dropdown').removeClass('block').addClass('hidden');
 
         deleteConfirmation(form, name, date);
@@ -17,7 +15,7 @@ $( document ).ready(function() {
     function deleteConfirmation(form, name, date)
     {
         Swal.fire({
-            html: '<div class="py-1.5">¿Seguro que quieres eliminar el festivo <strong>'+date+'('+name+')</strong>?</div>',
+            html: '<div class="py-1.5">¿Seguro que quieres eliminar el festivo?<p><strong>'+date+' ('+name+')</strong></p></div>',
             showCloseButton: true,
             showCancelButton: true,
             cancelButtonText: "Cancelar",
