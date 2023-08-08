@@ -49,7 +49,7 @@ class CreateController extends AbstractController
             return new JsonResponse([Response::HTTP_INTERNAL_SERVER_ERROR]);
         }
 
-        return $this->render('_sale_detail_line.html.twig', [
+        return $this->render('admin/sale/edit/_sale_detail_line.html.twig', [
             'sale' => $sale,
             'saleLine' => $saleLine,
             'tax_types' => $this->taxTypeManager->findBy([], ['rate' => 'asc'])
