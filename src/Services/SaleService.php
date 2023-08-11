@@ -100,6 +100,8 @@ class SaleService
                 return SALE::STATE_PARTIAL_PAYMENT;
             case $totalAmount:
                 return SALE::STATE_PAID;
+            default:
+                return SALE::STATE_OVERPAYMENT;
         }
     }
 

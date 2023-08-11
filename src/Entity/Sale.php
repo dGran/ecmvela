@@ -16,6 +16,7 @@ class Sale
     public const STATE_PAID = 'pagado';
     public const STATE_PARTIAL_PAYMENT = 'pago parcial';
     public const STATE_PENDING_PAYMENT = 'pago pendiente';
+    public const STATE_OVERPAYMENT = 'pago excedido';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
