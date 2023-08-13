@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\Booking;
+use App\Manager\BookingManager;
 use App\Manager\PublicHolidayManager;
 
 class AgendaService
 {
     private PublicHolidayManager $publicHolidayManager;
+    private BookingManager $bookingManager;
 
-    public function __construct(PublicHolidayManager $publicHolidayManager)
+    public function __construct(PublicHolidayManager $publicHolidayManager, BookingManager $bookingManager)
     {
         $this->publicHolidayManager = $publicHolidayManager;
+        $this->bookingManager = $bookingManager;
     }
 
     public const AVAILABLE_DAYS = [
@@ -56,9 +60,21 @@ class AgendaService
 
     public const HOUR_START = '09:30';
     public const HOUR_END = '19:00';
-    public const DEFAULT_ESTIMATED_DURATION = 30;
+    public const SLOT_INTERVAL = 15;
 
-    public function generateDaySlots(\DateTime $day): array
+    public function getDayBookings(\DateTime $day)
+    {
+        $dateTo = clone $day;
+        $dateTo->modify('+1 day');
+        $dayBookings = $this->bookingManager->findByDateFromAndDateTo($day, $dateTo);
+    }
+
+    /**
+     * @param Booking[] $bookings
+     *
+     * @return array<string, Booking[]>
+     */
+    public function generateDaySlots(\DateTime $day, array $bookings): array
     {
         $slots = [];
         $numberDayOfTheWeek = $day->format('N');
@@ -67,13 +83,45 @@ class AgendaService
             return $slots;
         }
 
-        $startDate = \DateTime::createFromFormat('Y-m-d H:i', date('Y-m-d') . ' ' . self::HOUR_START);
-        $endDate = \DateTime::createFromFormat('Y-m-d H:i', date('Y-m-d') . ' ' . self::HOUR_END);
+        [$startHour, $startMinute] = explode(':', self::HOUR_START);
+        [$endHour, $endMinute] = explode(':', self::HOUR_END);
 
-        while ($startDate <= $endDate) {
-            $slots[] = $startDate->format('Y-m-d H:i:s');
+        $startDate = clone $day;
+        $startDate->setTime((int)$startHour, (int)$startMinute);
+        $endDate = clone $day;
+        $endDate->setTime((int)$endHour, (int)$endMinute);
 
-            $startDate->modify('+'.self::DEFAULT_ESTIMATED_DURATION.' minutes');
+        $currentSlotDate = clone $startDate;
+
+        while ($currentSlotDate <= $endDate) {
+            $currentSlotFinishDate = clone $currentSlotDate;
+            $currentSlotFinishDate->modify('+'.self::SLOT_INTERVAL.' minutes');
+            $currentSlotFinishDate = \min($currentSlotFinishDate, $endDate);
+            $slotBookings = [];
+
+            foreach ($bookings as $booking) {
+                $bookingDate = $booking->getDate();
+
+                if ($bookingDate === null) {
+                    continue;
+                }
+
+                $estimatedDuration = $booking->getEstimatedDuration() ?? self::SLOT_INTERVAL;
+
+                $bookingStart = clone $bookingDate;
+                $bookingEnd = clone $bookingDate;
+                $bookingEnd->modify('+'.$estimatedDuration.' minutes');
+
+                if (
+                    $bookingStart <= $currentSlotDate && $bookingEnd >= $currentSlotFinishDate
+                ) {
+                    $slotBookings[] = $booking;
+                }
+            }
+
+            $slots[$currentSlotDate->format('Y-m-d H:i:s')] = $slotBookings;
+
+            $currentSlotDate->modify('+'.self::SLOT_INTERVAL.' minutes');
         }
 
         return $slots;

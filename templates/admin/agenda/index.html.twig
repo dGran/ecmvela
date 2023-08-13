@@ -93,23 +93,31 @@
                     </table>
                 </div>
             </div>
-            <div class="md:py-8 py-5 md:px-16 px-5 dark:bg-gray-700 bg-gray-50 rounded-b">
+            <div class="md:py-8 py-5 md:px-8 px-5 dark:bg-gray-700 bg-gray-50 rounded-b">
                 <div class="px-4 flex flex-col space-y-3">
-                    <div class="border-b pb-4 border-gray-400 border-dashed">
-                        <p class="text-xs font-light leading-4 text-gray-500">9:30 - 10:30</p>
-                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 mt-2">Coco - Laura</a>
-                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">Baño y corte</p>
-                    </div>
-                    <div class="border-b pb-4 border-gray-400 border-dashed">
-                        <p class="text-xs font-light leading-4 text-gray-500">10:30 - 12:00</p>
-                        <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 mt-2">Vitolo - Merce</a>
-                        <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">ver historial</p>
-                    </div>
+                    {% if bookings|length == 0 %}
+                        No hay servicios agendados
+                    {% else %}
+                    {% for bookingKey, booking in bookings %}
+                                {% set booking_start = booking.date|date('h:i') %}
+                                {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('h:i') %}
+                                <div class="border-b pb-4 border-gray-400 border-dashed last:border-b-0">
+                                    <p class="text-xs font-light leading-4 text-gray-500">{{ booking_start }} - {{ booking_estimated_end}}</p>
+                                    <a tabindex="0" class="focus:outline-none text-lg font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer.name }}</a>
+                                    <p class="text-sm pt-2 leading-4 leading-none text-gray-600 dark:text-gray-300">{service}</p>
+                                </div>
+                                            {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <div class="flex-1">
+            {{ dump(calendar_month_data) }}
+            {% if day|date('d') in calendar_month_data.public_holidays %}
+                FESTIVO
+            {% endif %}
+            <p class="font-bold">Generar colores aleatorios entre un array de colores, habrá que poner 20 (indicará el número máximo de citas de un día) de momento, para identificar cada booking y pintar con ese color en cada slot</p>
             <p>Citas</p>
             .... boton cancelar cita (eliminar) cambiar de fecha, generar ticket
             <p>Huecos disponibles</p>
@@ -120,10 +128,30 @@
             <p>almacenar fecha y horas disponibles del cliente</p>
             <p>podremos buscar fechas disponibles según la disponibilidad del cliente</p>
 
-            {% for slot in slots %}
-                <div class="border-b flex items-center space-x-3 bg-green-50 even:bg-transparent">
-                    <p class="py-2 px-3 border-r text-sm">{{ slot|date('H:i') }}</p>
-                    <p class="py-2 px-3 w-full text-sm text-center">LIBRE</p>
+            {% for slot_date, slot in slots %}
+                <div class="border-b flex items-center space-x-3 hover:bg-amber-50 even:bg-neutral-50">
+                    <p class="py-2 px-3 border-r text-sm h-16">{{ slot_date|date('H:i') }}</p>
+                    {% if slot|length == 0 %}
+                        <p class="py-2 px-3 uppercase">
+                        libre
+                        </p>
+                        {% else %}
+                    {% for slot_booking in slot %}
+                                <p class="py-2 px-3 flex items-center justify-start space-x-3">
+                                    <button class="rounded bg-slate-200 text-xs px-4 py-1.5 flex items-center space-x-3">
+                                        <img src="{{ asset(slot_booking.pet.getProfileImgPath()) }}" alt="{{ slot_booking.pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover">
+                                        <div class="flex flex-col items-start">
+                                            <div>
+                                                <span class="text-sm font-semibold">{{ slot_booking.pet.name }}</span>
+                                                <span class="text-xs ml-1">({{ slot_booking.customer }})</span>
+                                            </div>
+                                            {% set  estimatedBookingEnd =  slot_booking.date|date_modify('+' ~ slot_booking.estimatedDuration ~ ' minutes')%}
+                                            <span>Estimación: {{ slot_booking.date|date('H:i') }}-{{ estimatedBookingEnd|date('H:i') }}</span>
+                                        </div>
+                                    </button>
+                                </p>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

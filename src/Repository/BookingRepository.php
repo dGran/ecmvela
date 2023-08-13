@@ -41,28 +41,17 @@ class BookingRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Booking[] Returns an array of Booking objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Booking
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Booking[]
+     */
+    public function findByDateFromAndDateTo(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->createQueryBuilder('booking')
+            ->where('booking.date BETWEEN :date_from AND :date_to')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
+            ->orderBy('booking.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
