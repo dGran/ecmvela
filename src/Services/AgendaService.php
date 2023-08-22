@@ -7,14 +7,14 @@ namespace App\Services;
 use App\Entity\Booking;
 use App\Manager\BookingManager;
 use App\Manager\PublicHolidayManager;
+use App\Model\Agenda\SlotBooking;
 
 class AgendaService
 {
     private PublicHolidayManager $publicHolidayManager;
     private BookingManager $bookingManager;
 
-    public function __construct(PublicHolidayManager $publicHolidayManager, BookingManager $bookingManager)
-    {
+    public function __construct(PublicHolidayManager $publicHolidayManager, BookingManager $bookingManager) {
         $this->publicHolidayManager = $publicHolidayManager;
         $this->bookingManager = $bookingManager;
     }
@@ -60,6 +60,11 @@ class AgendaService
 
     public const HOUR_START = '09:30';
     public const HOUR_END = '19:00';
+    public const ADITIONAL_HOUR_START = '08:30';
+    public const ADITIONAL_HOUR_END = '21:30';
+
+    //TODO: CREAR SLOTS EN FUNCION DE HORARIOS OFICIALES POR DIA, POR EJEMPLO, LOS VIERNES SE VA A CERRAR ANTES
+    //TODO: CREAR TABLA CON HORARIOS PARA QUE PUEDAN SER EDITABLES
     public const SLOT_INTERVAL = 15;
 
     public function getDayBookings(\DateTime $day)
@@ -79,9 +84,9 @@ class AgendaService
         $slots = [];
         $numberDayOfTheWeek = $day->format('N');
 
-        if (!\array_key_exists($numberDayOfTheWeek, self::AVAILABLE_DAYS)) {
-            return $slots;
-        }
+//        if (!\array_key_exists($numberDayOfTheWeek, self::AVAILABLE_DAYS)) {
+//            return $slots;
+//        }
 
         [$startHour, $startMinute] = explode(':', self::HOUR_START);
         [$endHour, $endMinute] = explode(':', self::HOUR_END);
@@ -99,7 +104,7 @@ class AgendaService
             $currentSlotFinishDate = \min($currentSlotFinishDate, $endDate);
             $slotBookings = [];
 
-            foreach ($bookings as $booking) {
+            foreach ($bookings as $bookingKey => $booking) {
                 $bookingDate = $booking->getDate();
 
                 if ($bookingDate === null) {
@@ -115,7 +120,15 @@ class AgendaService
                 if (
                     $bookingStart <= $currentSlotDate && $bookingEnd >= $currentSlotFinishDate
                 ) {
-                    $slotBookings[] = $booking;
+                    $slotBooking = new SlotBooking();
+                    $slotBooking->booking = $booking;
+                    try {
+                        $slotBooking->color = SlotBooking::COLORS[$bookingKey];
+                    } catch(\ErrorException $exception) {
+                        $slotBooking->color = SlotBooking::DEFAULT_COLOR;
+                    }
+
+                    $slotBookings[] = $slotBooking;
                 }
             }
 
@@ -153,14 +166,17 @@ class AgendaService
         $weekendDaysOfMonth = $this->getWeekendDaysOfMonth($month, $year);
         $publicHolidays = $this->publicHolidayManager->findByMonthAndYear($month, $year);
 
-        $publicHolidaysOfMonth = [];
+        $publicHolidaysAndWeekendDays = [];
 
         foreach ($publicHolidays as $publicHoliday) {
-            $publicHolidaysOfMonth[] = (int)$publicHoliday->getDate()->format('d');
+            $publicHolidaysAndWeekendDays[(int)$publicHoliday->getDate()->format('d')] = $publicHoliday->getName();
         }
 
-        $publicHolidaysAndWeekendDays = \array_unique(\array_merge($publicHolidaysOfMonth, $weekendDaysOfMonth));
-        \sort($publicHolidaysAndWeekendDays);
+        foreach ($weekendDaysOfMonth as $weekendDayOfMonth) {
+            if (!\array_key_exists($weekendDayOfMonth, $publicHolidaysAndWeekendDays)) {
+                $publicHolidaysAndWeekendDays[$weekendDayOfMonth] = 'Fin de semana';
+            }
+        }
 
         return $publicHolidaysAndWeekendDays;
     }

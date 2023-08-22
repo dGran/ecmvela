@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Booking;
 
 use App\Manager\BookingManager;
 use App\Services\AgendaService;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AgendaController extends AbstractController
+class IndexController extends AbstractController
 {
     private AgendaService $agendaService;
 
@@ -23,9 +23,13 @@ class AgendaController extends AbstractController
         $this->bookingManager = $bookingManager;
     }
 
-    #[Route('/admin/agenda/{day?}', name: 'admin_agenda', methods: 'GET')]
-    public function index(Request $request, \DateTime $day = null): Response
+    #[Route('/admin/booking/{view}/{day?}', name: 'admin_booking', methods: 'GET')]
+    public function __invoke(Request $request, string $view = null, \DateTime $day = null): Response
     {
+        if ($view === null) {
+            $view = 'day';
+        }
+
         if ($day === null) {
             $day = new \DateTime();
         }
@@ -42,7 +46,8 @@ class AgendaController extends AbstractController
         $daysOfTheWeek = AgendaService::DAYS_OF_THE_WEEK;
         $dayOfTheMonth = $day->format('d');
 
-        return $this->render('admin/agenda/index.html.twig', [
+        return $this->render('admin/booking/index.html.twig', [
+            'view' => $view,
             'day' => $day,
             'slots' => $slots,
             'calendar_month_data' => $calendarMonthData,

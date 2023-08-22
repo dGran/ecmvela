@@ -1,0 +1,63 @@
+<div class="py-6">
+    <div class="flex items-center justify-between">
+        <p class="text-base font-bold text-gray-800">{{ calendar_month_data.month_name|trans }} {{ calendar_month_data.year }}</p>
+        <div class="flex items-center text-xs">
+            <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 month')|date('Y-m-01')}) }}"
+               class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('+1 month')|date('Y-m-01')}) }}"
+               class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent">
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <p class="pt-0.5 text-xs text-gray-500">{{ calendar_month_data.business_days }} días laboralaes</p>
+
+    <table class="w-full text-xs mt-3">
+        <thead>
+        <tr>
+            {% for day_of_the_week in days_of_the_week %}
+                <th class="font-medium text-center text-gray-800 h-10">{{ day_of_the_week['short_name']|trans }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% set firstDay = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-01') %}
+        {% set day_counter = 1 %}
+        {% for week in range(1, 6) %}
+            <tr>
+                {% for day in range(1, 7) %}
+                    {% if (week == 1 and day >= firstDay.format('N')) or (week > 1 and day_counter <= calendar_month_data.number_of_days) %}
+                        <td>
+                            {% if day_counter <= calendar_month_data.number_of_days %}
+                                <div class="px-0.5 py-0.5 flex w-full justify-center">
+                                    {% set string_select_day = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-' ~ day_counter) %}
+                                    {% set select_day = string_select_day|date('Y-m-d') %}
+                                    {% if day_counter in calendar_month_data.public_holidays|keys %}
+                                        {% set color_day = 'red' %}
+                                        {% set color_current_day = 'red' %}
+                                    {% else %}
+                                        {% set color_day = 'gray' %}
+                                        {% set color_current_day = 'blue' %}
+                                    {% endif %}
+                                    <a href="{{ path('admin_booking', {'view': view, 'day': select_day}) }}"
+                                       class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full
+                                                {% if day_of_the_month == day_counter %}focus:ring-{{ color_current_day }}-500 focus:bg-{{ color_current_day }}-500 hover:bg-{{ color_current_day }}-500 text-white bg-{{ color_current_day }}-500 pointer-events-none
+                                                {% else %}focus:ring-{{ color_day }}-200 focus:bg-{{ color_day }}-100 hover:bg-{{ color_day }}-100 bg-transparent text-{{ color_day }}-500{% endif %}"
+                                    >
+                                        {{ day_counter }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </td>
+                        {% set day_counter = day_counter + 1 %}
+                    {% else %}
+                        <td>    </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

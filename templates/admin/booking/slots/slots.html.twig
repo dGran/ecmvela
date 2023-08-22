@@ -1,0 +1,87 @@
+<div class="border-l-2">
+    <div class="w-full flex items-center justify-end space-x-0.5">
+        <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 ' ~ view)|date('Y-m-d')}) }}"
+           class="text-xs lg:text-sm xl:text-base font-medium {% if view == 'day' %}text-white focus:ring-blue-200 focus:bg-blue-100 hover:bg-blue-100 bg-blue-500{% else %}text-gray-700 focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent{% endif %} focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-calendar-day"></i>
+        </a>
+        <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 ' ~ view)|date('Y-m-d')}) }}"
+           class="text-xs lg:text-sm xl:text-base font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent flex items-center justify-center">
+            <i class="fa-solid fa-calendar-week"></i>
+        </a>
+        <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 ' ~ view)|date('Y-m-d')}) }}"
+           class="text-xs lg:text-sm xl:text-base font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent flex items-center justify-center">
+            <i class="fa-solid fa-calendar-days"></i>
+        </a>
+    </div>
+
+    {% if day|date('d') in calendar_month_data.public_holidays|keys %}
+        <p class="ml-4 my-3 py-1.5 px-4 text-sm lg:text-base xl:text-lg font-semibold bg-red-500 rounded text-white text-center">{{ calendar_month_data.public_holidays[day|date('d')|number_format] }}</p>
+    {% endif %}
+    {% for slot_date, slot in slots %}
+        <div class="border-b flex items-center space-x-2.5 last:border-b-0">
+            <p class="py-2 px-3 w-16 border-r text-xs h-16 flex items-center justify-center w-16" style="min-width: 4rem;">{{ slot_date|date('H:i') }}</p>
+            {% if slot|length == 0 %}
+                <p class="py-2 text-sm text-emerald-500 font-semibold uppercase">Disponible</p>
+            {% else %}
+                <div class="overflow-x-auto flex items-center space-x-1.5">
+                {% for slot_booking in slot %}
+                    <div class="w-40 rounded bg-{{ slot_booking.color }}-100 border border-{{ slot_booking.color }}-200 text-{{ slot_booking.color}}-800 text-xs px-2 py-1 flex items-center justify-between space-x-1.5" style="min-width: 10rem;">
+                        <img src="{{ asset(slot_booking.booking.pet.getProfileImgPath()) }}" alt="{{ slot_booking.booking.pet.name }}" class="h-9 w-9 border p-[1px] rounded-full object-cover">
+                        <div class="flex-1 flex flex-col items-start space-y-0.5 leading-3">
+                            <div class="w-24 truncate">
+                                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_pet_show', {'pet': slot_booking.booking.pet.id}) }}" title="Ver"
+                                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                                    {{ slot_booking.booking.pet.name }}
+                                </button>
+{#                                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': slot_booking.booking.customer.id}) }}" title="Ver"#}
+{#                                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">#}
+{#                                    - {{ slot_booking.booking.customer }}#}
+{#                                </button>#}
+                            </div>
+                            {% set estimatedBookingEnd = slot_booking.booking.date|date_modify('+' ~ slot_booking.booking.estimatedDuration ~ ' minutes')%}
+                            <p class="w-24 text-[10px] truncate">{{ slot_booking.booking.pet.breed.name }}</p>
+{#                            <p class="pt-0.5">Estimación: {{ slot_booking.booking.date|date('H:i') }}-{{ estimatedBookingEnd|date('H:i') }}</p>#}
+                        </div>
+{#                        <button type="button" id="dropdownActionsButton" data-dropdown-toggle="dropdownActions{{ slot_booking.booking.id }}" data-dropdown-offset-distance="5" data-dropdown-placement="right-start"#}
+{#                                class="w-7 px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent active:bg-blue-600 focus:outline-none">#}
+{#                            <i class="fa-solid fa-ellipsis-vertical"></i>#}
+{#                        </button>#}
+{#                        <div id="dropdownActions{{ slot_booking.booking.id }}" class="dropdown hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">#}
+{#                            <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">#}
+{#                                <li class="px-1.5">#}
+{#                                    <button type="button" title="Ver"#}
+{#                                            data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_customer_show', {'customer': slot_booking.booking.id}) }}"#}
+{#                                            class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">#}
+{#                                        <i class="fa-solid fa-eye"></i>#}
+{#                                        <span class="ml-1.5">Ver</span>#}
+{#                                    </button>#}
+{#                                </li>#}
+{#                                <li class="px-1.5">#}
+{#                                    <button type="button" title="Editar"#}
+{#                                            data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"#}
+{#                                            data-url="{{ path('admin_customer_edit', {'customer': slot_booking.booking.id}) }}"#}
+{#                                            data-path-index="{{ app.request.requesturi }}"#}
+{#                                            class="edit_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">#}
+{#                                        <i class="fa-solid fa-pen-to-square"></i>#}
+{#                                        <span class="ml-1.5">Editar</span>#}
+{#                                    </button>#}
+{#                                </li>#}
+{#                                <li class="px-1.5">#}
+{#                                    <form method="post" action="{{ path('admin_customer_delete', {'customer': slot_booking.booking.id}) }}">#}
+{#                                        <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">#}
+{#                                        <button type="submit" title="Eliminar"#}
+{#                                                class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">#}
+{#                                            <i class="fa-solid fa-trash"></i>#}
+{#                                            <span class="ml-1.5">Eliminar</span>#}
+{#                                        </button>#}
+{#                                    </form>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
