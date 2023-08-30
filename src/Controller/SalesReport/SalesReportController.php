@@ -35,17 +35,17 @@ class SalesReportController extends AbstractController
             $quarter = ceil($currentDate->format('n') / 3);
             $year = $currentDate->format('Y');
 
-            $dateFrom = new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01');
+            $dateFrom = (new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01'))->setTime(0, 0);
             $dateTo = clone $dateFrom;
-            $dateTo->modify('+2 months')->modify('last day of this month');
+            ($dateTo->modify('+2 months')->modify('last day of this month'))->setTime(23, 59, 59);
         }
 
         if ($request->get('dateFrom') !== null) {
-            $dateFrom = new \DateTime($request->get('dateFrom'));
+            $dateFrom = (new \DateTime($request->get('dateFrom')))->setTime(0, 0);
         }
 
         if ($request->get('dateTo') !== null) {
-            $dateTo = new \DateTime($request->get('dateTo'));
+            $dateTo = (new \DateTime($request->get('dateTo')))->setTime(23, 59, 59);
         }
 
         $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod(
