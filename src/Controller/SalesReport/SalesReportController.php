@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/sales-report', name: 'admin_sales_report', methods: 'GET')]
+#[Route('/admin/sales-report', name: 'admin_sales_report', methods: ['GET', 'POST'])]
 class SalesReportController extends AbstractController
 {
     private SalePaymentManager $salePaymentManager;
@@ -30,8 +30,23 @@ class SalesReportController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $dateFrom = new \DateTime('2023-07-01 0:00:00');
-        $dateTo = new \DateTime('2023-09-30 23:59:59');
+        if ($request->get('dateFrom') === null || $request->get('dateTo') === null) {
+            $currentDate = (new \DateTime())->setTime(0, 0);
+            $quarter = ceil($currentDate->format('n') / 3);
+            $year = $currentDate->format('Y');
+
+            $dateFrom = new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01');
+            $dateTo = clone $dateFrom;
+            $dateTo->modify('+2 months')->modify('last day of this month');
+        }
+
+        if ($request->get('dateFrom') !== null) {
+            $dateFrom = new \DateTime($request->get('dateFrom'));
+        }
+
+        if ($request->get('dateTo') !== null) {
+            $dateTo = new \DateTime($request->get('dateTo'));
+        }
 
         $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod(
             $dateFrom,
@@ -76,6 +91,8 @@ class SalesReportController extends AbstractController
         }
 
         return $this->render('admin/sales_report/index.html.twig', [
+            'date_from' => $dateFrom,
+            'date_to' => $dateTo,
             'total_bizum' => $totalBizum,
             'total_card' => $totalCard,
             'total_cash' => $totalCash,
