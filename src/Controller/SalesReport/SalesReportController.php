@@ -30,22 +30,12 @@ class SalesReportController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        if ($request->get('dateFrom') === null || $request->get('dateTo') === null) {
-            $currentDate = (new \DateTime())->setTime(0, 0);
-            $quarter = ceil($currentDate->format('n') / 3);
-            $year = $currentDate->format('Y');
+        $dateRange = $this->getDateRange($request);
+        $dateFrom = $dateRange['dateFrom'];
+        $dateTo = $dateRange['dateTo'];
 
-            $dateFrom = (new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01'))->setTime(0, 0);
-            $dateTo = clone $dateFrom;
-            ($dateTo->modify('+2 months')->modify('last day of this month'))->setTime(23, 59, 59);
-        }
-
-        if ($request->get('dateFrom') !== null) {
-            $dateFrom = (new \DateTime($request->get('dateFrom')))->setTime(0, 0);
-        }
-
-        if ($request->get('dateTo') !== null) {
-            $dateTo = (new \DateTime($request->get('dateTo')))->setTime(23, 59, 59);
+        if ($dateTo < $dateFrom) {
+            $dateTo = (clone $dateFrom)->setTime(23, 59, 59);
         }
 
         $totalBizum = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethod(
@@ -99,5 +89,39 @@ class SalesReportController extends AbstractController
             'total_to_declare' => $totalToDeclare,
             'export_sales' => $exportSales,
         ]);
+    }
+
+    /**
+     * @return array{dateFrom: \DateTime, dateTo: \DateTime}
+     *
+     * @throws \Exception
+     */
+    private function getDateRange(Request $request): array
+    {
+        if (
+            ($request->get('dateFrom') === null || $request->get('dateFrom') === "")
+            || ($request->get('dateTo') === null || $request->get('dateTo') === "")
+        ) {
+            $currentDate = (new \DateTime())->setTime(0, 0);
+            $quarter = ceil($currentDate->format('n') / 3);
+            $year = $currentDate->format('Y');
+
+            $dateFrom = (new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01'))->setTime(0, 0);
+            $dateTo = clone $dateFrom;
+            ($dateTo->modify('+2 months')->modify('last day of this month'))->setTime(23, 59, 59);
+
+            return [
+                'dateFrom' => $dateFrom,
+                'dateTo' => $dateTo,
+            ];
+        }
+
+        $dateFrom = (new \DateTime($request->get('dateFrom')))->setTime(0, 0);
+        $dateTo = (new \DateTime($request->get('dateTo')))->setTime(23, 59, 59);
+
+        return [
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo,
+        ];
     }
 }

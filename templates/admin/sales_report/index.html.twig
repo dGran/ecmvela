@@ -11,23 +11,31 @@
         }
     ) }}
 
-    <form action="{{ path('admin_sales_report') }}" method="POST">
-        <div class="flex items-center space-x-4">
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <i class="fa-solid fa-calendar text-gray-500"></i>
+    <form id="form-sale-search" action="{{ path('admin_sales_report') }}" method="POST">
+        <div class="flex items-baseline space-x-4">
+            <div class="flex flex-col space-y-1">
+                <label for="date-from" class="uppercase text-xs font-medium text-gray-500">Fecha inicio</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fa-solid fa-calendar text-gray-500"></i>
+                    </div>
+                    <input name="dateFrom" id="date-from" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                           placeholder="Selecciona fecha inicio" value="{{ date_from|date('Y-m-d') }}">
                 </div>
-                <input name="dateFrom" id="dateFrom" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                       placeholder="Selecciona fecha inicio" value="{{ date_from|date('Y-m-d') }}">
             </div>
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <i class="fa-solid fa-calendar text-gray-500"></i>
+
+            <div class="flex flex-col space-y-1">
+                <label for="date-to" class="uppercase text-xs font-medium text-gray-500">Fecha fin</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fa-solid fa-calendar text-gray-500"></i>
+                    </div>
+                    <input name="dateTo" id="date-to" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                           placeholder="Selecciona fecha fin" value="{{ date_to|date('Y-m-d') }}">
                 </div>
-                <input name="dateTo" id="dateTo" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                       placeholder="Selecciona fecha fin" value="{{ date_to|date('Y-m-d') }}">
             </div>
-            <button type="submit" class="flex-initial px-6 py-3 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+
+            <button type="submit" class="mt-6 px-6 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
                 Buscar
             </button>
         </div>
@@ -39,11 +47,11 @@
         {% set card_percent = total_sales > 0 ? (total_card / total_sales) * 100 : 0%}
         {% set bizum_percent = total_sales > 0 ? (total_bizum / total_sales) * 100 : 0%}
         {% set to_declate_percent = total_sales > 0 ? ((total_card + total_bizum) / total_sales) * 100 : 0%}
-        <h2 class="font-semibold text-gray-900 dark:text-white">Total Ventas: <span class="font-bold">{{ total_sales|format_currency('EUR') }}</span></h2>
-        <h2 class="mt-4 font-semibold text-gray-900 dark:text-white">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ bizum_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="font-semibold text-gray-900 dark:text-white">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ card_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="font-semibold text-gray-900 dark:text-white">Total Efectivo: <span class="font-bold">{{ total_cash|format_number }}</span><span class="ml-3 text-xs text-gray-500">{{ cash_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="mt-4 font-semibold text-gray-900 dark:text-white">Total a declarar: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ to_declate_percent|number_format(2, '.', '') }}%</span></h2>
+        <h2 class="font-medium">Total Ventas: <span class="font-bold">{{ total_sales|format_currency('EUR') }}</span></h2>
+        <h2 class="mt-4 font-medium">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ bizum_percent|number_format(2, '.', '') }}%</span></h2>
+        <h2 class="font-medium">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ card_percent|number_format(2, '.', '') }}%</span></h2>
+        <h2 class="font-medium">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ cash_percent|number_format(2, '.', '') }}%</span></h2>
+        <h2 class="mt-4 font-medium">Total banco: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ to_declate_percent|number_format(2, '.', '') }}%</span></h2>
     </div>
 
     {% if (export_sales|length) > 0 %}
