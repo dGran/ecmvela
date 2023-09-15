@@ -24,6 +24,8 @@ class LoadPetSizeDataCommand extends Command
     protected const OPERATION_INSERT = 'INSERT';
     protected const OPERATION_UPDATE = 'UPDATE';
 
+    //TODO: Pasar lo array de los comandos a .json file o excel
+
     protected array $petSizes = [
         [
             'id' => 1,

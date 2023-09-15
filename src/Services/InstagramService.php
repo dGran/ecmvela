@@ -6,7 +6,7 @@ namespace App\Services;
 
 use App\Client\Instagram\Model\Media;
 use App\Client\Instagram\Service\MediaService;
-use GuzzleHttp\Exception\GuzzleException;
+use Psr\Log\LoggerInterface;
 
 class InstagramService
 {
@@ -17,9 +17,12 @@ class InstagramService
 
     private MediaService $mediaService;
 
-    public function __construct(MediaService $mediaService)
+    private LoggerInterface $logger;
+
+    public function __construct(MediaService $mediaService, LoggerInterface $logger)
     {
         $this->mediaService = $mediaService;
+        $this->logger = $logger;
     }
 
     /**
@@ -36,7 +39,6 @@ class InstagramService
      *     }
      *  }
      *
-     * @throws GuzzleException
      */
     public function getMedia(): array
     {
@@ -46,18 +48,21 @@ class InstagramService
         try {
             $publications = $this->mediaService->getLastPublications(self::NUMBER_OF_LAST_PUBLICATIONS);
         } catch (\Throwable $exception) {
+            $this->logger->critical(\DATE_W3C.' - '.__METHOD__.' - Failed to get last publications');
+
             return [
                 'publication_images' => $publicationImages,
                 'publication_videos' => $publicationVideos,
             ];
         }
 
-
         if ($publications->getPublications() !== null) {
             foreach ($publications->getPublications() as $publication) {
                 if ($publication->getCaption() && \stripos($publication->getCaption(), self::FILTER_VALID_IMAGE) !== false) {
-                    if (($publication->getMediaType() === Media::MEDIA_TYPE_IMAGE || $publication->getMediaType() === Media::MEDIA_TYPE_CAROUSEL_ALBUM)
-                        && \count($publicationImages) < self::MAX_MEDIA_IMAGES) {
+                    if (
+                        \count($publicationImages) < self::MAX_MEDIA_IMAGES
+                        && ($publication->getMediaType() === Media::MEDIA_TYPE_IMAGE || $publication->getMediaType() === Media::MEDIA_TYPE_CAROUSEL_ALBUM)
+                    ) {
                         $publicationImages[] = [
                             'media_url' => $publication->getMediaURL(),
                             'permalink' => $publication->getPermalink(),
@@ -71,7 +76,7 @@ class InstagramService
                             'permalink' => $publication->getPermalink(),
                             'date' => $publication->getTimestamp(),
                         ];
-                    };
+                    }
                 }
             }
         }

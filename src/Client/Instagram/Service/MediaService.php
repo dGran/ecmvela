@@ -12,12 +12,26 @@ use Psr\Log\LoggerInterface;
 
 class MediaService extends BaseService
 {
-    public const MEDIA_ENDPOINT = "/me/media";
-    public const MEDIA_FIELDS = "id,caption,media_type,media_url,permalink,timestamp";
+    private const MEDIA_ENDPOINT = "/me/media";
+
+    private const MEDIA_FIELDS = [
+        'id',
+        'caption',
+        'media_type',
+        'media_url',
+        'permalink',
+        'timestamp',
+    ];
+
+    private const MEDIA_FIELDS_SEPARATOR = ',';
+
+    private string $mediaFields;
 
     public function __construct(private readonly LoggerInterface $logger)
     {
         parent::__construct();
+
+        $this->mediaFields = \implode(self::MEDIA_FIELDS_SEPARATOR, self::MEDIA_FIELDS);
     }
 
     /**
@@ -29,7 +43,7 @@ class MediaService extends BaseService
         $client = new Client();
         $response = $client->request(
             'GET',
-            self::BASE_URI.self::MEDIA_ENDPOINT.'?fields='.self::MEDIA_FIELDS.'&access_token='.$this->accessToken.'&limit='.$limit
+            self::BASE_URI.self::MEDIA_ENDPOINT.'?fields='.$this->mediaFields.'&access_token='.$this->accessToken.'&limit='.$limit
         );
         $statusCode = $response->getStatusCode();
 
@@ -39,7 +53,7 @@ class MediaService extends BaseService
             return Serializer::deserialize($responseBodyContents, Publications::class, Serializer::FORMAT_JSON);
         }
 
-        $this->logger->critical('Invalid status code from instagram API, status code: '.$statusCode);
+        $this->logger->critical(\DATE_W3C.' - '.__METHOD__.' - Invalid status code from instagram API, status code: '.$statusCode);
 
         return new Publications();
     }
