@@ -48,10 +48,17 @@
         {% set bizum_percent = total_sales > 0 ? (total_bizum / total_sales) * 100 : 0%}
         {% set to_declate_percent = total_sales > 0 ? ((total_card + total_bizum) / total_sales) * 100 : 0%}
         <h2 class="font-medium">Total Ventas: <span class="font-bold">{{ total_sales|format_currency('EUR') }}</span></h2>
-        <h2 class="mt-4 font-medium">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ bizum_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="font-medium">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ card_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="font-medium">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ cash_percent|number_format(2, '.', '') }}%</span></h2>
-        <h2 class="mt-4 font-medium">Total banco: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ to_declate_percent|number_format(2, '.', '') }}%</span></h2>
+        <h2 class="mt-4 font-medium">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ bizum_percent|number_format(2, ',', '') }}%</span></h2>
+        <h2 class="font-medium">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ card_percent|number_format(2, ',', '') }}%</span></h2>
+        <h2 class="font-medium">Total Efectivo: <span class="font-bold">{{ total_cash|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ cash_percent|number_format(2, ',', '') }}%</span></h2>
+        <h2 class="mt-4 font-medium">Total banco: <span class="font-bold">{{ total_to_declare|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ to_declate_percent|number_format(2, ',', '') }}%</span></h2>
+    </div>
+
+    <div class="mt-6 p-4 rounded-lg bg-gray-50 border border-gray-300">
+        <h2 class="mb-4 font-medium">Total declaración</h2>
+        <h2 class="font-medium">Base imponible: <span class="font-bold">{{ declaration_totals['total_without_taxes']|format_currency('EUR') }}</span></h2>
+        <h2 class="font-medium">Total IVA: <span class="font-bold">{{ declaration_totals['total_taxes']|format_currency('EUR') }}</span></h2>
+        <h2 class="font-medium">Total: <span class="font-bold">{{ declaration_totals['total']|format_currency('EUR') }}</span></h2>
     </div>
 
     {% if (export_sales|length) > 0 %}
@@ -73,9 +80,9 @@
                     <td class="px-4 py-1 text-right">{{ sale['id'] }}</td>
                     <td class="px-4 py-1 text-right">{{ sale['invoice'] }}</td>
                     <td class="px-4 py-1 text-right">{{ sale['date']|date('d/m/Y') }}</td>
-                    <td class="px-4 py-1 text-right">{{ sale['total_without_taxes']|number_format(2, '.', '') }}</td>
-                    <td class="px-4 py-1 text-right">{{ sale['total_taxes']|number_format(2, '.', '') }}</td>
-                    <td class="px-4 py-1 text-right">{{ sale['total']|number_format(2, '.', '') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total_without_taxes']|number_format(2, ',', '') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total_taxes']|number_format(2, ',', '') }}</td>
+                    <td class="px-4 py-1 text-right">{{ sale['total']|number_format(2, ',', '') }}</td>
                 </tr>
             {% endfor %}
             </tbody>

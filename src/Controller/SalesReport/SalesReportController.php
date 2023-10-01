@@ -74,6 +74,9 @@ class SalesReportController extends AbstractController
 
         $salesToDeclare = $this->salePaymentManager->getSaleByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
         $exportSales = [];
+        $totalTotalWithoutTaxes = 0;
+        $totalTotalTaxes = 0;
+        $totalTotal = 0;
         $saleCounter = 226;
 
         foreach ($salesToDeclare as $saleToDeclare) {
@@ -102,8 +105,19 @@ class SalesReportController extends AbstractController
                 'total_taxes' => $calculateSaleTotals['total_taxes'],
                 'total' => $calculateSaleTotals['total'],
             ];
+
+            $totalTotalWithoutTaxes += $calculateSaleTotals['total_without_taxes'];
+            $totalTotalTaxes += $calculateSaleTotals['total_taxes'];
+            $totalTotal += $calculateSaleTotals['total'];
+
             $saleCounter++;
         }
+
+        $declarationTotals = [
+            'total_without_taxes' => $totalTotalWithoutTaxes,
+            'total_taxes' => $totalTotalTaxes,
+            'total' => $totalTotal,
+        ];
 
         return $this->render('admin/sales_report/index.html.twig', [
             'date_from' => $dateFrom,
@@ -113,6 +127,7 @@ class SalesReportController extends AbstractController
             'total_cash' => $totalCash,
             'total_to_declare' => $totalToDeclare,
             'export_sales' => $exportSales,
+            'declaration_totals' => $declarationTotals,
         ]);
     }
 
