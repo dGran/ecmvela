@@ -35,7 +35,7 @@ class SalePaymentRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('sale_payment')
             ->join('sale_payment.sale', 'sale')
-            ->select('SUM(sale_payment.amount) AS total')
+            ->select('SUM(sale.total) AS total')
             ->where('sale_payment.paymentMethod = :payment_method_id')
             ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
             ->setParameter('payment_method_id', $paymentMethodId)
@@ -53,7 +53,7 @@ class SalePaymentRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('sale_payment')
             ->join('sale_payment.sale', 'sale')
-            ->select('SUM(sale_payment.amount) AS total')
+            ->select('SUM(sale.total) AS total')
             ->where('sale_payment.paymentMethod <> :payment_method_id')
             ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
             ->setParameter('payment_method_id', PaymentMethod::CASH_METHOD_ID)
