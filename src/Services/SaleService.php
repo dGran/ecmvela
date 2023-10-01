@@ -35,29 +35,9 @@ class SaleService
     }
 
     /**
-     * @return array{total_discount: string, float, total_without_taxes: string, float, total_taxes: string, float, total: string, float}
-     */
-    private function calculateSaleLineTotals(SaleLine $saleLine): array
-    {
-        $discountMultiplier = (100 - $saleLine->getDiscount()) / 100;
-        $finalPrice = $saleLine->getPrice() * $discountMultiplier;
-        $total = $saleLine->getQuantity() * $finalPrice;
-        $totalWithoutTaxes = $total / (1 + ($saleLine->getTaxType()->getRate() / 100));
-        $totalTaxes = $total - $totalWithoutTaxes;
-        $totalDiscount = $saleLine->getQuantity() * $saleLine->getPrice() * (1 - $discountMultiplier);
-
-        return [
-            'total_discount' => $totalDiscount,
-            'total_without_taxes' => $totalWithoutTaxes,
-            'total_taxes' => $totalTaxes,
-            'total' => $total,
-        ];
-    }
-
-    /**
      * @return array{total_without_taxes: string, float, total_taxes: string, float, total: string, float}
      */
-    private function calculateSaleTotals(Sale $sale): array
+    public function calculateSaleTotals(Sale $sale): array
     {
         $totalDiscounts = 0.0;
         $totalWithoutTaxes = 0.0;
@@ -74,6 +54,26 @@ class SaleService
 
         return [
             'total_discounts' => $totalDiscounts,
+            'total_without_taxes' => $totalWithoutTaxes,
+            'total_taxes' => $totalTaxes,
+            'total' => $total,
+        ];
+    }
+
+    /**
+     * @return array{total_discount: string, float, total_without_taxes: string, float, total_taxes: string, float, total: string, float}
+     */
+    private function calculateSaleLineTotals(SaleLine $saleLine): array
+    {
+        $discountMultiplier = (100 - $saleLine->getDiscount()) / 100;
+        $finalPrice = $saleLine->getPrice() * $discountMultiplier;
+        $total = $saleLine->getQuantity() * $finalPrice;
+        $totalWithoutTaxes = $total / (1 + ($saleLine->getTaxType()->getRate() / 100));
+        $totalTaxes = $total - $totalWithoutTaxes;
+        $totalDiscount = $saleLine->getQuantity() * $saleLine->getPrice() * (1 - $discountMultiplier);
+
+        return [
+            'total_discount' => $totalDiscount,
             'total_without_taxes' => $totalWithoutTaxes,
             'total_taxes' => $totalTaxes,
             'total' => $total,

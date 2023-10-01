@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\SalesReport;
 
 use App\Entity\PaymentMethod;
+use App\Manager\SaleManager;
 use App\Manager\SalePaymentManager;
+use App\Services\SaleService;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +21,22 @@ class SalesReportController extends AbstractController
 {
     private SalePaymentManager $salePaymentManager;
 
-    public function __construct(SalePaymentManager $salePaymentManager)
-    {
+    private SaleManager $saleManager;
+
+    private SaleService $saleService;
+
+    private LoggerInterface $logger;
+
+    public function __construct(
+        SalePaymentManager $salePaymentManager,
+        SaleManager $saleManager,
+        SaleService $saleService,
+        LoggerInterface $logger
+    ) {
         $this->salePaymentManager = $salePaymentManager;
+        $this->saleManager = $saleManager;
+        $this->saleService = $saleService;
+        $this->logger = $logger;
     }
 
     /**
@@ -56,11 +72,21 @@ class SalesReportController extends AbstractController
 
         $totalToDeclare = $this->salePaymentManager->getTotalByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
 
-        $saleListTotDeclare = $this->salePaymentManager->getSaleByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
+        $salesToDeclare = $this->salePaymentManager->getSaleByDateRangeAndPaymentMethodNotCash($dateFrom, $dateTo);
         $exportSales = [];
-        $saleCounter = 88;
+        $saleCounter = 226;
 
-        foreach ($saleListTotDeclare as $sale) {
+        foreach ($salesToDeclare as $saleToDeclare) {
+            $sale = $this->saleManager->findOneById($saleToDeclare['id']);
+
+            if ($sale === null) {
+                $this->logger->critical(\date(DATE_W3C).' - Sale not found with Id: '.$saleToDeclare['id']);
+
+                continue;
+            }
+
+            $calculateSaleTotals = $this->saleService->calculateSaleTotals($sale);
+
             $saleIndex = match (true) {
                 $saleCounter > 99 => 'V230',
                 $saleCounter > 9 => 'V2300',
@@ -69,14 +95,13 @@ class SalesReportController extends AbstractController
 
             $invoice = $saleIndex.(string)$saleCounter;
             $exportSales[] = [
-                'id' => $sale['id'],
-                'date' => $sale['dateAdd'],
+                'id' => $saleToDeclare['id'],
+                'date' => $saleToDeclare['dateAdd'],
                 'invoice' => $invoice,
-                'total_without_taxes' => $sale['totalWithoutTaxes'],
-                'total_taxes' => $sale['totalTaxes'],
-                'total' => $sale['total'],
+                'total_without_taxes' => $calculateSaleTotals['total_without_taxes'],
+                'total_taxes' => $calculateSaleTotals['total_taxes'],
+                'total' => $calculateSaleTotals['total'],
             ];
-
             $saleCounter++;
         }
 
