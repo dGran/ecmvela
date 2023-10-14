@@ -38,20 +38,4 @@ class LegalController extends AbstractController
     {
         return $this->render('main/legal/cookies-policy.html.twig', []);
     }
-
-    /**
-     * @throws TransportExceptionInterface
-     */
-    #[Route('/mail', name: 'test_mail')]
-    public function testMail() {
-        $email = (new Email())
-            ->from('no-reply@gengemz.com')
-            ->to('dgranh@gmail.com')
-            ->subject('Test mail')
-            ->text('Test text.');
-
-        $this->mailer->send($email);
-
-        dump('send mail');die;
-    }
 }
