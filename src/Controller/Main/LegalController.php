@@ -6,10 +6,21 @@ namespace App\Controller\Main;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LegalController extends AbstractController
 {
+    private MailerInterface $mailer;
+
+    public function __construct(MailerInterface $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     #[Route('/aviso-legal', name: 'legal_warning')]
     public function legalWarning(): Response
     {
@@ -26,5 +37,21 @@ class LegalController extends AbstractController
     public function cookiesPolicy(): Response
     {
         return $this->render('main/legal/cookies-policy.html.twig', []);
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    #[Route('/mail', name: 'test_mail')]
+    public function testMail() {
+        $email = (new Email())
+            ->from('no-reply@gengemz.com')
+            ->to('dgranh@gmail.com')
+            ->subject('Test mail')
+            ->text('Test text.');
+
+        $this->mailer->send($email);
+
+        dump('send mail');die;
     }
 }
