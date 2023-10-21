@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Sale;
+namespace App\Tests\App\Sale;
 
 use App\Entity\SaleLine;
 use App\Entity\TaxType;
