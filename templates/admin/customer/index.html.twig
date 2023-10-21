@@ -3,14 +3,8 @@
 {% block title %}Clientes | {% endblock %}
 
 {% block main %}
-    {{ component(
-        'crudHeaderComponent',
-        {
-            section: 'Mantenimiento',
-            title: 'Clientes',
-            description: 'Mantenimiento de fichas de clientes.'
-        }
-    ) }}
+    {{ component('crudHeaderComponent', {section: 'Mantenimiento', title: 'Clientes', description: 'Mantenimiento de fichas de clientes.'}) }}
+
     {% include 'admin/customer/_filters.html.twig' %}
 
     <div class="my-6">

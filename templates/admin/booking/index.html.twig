@@ -3,13 +3,7 @@
 {% block title %}Agenda | {% endblock %}
 
 {% block main %}
-    {{ component(
-        'crudHeaderComponent',
-        {
-            section: 'Agenda',
-            title: 'Citas',
-        }
-    ) }}
+    {{ component('crudHeaderComponent', {section: 'Agenda', title: 'Citas'}) }}
 
     {% include 'admin/booking/header.html.twig' %}
 

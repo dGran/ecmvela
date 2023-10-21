@@ -3,14 +3,8 @@
 {% block title %}Festivos | {% endblock %}
 
 {% block main %}
-    {{ component(
-        'crudHeaderComponent',
-        {
-            section: 'Agenda',
-            title: 'Días Festivos',
-            description: 'Mantenimiento de días festivos.'
-        }
-    ) }}
+    {{ component('crudHeaderComponent', {section: 'Agenda', title: 'Días Festivos', description: 'Mantenimiento de días festivos.'}) }}
+
     {% include 'admin/public_holiday/_filters.html.twig' %}
 
     <div class="my-6">
