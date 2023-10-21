@@ -10,8 +10,12 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class InputComponent
 {
     public string $type = 'text';
+
     public string $textSize = 'sm';
+
     public string $placeHolder = '';
+
     public ?string $id = null;
+
     public string $name = '';
 }

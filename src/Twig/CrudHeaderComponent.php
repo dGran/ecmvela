@@ -10,6 +10,8 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class CrudHeaderComponent
 {
     public ?string $section = null;
+
     public ?string $title = null;
+
     public ?string $description = null;
 }

@@ -111,4 +111,3 @@ class SaleServiceTest extends TestCase
         return $saleLine;
     }
 }
-

@@ -10,7 +10,9 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class AlertComponent
 {
     public string $type = 'success';
+
     public string $message;
+
     public string $size = 'sm';
 
     public function getAlertClass(): string

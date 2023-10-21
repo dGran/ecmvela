@@ -11,5 +11,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class HeaderLinkComponent
 {
     public string $path;
+
     public string $message;
 }

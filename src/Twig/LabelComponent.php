@@ -11,6 +11,8 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class LabelComponent
 {
     public string $textSize = 'sm';
+
     public ?string $inputId = null;
+
     public string $label;
 }
