@@ -1,0 +1,24 @@
+<!-- Modal header -->
+<div class="flex items-start justify-between border-b rounded-t bg-slate-50 p-3">
+    <div class="flex items-center space-x-3">
+        <p class="text-[11px] md:text-xs font-semibold border-r text-slate-500 rounded px-4 py-1.5 uppercase">Cliente</p>
+        <h3 class="md:text-lg font-semibold text-gray-900 dark:text-white">{{ public_holiday.name }}</h3>
+    </div>
+</div>
+<!-- Modal body -->
+<div class="p-6 text-sm">
+    <ul class="border rounded-md">
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Id</p>
+            <p class="flex-1 text-left w-full">{{ public_holiday.id }}</p>
+        </li>
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Fecha</p>
+            <p class="flex-1 text-left w-full">{{ public_holiday.date|date('d/m/Y') }}</p>
+        </li>
+        <li class="px-2.5 flex items-start justify-between px-1.5 py-2.5 border-b space-x-4 hover:bg-amber-50">
+            <p class="flex-1 font-medium text-right w-full">Nombre</p>
+            <p class="flex-1 text-left w-full">{{ public_holiday.name }}</p>
+        </li>
+    </ul>
+</div>

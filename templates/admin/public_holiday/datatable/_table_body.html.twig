@@ -1,0 +1,97 @@
+<tbody>
+{% for public_holiday in public_holidays %}
+    <tr class="h-12 border-b last:border-b-0 border-slate-200 even:bg-neutral-50 hover:bg-amber-50">
+        <td class="md:hidden py-1.5 pl-4 pr-1 whitespace-nowrap">
+            <button type="button" id="dropdownActionsButton" data-dropdown-toggle="dropdownActions{{ public_holiday.id }}" data-dropdown-offset-distance="5" data-dropdown-placement="right-start"
+                    class="w-9 px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent active:bg-blue-600 focus:outline-none">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div id="dropdownActions{{ public_holiday.id }}" class="dropdown hidden md:hidden z-50 bg-white rounded-md shadow w-auto text-xs text-slate-700">
+                <ul class="text-xs py-1.5" aria-labelledby="dropdownActionsButton">
+                    <li class="px-1.5">
+                        <button type="button" title="Ver"
+                                data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_public_holiday_show', {'publicHoliday': public_holiday.id}) }}"
+                                class="ajax_modal_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-eye"></i>
+                            <span class="ml-1.5">Ver</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <a href="{{ path('admin_public_holiday_clone', {'publicHoliday': public_holiday.id}) }}"
+                           data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_public_holiday_show', {'publicHoliday': public_holiday.id}) }}"
+                           class="text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-clone"></i>
+                            <span class="ml-1.5">Clonar</span>
+                        </a>
+                    </li>
+                    <li class="px-1.5">
+                        <button type="button" title="Editar"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                                data-url="{{ path('admin_public_holiday_edit', {'publicHoliday': public_holiday.id}) }}"
+                                data-path-index="{{ app.request.requesturi }}"
+                                class="edit_button | text-left w-full px-4 py-2 rounded hover:bg-slate-100 focus:bg-slate-100 focus:outline-none">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span class="ml-1.5">Editar</span>
+                        </button>
+                    </li>
+                    <li class="px-1.5">
+                        <form method="post" action="{{ path('admin_public_holiday_delete', {'publicHoliday': public_holiday.id}) }}">
+                            <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
+                            <button type="submit" title="Eliminar"
+                                    data-name="{{ public_holiday.name }}"
+                                    data-date="{{ public_holiday.date|date('d-m-Y') }}"
+                                    class="delete-action-button | text-left w-full px-4 py-2 rounded text-red-700 hover:bg-red-100 focus:bg-red-100 focus:outline-none">
+                                <i class="fa-solid fa-trash"></i>
+                                <span class="ml-1.5">Eliminar</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </td>
+
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            {{ public_holiday.id }}
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <div class="flex items-center space-x-3">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_public_holiday_show', {'publicHoliday': public_holiday.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button hover:underline focus:underline focus:outline-none">
+                    <i class="fa-solid fa-link"></i><span class="ml-1.5">{{ public_holiday.date|date('d/m/Y') }}</span>
+                </button>
+            </div>
+        </td>
+        <td class="py-1.5 px-3 whitespace-nowrap">
+            <span>{{ public_holiday.name }}</span>
+        </td>
+        <td class="hidden md:block py-1.5 px-4 whitespace-nowrap">
+            <div class="flex items-center justify-end space-x-1">
+                <button data-modal-target="ajax-modal" data-modal-toggle="ajax-modal" data-url="{{ path('admin_public_holiday_show', {'publicHoliday': public_holiday.id}) }}" title="Ver"
+                        type="button" class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <a href="{{ path('admin_public_holiday_clone', {'publicHoliday': public_holiday.id}) }}" title="Clonar"
+                   class="ajax_modal_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-clone"></i>
+                </a>
+                <button type="button" title="Editar"
+                        data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                        data-url="{{ path('admin_public_holiday_edit', {'publicHoliday': public_holiday.id}) }}"
+                        class="edit_button | px-2.5 py-1.5 text-sm bg-white text-slate-600 border border-slate-300 rounded-md hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <form method="post" action="{{ path('admin_public_holiday_delete', {'publicHoliday': public_holiday.id}) }}">
+                    <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
+                    <button type="submit" title="Eliminar"
+                            data-name="{{ public_holiday.name }}"
+                            data-date="{{ public_holiday.date|date('d-m-Y') }}"
+                            class="delete-action-button | px-2.5 py-1.5 text-sm bg-white text-red-600 border border-slate-300 rounded-md hover:bg-red-500 focus:bg-red-500 hover:text-white focus:text-white hover:border-transparent focus:border-transparent focus:outline-none">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

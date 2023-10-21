@@ -26,10 +26,21 @@ class Booking
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $duration = null;
+    private ?int $estimatedDuration = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
+
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $reminderSent = false;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $dateAdd;
+
+    public function __construct()
+    {
+        $this->dateAdd = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -41,7 +52,7 @@ class Booking
         return $this->pet;
     }
 
-    public function setPet(?Pet $pet): self
+    public function setPet(?Pet $pet): Booking
     {
         $this->pet = $pet;
 
@@ -53,7 +64,7 @@ class Booking
         return $this->Customer;
     }
 
-    public function setCustomer(?Customer $Customer): self
+    public function setCustomer(?Customer $Customer): Booking
     {
         $this->Customer = $Customer;
 
@@ -65,21 +76,21 @@ class Booking
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): Booking
     {
         $this->date = $date;
 
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getEstimatedDuration(): ?int
     {
-        return $this->duration;
+        return $this->estimatedDuration;
     }
 
-    public function setDuration(?int $duration): self
+    public function setDuration(?int $estimatedDuration = null): Booking
     {
-        $this->duration = $duration;
+        $this->estimatedDuration = $estimatedDuration;
 
         return $this;
     }
@@ -89,9 +100,33 @@ class Booking
         return $this->notes;
     }
 
-    public function setNotes(?string $notes): self
+    public function setNotes(?string $notes): Booking
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getDateAdd(): \DateTimeInterface
+    {
+        return $this->dateAdd;
+    }
+
+    public function setDateAdd(\DateTimeInterface $dateAdd): Booking
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    public function isReminderSent(): bool
+    {
+        return $this->reminderSent;
+    }
+
+    public function setReminderSent(bool $reminderSent): Booking
+    {
+        $this->reminderSent = $reminderSent;
 
         return $this;
     }

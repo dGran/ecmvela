@@ -11,7 +11,9 @@
             <span>Agenda</span>
         </h5>
         <ul>
-            {{ component('adminNavItem', {path: 'admin_test', message: 'Reservas', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_booking', message: 'Citas', tag: 'in progress', routeFilter: 'admin_booking_'}) }}
+            {{ component('adminNavItem', {path: 'admin_test', message: 'Configuración', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
+            {{ component('adminNavItem', {path: 'admin_public_holiday', message: 'Festivos', routeFilter: 'admin_public_holiday_'}) }}
         </ul>
     </li>
     <li class="mt-6">
@@ -67,7 +69,7 @@
         <ul>
             {{ component('adminNavItem', {path: 'admin_pet', message: 'Mascotas', routeFilter: 'admin_pet_'}) }}
             {{ component('adminNavItem', {path: 'admin_customer', message: 'Clientes', routeFilter: 'admin_customer_'}) }}
-            {{ component('adminNavItem', {path: 'admin_agenda', message: 'Agenda', tag: 'pendiente', disable: true, routeFilter: 'admin_agenda_'}) }}
+            {{ component('adminNavItem', {path: 'admin_booking', message: 'Agenda', tag: 'pendiente', disable: true, routeFilter: 'admin_booking_'}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Servicios', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
             {{ component('adminNavItem', {path: 'admin_test', message: 'Productos', tag: 'pendiente', disable: true, routeFilter: 'admin_test_'}) }}
         </ul>

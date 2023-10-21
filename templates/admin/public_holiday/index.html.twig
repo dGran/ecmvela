@@ -1,0 +1,21 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Festivos | {% endblock %}
+
+{% block main %}
+    {{ component('crudHeaderComponent', {section: 'Agenda', title: 'Días Festivos', description: 'Mantenimiento de días festivos.'}) }}
+
+    {% include 'admin/public_holiday/_filters.html.twig' %}
+
+    <div class="my-6">
+        {% include 'admin/public_holiday/_datatable.html.twig' %}
+    </div>
+
+    {% include 'modal/admin/ajax-modal.html.twig' %}
+    {% include 'modal/admin/ajax-static-modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('build/app/js/admin/public_holiday/crud.js') }}"></script>
+    <script src="{{ asset('build/app/js/admin/ajax-modal.js') }}"></script>
+{% endblock %}

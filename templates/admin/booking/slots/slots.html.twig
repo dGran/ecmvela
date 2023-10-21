@@ -1,0 +1,22 @@
+<div class="lg:border-l-2">
+    <div class="pb-4 pl-4 sm:pl-6 border-b">
+        <div class="inline-flex rounded shadow-sm text-xs lg:text-sm">
+            <a href="{{ path('admin_booking', {'view': 'day', 'day': day|date('Y-m-d')}) }}"
+               class="px-4 py-2 border rounded-l focus:outline-none flex items-center space-x-2 {% if view == 'day' %}bg-blue-500 text-white border-blue-500 pointer-events-none{% else %}bg-white border-gray-300 hover:bg-slate-50 focus:bg-slate-50{% endif %}">
+                <i class="fa-solid fa-calendar-day"></i><span>Día</span>
+            </a>
+            <a href="{{ path('admin_booking', {'view': 'week', 'day': day|date('Y-m-d')}) }}"
+               class="px-4 py-2 border rounded-r focus:outline-none flex items-center space-x-2 {% if view == 'week' %}bg-blue-500 text-white border-blue-500 pointer-events-none{% else %}bg-white border-gray-300 hover:bg-slate-50 focus:bg-slate-50{% endif %}">
+                <i class="fa-solid fa-calendar-week"></i><span>Semana</span>
+            </a>
+        </div>
+    </div>
+
+    {% if view == 'day' %}
+        {% include 'admin/booking/slots/_day_view.html.twig' %}
+    {% endif %}
+
+    {% if view == 'week' %}
+        {% include 'admin/booking/slots/_week_view.html.twig' %}
+    {% endif %}
+</div>

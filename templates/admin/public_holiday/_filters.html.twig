@@ -1,0 +1,25 @@
+<div class="flex items-center justify-between space-x-4">
+    <button type="button" title="Nuevo"
+            data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+            data-url="{{ path('admin_public_holiday_create') }}"
+            class="create_button | flex-initial px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+        Nuevo
+    </button>
+
+    <form method="get" action="{{ path('admin_public_holiday') }}" class="flex-1 flex items-center">
+        <label for="filter_search" class="sr-only">Buscar</label>
+        <div class="relative w-full">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <input type="search" id="filter_search" name="search" class="block w-full p-2 pl-10 text-sm border border-slate-300 rounded-md bg-white focus:border-blue-500 focus:outline-none"
+                   placeholder="Buscar" autofocus autocomplete="off" value="{{ filter_search }}">
+        </div>
+    </form>
+
+    <button type="submit" class="flex-initial px-4 py-2.5 bg-transparent font-medium text-sm leading-tight uppercase rounded hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg hover:text-white focus:text-white focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+        <i class="fa-solid fa-filter"></i>
+    </button>
+</div>
