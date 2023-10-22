@@ -40,4 +40,18 @@ class BookingRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @return Booking[]
+     */
+    public function findByDateFromAndDateTo(\DateTime $dateFrom, \DateTime $dateTo): array
+    {
+        return $this->createQueryBuilder('booking')
+            ->where('booking.date BETWEEN :date_from AND :date_to')
+            ->setParameter('date_from', $dateFrom)
+            ->setParameter('date_to', $dateTo)
+            ->orderBy('booking.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
