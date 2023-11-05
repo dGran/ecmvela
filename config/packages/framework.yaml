@@ -13,6 +13,12 @@ framework:
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
 
+    cache:
+        pools:
+            custom_cache:
+                adapter: cache.adapter.filesystem
+                default_lifetime: 0
+
     #esi: true
     #fragments: true
     php_errors:

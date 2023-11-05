@@ -23,3 +23,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    my_cache_pool:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+        arguments:
+            - 'custom_cache'
+            - 0
+            - '%kernel.cache_dir%/custom_cache'

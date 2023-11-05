@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Model\View;
 
+use App\Client\Instagram\Media\Model\MediaItem;
+
 class HomeView
 {
     /**
-     * @var array{media_url: string, permalink: string, date: int}
+     * @var MediaItem[]
      */
     public array $instagramPublicationImages;
 
     /**
-     * @var array{media_url: string, permalink: string, date: int}
+     * @var MediaItem[]
      */
     public array $instagramPublicationVideos;
 

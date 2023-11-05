@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\Client\Instagram\Media\Exception\InvalidCredentialsException;
 use App\Model\View\HomeView;
 use App\Services\InstagramService;
 use GuzzleHttp\Exception\GuzzleException;
@@ -69,16 +70,16 @@ class HomeViewManager
     }
 
     /**
-     * @throws GuzzleException
+     * @return HomeView
      */
     public function build(): HomeView
     {
         $view = new HomeView();
 
-        $instagramPublications = $this->instagramService->getMedia();
+        $publications = $this->instagramService->getPublications();
 
-        $view->instagramPublicationImages = $instagramPublications['publication_images'];
-        $view->instagramPublicationVideos = $instagramPublications['publication_videos'];
+        $view->instagramPublicationImages = $publications->publicationImages;
+        $view->instagramPublicationVideos = $publications->publicationVideos;
         $view->googleReviews = self::DUMMY_REVIEWS;
 
         return $view;

@@ -72,7 +72,7 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Media de ventas semanal',
+                            'label' => 'MediaItem de ventas semanal',
                             'data' => $monthlySalesWeekAverageData,
                             'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
                             'borderColor' => 'rgb(153, 102, 255)',
@@ -101,7 +101,7 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Media de ventas diaria',
+                            'label' => 'MediaItem de ventas diaria',
                             'data' => $monthlySalesDailyAverageData,
                             'backgroundColor' => 'rgba(75, 192, 192, 0.5)',
                             'borderColor' => 'rgb(75, 192, 192)',

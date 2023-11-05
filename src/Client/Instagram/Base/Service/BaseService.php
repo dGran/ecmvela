@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Client\Instagram\Service;
+namespace App\Client\Instagram\Base\Service;
+
+use Psr\Log\LoggerInterface;
 
 class BaseService
 {
@@ -10,8 +12,12 @@ class BaseService
 
     public string $accessToken;
 
-    public function __construct()
+    protected LoggerInterface $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger = $logger;
+
         $this->accessToken = $_ENV['INSTAGRAM_ACCESS_TOKEN'];
     }
 }

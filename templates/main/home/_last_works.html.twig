@@ -18,11 +18,11 @@
             {% for instagram_publication_video in instagram_publication_videos %}
                 <div class="relative group">
                     <video autoplay muted controls loop class="h-auto max-w-full relative">
-                        <source src="{{ instagram_publication_video.media_url }}" type="video/mp4">
+                        <source src="{{ instagram_publication_video.mediaUrl }}" type="video/mp4">
                     </video>
                     <div class="hidden absolute top-0 left-0 right-0 group-hover:block">
                         <div class="m-2.5 flex flex-col items-center bg-yellow-200 py-1.5 px-3 font-medium text-xs md:text-sm lg:text-base opacity-80 rounded">
-                            <p>{{ instagram_publication_video.date|date('d/m/Y') }}</p>
+                            <p>{{ instagram_publication_video.timestamp|date('d/m/Y') }}</p>
                             <p class="flex items-center justify-center space-x-1.5">
                                 <i class="fa-brands fa-instagram text-black text-base md:text-lg lg:text-xl"></i>
                                 <a href="{{ instagram_publication_video.permalink }}" target="_blank" class="hover:underline focus:underline focus:outline-none">

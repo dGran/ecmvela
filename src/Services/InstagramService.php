@@ -4,86 +4,51 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Client\Instagram\Model\Media;
-use App\Client\Instagram\Service\MediaService;
-use Psr\Log\LoggerInterface;
+use App\Client\Instagram\Media\Factory\PublicationRequestFactory;
+use App\Client\Instagram\Media\Factory\PublicationResponseFactory;
+use App\Client\Instagram\Media\Model\MediaResponse;
+use App\Client\Instagram\Media\Model\Publications;
+use App\Client\Instagram\Media\Service\MediaService;
+use App\Helper\Serializer;
+use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class InstagramService
 {
-    private const MAX_MEDIA_VIDEOS = 8;
-    private const MAX_MEDIA_IMAGES = 8;
     private const NUMBER_OF_LAST_PUBLICATIONS = 150;
-    private const FILTER_VALID_IMAGE = 'peluqueracanina ';
+
+    private const CACHE_KEY_INSTAGRAM_PUBLICATIONS = "instagram_publications";
 
     private MediaService $mediaService;
 
-    private LoggerInterface $logger;
+    private CacheInterface $cache;
 
-    public function __construct(MediaService $mediaService, LoggerInterface $logger)
+    public function __construct(MediaService $mediaService, CacheInterface $cache)
     {
         $this->mediaService = $mediaService;
-        $this->logger = $logger;
+        $this->cache = $cache;
     }
 
     /**
-     * @return array{
-     *     publication_images: array{
-     *         media_url: string,
-     *         permalink: string,
-     *         date: int
-     *     },
-     *     publication_videos: array{
-     *         media_url: string,
-     *         permalink: string,
-     *         date: int
-     *     }
-     *  }
-     *
+     * @throws GuzzleException
+     * @throws \Throwable
      */
-    public function getMedia(): array
+    public function getPublications(): Publications
     {
-        $publicationImages = [];
-        $publicationVideos = [];
+        $cachedData = $this->cache->getItem(self::CACHE_KEY_INSTAGRAM_PUBLICATIONS);
 
-        try {
-            $publications = $this->mediaService->getLastPublications(self::NUMBER_OF_LAST_PUBLICATIONS);
-        } catch (\Throwable $exception) {
-            $this->logger->critical(\DATE_W3C.' - '.__METHOD__.' - Failed to get last publications');
+        if (!$cachedData->isHit()) {
+            $publicationRequest = PublicationRequestFactory::build(self::NUMBER_OF_LAST_PUBLICATIONS);
+            $mediaResponse = $this->mediaService->getMedia($publicationRequest);
+            $cachedData->set(Serializer::serialize($mediaResponse, Serializer::FORMAT_JSON));
+            $cachedData->expiresAfter(new \DateInterval('P1D'));
+            $this->cache->save($cachedData);
 
-            return [
-                'publication_images' => $publicationImages,
-                'publication_videos' => $publicationVideos,
-            ];
+            return PublicationResponseFactory::build($mediaResponse);
         }
 
-        if ($publications->getPublications() !== null) {
-            foreach ($publications->getPublications() as $publication) {
-                if ($publication->getCaption() && \stripos($publication->getCaption(), self::FILTER_VALID_IMAGE) !== false) {
-                    if (
-                        \count($publicationImages) < self::MAX_MEDIA_IMAGES
-                        && ($publication->getMediaType() === Media::MEDIA_TYPE_IMAGE || $publication->getMediaType() === Media::MEDIA_TYPE_CAROUSEL_ALBUM)
-                    ) {
-                        $publicationImages[] = [
-                            'media_url' => $publication->getMediaURL(),
-                            'permalink' => $publication->getPermalink(),
-                            'date' => $publication->getTimestamp(),
-                        ];
-                    }
+        $mediaResponse = Serializer::deserialize($cachedData->get(), MediaResponse::class, Serializer::FORMAT_JSON);
 
-                    if ($publication->getMediaType() === Media::MEDIA_TYPE_VIDEO && \count($publicationVideos) < self::MAX_MEDIA_VIDEOS) {
-                        $publicationVideos[] = [
-                            'media_url' => $publication->getMediaURL(),
-                            'permalink' => $publication->getPermalink(),
-                            'date' => $publication->getTimestamp(),
-                        ];
-                    }
-                }
-            }
-        }
-
-        return [
-            'publication_images' => $publicationImages,
-            'publication_videos' => $publicationVideos,
-        ];
+        return PublicationResponseFactory::build($mediaResponse);
     }
 }
