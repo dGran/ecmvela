@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\PetSize;
-use App\Helper\Slugify;
+use App\Utils\Slugify;
 use App\Manager\PetSizeManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

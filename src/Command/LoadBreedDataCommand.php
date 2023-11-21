@@ -6,7 +6,7 @@ namespace App\Command;
 
 use App\Entity\Breed;
 use App\Entity\PetCategory;
-use App\Helper\Slugify;
+use App\Utils\Slugify;
 use App\Manager\BreedManager;
 use App\Manager\PetSizeManager;
 use App\Manager\HairTypeManager;

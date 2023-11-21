@@ -6,7 +6,7 @@ namespace App\Controller\Admin\Pet;
 
 use App\Entity\Pet;
 use App\Entity\Sale;
-use App\Helper\Helper;
+use App\Utils\Helper;
 use App\Manager\SaleManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

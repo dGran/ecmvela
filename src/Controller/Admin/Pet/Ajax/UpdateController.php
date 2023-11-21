@@ -6,7 +6,7 @@ namespace App\Controller\Admin\Pet\Ajax;
 
 use App\Entity\Pet;
 use App\Form\PetType;
-use App\Helper\Slugify;
+use App\Utils\Slugify;
 use App\Manager\PetManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

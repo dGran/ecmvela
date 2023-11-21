@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Helper;
+namespace App\Utils;
 
 use JMS\Serializer\Accessor\DefaultAccessorStrategy;
 use JMS\Serializer\DeserializationContext;
