@@ -6,7 +6,7 @@ namespace App\Client\Instagram\Media\Factory;
 
 use App\Client\Instagram\Media\Model\MediaRequest;
 
-class PublicationRequestFactory
+class MediaRequestFactory
 {
     private const MEDIA_FIELDS = [
         'id',
