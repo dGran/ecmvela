@@ -6,17 +6,10 @@ namespace App\Controller\Main;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LegalController extends AbstractController
 {
-    private MailerInterface $mailer;
-
-    public function __construct(MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
-    }
 
     #[Route('/aviso-legal', name: 'legal_warning')]
     public function legalWarning(): Response
