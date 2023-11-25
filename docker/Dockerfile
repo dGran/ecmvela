@@ -93,6 +93,7 @@ RUN composer --version
 
 # Add symfony alias
 RUN echo 'alias sf="php bin/console"' >> ~/.bashrc
+RUN echo 'alias phpunit="/var/www/ecmvela/vendor/bin/phpunit"' >> ~/.bashrc
 
 # Set working directory
 WORKDIR /var/www/ecmvela
