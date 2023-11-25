@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Client\Instagram\Tests\Media;
+namespace Instagram\Media;
 
 use App\Client\Instagram\Media\Factory\MediaRequestFactory;
 use App\Client\Instagram\Media\Service\MediaService;
 
-include dirname(__DIR__, 5).'/vendor/autoload.php';
+include dirname(__DIR__, 3).'/vendor/autoload.php';
 
 $test = new GetMediaTest();
 $test->run();

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Client\Instagram\Tests\System;
+namespace Instagram\System;
 
 use App\Client\Instagram\System\Service\SystemService;
 
-include dirname(__DIR__, 5).'/vendor/autoload.php';
+include dirname(__DIR__, 3).'/vendor/autoload.php';
 
 $test = new GetAccountDetailsTest();
 $test->run();
@@ -18,7 +18,7 @@ class GetAccountDetailsTest
     public function __construct()
     {
         $configuration = [
-            'access_token' => 'IGQWRNOVBndU1YWXgwZAFJYNzNLcVJ0Tk5KaDJwT1pRcER5YVJDWm1BN0hRUi1CVUlZATVRJZAGlZARTBWQllPZAmFXOUhGVEVnYV9wd1duTmVQazVFZAWJqaW5ub2p6a2FlVExib0lUa2ZAEMkUwbUNpSThDdUdLd2prcmsZD',
+            'access_token' => 'IGQWRQbEd2d3BSVDRpR0lLVTMyNU1JX1pjZA0pQaUlBcm85aEdFbFNBRmVNemdGRm5ROEFlRzVPM2Q4a2c3YmhKbGdlOWFnNjJnS0gxU1U2MFZAHVV9MejRuYl9wYmZAGbGlzR3BUVEJCWDI2QQZDZD',
             'expires_in' => null,
         ];
         $this->systemService = new SystemService($configuration);

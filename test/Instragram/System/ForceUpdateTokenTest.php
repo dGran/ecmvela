@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Client\Instagram\Tests\System;
+namespace Instagram\System;
 
 use App\Client\Instagram\System\Service\SystemService;
 
-include dirname(__DIR__, 5).'/vendor/autoload.php';
+include dirname(__DIR__, 3).'/vendor/autoload.php';
 
 $test = new ForceUpdateTokenTest();
 $test->run();

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Sale;
+namespace App\Sale;
 
 use App\Entity\SaleLine;
 use App\Entity\TaxType;
@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 class SaleServiceTest extends TestCase
 {
     private SaleManager&MockObject $saleManager;
+
     private SaleLineManager&MockObject $saleLineManager;
 
     protected function setUp(): void
@@ -31,10 +32,7 @@ class SaleServiceTest extends TestCase
     /**
      * @dataProvider provideSaleLine
      *
-     * @param SaleLine $saleLine
      * @param array{total_discounts: float, total_without_taxes: float, total_taxes: float, total: float} $expectedTotals
-     *
-     * @return void
      *
      * @throws \ReflectionException
      */
@@ -47,19 +45,19 @@ class SaleServiceTest extends TestCase
 
         $result = $reflectionMethod->invoke($saleService, $saleLine);
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('total_discount', $result);
-        $this->assertArrayHasKey('total_without_taxes', $result);
-        $this->assertArrayHasKey('total_taxes', $result);
-        $this->assertArrayHasKey('total', $result);
-        $this->assertIsFloat($result['total_discount']);
-        $this->assertIsFloat($result['total_without_taxes']);
-        $this->assertIsFloat($result['total_taxes']);
-        $this->assertIsFloat($result['total']);
-        $this->assertEquals($expectedTotals['total_discount'], round($result['total_discount'], 2));
-        $this->assertEquals($expectedTotals['total_without_taxes'], round($result['total_without_taxes'], 2));
-        $this->assertEquals($expectedTotals['total_taxes'], round($result['total_taxes'], 2));
-        $this->assertEquals($expectedTotals['total'], round($result['total'], 2));
+        self::assertIsArray($result);
+        self::assertArrayHasKey('total_discount', $result);
+        self::assertArrayHasKey('total_without_taxes', $result);
+        self::assertArrayHasKey('total_taxes', $result);
+        self::assertArrayHasKey('total', $result);
+        self::assertIsFloat($result['total_discount']);
+        self::assertIsFloat($result['total_without_taxes']);
+        self::assertIsFloat($result['total_taxes']);
+        self::assertIsFloat($result['total']);
+        self::assertEquals($expectedTotals['total_discount'], round($result['total_discount'], 2));
+        self::assertEquals($expectedTotals['total_without_taxes'], round($result['total_without_taxes'], 2));
+        self::assertEquals($expectedTotals['total_taxes'], round($result['total_taxes'], 2));
+        self::assertEquals($expectedTotals['total'], round($result['total'], 2));
     }
 
     private function provideSaleLine(): \Iterator
@@ -78,7 +76,7 @@ class SaleServiceTest extends TestCase
 
         yield 'Sale line with discount' => [
             'sale line' => $this->getSaleLine($quantity, $price, $discount, $taxRate),
-            'expected totals' => $expectedTotals
+            'expected totals' => $expectedTotals,
         ];
 
         $quantity = 2;
@@ -94,7 +92,7 @@ class SaleServiceTest extends TestCase
 
         yield 'Sale line without discount' => [
             'sale line' => $this->getSaleLine($quantity, $price, $discount, $taxRate),
-            'expected totals' => $expectedTotals
+            'expected totals' => $expectedTotals,
         ];
     }
 
