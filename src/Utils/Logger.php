@@ -32,7 +32,7 @@ class Logger
     private function __construct()
     {
         $loggerName = 'app';
-        $loggingFile = \dirname(__DIR__).'var/log/app_'.date('YmdH').'log';;
+        $loggingFile = \dirname(__DIR__, 2).'/var/log/app_'.date('YmdH').'_log';
 
         $loggerHandler = new RotatingFileHandler($loggingFile, self::MAX_FILES, Level::Debug);
         $this->appLogger = new MonologLogger($loggerName);
