@@ -23,12 +23,12 @@ class InstagramService
 
     private CacheInterface $cache;
 
-    private ClientManager $clientManager;
+    private ClientService $clientService;
 
-    public function __construct(CacheInterface $cache, ClientManager $clientManager)
+    public function __construct(CacheInterface $cache, ClientService $clientService)
     {
         $this->cache = $cache;
-        $this->clientManager = $clientManager;
+        $this->clientService = $clientService;
     }
 
     /**
@@ -40,8 +40,8 @@ class InstagramService
         $cachedData = $this->cache->getItem(self::CACHE_KEY_INSTAGRAM_PUBLICATIONS);
 
         if (!$cachedData->isHit()) {
-            $client = $this->clientManager->findOneById(Client::TYPE_INSTAGRAM);
-            $mediaService = new MediaService($client);
+            $configuration = $this->clientService->getClientConfiguration(Client::TYPE_INSTAGRAM);
+            $mediaService = new MediaService($configuration);
 
             $publicationRequest = MediaRequestFactory::build(self::NUMBER_OF_LAST_PUBLICATIONS);
             $mediaResponse = $mediaService->getMedia($publicationRequest);
