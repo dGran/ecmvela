@@ -8,7 +8,6 @@ use App\Client\Instagram\Base\Service\BaseService;
 use App\Client\Instagram\Media\Model\MediaRequest;
 use App\Client\Instagram\Media\Model\MediaResponse;
 use App\Utils\Serializer;
-use GuzzleHttp\Exception\ClientException;
 
 class MediaService extends BaseService
 {
@@ -21,7 +20,7 @@ class MediaService extends BaseService
                 'fields' => $mediaRequest->mediaFields,
                 'limit' => $mediaRequest->limit,
             ]);
-        } catch (ClientException $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error(
                 __METHOD__.' ClientException',
                 [
@@ -31,7 +30,7 @@ class MediaService extends BaseService
                 ]
             );
 
-            throw $exception;
+            return new MediaResponse();
         }
 
         return Serializer::deserialize($response->getRawResponse(), MediaResponse::class, Serializer::FORMAT_JSON);

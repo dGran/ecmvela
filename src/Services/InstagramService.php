@@ -11,8 +11,6 @@ use App\Client\Instagram\Media\Model\Publications;
 use App\Client\Instagram\Media\Service\MediaService;
 use App\Entity\Client;
 use App\Utils\Serializer;
-use App\Manager\ClientManager;
-use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Contracts\Cache\CacheInterface;
 
 class InstagramService
@@ -31,10 +29,6 @@ class InstagramService
         $this->clientService = $clientService;
     }
 
-    /**
-     * @throws GuzzleException
-     * @throws \Throwable
-     */
     public function getPublications(): Publications
     {
         $cachedData = $this->cache->getItem(self::CACHE_KEY_INSTAGRAM_PUBLICATIONS);
