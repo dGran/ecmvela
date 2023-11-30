@@ -92,7 +92,7 @@ class SystemService extends BaseService
             $dateExpirationToken = new \DateTime($this->getExpiresIn());
             $dateMaxToUpdateToken = (new \DateTime())->modify('+'.self::MARGIN_HOURS_TO_REFRESH_TOKEN.' hours');
 
-            if ($dateMaxToUpdateToken < $dateExpirationToken) {
+            if ($dateMaxToUpdateToken < $dateExpirationToken && $accountInfo->valid === true) {
                 return TokenFactory::build($this->getAccessToken(), $dateExpirationToken);
             }
         }
