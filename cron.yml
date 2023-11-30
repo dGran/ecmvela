@@ -1,0 +1,3 @@
+# Client account details
+# Instragram
+0 2 * * * cd /var/www/ecmvela && php bin/console app:client:account-details --clientID=1
