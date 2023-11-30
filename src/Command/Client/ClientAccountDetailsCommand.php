@@ -46,7 +46,7 @@ class ClientAccountDetailsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $clientId = (int)$input->getOption('clientId');
-        $clients = $clientId ? $this->clientManager->findBy(['id' => $clientId]) : $this->clientManager->findAll();
+        $clients = [$clientId] ? $this->clientManager->findBy(['id' => $clientId]) : $this->clientManager->findAll();
 
         $output->writeln(\date(\DATE_W3C).' - Started process');
 
