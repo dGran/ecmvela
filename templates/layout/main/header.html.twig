@@ -5,7 +5,16 @@
     <div class="mx-auto max-w-[85rem]">
         <div class="p-4 flex items-center justify-between">
             <a href="{{ path('home') }}" class="flex items-center rounded focus:outline-none group">
-                <img src="{{ asset('build/app/img/logo.png') }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
+                {% set dateCurrent = "now"|date("Y-m-d") %}
+                {% set currentYear = "now"|date("Y") %}
+                {% set dateChristmasStart = currentYear ~ "-12-01" %}
+                {% set dateChristmasEnd = (currentYear + 1) ~ "-01-06" %}
+                {% if dateCurrent >= dateChristmasStart and dateCurrent <= dateChristmasEnd %}
+                    {% set logo = asset('build/app/img/logo_christmas.png') %}
+                {% else %}
+                    {% set logo = asset('build/app/img/logo.png') %}
+                {% endif %}
+                <img src="{{ logo }}" alt="logo" class="w-16 group-hover:scale-105 group-focus:scale-105 group-hover:transition group-focus:transition ease-in-out duration-300">
                 <div class="pl-4 flex flex-col justify-center">
                     <p>
                         <span class="text-3xl font-thin tracking-tighter text-neutral-500 group-hover:text-neutral-700 group-focus:text-neutral-700">Marta</span><span class="text-3xl tracking-tighter text-neutral-600 group-hover:text-neutral-800 group-focus:text-neutral-800">Vela</span>
