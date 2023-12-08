@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\View;
 
-use App\Client\Instagram\Media\Exception\InvalidCredentialsException;
 use App\Model\View\HomeView;
 use App\Services\InstagramService;
-use GuzzleHttp\Exception\GuzzleException;
 
 class HomeViewManager
 {
@@ -164,8 +162,23 @@ class HomeViewManager
 
         $view->instagramPublicationImages = $publications->publicationImages;
         $view->instagramPublicationVideos = $publications->publicationVideos;
-        $view->googleReviews = self::DUMMY_REVIEWS;
+
+        $view->googleReviews = $this->getReviewsWithRandomOrder(self::DUMMY_REVIEWS);
 
         return $view;
+    }
+
+    private function getReviewsWithRandomOrder(array $data): array
+    {
+        $arrayKeys = array_keys($data);
+        \shuffle($arrayKeys);
+
+        $randomOrderData = [];
+
+        foreach($arrayKeys as $arrayKey) {
+            $randomOrderData[$arrayKey] = self::DUMMY_REVIEWS[$arrayKey];
+        }
+
+        return $randomOrderData;
     }
 }
