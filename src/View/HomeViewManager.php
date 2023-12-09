@@ -379,7 +379,9 @@ class HomeViewManager
         $view->instagramPublicationImages = $publications->publicationImages;
         $view->instagramPublicationVideos = $publications->publicationVideos;
 
-        $view->googleReviews = $this->getReviewsWithRandomOrder(self::DUMMY_REVIEWS);
+        //TODO: get reviews from Google API
+        $reviews = self::DUMMY_REVIEWS;
+        $view->googleReviews = $this->getReviewsWithRandomOrder($reviews);
 
         return $view;
     }
