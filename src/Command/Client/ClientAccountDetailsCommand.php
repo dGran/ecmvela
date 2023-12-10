@@ -23,7 +23,6 @@ class ClientAccountDetailsCommand extends Command
 
     private ClientAccountDetailsService $clientAccountDetailsService;
 
-
     public function __construct(ClientManager $clientManager, ClientAccountDetailsService $clientAccountDetailsService)
     {
         parent::__construct();
@@ -45,16 +44,18 @@ class ClientAccountDetailsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $clientId = (int)$input->getOption('clientId');
+        $clientId = (int) $input->getOption('clientId');
         $clients = [$clientId] ? $this->clientManager->findBy(['id' => $clientId]) : $this->clientManager->findAll();
-
         $output->writeln(\date(\DATE_W3C).' - Started process');
 
         /** @var Client $client */
         foreach ($clients as $client) {
-            $output->writeln(\date(\DATE_W3C).' - Started process for Client: '.$client->getName());
+            $clientName = $client->getName();
+            $output->writeln(\sprintf('%s - Started process for Client: %s', \date(DATE_W3C), $clientName));
+
             $this->clientAccountDetailsService->process($client);
-            $output->writeln(\date(\DATE_W3C).' - End process for Client: '.$client->getName());
+
+            $output->writeln(\sprintf('%s - End process for Client: %s', \date(DATE_W3C), $clientName));
         }
 
         $output->writeln(\date(\DATE_W3C).' - End process');
