@@ -2,23 +2,39 @@
     {% if bookings|length == 0 %}
         <p class="text-center">No hay citas agendadas</p>
     {% else %}
-        <div class="">
-            <p class="text-sm font-semibold text-slate-500">{{ bookings|length }} citas agendadas</p>
-            <a href="#" class="flex items-center space-x-1.5 text-green-500 hover:text-green-600 focus:text-green-600 focus:outline-none">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span class="text-sm">Enviar recordatorio de todas las citas</span>
-            </a>
-        </div>
+        <p class="text-sm font-semibold text-slate-500">{{ bookings|length }} citas agendadas</p>
+
         {% for bookingKey, booking in bookings %}
             {% set booking_start = booking.date|date('H:i') %}
             {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('H:i') %}
             <div class="border-b pb-4 last:border-b-0">
-                <p class="text-xs leading-4 text-gray-500 flex items-center justify-between space-x-3">
-                    <span>{{ booking_start }} - {{ booking_estimated_end}}</span>
-                    <a href="#" class="text-sm {% if booking.isReminderSent %}text-slate-300 pointer-events-none{% else %}text-green-500 hover:text-green-600 focus:text-green-600{% endif %} text-lg focus:outline-none">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                </p>
+                <div class="text-xs leading-4 text-gray-500 flex items-center justify-between space-x-3">
+                    <p>{{ booking_start }} - {{ booking_estimated_end}}</p>
+                    <div class="">
+                        {% if booking.isReminderSent %}{% endif %}
+                        <button type="button" title="Eliminar cita"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                                data-url="{{ path('admin_booking_edit', {'booking': booking.id}) }}"
+                                data-date="{{ booking.date|date('Y-m-d H:i') }}"
+                                class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-green-500 hover:text-white hover:border-green-600 focus:bg-green-500 focus:text-white focus:border-green-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-600 active:shadow-lg transition duration-150 ease-in-out"">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </button>
+                        <button type="button" title="Editar cita"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                                data-url="{{ path('admin_booking_edit', {'booking': booking.id}) }}"
+                                data-date="{{ booking.date|date('Y-m-d H:i') }}"
+                                class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-blue-500 hover:text-white hover:border-blue-600 focus:bg-blue-500 focus:text-white focus:border-blue-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button type="button" title="Eliminar cita"
+                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
+                                data-url="{{ path('admin_booking_edit', {'booking': booking.id}) }}"
+                                data-date="{{ booking.date|date('Y-m-d H:i') }}"
+                                class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-red-500 hover:text-white hover:border-red-600 focus:bg-red-500 focus:text-white focus:border-red-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-600 active:shadow-lg transition duration-150 ease-in-out"">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
                 <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer ? booking.customer.name : '' }}</a>
                 <p class="text-sm text-gray-600 dark:text-gray-300">{{ booking.notes }}</p>
             </div>

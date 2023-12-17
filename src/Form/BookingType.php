@@ -48,7 +48,6 @@ class BookingType extends AbstractType
                 'label' => 'Fecha',
                 'widget' => 'single_text',
                 'attr' => [
-                    'placeholder' => '01/01/2024',
                     'class' => 'w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-slate-50 border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none',
                 ],
             ])

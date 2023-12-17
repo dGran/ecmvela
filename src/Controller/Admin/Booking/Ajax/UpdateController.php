@@ -7,52 +7,32 @@ namespace App\Controller\Admin\Booking\Ajax;
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Manager\BookingManager;
-use App\Services\AgendaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/booking/save', name: 'admin_booking_store', methods: ['POST'])]
-class StoreController extends AbstractController
+#[Route('/admin/booking/{booking}/update', name: 'admin_booking_update', methods: ['POST'])]
+class UpdateController extends AbstractController
 {
     private BookingManager $bookingManager;
 
-    private AgendaService $agendaService;
-
-    public function __construct(BookingManager $bookingManager, AgendaService $agendaService)
+    public function __construct(BookingManager $bookingManager)
     {
         $this->bookingManager = $bookingManager;
-        $this->agendaService = $agendaService;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Booking $booking): Response
     {
-        $form = $this->createForm(BookingType::class, new Booking());
+        $form = $this->createForm(BookingType::class, $booking);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $booking = $form->getData();
+            $this->bookingManager->save($booking);
 
-            $daySlots = $this->agendaService->getDaySlots($booking->getDate());
-            $bookingDate = $booking->getDate();
-            $bookingHour = $booking->getDate()->format('H:i');
-
-            if (!\array_key_exists($bookingHour, $daySlots)) {
-                $nearestTimeSlot = $this->agendaService->findNearestTimeSlot($daySlots, $bookingHour);
-                [$hour, $minute] = explode(':', $nearestTimeSlot);
-                $bookingDate->setTime((int)$hour, (int)$minute);
-                $booking->setDate($bookingDate);
-            }
-
-            try {
-                $this->bookingManager->save($booking);
-            } catch (\Throwable $exception) {
-                $this->addFlash('error','Se ha producido un error, la cita no se ha registrado');
-            }
-
-            $this->addFlash('success','La cita se ha registrado correctamente');
+            $this->addFlash('success','La cita se ha actualizado correctamente');
 
             return $this->redirectToRoute('admin_booking', [
                 'view' => 'day',

@@ -177,6 +177,45 @@ class AgendaService
         ];
     }
 
+    public function getDaySlots(\DateTime $day): array
+    {
+        $slots = [];
+
+        [$startHour, $startMinute] = \explode(':', self::ADITIONAL_START_TIME);
+        [$endHour, $endMinute] = \explode(':', self::ADITIONAL_END_TIME);
+        $startDate = (clone $day)->setTime((int)$startHour, (int)$startMinute);
+        $endDate = (clone $day)->setTime((int)$endHour, (int)$endMinute);
+
+        $currentSlotDate = $startDate;
+
+        while ($currentSlotDate <= $endDate) {
+            $slotDate = clone $currentSlotDate;
+            $slots[$slotDate->format('H:i')] = $slotDate;
+            $currentSlotDate->modify('+'.self::SLOT_INTERVAL.' minutes');
+        }
+
+        return $slots;
+    }
+
+    public function findNearestTimeSlot(array $timeSlots, $targetTime): string
+    {
+        $targetTimestamp = \strtotime($targetTime);
+        $nearestTimeSlot = null;
+        $minDifference = PHP_INT_MAX;
+
+        foreach ($timeSlots as $timeSlotKey => $timeSlotValue) {
+            $timeSlotTimestamp = \strtotime($timeSlotKey);
+            $difference = \abs($timeSlotTimestamp - $targetTimestamp);
+
+            if ($difference < $minDifference) {
+                $minDifference = $difference;
+                $nearestTimeSlot = $timeSlotKey;
+            }
+        }
+
+        return $nearestTimeSlot;
+    }
+
     /**
      * @return array<int, string>
      */

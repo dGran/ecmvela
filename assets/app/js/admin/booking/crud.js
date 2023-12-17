@@ -61,29 +61,29 @@ $( document ).ready(function() {
             }
         });
     });
-    //
-    // $(document).on('click', '.edit_button', function () {
-    //     $('.dropdown').removeClass('block').addClass('hidden');
-    //
-    //     let url = $(this).data('url');
-    //     let container = $("#modal-static-content");
-    //
-    //     container.html('');
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: url,
-    //         success: function(data) {
-    //             container.html(data);
-    //             $('#pet_name').focus();
-    //         },
-    //         error: function() {
-    //             Toast.fire({
-    //                 icon: 'error', title: 'Se ha producido un error'
-    //             });
-    //         }
-    //     });
-    // });
+
+    $(document).on('click', '.edit_button', function () {
+        $('.dropdown').removeClass('block').addClass('hidden');
+
+        let url = $(this).data('url');
+        let container = $("#modal-static-content");
+
+        container.html('');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(data) {
+                container.html(data);
+                $('#pet_name').focus();
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error', title: 'Se ha producido un error'
+                });
+            }
+        });
+    });
     //
     // $(document).on('change', '#public_holiday_date', function (){
     //     if (!$(this).val()) {

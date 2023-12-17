@@ -2,6 +2,15 @@
 <div class="p-6 text-sm">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         {{ form_row(form.date) }}
+{#        <div class="mb-4 flex flex-col group">#}
+{#            <label class="mb-1 text-[12px] font-medium text-slate-600 uppercase tracking-wide required" for="booking_time">Hora</label>#}
+{#            <select name="booking[date]" id="booking_date">#}
+{#                {% for day_slot in day_slots %}#}
+{#                    <option {% if booking.date == day_slot %}selected{% endif %} value="{{ day_slot|date('Y-m-d H:i') }}">{{ day_slot|date('H:i') }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </div>#}
+
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         {{ form_row(form.pet) }}
