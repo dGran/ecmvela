@@ -15,6 +15,11 @@
     {{ parent() }}
 {% endblock form_widget %}
 
+{% block number_widget %}
+    {% set widget_class = widget_class|default('block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none placeholder-slate-400') %}
+    {{ parent() }}
+{% endblock number_widget %}
+
 {% block email_widget %}
     {% set widget_class = widget_class|default('block w-full px-3 py-1.5 text-sm font-normal text-slate-700 bg-white bg-clip-padding border border-solid border-slate-300 rounded transition ease-in-out m-0 focus:text-slate-700 focus:bg-white focus:border-blue-400 focus:outline-none placeholder-slate-400') %}
     {{ parent() }}

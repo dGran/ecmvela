@@ -58,16 +58,18 @@ class AgendaService
         ],
     ];
 
-    public const HOUR_START = '09:30';
-    public const HOUR_END = '19:00';
-    public const ADITIONAL_HOUR_START = '08:30';
-    public const ADITIONAL_HOUR_END = '21:30';
+    public const WORKING_HOURS_START_TIME = '09:30';
+    public const WORKING_HOURS_END_TIME = '19:00';
+    public const ADITIONAL_START_TIME = '08:00';
+    public const ADITIONAL_END_TIME = '22:00';
 
     //TODO: CREAR SLOTS EN FUNCION DE HORARIOS OFICIALES POR DIA, POR EJEMPLO, LOS VIERNES SE VA A CERRAR ANTES
+    //TODO: ALMACENAR TAMBIEN PARA QUE PUEDA SER CONFIGURABLE LOS WORKING HOURS START Y END Y LOS ADITIONAL, y así no tener que usar las constantes
     //TODO: CREAR TABLA CON HORARIOS PARA QUE PUEDAN SER EDITABLES
+
     public const SLOT_INTERVAL = 15;
 
-    public function getDayBookings(\DateTime $day)
+    public function getDayBookings(\DateTime $day): void
     {
         $dateTo = clone $day;
         $dateTo->modify('+1 day');
@@ -88,13 +90,21 @@ class AgendaService
 //            return $slots;
 //        }
 
-        [$startHour, $startMinute] = explode(':', self::HOUR_START);
-        [$endHour, $endMinute] = explode(':', self::HOUR_END);
+        $monthPublicHolidays = $this->getPublicHolidays((int)$day->format('m'), (int)$day->format('Y'));
+        $isPublicHoliday = false;
 
-        $startDate = clone $day;
-        $startDate->setTime((int)$startHour, (int)$startMinute);
-        $endDate = clone $day;
-        $endDate->setTime((int)$endHour, (int)$endMinute);
+        if (\array_key_exists((int)$day->format('d'), $monthPublicHolidays)) {
+            $isPublicHoliday = true;
+        }
+
+        [$startHour, $startMinute] = \explode(':', self::ADITIONAL_START_TIME);
+        [$endHour, $endMinute] = \explode(':', self::ADITIONAL_END_TIME);
+        [$workingHoursStartHour, $workingHoursStartMinute] = \explode(':', self::WORKING_HOURS_START_TIME);
+        [$workingHoursEndHour, $workingHoursEndMinute] = \explode(':', self::WORKING_HOURS_END_TIME);
+        $startDate = (clone $day)->setTime((int)$startHour, (int)$startMinute);
+        $endDate = (clone $day)->setTime((int)$endHour, (int)$endMinute);
+        $workingHoursStartDate = (clone $day)->setTime((int)$workingHoursStartHour, (int)$workingHoursStartMinute);
+        $workingHoursEndDate = (clone $day)->setTime((int)$workingHoursEndHour, (int)$workingHoursEndMinute);
 
         $currentSlotDate = clone $startDate;
 
@@ -122,9 +132,10 @@ class AgendaService
                 ) {
                     $slotBooking = new SlotBooking();
                     $slotBooking->booking = $booking;
+
                     try {
                         $slotBooking->color = SlotBooking::COLORS[$bookingKey];
-                    } catch(\ErrorException $exception) {
+                    } catch(\Throwable $exception) {
                         $slotBooking->color = SlotBooking::DEFAULT_COLOR;
                     }
 
@@ -132,7 +143,12 @@ class AgendaService
                 }
             }
 
-            $slots[$currentSlotDate->format('Y-m-d H:i:s')] = $slotBookings;
+            $isWorkingHours = $currentSlotDate >= $workingHoursStartDate && $currentSlotDate <= $workingHoursEndDate;
+
+            $slots[$currentSlotDate->format('Y-m-d H:i:s')] = [
+                'slotBooking' => $slotBookings,
+                'isWorkingHours' => $isWorkingHours && !$isPublicHoliday,
+            ];
 
             $currentSlotDate->modify('+'.self::SLOT_INTERVAL.' minutes');
         }
@@ -140,11 +156,11 @@ class AgendaService
         return $slots;
     }
 
-    public function getCalendarMonthData($month, $year): array
+    /**
+     * @return array{year: int, month: int, mont_name: string, number_of_days: int, public_holidays: array, business_days: int}
+     */
+    public function getCalendarMonthData(int $month, int $year): array
     {
-        $month = (int) $month;
-        $year = (int) $year;
-
         $firstDay = new \DateTime("$year-$month-01");
         $numberOfDays = $firstDay->format('t');
         $monthName = $firstDay->format('F');
@@ -161,6 +177,9 @@ class AgendaService
         ];
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getPublicHolidays(int $month, int $year): array
     {
         $weekendDaysOfMonth = $this->getWeekendDaysOfMonth($month, $year);
@@ -181,6 +200,9 @@ class AgendaService
         return $publicHolidaysAndWeekendDays;
     }
 
+    /**
+     * @return array<int, int>
+     */
     private function getWeekendDaysOfMonth(int $month, int $year): array
     {
         $weekendDays = [];
@@ -189,7 +211,7 @@ class AgendaService
 
         while ($firstDayOfMonth <= $lastDayOfMonth) {
             if ($firstDayOfMonth->format('N') >= 6) {
-                $weekendDays[] = (int) $firstDayOfMonth->format('j');
+                $weekendDays[] = (int)$firstDayOfMonth->format('j');
             }
             $firstDayOfMonth->modify('+1 day');
         }

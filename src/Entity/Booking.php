@@ -28,6 +28,9 @@ class Booking
     #[ORM\Column(nullable: true)]
     private ?int $estimatedDuration = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $estimatedPrice = 0.0;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
@@ -88,9 +91,21 @@ class Booking
         return $this->estimatedDuration;
     }
 
-    public function setDuration(?int $estimatedDuration = null): Booking
+    public function setEstimatedDuration(?int $estimatedDuration = null): Booking
     {
         $this->estimatedDuration = $estimatedDuration;
+
+        return $this;
+    }
+
+    public function getEstimatedPrice(): ?float
+    {
+        return $this->estimatedPrice;
+    }
+
+    public function setEstimatedPrice(?float $estimatedPrice): Booking
+    {
+        $this->estimatedPrice = $estimatedPrice;
 
         return $this;
     }

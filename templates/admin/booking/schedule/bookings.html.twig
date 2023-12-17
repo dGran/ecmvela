@@ -10,8 +10,8 @@
             </a>
         </div>
         {% for bookingKey, booking in bookings %}
-            {% set booking_start = booking.date|date('h:i') %}
-            {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('h:i') %}
+            {% set booking_start = booking.date|date('H:i') %}
+            {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('H:i') %}
             <div class="border-b pb-4 last:border-b-0">
                 <p class="text-xs leading-4 text-gray-500 flex items-center justify-between space-x-3">
                     <span>{{ booking_start }} - {{ booking_estimated_end}}</span>
@@ -19,7 +19,7 @@
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </p>
-                <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer.name }}</a>
+                <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer ? booking.customer.name : '' }}</a>
                 <p class="text-sm text-gray-600 dark:text-gray-300">{{ booking.notes }}</p>
             </div>
         {% endfor %}

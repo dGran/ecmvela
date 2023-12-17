@@ -1,14 +1,23 @@
 <div class="lg:border-l-2">
-    <div class="pb-4 pl-4 sm:pl-6 border-b">
-        <div class="inline-flex rounded shadow-sm text-xs lg:text-sm">
-            <a href="{{ path('admin_booking', {'view': 'day', 'day': day|date('Y-m-d')}) }}"
-               class="px-4 py-2 border rounded-l focus:outline-none flex items-center space-x-2 {% if view == 'day' %}bg-blue-500 text-white border-blue-500 pointer-events-none{% else %}bg-white border-gray-300 hover:bg-slate-50 focus:bg-slate-50{% endif %}">
-                <i class="fa-solid fa-calendar-day"></i><span>Día</span>
+    <div class="ml-4 mb-2 flex items-center">
+        <div class="flex-initial flex items-center text-xs">
+            <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 ' ~ view)|date('Y-m-d')}) }}"
+               class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent">
+                <i class="fa-solid fa-chevron-left"></i>
             </a>
-            <a href="{{ path('admin_booking', {'view': 'week', 'day': day|date('Y-m-d')}) }}"
-               class="px-4 py-2 border rounded-r focus:outline-none flex items-center space-x-2 {% if view == 'week' %}bg-blue-500 text-white border-blue-500 pointer-events-none{% else %}bg-white border-gray-300 hover:bg-slate-50 focus:bg-slate-50{% endif %}">
-                <i class="fa-solid fa-calendar-week"></i><span>Semana</span>
+            <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('+1 ' ~ view)|date('Y-m-d')}) }}"
+               class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full focus:ring-gray-200 focus:bg-gray-100 hover:bg-gray-100 bg-transparent">
+                <i class="fa-solid fa-chevron-right"></i>
             </a>
+        </div>
+
+        <div class="flex-1 ml-3">
+            <p class="text-sm lg:text-base xl:text-lg {% if day|date('d') in calendar_month_data.public_holidays|keys %}text-red-500{% endif %}">
+                <span class="hidden lg:inline-block mr-1.5">{{ day|date('l')|trans }},</span><span class="">{{ day|date('d')}} de {{ day|date('F')|trans }} de {{ day|date('Y') }}</span>
+                {% if day|date('d') in calendar_month_data.public_holidays|keys %}
+                    <span class="text-xs lg:text-sm xl:text-base font-semibold">-- {{ calendar_month_data.public_holidays[day|date('d')|number_format] }} --</span>
+                {% endif %}
+            </p>
         </div>
     </div>
 

@@ -34,13 +34,13 @@ class IndexController extends AbstractController
             $day = new \DateTime();
         }
 
-        $dateTo = clone $day;
-        $dateTo->modify('+1 day');
-        $dayBookings = $this->bookingManager->findByDateFromAndDateTo($day, $dateTo);
-        $slots = $this->agendaService->generateDaySlots($day, $dayBookings);
+        $dateFrom = (clone $day)->setTime(0, 0);
+        $dateTo = (clone $day)->setTime(23, 59, 59);
+        $dayBookings = $this->bookingManager->findByDateFromAndDateTo($dateFrom, $dateTo);
+        $slots = $this->agendaService->generateDaySlots($dateFrom, $dayBookings);
 
-        $month = $day->format('m');
-        $year = $day->format('Y');
+        $month = (int)$day->format('m');
+        $year = (int)$day->format('Y');
 
         $calendarMonthData = $this->agendaService->getCalendarMonthData($month, $year);
         $daysOfTheWeek = AgendaService::DAYS_OF_THE_WEEK;
