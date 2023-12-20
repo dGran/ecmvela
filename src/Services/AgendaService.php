@@ -81,7 +81,7 @@ class AgendaService
      *
      * @return array<string, Booking[]>
      */
-    public function generateDaySlots(\DateTime $day, array $bookings): array
+    public function  generateDaySlots(\DateTime $day, array $bookings): array
     {
         $slots = [];
         $numberDayOfTheWeek = $day->format('N');
@@ -109,8 +109,7 @@ class AgendaService
         $currentSlotDate = clone $startDate;
 
         while ($currentSlotDate <= $endDate) {
-            $currentSlotFinishDate = clone $currentSlotDate;
-            $currentSlotFinishDate->modify('+'.self::SLOT_INTERVAL.' minutes');
+            $currentSlotFinishDate = (clone $currentSlotDate)->modify('+'.self::SLOT_INTERVAL.' minutes');
             $currentSlotFinishDate = \min($currentSlotFinishDate, $endDate);
             $slotBookings = [];
 
@@ -143,7 +142,7 @@ class AgendaService
                 }
             }
 
-            $isWorkingHours = $currentSlotDate >= $workingHoursStartDate && $currentSlotDate <= $workingHoursEndDate;
+            $isWorkingHours = $currentSlotDate >= $workingHoursStartDate && $currentSlotDate < $workingHoursEndDate;
 
             $slots[$currentSlotDate->format('Y-m-d H:i:s')] = [
                 'slotBooking' => $slotBookings,
@@ -157,23 +156,67 @@ class AgendaService
     }
 
     /**
-     * @return array{year: int, month: int, mont_name: string, number_of_days: int, public_holidays: array, business_days: int}
+     * @return array{year: int, month: int, mont_name: string, number_of_days: int, public_holidays: array, business_days: int, days: array}
      */
     public function getCalendarMonthData(int $month, int $year): array
     {
         $firstDay = new \DateTime("$year-$month-01");
         $numberOfDays = $firstDay->format('t');
         $monthName = $firstDay->format('F');
+        $publicHolidaysOfMonth = $this->getPublicHolidays($month, $year);
 
-        $publicHolidays = $this->getPublicHolidays($month, $year);
+        $dayCounter = 1;
+        $currentDay = $firstDay;
+        $days = [];
+
+        do {
+            $dateFrom = (clone $currentDay)->setTime(0, 0);
+            $dateTo = (clone $currentDay)->setTime(23, 59, 59);
+            $dayBookings = $this->bookingManager->findByDateFromAndDateTo($dateFrom, $dateTo);
+            $slots = $this->generateDaySlots($dateFrom, $dayBookings);
+            $isPublicHoliday = false;
+            $publicHoliday = null;
+
+            if (\array_key_exists($dayCounter, $publicHolidaysOfMonth)) {
+                $isPublicHoliday = true;
+                $publicHoliday = $publicHolidaysOfMonth[$dayCounter];
+            }
+
+            $isCompleteDay = $this->isCompleteDay($slots, $isPublicHoliday);
+
+            $numBookings = 0;
+            $numWorkingHourSlots = 0;
+
+            foreach ($slots as $slot) {
+                if (!empty($slot['slotBooking'])) {
+                    $numBookings++;
+                }
+
+                if ($slot['isWorkingHours']) {
+                    $numWorkingHourSlots++;
+                }
+            }
+
+            $days[$dayCounter] = [
+                'slots' => $slots,
+                'num_bookings' => $numBookings,
+                'num_working_hour_slots' => $numWorkingHourSlots,
+                'is_complete_day' => $isCompleteDay,
+                'public_holiday' => $publicHoliday,
+            ];
+
+            $currentDay->modify('+1 day');
+            $dayCounter++;
+        } while ($dayCounter <= $numberOfDays);
 
         return [
             'year' => $year,
             'month' => $month,
             'month_name' => $monthName,
             'number_of_days' => $numberOfDays,
-            'public_holidays' => $publicHolidays,
-            'business_days' => $numberOfDays - \count($publicHolidays),
+            'public_holidays' => $publicHolidaysOfMonth,
+            'business_days' => $numberOfDays - \count($publicHolidaysOfMonth),
+            'days' => $days,
         ];
     }
 
@@ -214,6 +257,60 @@ class AgendaService
         }
 
         return $nearestTimeSlot;
+    }
+
+    /**
+     * @param array<string, Booking[]> $slots
+     */
+    public function isCompleteDay(array $slots, bool $isPublicHoliday): bool
+    {
+        if ($isPublicHoliday) {
+            return false;
+        }
+
+        foreach ($slots as $slot) {
+            if ($slot['isWorkingHours'] && empty($slot['slotBooking'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getExtraHoursOfDay(array $slots): string
+    {
+        $totalMinutes = 0;
+
+        foreach ($slots as $slot) {
+            if (!$slot['isWorkingHours'] && !empty($slot['slotBooking'])) {
+                $totalMinutes += self::SLOT_INTERVAL;
+            }
+        }
+
+        if ($totalMinutes === 0) {
+            return '-';
+        }
+
+        $hours = floor($totalMinutes / 60);
+        $minutes = $totalMinutes % 60;
+        $formattedTime = '';
+
+        if ($hours > 0) {
+            $formattedTime .= $hours . 'h';
+
+            if ($minutes > 0) {
+                $formattedTime .= ' y ';
+            }
+        }
+
+        if ($minutes > 0) {
+            $formattedTime .= $minutes . 'm';
+        }
+
+        return $formattedTime;
     }
 
     /**

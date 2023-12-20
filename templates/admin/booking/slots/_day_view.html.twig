@@ -1,4 +1,5 @@
 <div class="ml-6 border rounded">
+    {% set slots = calendar_month_data.days[day|date('j')].slots %}
     {% for slot_date, slot in slots %}
         {% include 'admin/booking/slots/_slot.html.twig' %}
     {% endfor %}

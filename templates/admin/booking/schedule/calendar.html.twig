@@ -16,13 +16,15 @@
 
     <table class="w-full text-xs mt-3">
         <thead>
-        <tr>
-            {% for day_of_the_week in days_of_the_week %}
-                <th class="font-medium text-center text-gray-800 h-10">{{ day_of_the_week['short_name']|trans }}</th>
-            {% endfor %}
-        </tr>
+            <tr>
+                {% for day_of_the_week in days_of_the_week %}
+                    <th class="font-medium text-center text-gray-800 h-10">{{ day_of_the_week['short_name']|trans }}</th>
+                {% endfor %}
+            </tr>
         </thead>
+
         <tbody>
+        {% set days = calendar_month_data.days %}
         {% set firstDay = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-01') %}
         {% set day_counter = 1 %}
         {% for week in range(1, 6) %}
@@ -34,7 +36,7 @@
                                 <div class="px-0.5 py-0.5 flex w-full justify-center">
                                     {% set string_select_day = date(calendar_month_data.year ~ '-' ~ calendar_month_data.month ~ '-' ~ day_counter) %}
                                     {% set select_day = string_select_day|date('Y-m-d') %}
-                                    {% if day_counter in calendar_month_data.public_holidays|keys %}
+                                    {% if days[day_counter].public_holiday is not null %}
                                         {% set color_day = 'red' %}
                                         {% set color_current_day = 'red' %}
                                     {% else %}
@@ -42,18 +44,19 @@
                                         {% set color_current_day = 'blue' %}
                                     {% endif %}
                                     <a href="{{ path('admin_booking', {'view': view, 'day': select_day}) }}"
-                                       class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full
-                                                {% if day_of_the_month == day_counter %}focus:ring-{{ color_current_day }}-500 focus:bg-{{ color_current_day }}-500 hover:bg-{{ color_current_day }}-500 text-white bg-{{ color_current_day }}-500 pointer-events-none
-                                                {% else %}focus:ring-{{ color_day }}-200 focus:bg-{{ color_day }}-100 hover:bg-{{ color_day }}-100 bg-transparent text-{{ color_day }}-500{% endif %}"
-                                    >
-                                        {{ day_counter }}
+                                        class="font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8 flex items-center justify-center rounded-full
+                                        {% if day_of_the_month == day_counter %}focus:ring-{{ color_current_day }}-500 focus:bg-{{ color_current_day }}-500 hover:bg-{{ color_current_day }}-500 text-white bg-{{ color_current_day }}-500 pointer-events-none
+                                        {% else %}focus:ring-{{ color_day }}-200 focus:bg-{{ color_day }}-100 hover:bg-{{ color_day }}-100 bg-transparent text-{{ color_day }}-500{% endif %}
+                                        {% if days[day_counter].public_holiday is not null and days[day_counter].num_bookings > 0 %}animate-pulse{% else %}animate-none{% endif %}
+                                    ">
+                                        <span class="{% if days[day_counter].is_complete_day %}line-through{% endif %}">{{ day_counter }}</span>
                                     </a>
                                 </div>
                             {% endif %}
                         </td>
                         {% set day_counter = day_counter + 1 %}
                     {% else %}
-                        <td>    </td>
+                        <td></td>
                     {% endif %}
                 {% endfor %}
             </tr>

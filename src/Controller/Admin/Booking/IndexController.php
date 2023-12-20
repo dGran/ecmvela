@@ -34,25 +34,27 @@ class IndexController extends AbstractController
             $day = new \DateTime();
         }
 
-        $dateFrom = (clone $day)->setTime(0, 0);
-        $dateTo = (clone $day)->setTime(23, 59, 59);
-        $dayBookings = $this->bookingManager->findByDateFromAndDateTo($dateFrom, $dateTo);
-        $slots = $this->agendaService->generateDaySlots($dateFrom, $dayBookings);
-
         $month = (int)$day->format('m');
         $year = (int)$day->format('Y');
+        $dayNumber = (int)$day->format('d');
 
         $calendarMonthData = $this->agendaService->getCalendarMonthData($month, $year);
         $daysOfTheWeek = AgendaService::DAYS_OF_THE_WEEK;
         $dayOfTheMonth = $day->format('d');
+        $daySlots = $calendarMonthData['days'][$dayNumber]['slots'];
+        $extraHoursOfDay = $this->agendaService->getExtraHoursOfDay($daySlots);
+
+        $dateFrom = (clone $day)->setTime(0, 0);
+        $dateTo = (clone $day)->setTime(23, 59, 59);
+        $dayBookings = $this->bookingManager->findByDateFromAndDateTo($dateFrom, $dateTo);
 
         return $this->render('admin/booking/index.html.twig', [
             'view' => $view,
             'day' => $day,
-            'slots' => $slots,
             'calendar_month_data' => $calendarMonthData,
             'days_of_the_week' => $daysOfTheWeek,
             'day_of_the_month' => $dayOfTheMonth,
+            'extra_hours' => $extraHoursOfDay,
             'bookings' => $dayBookings,
         ]);
     }

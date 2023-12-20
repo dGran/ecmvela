@@ -8,7 +8,7 @@
             {% set booking_start = booking.date|date('H:i') %}
             {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('H:i') %}
             {% set total_estimated_sales = total_estimated_sales + booking.estimatedPrice %}
-            <div class="border-b pb-4 last:border-b-0">
+            <div class="border-b pb-3 last:border-b-0">
                 <div class="text-xs text-gray-500 flex items-center justify-between space-x-3">
                     <p>{{ booking_start }} - {{ booking_estimated_end}}</p>
                     <div class="flex items-center justify-end space-x-1.5">
@@ -38,24 +38,29 @@
                         </form>
                     </div>
                 </div>
-                <div class="mt-1.5">
+                <div class="mt-1.5 text-sm">
                     <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer ? booking.customer.name : '' }}</a>
-{#                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ booking.notes }}</p>#}
-                    <div class="flex items-center justify-between space-x-3">
-                        <p class="text-sm text-slate-500">Total estimado</p>
-                        <p class="text-sm text-slate-500">{{ booking.estimatedPrice|number_format(2, ',', '') }} €</p>
+                    <div class="mt-1.5 flex items-center justify-between space-x-3">
+                        <p>Total estimado</p>
+                        <p>{{ booking.estimatedPrice|number_format(2, ',', '') }} €</p>
                     </div>
+                    <p class="mt-1.5 italic text-slate-500" style="white-space: pre-line;">{{ booking.notes }}</p>
+
                 </div>
             </div>
         {% endfor %}
-        <div class="flex flex-col space-y-1.5">
+        <div class="flex flex-col space-y-1.5 text-base text-slate-500">
             <div class="flex items-center justify-between space-x-3">
-                <p class="text-base font-semibold">Total citas</p>
-                <p class="text-base font-semibold">{{ bookings|length }}</p>
+                <p>Total citas</p>
+                <p class="font-medium">{{ bookings|length }}</p>
             </div>
             <div class="flex items-center justify-between space-x-3">
-                <p class="text-base font-semibold">Total caja estimado</p>
-                <p class="text-base font-semibold">{{ total_estimated_sales|number_format(2, ',', '') }} €</p>
+                <p>Fuera de horario</p>
+                <p class="font-medium">{{ extra_hours }}</p>
+            </div>
+            <div class="flex items-center justify-between space-x-3">
+                <p>Total caja estimado</p>
+                <p class="font-medium">{{ total_estimated_sales|number_format(2, ',', '') }} €</p>
             </div>
         </div>
     {% endif %}
