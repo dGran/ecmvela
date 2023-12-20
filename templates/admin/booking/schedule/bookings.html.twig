@@ -1,16 +1,17 @@
-<div class="flex flex-col space-y-3 text-sm">
+<div class="flex flex-col space-y-3 text-sm border-t pt-3">
     {% if bookings|length == 0 %}
         <p class="text-center">No hay citas agendadas</p>
     {% else %}
-        <p class="text-sm font-semibold text-slate-500">{{ bookings|length }} citas agendadas</p>
+        {% set total_estimated_sales = 0 %}
 
         {% for bookingKey, booking in bookings %}
             {% set booking_start = booking.date|date('H:i') %}
             {% set booking_estimated_end = booking.date|date_modify('+' ~ booking.estimatedDuration ~ ' minutes')|date('H:i') %}
+            {% set total_estimated_sales = total_estimated_sales + booking.estimatedPrice %}
             <div class="border-b pb-4 last:border-b-0">
-                <div class="text-xs leading-4 text-gray-500 flex items-center justify-between space-x-3">
+                <div class="text-xs text-gray-500 flex items-center justify-between space-x-3">
                     <p>{{ booking_start }} - {{ booking_estimated_end}}</p>
-                    <div class="">
+                    <div class="flex items-center justify-end space-x-1.5">
                         {% if booking.isReminderSent %}{% endif %}
                         <button type="button" title="Eliminar cita"
                                 data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
@@ -26,18 +27,36 @@
                                 class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-blue-500 hover:text-white hover:border-blue-600 focus:bg-blue-500 focus:text-white focus:border-blue-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"">
                             <i class="fa-solid fa-pencil"></i>
                         </button>
-                        <button type="button" title="Eliminar cita"
-                                data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
-                                data-url="{{ path('admin_booking_edit', {'booking': booking.id}) }}"
-                                data-date="{{ booking.date|date('Y-m-d H:i') }}"
-                                class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-red-500 hover:text-white hover:border-red-600 focus:bg-red-500 focus:text-white focus:border-red-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-600 active:shadow-lg transition duration-150 ease-in-out"">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
+                        <form method="post" action="{{ path('admin_booking_delete', {'booking': booking.id}) }}">
+                            <input type="hidden" name="redirect" value="{{ app.request.requesturi }}">
+                            <button type="submit" title="Eliminar"
+                                    data-name="{{ booking.pet.name }}"
+                                    data-date="{{ booking.date|date('H:i') }}"
+                                    class="delete-action-button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-red-500 hover:text-white hover:border-red-600 focus:bg-red-500 focus:text-white focus:border-red-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-600 active:shadow-lg transition duration-150 ease-in-out">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer ? booking.customer.name : '' }}</a>
-                <p class="text-sm text-gray-600 dark:text-gray-300">{{ booking.notes }}</p>
+                <div class="mt-1.5">
+                    <a class="focus:outline-none text-base font-medium leading-5 text-gray-800 mt-2">{{ booking.pet.name }} -  {{ booking.customer ? booking.customer.name : '' }}</a>
+{#                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ booking.notes }}</p>#}
+                    <div class="flex items-center justify-between space-x-3">
+                        <p class="text-sm text-slate-500">Total estimado</p>
+                        <p class="text-sm text-slate-500">{{ booking.estimatedPrice|number_format(2, ',', '') }} €</p>
+                    </div>
+                </div>
             </div>
         {% endfor %}
+        <div class="flex flex-col space-y-1.5">
+            <div class="flex items-center justify-between space-x-3">
+                <p class="text-base font-semibold">Total citas</p>
+                <p class="text-base font-semibold">{{ bookings|length }}</p>
+            </div>
+            <div class="flex items-center justify-between space-x-3">
+                <p class="text-base font-semibold">Total caja estimado</p>
+                <p class="text-base font-semibold">{{ total_estimated_sales|number_format(2, ',', '') }} €</p>
+            </div>
+        </div>
     {% endif %}
 </div>
