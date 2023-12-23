@@ -7,6 +7,7 @@ namespace App\Form;
 use App\Entity\Booking;
 use App\Entity\Customer;
 use App\Entity\Pet;
+use App\Services\AgendaService;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,29 +20,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BookingType extends AbstractType
 {
+    private AgendaService $agendaService;
+
+    public function __construct(AgendaService $agendaService)
+    {
+        $this->agendaService = $agendaService;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $durations = [];
-        for ($i = 15; $i <= 240; $i += 15) {
-            if ($i < 60) {
-                $durations[$i . ' minutos'] = $i;
-            } elseif ($i === 60) {
-                $durations['1 hora'] = $i;
-            } else {
-                $hours = floor($i / 60);
-                $minutes = $i % 60;
-
-                $label = $hours . ' hora';
-                if ($hours > 1) {
-                    $label .= 's';
-                }
-                if ($minutes > 0) {
-                    $label .= ' y ' . $minutes . ' minutos';
-                }
-
-                $durations[$label] = $i;
-            }
-        }
+        $estimatedDurations = $this->agendaService->getBookingEstimatedDurations();
 
         $builder
             ->add('date', DateTimeType::class, [
@@ -83,7 +71,7 @@ class BookingType extends AbstractType
             ])
             ->add('estimatedDuration', ChoiceType::class, [
                 'label' => 'Duración estimada',
-                'choices' => $durations,
+                'choices' => $estimatedDurations,
                 'placeholder' => 'Selecciona la duración estimada',
             ])
             ->add('estimatedPrice', NumberType::class, [

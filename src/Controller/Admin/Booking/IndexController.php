@@ -23,6 +23,9 @@ class IndexController extends AbstractController
         $this->bookingManager = $bookingManager;
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/admin/booking/{view}/{day?}', name: 'admin_booking', methods: 'GET')]
     public function __invoke(Request $request, string $view = null, \DateTime $day = null): Response
     {

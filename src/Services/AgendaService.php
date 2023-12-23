@@ -11,22 +11,6 @@ use App\Model\Agenda\SlotBooking;
 
 class AgendaService
 {
-    private PublicHolidayManager $publicHolidayManager;
-    private BookingManager $bookingManager;
-
-    public function __construct(PublicHolidayManager $publicHolidayManager, BookingManager $bookingManager) {
-        $this->publicHolidayManager = $publicHolidayManager;
-        $this->bookingManager = $bookingManager;
-    }
-
-    public const AVAILABLE_DAYS = [
-        1 => 'Lunes',
-        2 => 'Martes',
-        3 => 'Miércoles',
-        4 => 'Jueves',
-        5 => 'Viernes',
-    ];
-
     public const DAYS_OF_THE_WEEK = [
         1 => [
             'name' => 'Monday',
@@ -58,16 +42,38 @@ class AgendaService
         ],
     ];
 
-    public const WORKING_HOURS_START_TIME = '09:30';
-    public const WORKING_HOURS_END_TIME = '19:00';
-    public const ADITIONAL_START_TIME = '08:00';
-    public const ADITIONAL_END_TIME = '22:00';
+    private const AVAILABLE_DAYS = [
+        1 => 'Lunes',
+        2 => 'Martes',
+        3 => 'Miércoles',
+        4 => 'Jueves',
+        5 => 'Viernes',
+    ];
+
+    private const WORKING_HOURS_START_TIME = '09:30';
+
+    private const WORKING_HOURS_END_TIME = '19:00';
+
+    private const ADITIONAL_START_TIME = '08:00';
+
+    private const ADITIONAL_END_TIME = '22:00';
+
+    private const SLOT_INTERVAL = 15;
+
+    private const MAX_TIME_FOR_ESTIMATION  = 480;
+
+    private PublicHolidayManager $publicHolidayManager;
+
+    private BookingManager $bookingManager;
+
+    public function __construct(PublicHolidayManager $publicHolidayManager, BookingManager $bookingManager) {
+        $this->publicHolidayManager = $publicHolidayManager;
+        $this->bookingManager = $bookingManager;
+    }
 
     //TODO: CREAR SLOTS EN FUNCION DE HORARIOS OFICIALES POR DIA, POR EJEMPLO, LOS VIERNES SE VA A CERRAR ANTES
     //TODO: ALMACENAR TAMBIEN PARA QUE PUEDA SER CONFIGURABLE LOS WORKING HOURS START Y END Y LOS ADITIONAL, y así no tener que usar las constantes
     //TODO: CREAR TABLA CON HORARIOS PARA QUE PUEDAN SER EDITABLES
-
-    public const SLOT_INTERVAL = 15;
 
     public function getDayBookings(\DateTime $day): void
     {
@@ -311,6 +317,39 @@ class AgendaService
         }
 
         return $formattedTime;
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function getBookingEstimatedDurations(): array
+    {
+        $bookingEstimatedDurations = [];
+
+        for ($i = self::SLOT_INTERVAL; $i <= self::MAX_TIME_FOR_ESTIMATION; $i += self::SLOT_INTERVAL) {
+            $label = $this->formatDurationLabel($i);
+            $bookingEstimatedDurations[$label] = $i;
+        }
+
+        return $bookingEstimatedDurations;
+    }
+
+    private function formatDurationLabel(int $interval): string
+    {
+        if ($interval < 60) {
+            return $interval . ' minutos';
+        }
+
+        $hours = \floor($interval / 60);
+        $minutes = $interval % 60;
+
+        $label = $hours.' hora'.($hours > 1 ? 's' : '');
+
+        if ($minutes > 0) {
+            $label .= ' y '.$minutes.' minutos';
+        }
+
+        return $label;
     }
 
     /**
