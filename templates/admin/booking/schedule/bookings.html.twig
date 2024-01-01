@@ -13,11 +13,11 @@
                     <p>{{ booking_start }} - {{ booking_estimated_end}}</p>
                     <div class="flex items-center justify-end space-x-1.5">
                         {% if booking.isReminderSent %}{% endif %}
-                        <button type="button" title="Eliminar cita"
+                        <button type="button" title="Enviar recordatorio de la cita"
                                 data-modal-target="ajax-static-modal" data-modal-toggle="ajax-static-modal" data-modal-backdrop="static" data-modal-keyboard="false"
                                 data-url="{{ path('admin_booking_edit', {'booking': booking.id}) }}"
                                 data-date="{{ booking.date|date('Y-m-d H:i') }}"
-                                class="edit_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-green-500 hover:text-white hover:border-green-600 focus:bg-green-500 focus:text-white focus:border-green-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-600 active:shadow-lg transition duration-150 ease-in-out"">
+                                class="reminder_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-green-500 hover:text-white hover:border-green-600 focus:bg-green-500 focus:text-white focus:border-green-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-600 active:shadow-lg transition duration-150 ease-in-out"">
                             <i class="fa-brands fa-whatsapp"></i>
                         </button>
                         <button type="button" title="Editar cita"
@@ -32,7 +32,7 @@
                             <button type="submit" title="Eliminar"
                                     data-name="{{ booking.pet.name }}"
                                     data-date="{{ booking.date|date('H:i') }}"
-                                    class="delete-action-button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-red-500 hover:text-white hover:border-red-600 focus:bg-red-500 focus:text-white focus:border-red-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-600 active:shadow-lg transition duration-150 ease-in-out">
+                                    class="delete_button | rounded-full w-5 h-5 text-[10px] bg-white border border-slate-300 hover:bg-red-500 hover:text-white hover:border-red-600 focus:bg-red-500 focus:text-white focus:border-red-600 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-600 active:shadow-lg transition duration-150 ease-in-out">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>

@@ -1,5 +1,23 @@
-$( document ).ready(function() {
-    $('.delete-action-button').click(function(e) {
+document.addEventListener('DOMContentLoaded', () => {
+    const $listElements = {
+        buttonCreate: $('.create_button'),
+        buttonEdit: $('.edit_button'),
+        buttonDelete: $('.delete_button'),
+        buttonReminder: $('.reminder_button'),
+    }
+
+    const $formElements = {
+        inputDate: $('#booking_date'),
+        inputPet: $('#booking_pet'),
+        inputCustomer: $('#booking_customer'),
+        inputEstimatedDuration: $('#booking_estimatedDuration'),
+        buttonSubmit: $('#submit-button'),
+    };
+
+
+    $listElements.buttonCreate.on("click", create);
+    $listElements.buttonEdit.on("click", edit);
+    $listElements.buttonDelete.click(function(e) {
         e.preventDefault();
 
         let clickedElement = $(this);
@@ -12,8 +30,53 @@ $( document ).ready(function() {
         deleteConfirmation(form, name, date);
     });
 
-    function deleteConfirmation(form, name, date)
-    {
+    function create() {
+        let url = $(this).data('url');
+        let container = $("#modal-static-content");
+        let date = $(this).data('date');
+
+        container.html('');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {date: date},
+            success: function(data) {
+                container.html(data);
+                $('#booking_date').focus();
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error', title: 'Se ha producido un error'
+                });
+            }
+        });
+    }
+
+    function edit() {
+        $('.dropdown').removeClass('block').addClass('hidden');
+
+        let url = $(this).data('url');
+        let container = $("#modal-static-content");
+
+        container.html('');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(data) {
+                container.html(data);
+                $('#booking_date').focus();
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error', title: 'Se ha producido un error'
+                });
+            }
+        });
+    }
+
+    function deleteConfirmation(form, name, date){
         Swal.fire({
             html: '<div class="py-1.5">¿Seguro que quieres eliminar la cita?<p><strong>'+name+' a las '+date+'</strong></p></div>',
             showCloseButton: true,
@@ -38,89 +101,60 @@ $( document ).ready(function() {
             });
     }
 
-    $(document).on('click', '.create_button', function () {
-        let url = $(this).data('url');
-        let container = $("#modal-static-content");
-        let date = $(this).data('date');
-
-        container.html('');
-
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {date: date},
-            success: function(data) {
-                container.html(data);
-                $('#pet_name').focus();
-            },
-            error: function() {
-                Toast.fire({
-                    icon: 'error', title: 'Se ha producido un error'
-                });
-            }
-        });
+    $(document).on('change', dateElement, function () {
+        handleInputChange($(this));
     });
 
-    $(document).on('click', '.edit_button', function () {
-        $('.dropdown').removeClass('block').addClass('hidden');
-
-        let url = $(this).data('url');
-        let container = $("#modal-static-content");
-
-        container.html('');
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            success: function(data) {
-                container.html(data);
-                $('#pet_name').focus();
-            },
-            error: function() {
-                Toast.fire({
-                    icon: 'error', title: 'Se ha producido un error'
-                });
-            }
-        });
+    $(document).on('change', petElement, function () {
+        handleInputChange($(this));
     });
-    //
-    // $(document).on('change', '#public_holiday_date', function (){
-    //     if (!$(this).val()) {
-    //         markErrorElement($(this))
-    //     } else {
-    //         unmarkErrorElement($(this));
-    //     }
-    // });
-    //
-    // function markErrorElement(element) {
-    //     let label = $("label[for='" + element.attr('id') + "']");
-    //
-    //     label.removeClass('text-slate-600').addClass('text-red-600');
-    //     element.removeClass('border-slate-300').addClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').focus();
-    //
-    //     $('#send-form-button').prop('disabled', true).removeClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').addClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
-    // }
-    //
-    // function unmarkErrorElement(element) {
-    //     let label = $("label[for='" + element.attr('id') + "']");
-    //
-    //     label.removeClass('text-red-600').addClass('text-slate-600');
-    //     element.removeClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').addClass('border-slate-300');
-    //
-    //     if (formIsValid()) {
-    //         $('#send-form-button').prop('disabled', false).addClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').removeClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
-    //     }
-    // }
-    //
-    // function formIsValid() {
-    //     return !(!$('#public_holiday_date').val());
-    // }
-    //
-    // $(document).on('click', '#send-form-button', function (e){
+
+    $(document).on('change', estimatedDurationElement, function () {
+        handleInputChange($(this));
+    });
+
+    function handleInputChange(element) {
+        if (isValidForm()) {
+            $formElements.buttonSubmit.prop('disabled', false).addClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').removeClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
+        } else {
+            $formElements.buttonSubmit.prop('disabled', true).removeClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').addClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
+        }
+
+        // if (!element.val()) {
+        //     markErrorElement(element);
+        // } else {
+        //     unmarkErrorElement(element);
+        // }
+    }
+
+    function markErrorElement(element) {
+        let label = $("label[for='" + element.attr('id') + "']");
+
+        label.removeClass('text-slate-600').addClass('text-red-600');
+        element.removeClass('border-slate-300').addClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').focus();
+
+        $formElements.buttonSubmit.prop('disabled', true).removeClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').addClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
+    }
+
+    function unmarkErrorElement(element) {
+        let label = $("label[for='" + element.attr('id') + "']");
+
+        label.removeClass('text-red-600').addClass('text-slate-600');
+        element.removeClass('border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500').addClass('border-slate-300');
+
+        if (isValidForm()) {
+            $formElements.buttonSubmit.prop('disabled', false).addClass('bg-blue-500 hover:bg-blue-600 focus:bg-blue-600').removeClass('bg-blue-300 hover:bg-blue-300 focus:bg-blue-300 pointer-events-none');
+        }
+    }
+
+    function isValidForm() {
+        return $formElements.inputDate.val() && $formElements.inputPet.val() && $formElements.inputEstimatedDuration.val();
+    }
+
+    // $formElements.buttonSubmit.on("click", function (e) {
     //     e.preventDefault();
     //
-    //     if (formIsValid()) {
+    //     if (isValidForm()) {
     //         let form = $(this).parents('form');
     //         let formData = new FormData(form[0]);
     //
