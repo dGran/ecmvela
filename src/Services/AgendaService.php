@@ -87,7 +87,7 @@ class AgendaService
      *
      * @return array<string, Booking[]>
      */
-    public function  generateDaySlots(\DateTime $day, array $bookings): array
+    public function generateDaySlots(\DateTime $day, array $bookings): array
     {
         $slots = [];
         $numberDayOfTheWeek = $day->format('N');

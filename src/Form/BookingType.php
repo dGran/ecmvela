@@ -52,6 +52,9 @@ class BookingType extends AbstractType
                 'placeholder' => 'Selecciona la mascota',
                 'multiple' => false,
                 'expanded' => false,
+                'attr' => [
+                    'find-customer' => 'valor-deseado',
+                ],
             ])
             ->add('customer', EntityType::class, [
                 'class' => Customer::class,

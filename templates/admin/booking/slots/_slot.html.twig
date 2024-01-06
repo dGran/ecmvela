@@ -23,7 +23,7 @@
                             {{ slot_booking.booking.pet.name }}
                         </div>
                         {% set estimatedBookingEnd = slot_booking.booking.date|date_modify('+' ~ slot_booking.booking.estimatedDuration ~ ' minutes')%}
-                        <p class="w-24 text-[10px] truncate">{{ slot_booking.booking.pet.breed.name }}</p>
+                        <p class="w-24 text-[10px] truncate">{{ slot_booking.booking.pet.breed ? slot_booking.booking.pet.breed.name : 'N/D' }}</p>
                     </div>
                 </div>
             {% endfor %}
