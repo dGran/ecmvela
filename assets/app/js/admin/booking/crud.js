@@ -85,11 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
             reverseButtons: true,
             showLoaderOnConfirm: true,
         })
-            .then(result => {
-                if (result.value) {
-                    form.submit();
-                }
-            });
+        .then(result => {
+            if (result.value) {
+                form.submit();
+            }
+        });
     }
 
     // const $formElements = {

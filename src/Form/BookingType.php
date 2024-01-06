@@ -17,14 +17,18 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\RouterInterface;
 
 class BookingType extends AbstractType
 {
     private AgendaService $agendaService;
 
-    public function __construct(AgendaService $agendaService)
+    private RouterInterface $router;
+
+    public function __construct(AgendaService $agendaService, RouterInterface $router)
     {
         $this->agendaService = $agendaService;
+        $this->router = $router;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -50,29 +54,6 @@ class BookingType extends AbstractType
                     return $entityRepository->createQueryBuilder('pet')->orderBy('pet.name', 'ASC');
                 },
                 'placeholder' => 'Selecciona la mascota',
-                'multiple' => false,
-                'expanded' => false,
-                'attr' => [
-                    'find-customer' => 'valor-deseado',
-                ],
-            ])
-            ->add('customer', EntityType::class, [
-                'class' => Customer::class,
-                'choice_label' => function ($customer) {
-                    $petNames = $customer->getPets()->map(function ($pet) {
-                        return $pet->getName();
-                    })->toArray();
-                    $petNamesString = implode(', ', $petNames);
-                    return $customer->getName() . ' (' . $petNamesString . ')';
-                },
-                'query_builder' => function (EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('customer')
-                        ->leftJoin('customer.pets', 'pets')
-                        ->groupBy('customer.id')
-                        ->having('COUNT(pets) > 0')
-                        ->orderBy('customer.name', 'ASC');
-                },
-                'placeholder' => 'Selecciona el cliente (dueñ@)',
                 'multiple' => false,
                 'expanded' => false,
             ])

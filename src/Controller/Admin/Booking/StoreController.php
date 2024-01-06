@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Booking\Ajax;
+namespace App\Controller\Admin\Booking;
 
 use App\Entity\Booking;
 use App\Form\BookingType;
@@ -33,17 +33,26 @@ class StoreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Booking $booking */
             $booking = $form->getData();
+            $pet = $booking->getPet();
 
-            $daySlots = $this->agendaService->getDaySlots($booking->getDate());
+            if ($pet !== null) {
+                $booking->setCustomer($pet->getCustomer());
+            }
+
             $bookingDate = $booking->getDate();
-            $bookingHour = $booking->getDate()->format('H:i');
 
-            if (!\array_key_exists($bookingHour, $daySlots)) {
-                $nearestTimeSlot = $this->agendaService->findNearestTimeSlot($daySlots, $bookingHour);
-                [$hour, $minute] = explode(':', $nearestTimeSlot);
-                $bookingDate->setTime((int)$hour, (int)$minute);
-                $booking->setDate($bookingDate);
+            if ($bookingDate !== null) {
+                $daySlots = $this->agendaService->getDaySlots($bookingDate);
+                $bookingHour = $bookingDate->format('H:i');
+
+                if (!\array_key_exists($bookingHour, $daySlots)) {
+                    $nearestTimeSlot = $this->agendaService->findNearestTimeSlot($daySlots, $bookingHour);
+                    [$hour, $minute] = explode(':', $nearestTimeSlot);
+                    $bookingDate->setTime((int)$hour, (int)$minute);
+                    $booking->setDate($bookingDate);
+                }
             }
 
             try {

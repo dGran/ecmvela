@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Booking\Ajax;
+namespace App\Controller\Admin\Booking;
 
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Manager\BookingManager;
+use App\Services\AgendaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,12 @@ class UpdateController extends AbstractController
 {
     private BookingManager $bookingManager;
 
-    public function __construct(BookingManager $bookingManager)
+    private AgendaService $agendaService;
+
+    public function __construct(BookingManager $bookingManager, AgendaService $agendaService)
     {
         $this->bookingManager = $bookingManager;
+        $this->agendaService = $agendaService;
     }
 
     public function __invoke(Request $request, Booking $booking): Response
@@ -29,8 +33,33 @@ class UpdateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Booking $booking */
             $booking = $form->getData();
-            $this->bookingManager->save($booking);
+            $pet = $booking->getPet();
+
+            if ($pet !== null) {
+                $booking->setCustomer($pet->getCustomer());
+            }
+
+            $bookingDate = $booking->getDate();
+
+            if ($bookingDate !== null) {
+                $daySlots = $this->agendaService->getDaySlots($bookingDate);
+                $bookingHour = $bookingDate->format('H:i');
+
+                if (!\array_key_exists($bookingHour, $daySlots)) {
+                    $nearestTimeSlot = $this->agendaService->findNearestTimeSlot($daySlots, $bookingHour);
+                    [$hour, $minute] = explode(':', $nearestTimeSlot);
+                    $bookingDate->setTime((int)$hour, (int)$minute);
+                    $booking->setDate($bookingDate);
+                }
+            }
+
+            try {
+                $this->bookingManager->save($booking);
+            } catch (\Throwable $exception) {
+                $this->addFlash('error','Se ha producido un error, la cita no se ha actualizado');
+            }
 
             $this->addFlash('success','La cita se ha actualizado correctamente');
 
