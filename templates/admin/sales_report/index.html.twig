@@ -12,7 +12,7 @@
     ) }}
 
     <form id="form-sale-search" action="{{ path('admin_sales_report') }}" method="POST">
-        <div class="flex items-baseline space-x-4">
+        <div class="flex space-x-4">
             <div class="flex flex-col space-y-1">
                 <label for="date-from" class="uppercase text-xs font-medium text-gray-500">Fecha inicio</label>
                 <div class="relative">
@@ -35,9 +35,11 @@
                 </div>
             </div>
 
-            <button type="submit" class="mt-6 px-6 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
-                Buscar
-            </button>
+            <div class="mt-5">
+                <button type="submit" class="px-6 py-[13px] bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
+                    Buscar
+                </button>
+            </div>
         </div>
     </form>
 
