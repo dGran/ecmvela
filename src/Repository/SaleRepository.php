@@ -112,7 +112,7 @@ class SaleRepository extends ServiceEntityRepository
     public function findByRangeDateGroupedByWeek(\DateTime $dateFrom, \DateTime $dateTo): array
     {
         return $this->createQueryBuilder('sale')
-            ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd) as week', 'YEAR(sale.dateAdd) as year')
+            ->select('SUM(sale.total) AS total', 'WEEK(sale.dateAdd, 7) as week', 'YEAR(sale.dateAdd) as year')
             ->where('sale.dateAdd BETWEEN :date_from AND :date_to')
             ->groupBy('year, week')
             ->orderBy('year', 'DESC')
