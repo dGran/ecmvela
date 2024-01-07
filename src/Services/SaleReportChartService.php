@@ -11,16 +11,20 @@ use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class SaleReportChartService
 {
-    public function __construct(private readonly ChartBuilderInterface $chartBuilder)
+    private ChartBuilderInterface $chartBuilder;
+
+    public function __construct(ChartBuilderInterface $chartBuilder)
     {
+        $this->chartBuilder = $chartBuilder;
     }
 
     /**
      * @param MonthlySales[] $monthlySalesCollection
+     * @param MonthlySales[] $monthlySalesLastYearCollection
      *
      * @return array{monthlySalesTotalChart: Chart, monthlySalesAverageChart: Chart}
      */
-    public function getMonthlySalesCharts(array $monthlySalesCollection): array
+    public function getMonthlySalesCharts(array $monthlySalesCollection, array $monthlySalesLastYearCollection): array
     {
         $monthlySalesData = [];
         $monthlySalesLabels = [];
@@ -30,10 +34,16 @@ class SaleReportChartService
         $dateOfCurrentMonth = new \DateTime();
         $currentMonth = \ucfirst($Monthformatter->format($dateOfCurrentMonth));
 
-        foreach ($monthlySalesCollection as $monthlySales) {
+        foreach ($monthlySalesLastYearCollection as $monthlySales) {
             $dateOfMonth = (new \DateTime())->setDate($monthlySales->getYear(), $monthlySales->getMonth(), 1);
             $monthLabel = \ucfirst($Monthformatter->format($dateOfMonth));
             $monthlySalesLabels[] = $monthLabel !== $currentMonth ? $monthLabel : $monthLabel.' (en curso)';
+            $monthlySalesLastYearData[] = $monthlySales->getTotal();
+            $monthlySalesLastYearWeekAverageData[] = $monthlySales->getWeeklyAverage();
+            $monthlySalesLastYearDailyAverageData[] = $monthlySales->getDailyAverage();
+        }
+
+        foreach ($monthlySalesCollection as $monthlySales) {
             $monthlySalesData[] = $monthlySales->getTotal();
             $monthlySalesWeekAverageData[] = $monthlySales->getWeeklyAverage();
             $monthlySalesDailyAverageData[] = $monthlySales->getDailyAverage();
@@ -45,21 +55,28 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Total ventas mensual',
+                            'label' => 'Total mensual '.\current($monthlySalesCollection)->getYear(),
                             'data' => $monthlySalesData,
+                            'backgroundColor' => 'rgba(54, 162, 235, 0.4)',
+                            'borderColor' => 'rgb(54, 162, 235)',
+                            'borderWidth' => 1,
+                        ],
+                        [
+                            'label' => 'Total mensual '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'data' => $monthlySalesLastYearData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                             'borderColor' => 'rgb(54, 162, 235)',
                             'borderWidth' => 1,
                         ],
                     ],
-                ]
+                ],
             )
             ->setOptions(
                 [
                     'scales' => [
                         'y' => [
                             'suggestedMin' => 0,
-                            'suggestedMax' => 4000,
+                            'suggestedMax' => 5000,
                         ],
                     ],
                 ]
@@ -72,8 +89,17 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'MediaItem de ventas semanal',
+                            'label' => 'Media semanal '.\current($monthlySalesCollection)->getYear(),
                             'data' => $monthlySalesWeekAverageData,
+                            'backgroundColor' => 'rgba(153, 102, 255, 0.4)',
+                            'borderColor' => 'rgb(153, 102, 255)',
+                            'borderWidth' => 1,
+                            'fill' => true,
+                            'tension' => 0.5,
+                        ],
+                        [
+                            'label' => 'Media semanal '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'data' => $monthlySalesLastYearWeekAverageData,
                             'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
                             'borderColor' => 'rgb(153, 102, 255)',
                             'borderWidth' => 1,
@@ -88,7 +114,7 @@ class SaleReportChartService
                     'scales' => [
                         'y' => [
                             'suggestedMin' => 0,
-                            'suggestedMax' => 1000,
+                            'suggestedMax' => 1200,
                         ],
                     ],
                 ]
@@ -101,9 +127,18 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'MediaItem de ventas diaria',
+                            'label' => 'Media diaria '.\current($monthlySalesCollection)->getYear(),
                             'data' => $monthlySalesDailyAverageData,
-                            'backgroundColor' => 'rgba(75, 192, 192, 0.5)',
+                            'backgroundColor' => 'rgba(75, 192, 192, 0.8)',
+                            'borderColor' => 'rgb(75, 192, 192)',
+                            'borderWidth' => 1,
+                            'fill' => true,
+                            'tension' => 0.5,
+                        ],
+                        [
+                            'label' => 'Media diaria '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'data' => $monthlySalesLastYearDailyAverageData,
+                            'backgroundColor' => 'rgba(75, 192, 192, 0.4)',
                             'borderColor' => 'rgb(75, 192, 192)',
                             'borderWidth' => 1,
                             'fill' => true,
@@ -117,7 +152,7 @@ class SaleReportChartService
                     'scales' => [
                         'y' => [
                             'suggestedMin' => 0,
-                            'suggestedMax' => 200,
+                            'suggestedMax' => 400,
                         ],
                     ],
                 ]
@@ -133,17 +168,22 @@ class SaleReportChartService
 
     /**
      * @param WeeklySales[] $weeklySalesCollection
+     * @param WeeklySales[] $weeklySalesLastYearCollection
      */
-    public function getWeeklySalesTotalChart(array $weeklySalesCollection): Chart
+    public function getWeeklySalesTotalChart(array $weeklySalesCollection, array $weeklySalesLastYearCollection): Chart
     {
         $weeklySalesData = [];
         $weeklySalesLabels = [];
 
         $currentWeek = (int)date("W");
 
-        foreach ($weeklySalesCollection as $weeklySales) {
+        foreach ($weeklySalesLastYearCollection as $weeklySales) {
             $weekLabel = $weeklySales->getWeekFormatted();
             $weeklySalesLabels[] = $weeklySales->getWeek() !== $currentWeek ? $weekLabel : 'Semana actual';
+            $weeklySalesLastYearData[] = $weeklySales->getTotal();
+        }
+
+        foreach ($weeklySalesCollection as $weeklySales) {
             $weeklySalesData[] = $weeklySales->getTotal();
         }
 
@@ -153,8 +193,15 @@ class SaleReportChartService
                     'labels' => $weeklySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Total ventas semanal',
+                            'label' => 'Total semanal '.\current($weeklySalesCollection)->getYear(),
                             'data' => $weeklySalesData,
+                            'backgroundColor' => 'rgba(54, 162, 235, 0.4)',
+                            'borderColor' => 'rgb(54, 162, 235)',
+                            'borderWidth' => 1,
+                        ],
+                        [
+                            'label' => 'Total semanal '.\current($weeklySalesLastYearCollection)->getYear(),
+                            'data' => $weeklySalesLastYearData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                             'borderColor' => 'rgb(54, 162, 235)',
                             'borderWidth' => 1,
@@ -167,7 +214,7 @@ class SaleReportChartService
                     'scales' => [
                         'y' => [
                             'suggestedMin' => 0,
-                            'suggestedMax' => 1000,
+                            'suggestedMax' => 1600,
                         ],
                     ],
                 ]
