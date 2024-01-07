@@ -29,8 +29,9 @@ class DashboardController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $dateFrom = new \DateTime('2024-01-01 0:00:00');
-        $dateTo = new \DateTime('2024-12-31 23:59:59');
+        $currentYear = date('Y');
+        $dateFrom = new \DateTime($currentYear . '-01-01 00:00:00');
+        $dateTo = new \DateTime($currentYear . '-12-31 23:59:59');
 
         $view = $this->dashboardViewManager->build($dateFrom, $dateTo);
 
