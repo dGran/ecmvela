@@ -20,5 +20,5 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on('change', '#booking_date, booking_pet, #booking_estimatedDuration', validateForm);
+    $(document).on('change', '#booking_date, #booking_pet, #booking_estimatedDuration', validateForm);
 });

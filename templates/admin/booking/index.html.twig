@@ -5,7 +5,7 @@
 {% block main %}
     {{ component('crudHeaderComponent', {section: 'Agenda', title: 'Citas'}) }}
 
-    {% include 'admin/booking/header.html.twig' %}
+{#    {% include 'admin/booking/header.html.twig' %}#}
 
     <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:space-x-6">
         <section>
@@ -13,7 +13,7 @@
             {% include 'admin/booking/schedule/bookings.html.twig' %}
         </section>
 
-        <section class="-mx-4 sm:-mx-6 md:-mx-8 lg:mx-0 py-6 flex-1 overflow-x-auto">
+        <section class="-mx-4 sm:-mx-6 md:-mx-8 lg:mx-0 pb-6 flex-1 overflow-x-auto">
             {% include 'admin/booking/slots/slots.html.twig' %}
         </section>
     </div>

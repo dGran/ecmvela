@@ -1,4 +1,4 @@
-<div class="py-6 sm:max-w-min">
+<div class="sm:max-w-min">
     <div class="flex items-center justify-between">
         <p class="text-base font-bold text-gray-800">{{ calendar_month_data.month_name|trans }} {{ calendar_month_data.year }}</p>
         <div class="flex items-center text-xs">
@@ -12,7 +12,10 @@
             </a>
         </div>
     </div>
-    <p class="pt-0.5 text-xs text-gray-500">{{ calendar_month_data.business_days }} días laboralaes</p>
+    <div class="pt-0.5 flex items-center justify-between">
+        <p class="text-xs text-gray-500">{{ calendar_month_data.business_days }} días laboralaes</p>
+        <a href="{{ path('admin_booking', {'view': view, 'day': 'now'|date('Y-m-d')}) }}" class="mr-2.5 border border-gray-300 px-2.5 py-0.5 rounded text-[12px] hover:bg-slate-50 focus:bg-slate-50 focus:outline-none">Hoy</a>
+    </div>
 
     <table class="w-full text-xs mt-3">
         <thead>

@@ -1,4 +1,4 @@
-<div class="lg:border-l-2">
+<div class="lg:border-l">
     <div class="ml-4 mb-2 flex items-center justify-end">
         <div class="flex-initial flex items-center text-xs">
             <a href="{{ path('admin_booking', {'view': view, 'day': day|date_modify('-1 ' ~ view)|date('Y-m-d')}) }}"
@@ -12,17 +12,17 @@
         </div>
 
         <div class="flex-1 ml-3">
-            <p class="text-sm lg:text-base xl:text-lg {% if day|date('d') in calendar_month_data.public_holidays|keys %}text-red-500{% endif %}">
-                <span class="hidden lg:inline-block mr-1.5">{{ day|date('l')|trans }},</span><span class="">{{ day|date('d')}} de {{ day|date('F')|trans }} de {{ day|date('Y') }}</span>
+            <div class="text-sm lg:text-base xl:text-lg {% if day|date('d') in calendar_month_data.public_holidays|keys %}text-red-500{% endif %} flex items-center justify-between">
+                <p><span class="hidden lg:inline-block mr-1.5">{{ day|date('l')|trans }},</span><span class="">{{ day|date('d')}} de {{ day|date('F')|trans }} de {{ day|date('Y') }}</span></p>
                 {% if day|date('d') in calendar_month_data.public_holidays|keys %}
-                    <span class="ml-1.5 bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded">{{ calendar_month_data.public_holidays[day|date('d')|number_format] }}</span>
+                    <span class="ml-1.5 bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded">{{ calendar_month_data.public_holidays[day|date('d')|number_format] }}</span>
                 {% elseif calendar_month_data.days[day|date('j')].is_complete_day %}
-                    <span class="ml-1.5 bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded">Completo</span>
+                    <span class="ml-1.5 bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded">Completo</span>
                 {% else %}
                     {% set percent_free = (1 - (calendar_month_data.days[day|date('j')].num_bookings / calendar_month_data.days[day|date('j')].num_working_hour_slots)) * 100 %}
-                    <span class="ml-1.5 bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{ percent_free|number_format(0) }}% disponible</span>
+                    <span class="ml-1.5 bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded">{{ percent_free|number_format(0) }}% disponible</span>
                 {% endif %}
-            </p>
+            </div>
         </div>
     </div>
 
