@@ -46,9 +46,9 @@
     <div class="mt-6 p-4 rounded-lg bg-gray-50 border border-gray-300">
         {% set total_sales = total_bizum + total_card + total_cash %}
         {% set cash_percent = total_sales > 0 ? (total_cash / total_sales) * 100 : 0 %}
-        {% set card_percent = total_sales > 0 ? (total_card / total_sales) * 100 : 0%}
-        {% set bizum_percent = total_sales > 0 ? (total_bizum / total_sales) * 100 : 0%}
-        {% set to_declate_percent = total_sales > 0 ? ((total_card + total_bizum) / total_sales) * 100 : 0%}
+        {% set card_percent = total_sales > 0 ? (total_card / total_sales) * 100 : 0 %}
+        {% set bizum_percent = total_sales > 0 ? (total_bizum / total_sales) * 100 : 0 %}
+        {% set to_declate_percent = total_sales > 0 ? ((total_card + total_bizum) / total_sales) * 100 : 0 %}
         <h2 class="font-medium">Total Ventas: <span class="font-bold">{{ total_sales|format_currency('EUR') }}</span></h2>
         <h2 class="mt-4 font-medium">Total Bizum: <span class="font-bold">{{ total_bizum|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ bizum_percent|number_format(2, ',', '') }}%</span></h2>
         <h2 class="font-medium">Total Tarjeta: <span class="font-bold">{{ total_card|format_currency('EUR') }}</span><span class="ml-3 text-xs text-gray-500">{{ card_percent|number_format(2, ',', '') }}%</span></h2>

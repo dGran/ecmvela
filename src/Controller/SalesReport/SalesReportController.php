@@ -77,12 +77,12 @@ class SalesReportController extends AbstractController
         $totalTotalWithoutTaxes = 0;
         $totalTotalTaxes = 0;
         $totalTotal = 0;
-        $saleCounter = 226;
+        $saleCounter = 403;
 
         foreach ($salesToDeclare as $saleToDeclare) {
             $sale = $this->saleManager->findOneById($saleToDeclare['id']);
 
-            if ($sale === null) {
+            if (null === $sale) {
                 $this->logger->critical(\date(DATE_W3C).' - Sale not found with Id: '.$saleToDeclare['id']);
 
                 continue;
@@ -96,7 +96,7 @@ class SalesReportController extends AbstractController
                 default => 'V23000',
             };
 
-            $invoice = $saleIndex.(string)$saleCounter;
+            $invoice = $saleIndex.(string) $saleCounter;
             $exportSales[] = [
                 'id' => $saleToDeclare['id'],
                 'date' => $saleToDeclare['dateAdd'],
@@ -110,7 +110,7 @@ class SalesReportController extends AbstractController
             $totalTotalTaxes += $calculateSaleTotals['total_taxes'];
             $totalTotal += $calculateSaleTotals['total'];
 
-            $saleCounter++;
+            ++$saleCounter;
         }
 
         $declarationTotals = [
@@ -139,16 +139,16 @@ class SalesReportController extends AbstractController
     private function getDateRange(Request $request): array
     {
         if (
-            ($request->get('dateFrom') === null || $request->get('dateFrom') === "")
-            || ($request->get('dateTo') === null || $request->get('dateTo') === "")
+            (null === $request->get('dateFrom') || '' === $request->get('dateFrom'))
+            || (null === $request->get('dateTo') || '' === $request->get('dateTo'))
         ) {
             $currentDate = (new \DateTime())->setTime(0, 0);
             $quarter = ceil($currentDate->format('n') / 3);
             $year = $currentDate->format('Y');
 
-            $dateFrom = (new \DateTime($year . '-' . (($quarter - 1) * 3 + 1) . '-01'))->setTime(0, 0);
+            $dateFrom = (new \DateTime($year.'-'.(($quarter - 1) * 3 + 1).'-01'))->setTime(0, 0);
             $dateTo = clone $dateFrom;
-            ($dateTo->modify('+2 months')->modify('last day of this month'))->setTime(23, 59, 59);
+            $dateTo->modify('+2 months')->modify('last day of this month')->setTime(23, 59, 59);
 
             return [
                 'dateFrom' => $dateFrom,
