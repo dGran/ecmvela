@@ -8,15 +8,19 @@ use App\Entity\PaymentMethod;
 use App\Manager\SaleManager;
 use App\Manager\SalePaymentManager;
 use App\Services\SaleService;
-use Doctrine\ORM\NonUniqueResultException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/sales-report', name: 'admin_sales_report', methods: ['GET', 'POST'])]
 class SalesReportController extends AbstractController
 {
     private SalePaymentManager $salePaymentManager;
@@ -44,7 +48,8 @@ class SalesReportController extends AbstractController
      * @throws NoResultException
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    #[Route('/admin/sales-report', name: 'admin_sales_report', methods: ['GET', 'POST'])]
+    public function index(Request $request, SessionInterface $session): Response
     {
         $dateRange = $this->getDateRange($request);
         $dateFrom = $dateRange['dateFrom'];
@@ -119,6 +124,8 @@ class SalesReportController extends AbstractController
             'total' => $totalTotal,
         ];
 
+        $session->set('export_sales', $exportSales);
+
         return $this->render('admin/sales_report/index.html.twig', [
             'date_from' => $dateFrom,
             'date_to' => $dateTo,
@@ -128,6 +135,45 @@ class SalesReportController extends AbstractController
             'total_to_declare' => $totalToDeclare,
             'export_sales' => $exportSales,
             'declaration_totals' => $declarationTotals,
+        ]);
+    }
+
+    /**
+     * @throws WriterNotOpenedException
+     * @throws IOException
+     */
+    #[Route('/admin/export-sales-report', name: 'admin_sales_report_export', methods: ['GET'])]
+    public function export(SessionInterface $session): Response
+    {
+        $exportSales = $session->get('export_sales', []);
+        $filename = date('Y-m-d_H-i-s').'_custom_sales_report'.'.csv';
+        $filePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
+
+        $writer = WriterEntityFactory::createCSVWriter();
+        $writer->openToFile($filePath);
+
+        $headerRow = WriterEntityFactory::createRowFromArray(['Id', 'Fecha', 'N/Factura', 'Base imponible', 'Total IVA', 'Total']);
+        $writer->addRow($headerRow);
+
+        foreach ($exportSales as $sale) {
+            $date = $sale['date'] instanceof \DateTime ? $sale['date']->format('Y-m-d H:i:s') : $sale['date'];
+
+            $row = WriterEntityFactory::createRowFromArray([
+                $sale['id'],
+                $date,
+                $sale['invoice'],
+                \number_format($sale['total_without_taxes'], 2, ',', '.'),
+                \number_format($sale['total_taxes'], 2, ',', '.'),
+                \number_format($sale['total'], 2, ',', '.'),
+            ]);
+            $writer->addRow($row);
+        }
+
+        $writer->close();
+
+        return new BinaryFileResponse($filePath, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
 
