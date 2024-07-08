@@ -152,16 +152,15 @@ class SalesReportController extends AbstractController
         $writer = WriterEntityFactory::createCSVWriter();
         $writer->openToFile($filePath);
 
-        $headerRow = WriterEntityFactory::createRowFromArray(['Id', 'Fecha', 'N/Factura', 'Base imponible', 'Total IVA', 'Total']);
+        $headerRow = WriterEntityFactory::createRowFromArray(['N/Factura', 'Fecha', 'Base imponible', 'Total IVA', 'Total']);
         $writer->addRow($headerRow);
 
         foreach ($exportSales as $sale) {
             $date = $sale['date'] instanceof \DateTime ? $sale['date']->format('Y-m-d H:i:s') : $sale['date'];
 
             $row = WriterEntityFactory::createRowFromArray([
-                $sale['id'],
-                $date,
                 $sale['invoice'],
+                $date,
                 \number_format($sale['total_without_taxes'], 2, ',', '.'),
                 \number_format($sale['total_taxes'], 2, ',', '.'),
                 \number_format($sale['total'], 2, ',', '.'),
