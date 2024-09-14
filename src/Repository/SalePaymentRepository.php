@@ -8,8 +8,6 @@ use App\Entity\PaymentMethod;
 use App\Entity\Sale;
 use App\Entity\SalePayment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,40 +25,36 @@ class SalePaymentRepository extends ServiceEntityRepository
         parent::__construct($registry, SalePayment::class);
     }
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
     public function getTotalByDateRangeAndPaymentMethod(\DateTime $dateFrom, \DateTime $dateTo, int $paymentMethodId): ?float
     {
-        return $this->createQueryBuilder('sale_payment')
-            ->join('sale_payment.sale', 'sale')
-            ->select('SUM(sale.total) AS total')
+        $results = $this->createQueryBuilder('sale_payment')
+            ->select('DISTINCT(sale.id) as sale_id, sale_payment.amount as amount')
+            ->innerJoin('sale_payment.sale', 'sale')
             ->where('sale_payment.paymentMethod = :payment_method_id')
             ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
             ->setParameter('payment_method_id', $paymentMethodId)
             ->setParameter('dateFrom', $dateFrom)
             ->setParameter('dateTo', $dateTo)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getResult();
+
+        return \array_sum(\array_column($results, 'amount'));
     }
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
     public function getTotalByDateRangeAndPaymentMethodNotCash(\DateTime $dateFrom, \DateTime $dateTo): ?float
     {
-        return $this->createQueryBuilder('sale_payment')
-            ->join('sale_payment.sale', 'sale')
-            ->select('SUM(sale.total) AS total')
-            ->where('sale_payment.paymentMethod <> :payment_method_id')
-            ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
-            ->setParameter('payment_method_id', PaymentMethod::CASH_METHOD_ID)
-            ->setParameter('dateFrom', $dateFrom)
-            ->setParameter('dateTo', $dateTo)
-            ->getQuery()
-            ->getSingleScalarResult();
+        $results = $this->createQueryBuilder('sale_payment')
+        ->select('DISTINCT(sale.id) as sale_id, sale_payment.amount as amount')
+        ->innerJoin('sale_payment.sale', 'sale')
+        ->where('sale_payment.paymentMethod <> :payment_method_id')
+        ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
+        ->setParameter('payment_method_id', PaymentMethod::CASH_METHOD_ID)
+        ->setParameter('dateFrom', $dateFrom)
+        ->setParameter('dateTo', $dateTo)
+        ->getQuery()
+        ->getResult();
+
+        return \array_sum(\array_column($results, 'amount'));
     }
 
     /**
@@ -69,8 +63,8 @@ class SalePaymentRepository extends ServiceEntityRepository
     public function getSaleByDateRangeAndPaymentMethodNotCash(\DateTime $dateFrom, \DateTime $dateTo): array
     {
         return $this->createQueryBuilder('sale_payment')
-            ->join('sale_payment.sale', 'sale')
-            ->select('sale.id', 'sale.dateAdd', 'sale.totalWithoutTaxes', 'sale.totalTaxes', 'sale.total')
+            ->innerJoin('sale_payment.sale', 'sale')
+            ->select('DISTINCT(sale.id) as id', 'sale.dateAdd', 'sale.totalWithoutTaxes', 'sale.totalTaxes', 'sale.total')
             ->where('sale_payment.paymentMethod <> :payment_method_id')
             ->andWhere('sale.dateAdd BETWEEN :dateFrom AND :dateTo')
             ->setParameter('payment_method_id', PaymentMethod::CASH_METHOD_ID)
