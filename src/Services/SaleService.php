@@ -53,10 +53,10 @@ class SaleService
         }
 
         return [
-            'total_discounts' => $totalDiscounts,
-            'total_without_taxes' => $totalWithoutTaxes,
-            'total_taxes' => $totalTaxes,
-            'total' => $total,
+            'total_discounts' => \round($totalDiscounts, 2),
+            'total_without_taxes' => \round($totalWithoutTaxes, 2),
+            'total_taxes' => \round($totalTaxes, 2),
+            'total' => \round($total, 2),
         ];
     }
 
@@ -73,10 +73,10 @@ class SaleService
         $totalDiscount = $saleLine->getQuantity() * $saleLine->getPrice() * (1 - $discountMultiplier);
 
         return [
-            'total_discount' => $totalDiscount,
-            'total_without_taxes' => $totalWithoutTaxes,
-            'total_taxes' => $totalTaxes,
-            'total' => $total,
+            'total_discount' => \round($totalDiscount, 2),
+            'total_without_taxes' => \round($totalWithoutTaxes, 2),
+            'total_taxes' => \round($totalTaxes, 2),
+            'total' => \round($total, 2),
         ];
     }
 
