@@ -24,10 +24,10 @@ class PetSize
     #[ORM\Column(length: 60)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $minWeight = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $maxWeight = null;
 
     #[ORM\OneToMany(mappedBy: 'petSize', targetEntity: Breed::class)]

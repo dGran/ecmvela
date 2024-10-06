@@ -28,7 +28,7 @@ class Booking
     #[ORM\Column(nullable: true)]
     private ?int $estimatedDuration = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $estimatedPrice = 0.0;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

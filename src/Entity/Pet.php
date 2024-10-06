@@ -79,7 +79,7 @@ class Pet
     #[ORM\Column(nullable: true)]
     private ?int $weeksRecommendedPeriodicity = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $maitenancePlanPrice = null;
 
     #[ORM\OneToMany(mappedBy: 'pet', targetEntity: SaleLine::class)]

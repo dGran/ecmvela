@@ -27,7 +27,7 @@ class Service
     #[Assert\Length(max: 100)]
     private ?string $name = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $price = null;
 
     #[ORM\OneToMany(mappedBy: 'service', targetEntity: SaleLine::class)]

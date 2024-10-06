@@ -28,7 +28,7 @@ class TaxType
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $rate = null;
 
     #[ORM\OneToMany(mappedBy: 'tax', targetEntity: Product::class)]

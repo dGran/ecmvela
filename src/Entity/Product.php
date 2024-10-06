@@ -45,17 +45,17 @@ class Product
     #[Assert\NotBlank]
     private ?TaxType $tax = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Assert\NotBlank]
     private ?float $price = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $costPrice = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $recommendedPrice = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
     private ?float $salePrice = null;
 
     #[ORM\Column(length: 255, nullable: true)]

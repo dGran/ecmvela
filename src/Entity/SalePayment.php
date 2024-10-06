@@ -27,7 +27,7 @@ class SalePayment
     #[Assert\NotBlank]
     private ?PaymentMethod $paymentMethod = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Assert\NotBlank]
     private ?float $amount = null;
 

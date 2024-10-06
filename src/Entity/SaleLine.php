@@ -39,18 +39,18 @@ class SaleLine
     #[Assert\NotBlank]
     private ?int $quantity = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Assert\NotBlank]
     private ?float $price = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Assert\NotBlank]
     private ?float $discount = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $maintenancePlan = false;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $total = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

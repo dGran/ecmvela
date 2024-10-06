@@ -29,16 +29,16 @@ class Sale
     #[ORM\ManyToOne(inversedBy: 'sales')]
     private ?Pet $pet = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $totalDiscounts = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $totalWithoutTaxes = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $totalTaxes = null;
 
-    #[ORM\Column(scale: 2)]
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?float $total = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
