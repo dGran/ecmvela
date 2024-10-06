@@ -32,7 +32,7 @@ class SaleReportService
             $dailySales = new DailySales();
             $dailySales->setDate($date);
             $dailySales->setDateFormatted(\ucfirst($dateFormatted));
-            $dailySales->setTotal($salesByDay['total']);
+            $dailySales->setTotal((float)$salesByDay['total']);
             $dailySales->setNumberOfSales($salesByDay['numberOfSales']);
 
             $salesOfDay = $this->saleManager->findByDate($salesByDay['day']);
@@ -73,7 +73,7 @@ class SaleReportService
             $weekFormatted = $weekDateFrom->format('d-m-y').' / '.$weekDateTo->format('d-m-y');
 
             $weeklySales = new WeeklySales();
-            $weeklySales->setTotal($salesByWeek['total']);
+            $weeklySales->setTotal((float)$salesByWeek['total']);
             $weeklySales->setWeek($week);
             $weeklySales->setWeekFormatted($weekFormatted);
             $weeklySales->setYear($year);
@@ -132,7 +132,7 @@ class SaleReportService
             $month = $salesByMonth['month'];
 
             $monthlySales = new MonthlySales();
-            $monthlySales->setTotal($salesByMonth['total']);
+            $monthlySales->setTotal((float)$salesByMonth['total']);
             $monthlySales->setMonth($month);
             $monthlySales->setYear($year);
             $firstMonthDate = (new \DateTime("first day of $year-$month"))->setTime(0, 0);
