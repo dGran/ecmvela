@@ -26,22 +26,39 @@ class SaleReportChartService
      */
     public function getMonthlySalesCharts(array $monthlySalesCollection, array $monthlySalesLastYearCollection): array
     {
-        $monthlySalesData = [];
-        $monthlySalesLabels = [];
+        $currentYear = \date('Y');
+        $lastYear = \date('Y', strtotime('-1 year'));
 
-        $Monthformatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
-        $Monthformatter->setPattern("MMMM");
+        if (!empty($monthlySalesCollection)) {
+            $currentYear = \current($monthlySalesCollection)->getYear();
+        }
+
+        if (!empty($monthlySalesLastYearCollection)) {
+            $lastYear = \current($monthlySalesLastYearCollection)->getYear();
+        }
+
+        $MonthFormatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
+        $MonthFormatter->setPattern("MMMM");
         $dateOfCurrentMonth = new \DateTime();
-        $currentMonth = \ucfirst($Monthformatter->format($dateOfCurrentMonth));
+        $currentMonth = \ucfirst($MonthFormatter->format($dateOfCurrentMonth));
+
+        $monthlySalesLabels = [];
+        $monthlySalesLastYearData = [];
+        $monthlySalesLastYearWeekAverageData = [];
+        $monthlySalesLastYearDailyAverageData = [];
 
         foreach ($monthlySalesLastYearCollection as $monthlySales) {
             $dateOfMonth = (new \DateTime())->setDate($monthlySales->getYear(), $monthlySales->getMonth(), 1);
-            $monthLabel = \ucfirst($Monthformatter->format($dateOfMonth));
+            $monthLabel = \ucfirst($MonthFormatter->format($dateOfMonth));
             $monthlySalesLabels[] = $monthLabel !== $currentMonth ? $monthLabel : $monthLabel.' (en curso)';
             $monthlySalesLastYearData[] = $monthlySales->getTotal();
             $monthlySalesLastYearWeekAverageData[] = $monthlySales->getWeeklyAverage();
             $monthlySalesLastYearDailyAverageData[] = $monthlySales->getDailyAverage();
         }
+
+        $monthlySalesData = [];
+        $monthlySalesWeekAverageData = [];
+        $monthlySalesDailyAverageData = [];
 
         foreach ($monthlySalesCollection as $monthlySales) {
             $monthlySalesData[] = $monthlySales->getTotal();
@@ -55,14 +72,14 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Total mensual '.\current($monthlySalesCollection)->getYear(),
+                            'label' => 'Total mensual ' . $currentYear,
                             'data' => $monthlySalesData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.4)',
                             'borderColor' => 'rgb(54, 162, 235)',
                             'borderWidth' => 1,
                         ],
                         [
-                            'label' => 'Total mensual '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'label' => 'Total mensual ' . $lastYear,
                             'data' => $monthlySalesLastYearData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                             'borderColor' => 'rgb(54, 162, 235)',
@@ -89,7 +106,7 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Media semanal '.\current($monthlySalesCollection)->getYear(),
+                            'label' => 'Media semanal ' . $currentYear,
                             'data' => $monthlySalesWeekAverageData,
                             'backgroundColor' => 'rgba(153, 102, 255, 0.4)',
                             'borderColor' => 'rgb(153, 102, 255)',
@@ -98,7 +115,7 @@ class SaleReportChartService
                             'tension' => 0.5,
                         ],
                         [
-                            'label' => 'Media semanal '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'label' => 'Media semanal ' . $lastYear,
                             'data' => $monthlySalesLastYearWeekAverageData,
                             'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
                             'borderColor' => 'rgb(153, 102, 255)',
@@ -127,7 +144,7 @@ class SaleReportChartService
                     'labels' => $monthlySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Media diaria '.\current($monthlySalesCollection)->getYear(),
+                            'label' => 'Media diaria ' . $currentYear,
                             'data' => $monthlySalesDailyAverageData,
                             'backgroundColor' => 'rgba(75, 192, 192, 0.8)',
                             'borderColor' => 'rgb(75, 192, 192)',
@@ -136,7 +153,7 @@ class SaleReportChartService
                             'tension' => 0.5,
                         ],
                         [
-                            'label' => 'Media diaria '.\current($monthlySalesLastYearCollection)->getYear(),
+                            'label' => 'Media diaria ' . $lastYear,
                             'data' => $monthlySalesLastYearDailyAverageData,
                             'backgroundColor' => 'rgba(75, 192, 192, 0.4)',
                             'borderColor' => 'rgb(75, 192, 192)',
@@ -172,7 +189,17 @@ class SaleReportChartService
      */
     public function getWeeklySalesTotalChart(array $weeklySalesCollection, array $weeklySalesLastYearCollection): Chart
     {
-        $weeklySalesData = [];
+        $currentYear = \date('Y');
+        $lastYear = \date('Y', strtotime('-1 year'));
+
+        if (!empty($weeklySalesCollection)) {
+            $currentYear = \current($weeklySalesCollection)->getYear();
+        }
+
+        if (!empty($weeklySalesLastYearCollection)) {
+            $lastYear = \current($weeklySalesLastYearCollection)->getYear();
+        }
+
         $weeklySalesLabels = [];
 
         $currentWeek = (int)date("W");
@@ -182,6 +209,8 @@ class SaleReportChartService
             $weeklySalesLabels[] = $weeklySales->getWeek() !== $currentWeek ? $weekLabel : 'Semana actual';
             $weeklySalesLastYearData[] = $weeklySales->getTotal();
         }
+
+        $weeklySalesData = [];
 
         foreach ($weeklySalesCollection as $weeklySales) {
             $weeklySalesData[] = $weeklySales->getTotal();
@@ -193,14 +222,14 @@ class SaleReportChartService
                     'labels' => $weeklySalesLabels,
                     'datasets' => [
                         [
-                            'label' => 'Total semanal '.\current($weeklySalesCollection)->getYear(),
+                            'label' => 'Total semanal ' . $currentYear,
                             'data' => $weeklySalesData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.4)',
                             'borderColor' => 'rgb(54, 162, 235)',
                             'borderWidth' => 1,
                         ],
                         [
-                            'label' => 'Total semanal '.\current($weeklySalesLastYearCollection)->getYear(),
+                            'label' => 'Total semanal ' . $lastYear,
                             'data' => $weeklySalesLastYearData,
                             'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                             'borderColor' => 'rgb(54, 162, 235)',
@@ -218,6 +247,7 @@ class SaleReportChartService
                         ],
                     ],
                 ]
-            );
+            )
+        ;
     }
 }
