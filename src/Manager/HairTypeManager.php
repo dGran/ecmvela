@@ -24,11 +24,7 @@ class HairTypeManager
         return new HairType();
     }
 
-    /**
-     * @param $hairType
-     * @return mixed
-     */
-    public function save($hairType): HairType
+    public function save(HairType $hairType): HairType
     {
         $this->entityManager->persist($hairType);
         $this->entityManager->flush();
