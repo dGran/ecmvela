@@ -70,6 +70,7 @@ class SalePaymentRepository extends ServiceEntityRepository
             ->setParameter('payment_method_id', PaymentMethod::CASH_METHOD_ID)
             ->setParameter('dateFrom', $dateFrom)
             ->setParameter('dateTo', $dateTo)
+            ->orderBy('sale.dateAdd', 'ASC')
             ->getQuery()
             ->getResult();
     }

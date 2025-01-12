@@ -82,7 +82,7 @@ class SalesReportController extends AbstractController
         $totalTotalWithoutTaxes = 0;
         $totalTotalTaxes = 0;
         $totalTotal = 0;
-        $saleCounter = 743;
+        $saleCounter = 648;
 
         foreach ($salesToDeclare as $saleToDeclare) {
             $sale = $this->saleManager->findOneById($saleToDeclare['id']);
