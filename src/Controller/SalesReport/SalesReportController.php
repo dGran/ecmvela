@@ -82,7 +82,7 @@ class SalesReportController extends AbstractController
         $totalTotalWithoutTaxes = 0;
         $totalTotalTaxes = 0;
         $totalTotal = 0;
-        $saleCounter = 831;
+        $saleCounter = 1;
 
         foreach ($salesToDeclare as $saleToDeclare) {
             $sale = $this->saleManager->findOneById($saleToDeclare['id']);
@@ -96,9 +96,9 @@ class SalesReportController extends AbstractController
             $calculateSaleTotals = $this->saleService->calculateSaleTotals($sale);
 
             $saleIndex = match (true) {
-                $saleCounter > 99 => 'V240',
-                $saleCounter > 9 => 'V2400',
-                default => 'V24000',
+                $saleCounter > 99 => 'V250',
+                $saleCounter > 9 => 'V2500',
+                default => 'V25000',
             };
 
             $invoice = $saleIndex.(string) $saleCounter;
